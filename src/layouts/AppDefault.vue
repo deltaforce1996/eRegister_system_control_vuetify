@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <default-bar />
-    <default-content />
     <default-drawer/>
+    <default-content />
   </v-app>
 </template>
 
