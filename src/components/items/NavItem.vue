@@ -1,5 +1,5 @@
 <template>
-    <v-list-item :class="{ 'active-item': isActive }" @click="handleItemClick">
+    <v-list-item :class="{ 'active-item': isActive }" @click="handleItemClick(id)">
       <template v-slot:prepend>
           <v-icon :color="isActive ? 'secondary' : undefined">{{ icon }}</v-icon>
         </template>
@@ -7,14 +7,15 @@
   </template>
   
   <script setup>
-  import { defineProps } from 'vue';
+  import { defineProps, defineEmits } from 'vue';
   
-  const { isActive, icon } = defineProps(['isActive', 'icon']);
-  // const emit = defineEmits();
+  const { isActive, icon, id } = defineProps(['isActive', 'icon', 'id']);
+
+  const emit = defineEmits(['activate-item']);
   
-  const handleItemClick = () => {
+  const handleItemClick = (item) => {
     if (!isActive.value) {
-      // emit('activate-item');
+      emit('activate-item', item);
     }
   };
   </script>
