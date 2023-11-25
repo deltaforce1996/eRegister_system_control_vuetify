@@ -1,16 +1,19 @@
 <template>
   <div id="user" class="pa-5">
-    <div class="text-h5">User Mangement</div>
+    <h2>User Management</h2>
     <v-card class="mx-auto mt-10 elevation-1">
       <v-card-item class="pa-8">
         <v-row>
           <v-col cols="10">
-            <v-text-field v-model="name" density="compact" variant="outlined" rounded base-color="#F7F7F6"
-              bg-color="#F7F7F6" placeholder="ค้นหา ชื่อบริษัท ,Contact owner" prepend-inner-icon="mdi-magnify"
+            <v-text-field v-model="name"
+               density="compact" variant="outlined" rounded base-color="#F7F7F6"
+              bg-color="#F7F7F6"
+              placeholder="ค้นหา ชื่อบริษัท ,Contact owner" prepend-inner-icon="mdi-magnify"
               single-line hide-details></v-text-field>
           </v-col>
           <v-col cols="2">
-            <v-btn class="me-2 text-none" color="secondary" prepend-icon="mdi-magnify" variant="flat" height="40" rounded
+            <v-btn class="me-2 text-none"
+            color="secondary" prepend-icon="mdi-magnify" variant="flat" height="40" rounded
               block>
               ค้นหา
             </v-btn>
@@ -18,7 +21,8 @@
         </v-row>
         <v-row align-center>
           <v-col cols="2">
-            <v-select density="compact" variant="outlined" placeholder="User Type" :items="init_userTypes">
+            <v-select density="compact"
+             variant="outlined" placeholder="User Type" :items="init_userTypes">
               <template v-slot:append-inner>
                 <v-badge color="#5BB9DF" content="0" inline text-color="#FFFFFF"></v-badge>
               </template>
@@ -32,7 +36,8 @@
             </v-select>
           </v-col>
           <v-col cols="2">
-            <v-select density="compact" variant="outlined" placeholder="Status" :items="init_status">
+            <v-select density="compact"
+            variant="outlined" placeholder="Status" :items="init_status">
               <template v-slot:append-inner>
                 <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
               </template>
@@ -65,10 +70,18 @@
       </v-card-item>
 
     </v-card>
-
-    <v-card class="mx-auto mt-10 elevation-1" color="secondary">
+    <v-row justify="end" class="mt-2 mb-2">
+                <v-col cols="1">
+                  <v-btn variant="elevated" block class="text-capitalize">
+                    <v-icon left>mdi-plus</v-icon>
+           Add Users
+                  </v-btn>
+                </v-col>
+              </v-row>
+    <v-card class="mx-auto elevation-1" color="secondary">
       <v-card-item>
         <v-row align-center>
+
           <v-col cols="2">
             <strong>Create date</strong>
           </v-col>
@@ -87,6 +100,7 @@
         </v-row>
       </v-card-item>
     </v-card>
+
     <v-expansion-panels class="mt-1"
         v-model="panel"
 
@@ -98,7 +112,8 @@
         <v-expansion-panel-title :color="(index === panel) ? '#FFF1F0' :''">
 
           <template v-slot:actions="{ expanded }">
-            <v-icon color="secondary" :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"></v-icon>
+            <v-icon color="secondary"
+             :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"></v-icon>
           </template>
 
           <template v-slot:default="{ }">
@@ -204,7 +219,7 @@
       console.log("etesdsdsd")
     }
     ,methods:{
-        
+
 
     }
   }
