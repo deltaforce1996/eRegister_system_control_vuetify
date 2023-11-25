@@ -160,6 +160,7 @@
               color="secondary"
               :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"
             ></v-icon>
+          </template>
             <v-row
               no-gutters
               dense
@@ -194,7 +195,7 @@
                 </v-btn>
               </v-col>
             </v-row>
-          </template>
+
         </v-expansion-panel-title>
         <v-expansion-panel-text style="background-color: #fff1f0">
           <v-card class="ml-n3 mr-n3" elevation="0" rounded="0">
