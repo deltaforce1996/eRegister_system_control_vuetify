@@ -1,5 +1,11 @@
 <template>
   <v-expansion-panel>
+    <template v-slot:actions="{ expanded }">
+      <v-icon
+        color="secondary"
+        :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+      ></v-icon>
+    </template>
     <v-expansion-panel-title>
       <v-row no-gutters dense justify="space-around">
         <v-col cols="3" align-self="center">
@@ -25,10 +31,14 @@
     </v-expansion-panel-title>
     <v-expansion-panel-text>
       <v-row>
-        <permission-table :headers="subHeaders" :desserts="subDesserts" :is-read-only="true" />
+        <permission-table
+          :headers="subHeaders"
+          :desserts="subDesserts"
+          :is-read-only="true"
+        />
       </v-row>
       <v-row align="center" justify-end>
-       <history-control @link_clicked="onItemLogClicked"/>
+        <history-control @link_clicked="onItemLogClicked" />
       </v-row>
     </v-expansion-panel-text>
   </v-expansion-panel>
@@ -37,7 +47,7 @@
 <script setup>
 import ButtonControl from "../controls/ButtonControl.vue";
 import PermissionTable from "../../components/tables/PermissionTable.vue";
-import HistoryControl from "../../components/controls/HistoryControl.vue"
+import HistoryControl from "../../components/controls/HistoryControl.vue";
 import { defineProps, computed } from "vue";
 
 const emit = defineEmits(["edited-clicked", "history_clicked"]);
@@ -82,6 +92,6 @@ const onItemEditClicked = () => {
 };
 
 const onItemLogClicked = () => {
-    emit("history_clicked", props.id)
-}
+  emit("history_clicked", props.id);
+};
 </script>

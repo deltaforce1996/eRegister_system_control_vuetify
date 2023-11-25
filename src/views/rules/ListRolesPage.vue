@@ -8,24 +8,22 @@
     </v-row>
     <v-row dense>
       <v-col cols="12">
-        <v-card
-          color="secondary"
-          height="30"
-          style="padding-top: 5px; padding-left: 15px"
-        >
-          <v-row align="center" justify="space-between">
-            <v-col cols="3">
-              <div>
-                <h5>Role Name</h5>
-              </div>
-            </v-col>
-            <v-col cols="5">
-              <h5>Decscription</h5>
-            </v-col>
-            <v-col>
-              <h5>Status</h5>
-            </v-col>
-          </v-row>
+        <v-card color="secondary">
+          <v-card-item>
+            <v-row align="center" justify="space-between">
+              <v-col cols="3">
+                <div>
+                  <h5>Role Name</h5>
+                </div>
+              </v-col>
+              <v-col cols="5">
+                <h5>Decscription</h5>
+              </v-col>
+              <v-col>
+                <h5>Status</h5>
+              </v-col>
+            </v-row>
+          </v-card-item>
         </v-card>
       </v-col>
     </v-row>
@@ -134,10 +132,10 @@ const generate_desserts = (role_id) => {
 };
 
 const on_clicked_edit = (role_id) => {
-  console.log(role_id)
-}
+  console.log(role_id);
+};
 
 const on_clicked_history = (role_id) => {
-  console.log(role_id)
-}
+  console.log(role_id);
+};
 </script>
