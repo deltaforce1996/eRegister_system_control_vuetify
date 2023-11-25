@@ -15,8 +15,7 @@ const routes = [
       {
         path: '/UserManagement',
         name: 'UserManagement',
-        component: () => import('@/views/UserMgmtPage.vue'),
-        //component: () => import('@/views/HomePage.vue'),
+        component: () => import('@/views//UserManamgent/UserMangementPage.vue'),
       }
     ],
   },
