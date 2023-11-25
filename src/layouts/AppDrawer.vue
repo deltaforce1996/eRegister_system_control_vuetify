@@ -19,7 +19,7 @@ import NavItem from '../components/items/NavItem.vue';
 const isOpen = ref(true);
 
 const items = [
-  { icon: 'mdi-view-dashboard', isActive: true, path: '' },
+  { icon: 'mdi-view-dashboard', isActive: true, path: '/' },
   { icon: 'mdi-account-box', isActive: false, path: '/UserManagement' },
   { icon: 'mdi-cog', isActive: false, path: '' },
 ];
