@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panel>
+  <v-expansion-panel  :style="props.isActive  ? 'border: 2px solid red; margin-top: 2px;':''">
     <template v-slot:actions="{ expanded }">
       <v-icon
         color="secondary"
