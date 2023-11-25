@@ -7,16 +7,28 @@
     hide-default-footer
   >
     <template v-slot:item.view="{ item }">
-      <v-checkbox color="secondary" v-model="item.view"></v-checkbox>
+      <v-checkbox color="secondary" v-model="item.view" readonly></v-checkbox>
     </template>
     <template v-slot:item.created="{ item }">
-      <v-checkbox color="secondary" v-model="item.created"></v-checkbox>
+      <v-checkbox
+        color="secondary"
+        v-model="item.created"
+        readonly
+      ></v-checkbox>
     </template>
     <template v-slot:item.updated="{ item }">
-      <v-checkbox color="secondary" v-model="item.updated"></v-checkbox>
+      <v-checkbox
+        color="secondary"
+        v-model="item.updated"
+        readonly
+      ></v-checkbox>
     </template>
     <template v-slot:item.deleted="{ item }">
-      <v-checkbox color="secondary" v-model="item.deleted"></v-checkbox>
+      <v-checkbox
+        color="secondary"
+        v-model="item.deleted"
+        readonly
+      ></v-checkbox>
     </template>
   </v-data-table-virtual>
 </template>

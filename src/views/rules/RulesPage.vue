@@ -39,6 +39,9 @@
           :is-active="rule.is_active"
           :sub-headers="herders_table"
           :sub-desserts="generate_desserts(rule.id)"
+          :id="rule.id"
+          @edited-clicked="on_clicked_edit"
+          @history_clicked="on_clicked_history"
         />
       </v-expansion-panels>
     </v-row>
@@ -129,4 +132,12 @@ const generate_desserts = (rule_id) => {
 
   return desserts;
 };
+
+const on_clicked_edit = (rule_id) => {
+  console.log(rule_id)
+}
+
+const on_clicked_history = (rule_id) => {
+  console.log(rule_id)
+}
 </script>
