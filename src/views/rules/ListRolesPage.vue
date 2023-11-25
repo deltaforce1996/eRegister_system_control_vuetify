@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row no-gutters>
-      <h3>Rule & Permission</h3>
+      <h2>Role & Permission</h2>
     </v-row>
     <v-row no-gutters justify="end">
       <button-control icon="mdi mdi-plus" text="Create Rule" />
@@ -16,7 +16,7 @@
           <v-row align="center" justify="space-between">
             <v-col cols="3">
               <div>
-                <h5>Rule Name</h5>
+                <h5>Role Name</h5>
               </div>
             </v-col>
             <v-col cols="5">
@@ -31,15 +31,15 @@
     </v-row>
     <v-row dense>
       <v-expansion-panels>
-        <rule-item
-          v-for="rule in roles_mock"
-          :key="rule.id"
-          :permission="rule.name"
-          :description="rule.description"
-          :is-active="rule.is_active"
+        <role-item
+          v-for="role in roles_mock"
+          :key="role.id"
+          :permission="role.name"
+          :description="role.description"
+          :is-active="role.is_active"
           :sub-headers="herders_table"
-          :sub-desserts="generate_desserts(rule.id)"
-          :id="rule.id"
+          :sub-desserts="generate_desserts(role.id)"
+          :id="role.id"
           @edited-clicked="on_clicked_edit"
           @history_clicked="on_clicked_history"
         />
@@ -50,7 +50,7 @@
 
 <script setup>
 import ButtonControl from "../../components/controls/ButtonControl.vue";
-import RuleItem from "../../components/items/RuleItem.vue";
+import RoleItem from "../../components/items/RoleItem.vue";
 
 const roles_mock = [
   {
@@ -114,13 +114,13 @@ const herders_table = [
   { title: "Delete", key: "deleted" },
 ];
 
-const generate_desserts = (rule_id) => {
+const generate_desserts = (role_id) => {
   let desserts = [];
-  const find_rule_id = permission_module_mock.find(
-    (el) => (el.role_id = rule_id)
+  const find_role_id = permission_module_mock.find(
+    (el) => (el.role_id = role_id)
   );
-  if (find_rule_id)
-    find_rule_id.module.forEach((item) => {
+  if (find_role_id)
+    find_role_id.module.forEach((item) => {
       desserts.push({
         permission: item.name_th,
         view: item.action.some((obj) => obj.id === 2),
@@ -133,11 +133,11 @@ const generate_desserts = (rule_id) => {
   return desserts;
 };
 
-const on_clicked_edit = (rule_id) => {
-  console.log(rule_id)
+const on_clicked_edit = (role_id) => {
+  console.log(role_id)
 }
 
-const on_clicked_history = (rule_id) => {
-  console.log(rule_id)
+const on_clicked_history = (role_id) => {
+  console.log(role_id)
 }
 </script>

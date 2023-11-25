@@ -1,5 +1,5 @@
 <template>
-  <v-btn flat size="small" rounded color="secondary" @click="handleItemClick(props.id)">
+  <v-btn flat size="small" rounded :color="color" @click="handleItemClick(props.id)">
     <v-icon v-if="props.icon">{{ props.icon }}</v-icon>
     {{ props.text }}
   </v-btn>
@@ -19,6 +19,10 @@ const props = defineProps({
   id: {
     type: String,
     default: null
+  },
+  color:{
+    type: String,
+    default: 'secondary'
   }
 });
 

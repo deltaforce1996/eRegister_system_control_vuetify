@@ -25,7 +25,7 @@
     </v-expansion-panel-title>
     <v-expansion-panel-text>
       <v-row>
-        <permission-table :headers="subHeaders" :desserts="subDesserts" />
+        <permission-table :headers="subHeaders" :desserts="subDesserts" :is-read-only="true" />
       </v-row>
       <v-row align="center" justify-end>
        <history-control @link_clicked="onItemLogClicked"/>
