@@ -1,6 +1,6 @@
 <template>
   <v-main class="main">
-    <router-view />
+    <router-view class="pa-5" />
   </v-main>
 </template>
 
