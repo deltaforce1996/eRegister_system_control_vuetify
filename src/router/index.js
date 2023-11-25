@@ -9,8 +9,15 @@ const routes = [
       {
         path: '',
         name: 'Home',
+        //component: () => import('@/views/UserMgmtPage.vue'),
         component: () => import('@/views/HomePage.vue'),
       },
+      {
+        path: '/UserManagement',
+        name: 'UserManagement',
+        component: () => import('@/views/UserMgmtPage.vue'),
+        //component: () => import('@/views/HomePage.vue'),
+      }
     ],
   },
 ]

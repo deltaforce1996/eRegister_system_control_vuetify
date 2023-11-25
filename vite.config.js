@@ -17,7 +17,7 @@ export default defineConfig({
     vuetify({
       autoImport: true,
       // styles: {
-      //   configFile: 'src/styles/settings.scss',        //Diable because build failed in first build
+      //   configFile: 'src/styles/main.scss',        //Diable because build failed in first build
       // },
     }),
     ViteFonts({
