@@ -8,9 +8,19 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Home',
-        component: () => import('@/views/rules/CreateRolePage.vue'),
+        name: 'HomePage',
+        component: () => import('@/views/HomePage.vue'),
       },
+      {
+        path: '/ListRolesPage',
+        name: 'ListRolesPage',
+        component: () => import('@/views/rules/ListRolesPage.vue'),
+      },
+      {
+        path: '/UserManagement',
+        name: 'UserManagement',
+        component: () => import('@/views//UserManamgent/UserMangementPage.vue'),
+      }
     ],
   },
 ]

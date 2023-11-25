@@ -1,11 +1,11 @@
 <template>
-  <v-main class="bg-color-custom">
+  <v-main class="main">
     <router-view />
   </v-main>
 </template>
 
 <script setup>
-  
+
 </script>
 
 <style>
