@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
-    <v-row no-gutters>
+    <v-row>
       <h2>Role & Permission</h2>
     </v-row>
     <v-row no-gutters justify="end">
-      <button-control icon="mdi mdi-plus" text="Create Rule" />
+      <button-control icon="mdi mdi-plus" text="Create Rule" @button-clicked="on_clicked_got_creatr_role_page" />
     </v-row>
     <v-row dense>
       <v-col cols="12">
@@ -28,10 +28,16 @@
       </v-col>
     </v-row>
     <v-row dense>
-      <v-expansion-panels>
+      <v-expansion-panels v-model="is_item_expan">
         <role-item
-          v-for="role in roles_mock"
+          v-for="(role, index) in roles_mock"
+          :style="
+            index === is_item_expan
+              ? 'border: 2px solid red; margin-top: 2px;'
+              : ''
+          "
           :key="role.id"
+          :is-expand-view="index === is_item_expan"
           :permission="role.name"
           :description="role.description"
           :is-active="role.is_active"
@@ -47,8 +53,13 @@
 </template>
 
 <script setup>
+import { ref, watch } from "vue";
+import { useRouter } from 'vue-router';
+
 import ButtonControl from "../../components/controls/ButtonControl.vue";
 import RoleItem from "../../components/items/RoleItem.vue";
+
+const router = useRouter();
 
 const roles_mock = [
   {
@@ -112,6 +123,14 @@ const herders_table = [
   { title: "Delete", key: "deleted" },
 ];
 
+const is_item_expan = ref(null);
+
+watch(is_item_expan, (newValue, oldValue) => {
+  console.log(
+    `The value of is_item_expan changed from ${oldValue} to ${newValue}`
+  );
+});
+
 const generate_desserts = (role_id) => {
   let desserts = [];
   const find_role_id = permission_module_mock.find(
@@ -138,4 +157,8 @@ const on_clicked_edit = (role_id) => {
 const on_clicked_history = (role_id) => {
   console.log(role_id);
 };
+
+const on_clicked_got_creatr_role_page = () => {
+  router.push('/CreateRolePage');
+}
 </script>

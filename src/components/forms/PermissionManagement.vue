@@ -34,15 +34,7 @@ import { reactive } from "vue";
 const props = defineProps({
   desserts: {
     type: Array,
-    default: () => [
-      {
-        permission: "Colorado",
-        view: false,
-        created: false,
-        updated: false,
-        deleted: false,
-      },
-    ],
+    default: () => [],
   },
   role_id: {
     type: Number,

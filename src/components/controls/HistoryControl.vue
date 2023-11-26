@@ -1,12 +1,12 @@
 <template>
-  <v-row align="center" justify="end" no-gutters>
-    <v-col cols="12" class="d-flex justify-end">
+  <v-row  no-gutters>
+    <v-col cols="12" class="d-flex justify-end pr-5 pb-2 pt-1">
       <a>
         <p
           class="custom-font-size clickable-underline"
           @click="handleItemClick"
         >
-          History logs
+          History Logs
         </p>
       </a>
     </v-col>

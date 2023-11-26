@@ -1,13 +1,7 @@
 <template>
-  <v-expansion-panel  :style="props.isActive  ? 'border: 2px solid red; margin-top: 2px;':''">
-    <template v-slot:actions="{ expanded }">
-      <v-icon
-        color="secondary"
-        :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-      ></v-icon>
-    </template>
-    <v-expansion-panel-title>
-      <v-row no-gutters dense justify="space-around">
+  <v-expansion-panel class="mt-1">
+    <v-expansion-panel-title :color="isExpandView ? 'secondary_active' : ''">
+      <v-row no-gutters dense>
         <v-col cols="3" align-self="center">
           <p>{{ computedPermission }}</p>
         </v-col>
@@ -29,26 +23,31 @@
         </v-col>
       </v-row>
     </v-expansion-panel-title>
-    <v-expansion-panel-text>
-      <v-row>
+    <v-expansion-panel-text :class="{ 'active-expand-bg': isExpandView }">
+      <v-row no-gutters dense>
+        <v-col cols="12">
         <permission-table
           :headers="subHeaders"
           :desserts="subDesserts"
           :is-read-only="true"
         />
-      </v-row>
-      <v-row align="center" justify-end>
-        <history-control @link_clicked="onItemLogClicked" />
+      </v-col>
+      <v-col>
+        <v-card style="border-radius: 0px;">
+            <history-control @link_clicked="onItemLogClicked" />
+          </v-card>
+      </v-col>
       </v-row>
     </v-expansion-panel-text>
   </v-expansion-panel>
 </template>
 
 <script setup>
+import { defineProps, computed } from "vue";
+
 import ButtonControl from "../controls/ButtonControl.vue";
 import PermissionTable from "../../components/tables/PermissionTable.vue";
 import HistoryControl from "../../components/controls/HistoryControl.vue";
-import { defineProps, computed } from "vue";
 
 const emit = defineEmits(["edited-clicked", "history_clicked"]);
 
@@ -77,6 +76,10 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  isExpandView: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const computedPermission = computed(() => {
@@ -95,3 +98,9 @@ const onItemLogClicked = () => {
   emit("history_clicked", props.id);
 };
 </script>
+
+<style>
+.active-expand-bg {
+  background: rgb(var(--v-theme-secondary_active));
+}
+</style>

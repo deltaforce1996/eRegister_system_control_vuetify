@@ -22,7 +22,7 @@
     </template>
     <template v-slot:item.view="{ item }">
       <v-checkbox
-        density="compatc"
+        density="compact"
         color="secondary"
         v-model="item.view"
         :readonly="isReadOnly"
@@ -30,7 +30,7 @@
     </template>
     <template v-slot:item.created="{ item }">
       <v-checkbox
-        density="compatc"
+        density="compact"
         color="secondary"
         v-model="item.created"
         :readonly="isReadOnly"
@@ -38,7 +38,7 @@
     </template>
     <template v-slot:item.updated="{ item }">
       <v-checkbox
-        density="compatc"
+        density="compact"
         color="secondary"
         v-model="item.updated"
         :readonly="isReadOnly"
@@ -46,7 +46,7 @@
     </template>
     <template v-slot:item.deleted="{ item }">
       <v-checkbox
-        density="compatc"
+        density="compact"
         color="secondary"
         v-model="item.deleted"
         :readonly="isReadOnly"
