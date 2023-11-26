@@ -20,6 +20,8 @@ export default createVuetify({
           primary: '#f6f6f6',
           secondary: '#ed1c24',
           black :'#000000',
+          secondary_active: '#fad4d6',
+          reded :'#ED1D25',
         },
       },
     },

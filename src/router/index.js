@@ -26,7 +26,12 @@ const routes = [
         path: '/HistoryLog',
         name: 'HistoryLog',
         component: () => import('@/views/history-log/HistoryLogPage.vue'),
-      }
+      },
+      {
+        path: '/CreateRolePage',
+        name: 'CreateRolePage',
+        component: () => import('@/views/rules/CreateRolePage.vue'),
+      },
     ],
   },
 ]

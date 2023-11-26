@@ -2,13 +2,13 @@
   <v-container>
     <v-card>
       <v-card-text>
-        <v-form ref="form" v-model="valid" @submit.prevent="submitForm">
+        <v-form ref="form" @submit.prevent="submit">
           <v-row no-gutters dense>
             <v-col><h4>Name Rule</h4></v-col>
             <v-col cols="12">
               <v-text-field
                 variant="outlined"
-                v-model="form.name"
+                v-model="role_name"
                 placeholder="กรอกชื่อ role"
                 :rules="[(v) => !!v || 'Name role is required']"
                 density="compact"
@@ -20,7 +20,7 @@
             <v-col cols="12">
               <v-text-field
                 variant="outlined"
-                v-model="form.description"
+                v-model="role_desc"
                 placeholder="กรอกรายละเอียด role"
                 :rules="[(v) => !!v || 'Description is required']"
                 required
@@ -35,18 +35,14 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 
-const valid = ref(false);
 
-const form = reactive({
-  name: "",
-  description: "",
-});
+const role_name = ref("");
+const role_desc = ref("");
+const emit = defineEmits(['submit_form']);
 
-const submitForm = () => {
-  if (valid.value) {
-    console.log(form);
-  }
+const submit = () => {
+  emit("submit_form", { role_name: role_name.value, role_desc: role_desc.value });
 };
 </script>
