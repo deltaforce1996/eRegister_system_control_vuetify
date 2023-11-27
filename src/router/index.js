@@ -20,7 +20,12 @@ const routes = [
       {
         path: '/UserManagement',
         name: 'UserManagement',
-        component: () => import('@/views//UserManamgent/UserMangementPage.vue'),
+        component: () => import('@/views/user-manamgent/UserMangementPage.vue'),
+      },
+      {
+        path: '/HistoryLog',
+        name: 'HistoryLog',
+        component: () => import('@/views/history-log/HistoryLogPage.vue'),
       },
       {
         path: '/CreateRolePage/:role_id?',
