@@ -1,8 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <h2>Role & Permission</h2>
-    </v-row>
+    <h3>Role & Permission</h3>
     <v-row no-gutters justify="end">
       <button-control icon="mdi mdi-plus" text="Create Rule" @button-clicked="on_clicked_got_creatr_role_page" />
     </v-row>
@@ -45,7 +43,7 @@
           :sub-desserts="generate_desserts(role.id)"
           :id="role.id"
           @edited-clicked="on_clicked_edit"
-          @history_clicked="on_clicked_history"
+          @history-clicked="on_clicked_history"
         />
       </v-expansion-panels>
     </v-row>
@@ -151,7 +149,7 @@ const generate_desserts = (role_id) => {
 };
 
 const on_clicked_edit = (role_id) => {
-  console.log(role_id);
+  router.push({ name: 'CreateRolePage', params: { role_id: role_id } })
 };
 
 const on_clicked_history = (role_id) => {

@@ -9,6 +9,7 @@
               :desserts="items_permission"
               :is-read-only="false"
               @on-item-change="on_permission_change"
+              @on-item-delete="on_permission_delete"
             />
           </v-col>
         </v-row>
@@ -29,6 +30,10 @@
 <script setup>
 import PermissionTable from "../tables/PermissionTable.vue";
 import ButtonControl from "../controls/ButtonControl.vue";
+
+import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
+const { showDialog } = useConfirmationDialog();
+
 import { reactive } from "vue";
 
 const props = defineProps({
@@ -37,8 +42,8 @@ const props = defineProps({
     default: () => [],
   },
   role_id: {
-    type: Number,
-    default: -1,
+    type: String,
+    default: null,
   },
 });
 
@@ -50,7 +55,10 @@ const herders_table = [
   { title: "Create", key: "created" },
   { title: "Update", key: "updated" },
   { title: "Delete", key: "deleted" },
+  { title: "Action", key: "action" },
 ];
+
+const emit = defineEmits(["on-delete-permission", "on-permission-change"]);
 
 const on_clicked_add_module = () => {
   items_permission.push({
@@ -60,10 +68,26 @@ const on_clicked_add_module = () => {
     updated: false,
     deleted: false,
   });
-  console.log("on_clicked_add_module " + props.role_id);
 };
 
 const on_permission_change = (new_items_permission) => {
-  console.log("on_permission_change " + JSON.stringify(new_items_permission));
+  emit("on-permission-change", new_items_permission)
+};
+
+const on_permission_delete = async (deleted_item_permission) => {
+  if (!props.role_id) {
+    const index_remove = items_permission.findIndex(
+      (el) => el.permission === deleted_item_permission.permission
+    );
+    if (index_remove > -1) items_permission.splice(index_remove, 1);
+  } else {
+    const confirmed = await showDialog(
+      `ยืนยันการลบ Permission ?`,
+      `กรุณาตรวจสอบคุณไม่ามารถกลับมาแก้ไขได้\nคลิกปุ่ม "ตกลง" เพื่อดำเนิดนการ`
+    );
+    if (confirmed) {
+      emit("on-delete-permission", deleted_item_permission);
+    }
+  }
 };
 </script>

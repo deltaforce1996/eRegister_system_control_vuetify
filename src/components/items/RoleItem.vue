@@ -34,7 +34,7 @@
       </v-col>
       <v-col>
         <v-card style="border-radius: 0px;">
-            <history-control @link_clicked="onItemLogClicked" />
+            <history-control @link-clicked="onItemLogClicked" />
           </v-card>
       </v-col>
       </v-row>
@@ -49,7 +49,7 @@ import ButtonControl from "../controls/ButtonControl.vue";
 import PermissionTable from "../../components/tables/PermissionTable.vue";
 import HistoryControl from "../../components/controls/HistoryControl.vue";
 
-const emit = defineEmits(["edited-clicked", "history_clicked"]);
+const emit = defineEmits(["edited-clicked", "history-clicked"]);
 
 const props = defineProps({
   permission: {
@@ -90,12 +90,16 @@ const computedDescription = computed(() => {
   return props.description || "None";
 });
 
+const computedRoleId = computed(() => {
+  return props.id
+});
+
 const onItemEditClicked = () => {
-  emit("edited-clicked", props.id);
+  emit("edited-clicked", computedRoleId.value);
 };
 
 const onItemLogClicked = () => {
-  emit("history_clicked", props.id);
+  emit("history-clicked", computedRoleId.value);
 };
 </script>
 

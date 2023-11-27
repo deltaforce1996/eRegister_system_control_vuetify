@@ -23,7 +23,7 @@ const routes = [
         component: () => import('@/views//UserManamgent/UserMangementPage.vue'),
       },
       {
-        path: '/CreateRolePage',
+        path: '/CreateRolePage/:role_id?',
         name: 'CreateRolePage',
         component: () => import('@/views/rules/CreateRolePage.vue'),
       },

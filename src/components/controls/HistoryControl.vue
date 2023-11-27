@@ -14,10 +14,10 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["link_clicked"]);
+const emit = defineEmits(["link-clicked"]);
 
 const handleItemClick = () => {
-  emit("link_clicked");
+  emit("link-clicked");
 };
 </script>
 
