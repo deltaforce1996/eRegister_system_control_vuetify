@@ -1,8 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <h2>User Management</h2>
-    </v-row>
+    <h3>User Management</h3>
     <v-row justify="center">
       <h3>{{ title }}</h3>
     </v-row>
@@ -160,10 +158,12 @@ const submit_from_new_role = async () => {
 };
 
 const on_permission_item_change = (item_permission) => {
-  console.log("on_permission_item_change: " + JSON.stringify(item_permission))
-}
+  console.log("on_permission_item_change: " + JSON.stringify(item_permission));
+};
 
 const on_delete_permision_item_in_db = (item_permission) => {
-  console.log("on_delete_permision_item_in_db: " + JSON.stringify(item_permission))
-}
+  console.log(
+    "on_delete_permision_item_in_db: " + JSON.stringify(item_permission)
+  );
+};
 </script>
