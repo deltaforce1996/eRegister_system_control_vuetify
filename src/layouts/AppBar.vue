@@ -5,9 +5,13 @@
       ERegister System
     </v-app-bar-title>
     <template v-slot:append>
-      <v-btn icon="mdi-heart"></v-btn>
-      <v-btn icon="mdi-magnify"></v-btn>
-      <v-btn icon="mdi-dots-vertical"></v-btn>
+      <v-btn>
+        <v-badge :content="14" color="error">
+          <v-icon size="x-large">mdi mdi-bell</v-icon>
+        </v-badge>
+      </v-btn>
+      <v-btn icon="mdi mdi-cog"></v-btn>
+      <v-btn icon="mdi mdi-account"></v-btn>
     </template>
   </v-app-bar>
 </template>
