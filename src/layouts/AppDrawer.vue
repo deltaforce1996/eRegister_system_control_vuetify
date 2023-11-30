@@ -26,7 +26,7 @@ const setActiveItem = (clickedItem) => {
 };
 
 const items = [
-  { id: 1, icon: "mdi-view-dashboard", isActive: false, path: "/" },
+  { id: 1, icon: "mdi mdi-information", isActive: false, path: "/" },
   { id: 2, icon: "mdi-account-box", isActive: false, path: "/UserManagement" },
   { id: 3, icon: "mdi-cog", isActive: false, path: "/ListRolesPage" },
 ];
