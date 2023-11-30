@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/valid-v-slot -->
-
 <template>
   <v-data-table-virtual
     :headers="props.headers"
@@ -8,19 +6,16 @@
     hide-default-footer
     density="compact"
   >
-    <template v-slot:item.permission="{ item }" v-if="!isReadOnly">
-      <v-row no-gutters align="center" justify="center">
-        <v-col cols="12">
-          <v-select
-            density="compact"
-            v-model="item.permission"
-            :items="item_selection"
-            variant="solo"
-          ></v-select>
-        </v-col>
-      </v-row>
+    <template v-slot:[`header.action`] />
+    <template v-slot:[`item.permission`]="{ item }" v-if="!isReadOnly">
+      <v-select
+        density="compact"
+        v-model="item.permission"
+        :items="item_selection"
+        variant="solo"
+      />
     </template>
-    <template v-slot:item.view="{ item }">
+    <template v-slot:[`item.view`]="{ item }">
       <v-checkbox
         density="compact"
         color="secondary"
@@ -28,7 +23,7 @@
         :readonly="isReadOnly"
       ></v-checkbox>
     </template>
-    <template v-slot:item.created="{ item }">
+    <template v-slot:[`item.created`]="{ item }">
       <v-checkbox
         density="compact"
         color="secondary"
@@ -36,7 +31,7 @@
         :readonly="isReadOnly"
       ></v-checkbox>
     </template>
-    <template v-slot:item.updated="{ item }">
+    <template v-slot:[`item.updated`]="{ item }">
       <v-checkbox
         density="compact"
         color="secondary"
@@ -44,13 +39,16 @@
         :readonly="isReadOnly"
       ></v-checkbox>
     </template>
-    <template v-slot:item.deleted="{ item }">
+    <template v-slot:[`item.deleted`]="{ item }">
       <v-checkbox
         density="compact"
         color="secondary"
         v-model="item.deleted"
         :readonly="isReadOnly"
       ></v-checkbox>
+    </template>
+    <template v-slot:[`item.action`]="{item}">
+      <v-icon @click="on_delete_clicked(item)">mdi mdi-delete</v-icon>
     </template>
   </v-data-table-virtual>
 </template>
@@ -73,7 +71,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["on-item-change"]);
+const emit = defineEmits(["on-item-change", "on-item-delete"]);
 const dessertsRef = ref(props.desserts);
 
 watch(
@@ -83,6 +81,10 @@ watch(
   },
   { deep: true }
 );
+
+const on_delete_clicked = (item) => {
+  emit("on-item-delete", item);
+};
 
 const item_selection = [
   "California",

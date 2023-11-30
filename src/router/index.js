@@ -28,9 +28,19 @@ const routes = [
         component: () => import('@/views/HistoryLog/HistoryUserPage.vue'),
       },
       {
-        path: '/CreateRolePage',
+        path: '/CreateRolePage/:role_id?',
         name: 'CreateRolePage',
         component: () => import('@/views/rules/CreateRolePage.vue'),
+      },
+      {
+        path: '/HistoryTable',
+        name: 'HistoryTable',
+        component: () => import('@/components/tables/HistoryTable.vue'),
+      },
+      {
+        path: '/MasterTable',
+        name: 'MasterTable',
+        component: () => import('@/components/tables/MasterTable.vue'),
       },
     ],
   },

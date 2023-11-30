@@ -8,7 +8,7 @@
             <v-col cols="12">
               <v-text-field
                 variant="outlined"
-                v-model="role_name"
+                v-model="track_role_name"
                 placeholder="กรอกชื่อ role"
                 :rules="[(v) => !!v || 'Name role is required']"
                 density="compact"
@@ -20,7 +20,7 @@
             <v-col cols="12">
               <v-text-field
                 variant="outlined"
-                v-model="role_desc"
+                v-model="track_role_desc"
                 placeholder="กรอกรายละเอียด role"
                 :rules="[(v) => !!v || 'Description is required']"
                 required
@@ -35,14 +35,33 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
 
+const emit = defineEmits(["submit_form"]);
 
-const role_name = ref("");
-const role_desc = ref("");
-const emit = defineEmits(['submit_form']);
+const props = defineProps({
+  role_name_p: {
+    type: String,
+    default: null,
+  },
+  role_desc_p: {
+    type: String,
+    default: null,
+  },
+});
+
+const track_role_name = computed(() => {
+  return props.role_name_p;
+});
+
+const track_role_desc = computed(() => {
+  return props.role_desc_p;
+});
 
 const submit = () => {
-  emit("submit_form", { role_name: role_name.value, role_desc: role_desc.value });
+  emit("submit_form", {
+    role_name: track_role_name,
+    role_desc: track_role_desc,
+  });
 };
 </script>
