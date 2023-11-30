@@ -1,61 +1,62 @@
 <template>
-  <div>
-    <h2>History Log</h2>
-    <v-card class="mx-auto elevation-1 mt-10 rounded-lg" color="secondary">
-      <v-card-item>
-        <v-row align-center>
-          <v-col cols="3">
-            <strong>Date and Time</strong>
-          </v-col>
-          <v-col cols="3">
-            <strong> User</strong>
-          </v-col>
-          <v-col cols="3">
-            <strong>Change action</strong>
-          </v-col>
-          <v-col cols="3">
-            <strong>Changed by</strong>
-          </v-col>
-        </v-row>
-      </v-card-item>
-    </v-card>
-    <v-card
-      class="mx-auto elevation-1 mt-5"
-      color="#FFFFFF"
-      style="max-height: 600px; overflow-y: auto"
-    >
-      <div v-for="n in 3" :key="n">
-        <v-card-item>
-          <v-row align-center>
-            <v-col cols="3">
-              <strong>12/12/2556 14:200:30</strong>
-            </v-col>
-            <v-col cols="3">
-              <strong>test@gmail.com</strong>
-            </v-col>
-            <v-col cols="3">
-              <strong>Update status to</strong>
-              &nbsp;
-              <strong class="text-red">Admin</strong>
-            </v-col>
-            <v-col cols="3">
-              <strong class="text-red-darken-4">Freelance@gmail.com</strong>
-            </v-col>
-          </v-row>
-        </v-card-item>
-        <v-divider></v-divider>
-      </div>
-    </v-card>
-    <div class="text-center">
-      <v-btn @click="handleRetrospect" rounded class="mt-10" color="black">
-        <strong>ย้อนกลับ</strong>
-      </v-btn>
-    </div>
-  </div>
+  <v-container fluid>
+    <h3>History Log</h3>
+    <history-table :headers="header_roles_history" :desserts="items_roles_history" />
+    <v-footer color="transparent" style="margin-top: 120px">
+      <v-row
+        class="d-flex justify-center"
+        align-content="center"
+        align="center"
+      >
+        <v-col cols="12" align-self="center" class="text-center">
+          <button-control color="black" text="ย้อนกลับ" width="100" @button-clicked="on_clicked_go_back" />
+        </v-col>
+      </v-row>
+    </v-footer>
+  </v-container>
 </template>
 
 <script setup>
-const handleRetrospect = () => {
-  console.log("dddd");
-};
+import { useRouter } from 'vue-router';
+import ButtonControl from "../../components/controls/ButtonControl.vue";
+import HistoryTable from "@/components/tables/HistoryTable.vue";
+
+const router = useRouter();
+
+const header_roles_history = [
+    { key: "datetime", text: "Date And Time", width: 3 },
+    { key: "role", text: "Role",  width: 2 },
+    { key: "action", text: "Change Action", width: 4 },
+    { key: "by", text: "Changes by", width: 3 },
+];
+const items_roles_history = [
+  {
+    datetime: "2022-01-01 15:00:45",
+    role: "Admin",
+    action: "Updated status to active",
+    by: "kan@gmail.com",
+  },
+  {
+    datetime: "2022-01-01 15:00:45",
+    role: "Admin",
+    action: "Updated status to active",
+    by: "kan@gmail.com",
+  },
+  {
+    datetime: "2022-01-01 15:00:45",
+    role: "Admin",
+    action: "Updated status to active",
+    by: "kan@gmail.com",
+  },
+  {
+    datetime: "2022-01-01 15:00:45",
+    role: "Admin",
+    action: "Updated status to active",
+    by: "kan@gmail.com",
+  },
+];
+
+const on_clicked_go_back = () => {
+  router.go(-1)
+}
 </script>

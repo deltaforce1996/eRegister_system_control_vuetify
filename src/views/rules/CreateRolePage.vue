@@ -27,7 +27,12 @@
     <v-footer color="transparent" style="margin-top: 120px">
       <v-row justify="center">
         <v-col cols="auto">
-          <button-control color="black" text="ย้อนกลับ" width="100" />
+          <button-control
+            color="black"
+            text="ย้อนกลับ"
+            width="100"
+            @button-clicked="on_go_to_back"
+          />
         </v-col>
         <v-col cols="auto">
           <button-control
@@ -49,7 +54,7 @@ import PermissionManagement from "@/components/forms/PermissionManagement.vue";
 import ButtonControl from "@/components/controls/ButtonControl.vue";
 
 import { onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const role_id = route.params.role_id;
@@ -102,6 +107,8 @@ const permission_module_mock = {
     },
   ],
 };
+
+const router = useRouter();
 
 const desserts_module = reactive([]);
 const title = ref("");
@@ -165,5 +172,9 @@ const on_delete_permision_item_in_db = (item_permission) => {
   console.log(
     "on_delete_permision_item_in_db: " + JSON.stringify(item_permission)
   );
+};
+
+const on_go_to_back = () => {
+  router.go(-1);
 };
 </script>

@@ -26,7 +26,7 @@
           <v-col
             v-for="(col, index) in Object.keys(row)"
             :key="index"
-            :cols="props.headers[index].width"
+            :cols="props.headers[index]?.width"
           >
             <p>{{ row[col] }}</p>
           </v-col>
@@ -41,7 +41,7 @@ const props = defineProps({
   headers: {
     type: Array,
     default: () => [
-      { key: "name", text: "Role Name", width: 1 },
+      { key: "name", text: "Role Name", width: 2 },
       { key: "description", text: "Description" },
       { key: "date", text: "Date" },
       { key: "time", text: "Time" },
@@ -57,20 +57,6 @@ const props = defineProps({
         date: "2021-01-02",
         time: "11:01:52",
         status: "Active",
-      },
-      {
-        name: "User",
-        description: "Regular User",
-        date: "2021-01-02",
-        time: "11:01:52",
-        status: "Active",
-      },
-      {
-        name: "Guest",
-        description: "Guest User",
-        date: "2021-01-02",
-        time: "11:01:52",
-        status: "Inactive",
       },
     ],
   },

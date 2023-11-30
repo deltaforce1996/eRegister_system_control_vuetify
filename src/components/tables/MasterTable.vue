@@ -1,6 +1,5 @@
 <template>
-    <v-app>
-      <v-data-table
+      <v-data-table-virtual
         :headers="headers"
         :items="items"
         class="my-data-table"
@@ -15,8 +14,7 @@
             {{ action }}
           </v-btn>
         </template>
-      </v-data-table>
-    </v-app>
+      </v-data-table-virtual>
   </template>
   
   <style>
@@ -43,8 +41,6 @@
   
       const items = ref([
         { name: "John Doe", age: 30, email: "john@example.com", actiion_1: ['add', 'remove'], actiion_2: ["history_log"] },
-        { name: "Jane Smith", age: 25, email: "jane@example.com", actiion_1: ['add', 'remove'], actiion_2: ["history_log"]  },
-        { name: "Jane Smith", age: 25, email: "jane@example.com", actiion_1: ['add', 'remove'], actiion_2: ["history_log"]  },
         { name: "Jane Smith", age: 25, email: "jane@example.com", actiion_1: ['add', 'remove'], actiion_2: ["history_log"]  },
         // Add more data items here
       ]);

@@ -8,7 +8,7 @@ const routes = [
     component: () => import('@/layouts/AppDefault.vue'),
     children: [
       {
-        path: '',
+        path: '/',
         name: 'HomePage',
         component: () => import('@/views/HomePage.vue'),
       },
@@ -41,6 +41,11 @@ const routes = [
         path: '/MasterTable',
         name: 'MasterTable',
         component: () => import('@/components/tables/MasterTable.vue'),
+      },
+      {
+        path: '/HistoryRolePage',
+        name: 'HistoryRolePage',
+        component: () => import('@/views/historyLog/HistoryRolePage.vue'),
       },
     ],
   },
