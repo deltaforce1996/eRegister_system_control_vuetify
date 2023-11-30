@@ -1,8 +1,7 @@
 <template>
-  <v-container>
-    <v-card>
+    <v-card class="elevation-1">
       <v-card-text>
-        <v-form ref="form" v-model="valid" @submit.prevent="submitForm">
+        <v-form ref="form" v-model="valid">
           <v-row no-gutters dense>
             <v-col>
               <h4>Email</h4>
@@ -60,18 +59,21 @@
       </v-card-text>
     </v-card>
     <div class="text-center mt-5">
-      <v-btn rounded class="ma-2" color="black"  style="width: 100px;" @click="handleCancelClicked">
+      <v-btn rounded class="ma-2" color="black"  style="width: 100px;" @click="dismiss">
         <strong>ยกเลิก</strong>
       </v-btn>
-      <v-btn rounded class="ma-2" color="secondary" style="width: 100px;">
+      <v-btn rounded class="ma-2" color="secondary" style="width: 100px;" @click="submit">
         <strong>ตกลง</strong>
       </v-btn>
     </div>
-  </v-container>
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted  } from "vue";
+import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
+
+const emit = defineEmits(["is-title","is-view"]);
+const { showDialog } = useConfirmationDialog();
 
 const props = defineProps({
   index: {
@@ -85,8 +87,6 @@ const props = defineProps({
 });
 
 const p_index = reactive(props.index);
-//const p_item = reactive(props.item);
-
 const valid = ref(false);
 const form = reactive({
   email: "",
@@ -97,16 +97,38 @@ const form = reactive({
   status: false,
 });
 
-const emit = defineEmits(["is-component"]);
-function handleCancelClicked(){
-  console.log('sss')
-  const  component  = "xxx";
-  const  payload  = "";
-  emit("is-component",component,payload)
+onMounted (() => {
+    if (props.index  == -1) {
+      emit('is-title', "Add User");
+    } else {
+      console.log(props.index);
+      emit('is-title', "Edit User");
+    }
+});
+
+
+const dismiss=()=>{
+    emit("is-view",'user-main')
 }
-const submitForm = () => {
-  if (valid.value) {
-    console.log(form);
-  }
+const submit = async (e) => {
+  e.preventDefault()
+  const confirmed = await showDialog('Confirm Action','Are you sure you want to proceed?');
+      if (confirmed) {
+        console.log('Action confirmed!');
+      } else {
+        console.log('Action cancelled.');
+      }
+  // if (valid.value) {
+  //   console.log(form);
+  // }
 };
+
+// const submit_from_new_role = async () => {
+//   const confirmed = await showDialog('Confirm Action','Are you sure you want to proceed?');
+//       if (confirmed) {
+//         console.log('Action confirmed!');
+//       } else {
+//         console.log('Action cancelled.');
+//       }
+// };
 </script>

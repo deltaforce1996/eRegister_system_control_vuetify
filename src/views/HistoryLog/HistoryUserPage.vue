@@ -45,7 +45,7 @@
       </div>
     </v-card>
     <div class="text-center">
-      <v-btn @click="handleRetrospect"  rounded class="mt-10" color="black" >
+      <v-btn  to="/UserManagement"  rounded class="mt-10" color="black" >
         <strong>ย้อนกลับ</strong>
       </v-btn>
     </div>
@@ -54,9 +54,4 @@
 
 <script setup>
 //import { ref } from 'vue';
-
- const handleRetrospect =()=>{
-   console.log("dddd")
-
- }
 </script>

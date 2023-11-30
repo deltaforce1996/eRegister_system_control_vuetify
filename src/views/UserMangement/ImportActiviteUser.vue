@@ -69,10 +69,10 @@
   </div>
   <v-divider class="mt-5 mb-5"></v-divider>
   <div class="text-center ">
-      <v-btn rounded class="ma-2" color="black"  style="width: 100px;" @Click="handleCancelClicked">
+      <v-btn rounded class="ma-2" color="black"  style="width: 100px;" @Click="dismiss">
         <strong>ยกเลิก</strong>
       </v-btn>
-      <v-btn rounded class="ma-2" color="secondary" style="width: 100px;" @Click="handleAcceptClicked">
+      <v-btn rounded class="ma-2" color="secondary" style="width: 100px;" @Click="submit">
         <strong>ตกลง</strong>
       </v-btn>
     </div>
@@ -83,7 +83,9 @@
 /*eslint-disable no-unused-vars  */
 import readXlsxFile from 'read-excel-file'
 import Choosefile from '@/components/forms/Choosefile'
-import { ref, reactive } from "vue";
+import { ref, reactive ,onMounted} from "vue";
+
+const emit = defineEmits(["is-title",'is-view']);
 
 const file = ref(null);
 const errorCcurred = [
@@ -91,7 +93,9 @@ const errorCcurred = [
   "-No 2 xxxxx",
   "-No 3 xxxxx",
 ]
-
+onMounted (() => {
+  emit('is-title', "");
+});
 
 function  handleOnChangeFile(file){
    console.log(file)
@@ -101,12 +105,11 @@ function  handleOnChangeFile(file){
     // each row being an array of cells.
   })
 }
-function  handleAcceptClicked(){
-   console.log("ok")
+const dismiss=()=>{
+    emit("is-view",'user-main')
 }
-function  handleCancelClicked(){
-  const  component  = "ListUserManagment";
-  const  payload  = "";
-  this.$emit("layout",component,payload)
+const submit=()=>{
+  console.log("ok")
 }
+
 </script>

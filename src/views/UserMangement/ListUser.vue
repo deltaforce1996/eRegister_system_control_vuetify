@@ -63,7 +63,7 @@
     </v-card>
     <v-row justify="end" class="mt-2 mb-2">
       <v-col cols="1">
-        <v-btn variant="elevated" block class="text-capitalize" @click="handleClickAddUser">
+        <v-btn variant="elevated" block class="text-capitalize" @click="handleAddUser">
           <v-icon left>mdi-plus</v-icon>
           Add Users
         </v-btn>
@@ -117,7 +117,7 @@
               <v-chip color="green" label> Vender </v-chip>
             </v-col>
             <v-col cols="2" align-self="center">
-              <v-btn class="me-2 text-none" color="secondary" variant="flat" rounded>
+              <v-btn class="me-2 text-none" color="secondary" variant="flat" rounded @click="handleEditUser">
                 แก้ไข
               </v-btn>
             </v-col>
@@ -140,7 +140,7 @@
                     <strong>This is a subtitle</strong>
                   </v-card-item>
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="8">
                   <v-card-item>
                     <v-card-title class="text-secondary">This is a title</v-card-title>
                     <span> <strong class="text-secondary"> Freelance@gamil.com</strong> <strong>( Freelance /
@@ -152,7 +152,7 @@
               <v-row justify="end">
                 <v-col cols="1">
                   <!-- <v-btn variant="text" block> History log </v-btn> -->
-                  <a href="" class="text-black">History log</a>
+                  <a href="/HistoryUserPage" class="text-black">History log</a>
                 </v-col>
               </v-row>
             </v-card-item>
@@ -160,68 +160,125 @@
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
-    <!-- <div class="text-center">
-      <v-pagination active-color="red" variant="flat" :length="15" :total-visible="7">
+    <PaginationControl />
+    <!-- <div class="text-center"> -->
+      <!-- <v-pagination
+      density="comfortable"
+      active-color="red" variant="text" :length="15" :total-visible="7">
         <template #prev-button>
-          <v-icon>mdi-chevron-left</v-icon>
+
+          <v-btn  color="secondary" variant="flat" rounded>
+                แก้ไข
+              </v-btn>
         </template>
 
         <template #next-button>
           <v-icon>mdi-chevron-right</v-icon>
         </template>
-      </v-pagination>
+      </v-pagination> -->
+
+      <!-- <v-pagination
+    v-model="currentPage"
+    :length="15" :total-visible="7"
+    class="c-pagination"
+    @click="changePage"
+  />
     </div> -->
   </div>
 </template>
-<script>
+<style>
 
-export default {
-  data: () => ({
-    init_userTypes: [],
-    init_roles: [],
-    init_status: [],
-    init_teamContactOwner: [],
-    panel: [],
-    items: [
+.c-pagination .v-pagination__prev .v-btn,
+.c-pagination .v-pagination__next .v-btn{
+  background-color: red;
+}
+
+.c-pagination .v-pagination__prev .v-btn__content,
+.c-pagination .v-pagination__next .v-btn__content{
+  color: white;
+}
+
+.c-pagination .v-btn {
+  color:  black;
+}
+
+.c-pagination .v-pagination__item--is-active .v-btn {
+  color: red;
+  border: 1px solid red;
+}
+
+</style>
+
+<script setup>
+import { ref,onMounted } from 'vue';
+import PaginationControl from '@/components/controls/PaginationControl'
+
+// eslint-disable-next-line no-unused-vars
+
+
+const emit = defineEmits(["is-title",'is-view']);
+const init_userTypes =  ref([]);
+const init_roles = ref([]);
+const init_status =  ref([]);
+const init_teamContactOwner = ref([]);
+const panel= ref([]);
+const items = [
       { id: 1, name: "A" },
       { id: 2, name: "B" },
       { id: 3, name: "C" },
-    ],
-  }),
-  mounted() {
-    console.log("etesdsdsd");
-  },
-  methods: {
-    handleClickAddUser() {
-      const  component  = "add-form";
+]
+
+onMounted (() => {
+  emit('is-title', "");
+});
+
+const  handleAddUser=()=> {
+      const  component  = "user-add";
       const  payload  = "";
-      this.$emit("layout",component,payload)
+      emit("is-view",component,payload)
     }
-  },
-};
+const  handleEditUser =()=> {
+      const  component  = "user-edit";
+      const  payload  = "";
+      emit("is-view",component,payload)
+    }
+</script>
+<script>
+
+// export default {
+//   data: () => ({
+//     currentPage: 1,
+//       itemsPerPage: 5, // Adjust based on your requirement
+//       totalItems: 20, // Adjust based on your requirement
+
+//     init_userTypes: [],
+//     init_roles: [],
+//     init_status: [],
+//     init_teamContactOwner: [],
+//     panel: [],
+//     items: [
+//       { id: 1, name: "A" },
+//       { id: 2, name: "B" },
+//       { id: 3, name: "C" },
+//     ],
+//   }),
+//   mounted() {
+//     this.$emit('is-title', "");
+
+//   },
+//   methods: {
+//     handleAddUser() {
+//       const  component  = "user-add";
+//       const  payload  = "";
+//       this.$emit("is-view",component,payload)
+//     },
+//     handleEditUser() {
+//       const  component  = "user-edit";
+//       const  payload  = "";
+//       this.$emit("is-view",component,payload)
+//     }
+//   },
+//};
 </script>
 
 
-<script setup>
-// import { ref } from 'vue';
-
-// const init_userTypes = [];
-// const init_roles = [];
-// const init_status = [];
-// const init_teamContactOwner = [];
-
-// const name = ref('');
-
-// const selectedChips = ref([]);
-
-// const chips = ['Chip 1', 'Chip 2', 'Chip 3'];
-
-// const panel = ['foo', 'bar', 'baz']
-// const items = [
-//   { header: 'Panel 1', content: 'Content 1', checked: false },
-//   { header: 'Panel 2', content: 'Content 2', checked: false },
-//   // Add more items as needed
-// ];
-
-//
-</script>
