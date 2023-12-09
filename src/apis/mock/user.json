@@ -1,0 +1,70 @@
+{
+  "is_success": true,
+  "code": 200,
+  "message": "Ok",
+  "data": [
+    {
+      "id": 1,
+      "email": "test@email.com",
+      "firstname": "Test",
+      "lastname": "System",
+      "is_register": true,
+      "is_active": true,
+      "member_type": {
+        "id": 1,
+        "name": "Employee"
+      },
+      "company": {
+        "id": 2,
+        "purchasing_organization": "GL00",
+        "company_code": "3000",
+        "name_th": "บริษัท เฟรเซอร์ส พร็อพเพอร์ตี้ โฮม (ประเทศไทย) จำกัด",
+        "name_en": "Frasers Property (Thailand) Public Company Limited",
+        "taxpayer_id_number": "1234567890123",
+        "address_th": "944 มิตรทาวน์ ออฟฟิศ ทาวเวอร์ ชั้นที่ 20 ถนนพระราม 4 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330",
+        "address_en": "944 Mitrtown Office Tower, 22nd- 23rd Floor, Rama 4 Road, Wangmai Subdistrict, Pathumwan District, Bangkok 10330",
+        "business_unit": {
+          "id": 2,
+          "name_th": "Residential",
+          "name_en": "Residential",
+          "corporation": {
+            "id": 1,
+            "name_th": "บริษัท เฟรเซอร์ส พร็อพเพอร์ตี้ โฮม (ประเทศไทย) จำกัด",
+            "name_en": "Frasers Property (Thailand) Public Company Limited"
+          }
+        }
+      },
+      "role": {
+        "id": 1,
+        "name": "admin",
+        "description": ""
+      },
+      "created_at": "2023-10-04T15:40:00",
+      "created_user_id": 1,
+      "updated_at": "2023-10-04T15:40:00",
+      "updated_user_id": 1
+    },
+    {
+      "id": 2,
+      "email": "test2@email.com",
+      "firstname": null,
+      "lastname": null,
+      "is_register": false,
+      "is_active": true,
+      "member_type": {
+        "id": 2,
+        "name": "Business Partner"
+      },
+      "company": null,
+      "role": {
+        "id": 2,
+        "name": "business partner admin",
+        "description": ""
+      },
+      "created_at": "2023-10-04T15:40:00",
+      "created_user_id": 1,
+      "updated_at": "2023-10-04T15:40:00",
+      "updated_user_id": 1
+    }
+  ]
+}
