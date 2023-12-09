@@ -154,6 +154,7 @@ const on_clicked_edit = (role_id) => {
 
 const on_clicked_history = (role_id) => {
   console.log(role_id);
+  router.push('/HistoryRolePage');
 };
 
 const on_clicked_got_creatr_role_page = () => {

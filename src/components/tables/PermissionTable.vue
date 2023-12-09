@@ -17,37 +17,45 @@
     </template>
     <template v-slot:[`item.view`]="{ item }">
       <v-checkbox
+        v-if="!isReadOnly"
         density="compact"
         color="secondary"
         v-model="item.view"
         :readonly="isReadOnly"
       ></v-checkbox>
+      <v-icon color="green" v-if="isReadOnly && item.view">mdi mdi-check-bold</v-icon>
     </template>
     <template v-slot:[`item.created`]="{ item }">
       <v-checkbox
+        v-if="!isReadOnly"
         density="compact"
         color="secondary"
         v-model="item.created"
         :readonly="isReadOnly"
       ></v-checkbox>
+      <v-icon color="green" v-if="isReadOnly && item.created">mdi mdi-check-bold</v-icon>
     </template>
     <template v-slot:[`item.updated`]="{ item }">
       <v-checkbox
+        v-if="!isReadOnly"
         density="compact"
         color="secondary"
         v-model="item.updated"
         :readonly="isReadOnly"
       ></v-checkbox>
+      <v-icon color="green" v-if="isReadOnly && item.updated">mdi mdi-check-bold</v-icon>
     </template>
     <template v-slot:[`item.deleted`]="{ item }">
       <v-checkbox
+        v-if="!isReadOnly"
         density="compact"
         color="secondary"
         v-model="item.deleted"
         :readonly="isReadOnly"
       ></v-checkbox>
+      <v-icon color="green" v-if="isReadOnly && item.deleted">mdi mdi-check-bold</v-icon>
     </template>
-    <template v-slot:[`item.action`]="{item}">
+    <template v-slot:[`item.action`]="{ item }">
       <v-icon @click="on_delete_clicked(item)">mdi mdi-delete</v-icon>
     </template>
   </v-data-table-virtual>
