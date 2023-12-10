@@ -50,7 +50,7 @@
       "firstname": null,
       "lastname": null,
       "is_register": false,
-      "is_active": true,
+      "is_active": true, 
       "member_type": {
         "id": 2,
         "name": "Business Partner"

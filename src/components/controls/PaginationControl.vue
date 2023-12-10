@@ -3,8 +3,8 @@
       <v-pagination
           :value="props.currentPage"
           :length="props.length" :total-visible="7"
-           class="c-pagination"
-          @click="onChangePage"
+           class="custom-pagination"
+          @change="onChangePage"
         />
     </div>
 </template>
@@ -16,8 +16,8 @@ import { defineProps } from 'vue';
 //       totalItems: 20, // Adjust based on your requirement
 const props = defineProps({
   currentPage: {
-    type: String,
-    default: null
+    type: Number,
+    default: 1
   },
   text: {
     type: String,
@@ -39,23 +39,23 @@ const onChangePage=(e)=>{
 
 </script>
 
- <style scoped>
+<style>
 
-.c-pagination .v-pagination__prev .v-btn,
-.c-pagination .v-pagination__next .v-btn{
+.custom-pagination .v-pagination__prev .v-btn,
+.custom-pagination .v-pagination__next .v-btn{
   background-color: red;
 }
 
-.c-pagination .v-pagination__prev .v-btn__content,
-.c-pagination .v-pagination__next .v-btn__content{
+.custom-pagination .v-pagination__prev .v-btn__content,
+.custom-pagination .v-pagination__next .v-btn__content{
   color: white;
 }
 
-.c-pagination .v-btn {
+.custom-pagination .v-btn {
   color:  black;
 }
 
-.c-pagination .v-pagination__item--is-active .v-btn {
+.custom-pagination .v-pagination__item--is-active .v-btn {
   color: red;
   border: 1px solid red;
 }
