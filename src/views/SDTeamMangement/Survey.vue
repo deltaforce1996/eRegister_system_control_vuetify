@@ -9,7 +9,7 @@
         </v-col>
         <v-col cols="2">
           <v-btn class="me-2 text-none" color="secondary" prepend-icon="mdi-plus" variant="flat" height="40" rounded
-            block>
+            to="/SDTeamMangement/Survey/Created" block>
             Create new
           </v-btn>
         </v-col>
@@ -88,15 +88,15 @@
                   </v-col>
                   <v-col cols="2" align-self="center" class="pa-1">
 
-                    <v-btn  v-if="tab == 1" class="me-2 text-none" color="secondary" variant="flat" rounded>
+                    <v-btn v-if="tab == 1" class="me-2 text-none" color="secondary" variant="flat" rounded>
                       Continue
                     </v-btn>
-                    <v-btn  v-if="tab != 1" class="me-2 text-none" color="secondary" variant="outlined" rounded>
-                        Preview
+                    <v-btn v-if="tab != 1" class="me-2 text-none" color="secondary" variant="outlined" rounded>
+                      Preview
                     </v-btn>
-                    <v-btn  v-if="tab == 0" class="me-2 text-none" color="secondary" variant="flat" rounded>
-                        Export Results
-                      </v-btn>
+                    <v-btn v-if="tab == 0" class="me-2 text-none" color="secondary" variant="flat" rounded>
+                      Export Results
+                    </v-btn>
                   </v-col>
                   <v-col cols="1" align-self="center" class="pa-1">
                     <v-menu transition="scale-transition">
