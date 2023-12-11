@@ -8,8 +8,8 @@
         </v-btn>
       </v-col>
     </v-row>
-    <Choosefile @input-file="handleOnChangeFile"></Choosefile>
-    <ImportDeactivateUserTable class="mt-5" :items="items" />
+    <Choosefile @input-file="handleOnChangeFile" :is-file="file"></Choosefile>
+    <ImportDeactivateUserTable class="mt-5 mb-5" :items="items" />
     <div v-if="isValid.length > 0">
       <strong class="text-secondary">ไฟล์ที่ที่อัพไม่ตรงกับ template กรุณาตรวจสอบและอัพใหม่อีกครั้ง*</strong>
       <div v-for="message in isValid" :key="message">
@@ -81,7 +81,7 @@ const download = async () => {
     const { data } = response
     const decode = Base64.toUint8Array(data)
     const blob = new Blob([decode], { type: 'xlsx' })
-    saveAs(blob, "TemplateActiviteUser.xlsx")
+    saveAs(blob, "TemplateDeactiviteUser.xlsx")
   } catch (e) {
     if (e.response) {
       const val = e.response.data

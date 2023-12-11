@@ -9,8 +9,8 @@
       </v-col>
     </v-row>
     <Choosefile @input-file="handleOnChangeFile" :is-file="file"></Choosefile>
-    <ImportActiveUserTable class="mt-5" :items="items" />
-    <div v-if="isValid.length > 0">
+    <ImportActiveUserTable class="mt-5 mb-5" :items="items" />
+    <div v-if="isValid.length > 0" >
       <strong class="text-secondary">ไฟล์ที่ที่อัพไม่ตรงกับ template กรุณาตรวจสอบและอัพใหม่อีกครั้ง*</strong>
       <div v-for="message in isValid" :key="message">
         <strong class="text-secondary">{{ message }}</strong>
