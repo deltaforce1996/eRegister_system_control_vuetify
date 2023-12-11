@@ -8,7 +8,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <Choosefile @input-file="handleOnChangeFile" :is-file="file"></Choosefile>
+    <Choosefile class="elevation-1 pa-8" @input-file="handleOnChangeFile" :is-file="file"></Choosefile>
     <ImportActiveUserTable class="mt-5 mb-5" :items="items" />
     <div v-if="isValid.length > 0" >
       <strong class="text-secondary">ไฟล์ที่ที่อัพไม่ตรงกับ template กรุณาตรวจสอบและอัพใหม่อีกครั้ง*</strong>

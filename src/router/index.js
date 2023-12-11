@@ -47,6 +47,26 @@ const routes = [
         name: 'HistoryRolePage',
         component: () => import('@/views/historyLog/HistoryRolePage.vue'),
       },
+      {
+        path: '/SDTeamMangement/SDActiveMangement',
+        name: 'SDActiveMangementPage',
+        component: () => import('@/views/SDTeamMangement/SDActiveMangement.vue'),
+      },
+      {
+        path: '/SDTeamMangement/RspPolicy',
+        name: 'RspPolicyPage',
+        component: () => import('@/views/SDTeamMangement/RspPolicy.vue'),
+      },
+      {
+        path: '/SDTeamMangement/Survey',
+        name: 'SurveyPage',
+        component: () => import('@/views/SDTeamMangement/Survey.vue'),
+      },
+      {
+        path: '/SDTeamMangement/Traning',
+        name: 'SurvayPage',
+        component: () => import('@/views/SDTeamMangement/Traning.vue'),
+      },
     ],
   },
 ]
