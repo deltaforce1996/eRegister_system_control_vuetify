@@ -96,11 +96,11 @@ const routes = [
         name: 'SurveyCreatePage',
         component: () => import('@/views/SDTeamMangement/SurveyCreate.vue'),
       },
-      {
-        path: '/SDTeamMangement/Traning',
-        name: 'SurvayPage',
-        component: () => import('@/views/SDTeamMangement/Traning.vue'),
-      },
+      // {
+      //   path: '/SDTeamMangement/Traning',
+      //   name: 'SurvayPage',
+      //   component: () => import('@/views/SDTeamMangement/Traning.vue'),
+      // },
     ],
   },
 ];
