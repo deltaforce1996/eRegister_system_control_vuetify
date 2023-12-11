@@ -21,7 +21,16 @@
 
 
       <div>
+        <v-row justify="end" class="mt-2 mb-2">
+      <v-col cols="1">
+        <v-btn  color="secondary" block class="text-capitalize" rounded>
+          <v-icon left>mdi-tag</v-icon>
+          Save Darft
+        </v-btn>
+      </v-col>
+    </v-row>
         <v-card class="elevation-1">
+
           <v-card-text>
             <v-form ref="form">
               <v-row no-gutters dense>
