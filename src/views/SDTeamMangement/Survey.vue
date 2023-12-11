@@ -64,7 +64,7 @@
       <div>
         <v-tabs v-model="tab" color="secondary">
           <v-tab v-for="(tabs, index) in items" :key="index" class="text-capitalize">
-           <h3>{{ tabs.title }}</h3>
+            <h3>{{ tabs.title }}</h3>
           </v-tab>
         </v-tabs>
         <v-tabs-items>
@@ -87,30 +87,34 @@
                     <strong class="text-secondary">sss@gmail.com</strong>
                   </v-col>
                   <v-col cols="2" align-self="center" class="pa-1">
-                    <v-btn class="me-2 text-none" color="secondary" variant="outlined" rounded>
-                      Preview
+
+                    <v-btn  v-if="tab == 1" class="me-2 text-none" color="secondary" variant="flat" rounded>
+                      Continue
                     </v-btn>
-                    <v-btn class="me-2 text-none" color="secondary" variant="flat" rounded>
-                      Export Results
+                    <v-btn  v-if="tab != 1" class="me-2 text-none" color="secondary" variant="outlined" rounded>
+                        Preview
                     </v-btn>
+                    <v-btn  v-if="tab == 0" class="me-2 text-none" color="secondary" variant="flat" rounded>
+                        Export Results
+                      </v-btn>
                   </v-col>
                   <v-col cols="1" align-self="center" class="pa-1">
                     <v-menu transition="scale-transition">
-                <template v-slot:activator="{ props }">
-                  <v-btn text v-bind="props" variant="text">
-                    <v-icon icon=" mdi-dots-horizontal"></v-icon>
-                  </v-btn>
-                </template>
+                      <template v-slot:activator="{ props }">
+                        <v-btn text v-bind="props" variant="text">
+                          <v-icon icon=" mdi-dots-horizontal"></v-icon>
+                        </v-btn>
+                      </template>
 
-                <v-list dense>
-                  <v-list-item>
-                    <template v-slot:prepend>
-                      <v-icon icon="mdi-delete"></v-icon>
-                    </template>
-                    <v-list-item-title>Delete</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
+                      <v-list dense>
+                        <v-list-item @click="handleDelete(i)">
+                          <template v-slot:prepend>
+                            <v-icon icon="mdi-delete"></v-icon>
+                          </template>
+                          <v-list-item-title>Delete</v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
                   </v-col>
                 </v-row>
               </v-card-item>
@@ -143,12 +147,12 @@ onBeforeMount(() => {
 });
 const handleDelete = async (item) => {
   //e.preventDefault()
-  const confirmed = await showDialog('ยืนยันลบแบบฟอร์ม','กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
-      if (confirmed) {
-        console.log('Action confirmed!');
-      } else {
-        console.log('Action cancelled.');
-      }
+  const confirmed = await showDialog('ยืนยันลบแบบฟอร์ม', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+  if (confirmed) {
+    console.log('Action confirmed!');
+  } else {
+    console.log('Action cancelled.');
+  }
 
 };
 
