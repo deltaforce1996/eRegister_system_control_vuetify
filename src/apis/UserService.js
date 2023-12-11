@@ -12,17 +12,11 @@ const  getUserAll = async (offset,limit,sort_by)=>{
   });
 }
 
-const  downloadActiveUser = async ()=>{
-  return await axiosBase({
-     method: 'get',
-     url: '/user/download/active',
-     data: {}
-   });
-}
+
 const  submitImportActiveUser = async (data = [])=>{
   return await axiosBase({
      method: 'post',
-     url: '/CreatedMultipleUser',
+     url: '/MockActiveUser',
      data: {
         user:Array.from(data, (i) => {
           return  {
@@ -36,9 +30,41 @@ const  submitImportActiveUser = async (data = [])=>{
      }
    });
 }
+const  submitImportDeactiveUser = async (data = [])=>{
+  return await axiosBase({
+     method: 'post',
+     url: '/MockDeactiveUser',
+     data: {
+        user:Array.from(data, (i) => {
+          return  {
+              email : i.email
+            }
+        }),
+      updated_user_id :'id-user'
+     }
+   });
+}
+
+const  downloadTemplateActiviteUser = async ()=>{
+  return await axiosBase({
+     method: 'get',
+     url: '/MockDownlaodTemplate',
+     data: {}
+   });
+}
+
+const  downloadTemplateDeactiviteUser = async ()=>{
+  return await axiosBase({
+     method: 'get',
+     url: '/MockDownlaodTemplate',
+     data: {}
+   });
+}
 
 export default {
   getUserAll,
-  downloadActiveUser,
-  submitImportActiveUser
+  downloadTemplateActiviteUser,
+  submitImportActiveUser,
+  downloadTemplateDeactiviteUser,
+  submitImportDeactiveUser
  }

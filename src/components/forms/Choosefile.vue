@@ -55,6 +55,12 @@
 <script>
 import convertSize from "convert-size";
 export default {
+  props: {
+    isFile: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
       file: null,
@@ -63,16 +69,29 @@ export default {
       isDragging: false,
     };
   },
+  watch: {
+    isFile(val) {
+      if (val) {
+        this.file = val;
+        this.fileName = val.name
+        this.fileSize = convertSize(val.size)
+      }else{
+        this.file = null;
+        this.fileName = "";
+        this.fileSize = "";
+      }
+    }
+  },
   methods: {
     handlePickFile() {
       window.addEventListener('focus', () => { }, { once: true })
       this.$refs.uploader.click()
     },
     handleFileChanged(e) {
-      this.file = e.target.files[0];
-      this.fileName = e.target.files[0].name
-      this.fileSize = convertSize(e.target.files[0].size)
-      this.$emit('input-file', this.file);
+      // this.file = e.target.files[0];
+      // this.fileName = e.target.files[0].name
+      // this.fileSize = convertSize(e.target.files[0].size)
+      this.$emit('input-file', e.target.files[0]);
     },
     dragover(e) {
       e.preventDefault();
