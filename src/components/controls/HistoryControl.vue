@@ -15,9 +15,16 @@
 
 <script setup>
 const emit = defineEmits(["link-clicked"]);
+import { defineProps } from 'vue';
+const props = defineProps({
+  id: {
+    type: String,
+    default: null
+  },
+});
 
 const handleItemClick = () => {
-  emit("link-clicked");
+  emit("link-clicked", props.id);
 };
 </script>
 

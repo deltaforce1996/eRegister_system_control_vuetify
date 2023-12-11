@@ -9,6 +9,7 @@
         v-if="role_id"
         :role_name_p="role_name"
         :role_desc_p="role_desc"
+        @on-update-role="on_updated_role"
       />
       <role-management v-if="!role_id" />
     </v-row>
@@ -17,6 +18,7 @@
     </v-row>
     <v-row no-gutters dense>
       <permission-management
+      :headers="headers"
         :role_id="role_id"
         :desserts="desserts_module"
         @submit_form="submit_from_new_role"
@@ -75,7 +77,7 @@ const permission_module_mock = {
   role_id: 1,
   module: [
     {
-      id: 1,
+      id: 0,
       name_th: "รายการพาร์ทเนอร์",
       name_en: "Business partner list",
       description: null,
@@ -93,7 +95,7 @@ const permission_module_mock = {
       ],
     },
     {
-      id: 2,
+      id: 1,
       name_th: "สร้างใบสมัครใหม่",
       name_en: "Create new register form",
       description: null,
@@ -107,6 +109,14 @@ const permission_module_mock = {
     },
   ],
 };
+
+const action_all_mock = [
+  { id: 0, name: "view", description: "" },
+  { id: 1, name: "created", description: "" },
+  { id: 2, name: "updated", description: "" },
+  { id: 3, name: "deleted", description: "" },
+  { id: 4, name: "other", description: "" },
+];
 
 const router = useRouter();
 
@@ -128,15 +138,23 @@ onMounted(() => {
   }
 });
 
+const headers = action_all_mock.map(action => ({
+  title: action.name,
+  key: action.name
+}));
+
+headers.unshift({ title: "Permission Module", key: "permission" });
+headers.push({ title: "Action", key: "action" });
+
 const generate_desserts = () => {
   permission_module_mock.module.forEach((item) => {
-    desserts_module.push({
-      permission: item.name_th,
-      view: item.action.some((obj) => obj.id === 2),
-      created: item.action.some((obj) => obj.id === 1),
-      updated: item.action.some((obj) => obj.id === 3),
-      deleted: item.action.some((obj) => obj.id === 4),
+    let dessert = {
+      permission: item.id,
+    };
+    action_all_mock.forEach((action) => {
+      dessert[action.name] = item.action.some((obj) => obj.id === action.id);
     });
+    desserts_module.push(dessert);
   });
 };
 
@@ -147,6 +165,7 @@ const submit_from_new_role = async () => {
       'กรุณาตรวจสอบ\nคลิกปุ่ม"ตกลง"เพื่อดำเนินการ'
     );
     if (confirmed) {
+
       console.log("เพิ่มข้อมูล");
     } else {
       console.log("cancelled.");
@@ -174,7 +193,12 @@ const on_delete_permision_item_in_db = (item_permission) => {
   );
 };
 
+const on_updated_role = (role) => {
+  console.log("on_updated_role: ", role);
+}
+
 const on_go_to_back = () => {
   router.go(-1);
 };
+
 </script>

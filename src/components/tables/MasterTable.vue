@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
       <v-data-table-virtual
         :headers="headers"
         :items="items"
@@ -64,4 +64,185 @@
     },
   };
   </script>
-  
+   -->
+
+<template>
+  <v-row dense>
+    <v-col cols="12">
+      <v-card color="secondary">
+        <v-card-item>
+          <v-row align="center" justify="start">
+            <v-col
+              v-for="header in props.headers"
+              :key="header.value"
+              :cols="header.width"
+            >
+              <h5>{{ header.text }}</h5>
+            </v-col>
+          </v-row>
+        </v-card-item>
+      </v-card>
+    </v-col>
+    <v-col cols="12">
+      <v-row
+        v-for="(item, index) in props.items"
+        :key="index"
+        class="data-row"
+        style="margin-left: auto; margin-right: auto"
+      >
+        <v-col
+          v-for="header in headers"
+          :key="header.value"
+          :cols="header.width"
+          class="data-col"
+        >
+          <div
+            v-if="Array.isArray(item[header.value])"
+            style="justify-items: center"
+          >
+            <ButtonControl
+              v-for="(action, actionIndex) in item[header.value]"
+              :key="actionIndex"
+              :icon="action.icon"
+              :text="action.text"
+              :color="action.color"
+              :id="index.toString() + ',' + action.action"
+              @button-clicked="handle_item_clicked"
+            />
+          </div>
+          <p
+            v-if="
+              Array.isArray(item[header.value]) === false &&
+              header.value !== 'history' &&
+              header.value !== 'status'
+            "
+          >
+            {{ item[header.value] }}
+          </p>
+          <history-control
+            v-if="
+              Array.isArray(item[header.value]) === false &&
+              header.value === 'history'
+            "
+            :id="index.toString()"
+            @link-clicked="handle_go_to_history"
+          />
+          <v-chip
+            density
+            :color="item[header.value] ? 'green' : 'gray'"
+            v-if="header.value === 'status'"
+            label
+          >
+            <v-badge
+              dot
+              inline
+              :color="item[header.value] ? 'green' : 'gray'"
+            ></v-badge>
+            <p>{{ item[header.value] ? "Active" : "Inactive" }}</p>
+          </v-chip>
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
+</template>
+
+<script setup>
+import ButtonControl from "../controls/ButtonControl.vue";
+import HistoryControl from "../controls/HistoryControl.vue";
+
+const props = defineProps({
+  headers: {
+    type: Array,
+    default: () => [
+      { text: "Name", value: "name", width: 2 },
+      { text: "Age", value: "age", width: 1 },
+      { text: "Email", value: "email", width: 3 },
+      { text: "Action", value: "action", width: 2 },
+      { text: "Status", value: "status", width: 2 },
+      { text: "", value: "history", width: 2 },
+    ],
+  },
+  items: {
+    type: Array,
+    default: () => [
+      {
+        name: "John Doe",
+        age: 30,
+        email: "john@example.com",
+        action: [
+          {
+            color: "#F0F0F0",
+            icon: "mdi mdi-eye-circle",
+            text: "",
+            action: "view",
+          },
+          {
+            color: "#F0F0F0",
+            icon: "mdi mdi-pencil",
+            text: "",
+            action: "edit",
+          },
+        ],
+        history: "history_log",
+        status: true,
+      },
+      {
+        name: "Jane Smith",
+        age: 25,
+        email: "jane@example.com",
+        action: [
+          {
+            color: "#F0F0F0",
+            icon: "mdi mdi-eye-circle",
+            text: "",
+            action: "view",
+          },
+          {
+            color: "#F0F0F0",
+            icon: "mdi mdi-pencil",
+            text: "",
+            action: "edit",
+          },
+        ],
+        history: "history_log",
+        status: false,
+      },
+    ],
+  },
+});
+
+const emit = defineEmits(["handle-item-clicked", "handle-go-to-history"]);
+
+const handle_item_clicked = (index) => {
+  emit('handle-item-clicked', index)
+};
+
+const handle_go_to_history = (index) => {
+  emit('handle-go-to-history', index)
+};
+</script>
+
+<style>
+.red-header h5 {
+  text-align: start;
+}
+
+.data-row {
+  background-color: white;
+  /* border-bottom: 1px solid #e0e0e0; */
+}
+
+.data-row {
+  background-color: white;
+}
+
+.data-col {
+  border: 1px solid #e0e0e0; /* Adds grid lines */
+  padding: 8px; /* Optional: Adjusts the padding inside each cell */
+  text-align: start; /* Centers the content in each cell */
+}
+
+.data-col p {
+  margin: 0; /* Removes default paragraph margins */
+}
+</style>

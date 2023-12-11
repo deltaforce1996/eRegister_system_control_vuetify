@@ -5,7 +5,7 @@
         <v-row>
           <v-col>
             <permission-table
-              :headers="herders_table"
+              :headers="props.headers"
               :desserts="items_permission"
               :is-read-only="false"
               @on-item-change="on_permission_change"
@@ -37,6 +37,17 @@ const { showDialog } = useConfirmationDialog();
 import { reactive } from "vue";
 
 const props = defineProps({
+  headers: {
+    type: Array,
+    default: () => [
+      { title: "Permission Module", key: "permission" },
+      { title: "View", key: "view" },
+      { title: "Create", key: "created" },
+      { title: "Update", key: "updated" },
+      { title: "Delete", key: "deleted" },
+      { title: "Action", key: "action" },
+    ],
+  },
   desserts: {
     type: Array,
     default: () => [],
@@ -49,14 +60,6 @@ const props = defineProps({
 
 const items_permission = reactive(props.desserts);
 
-const herders_table = [
-  { title: "Permission Module", key: "permission" },
-  { title: "View", key: "view" },
-  { title: "Create", key: "created" },
-  { title: "Update", key: "updated" },
-  { title: "Delete", key: "deleted" },
-  { title: "Action", key: "action" },
-];
 
 const emit = defineEmits(["on-delete-permission", "on-permission-change"]);
 
@@ -71,7 +74,7 @@ const on_clicked_add_module = () => {
 };
 
 const on_permission_change = (new_items_permission) => {
-  emit("on-permission-change", new_items_permission)
+  emit("on-permission-change", new_items_permission);
 };
 
 const on_permission_delete = async (deleted_item_permission) => {

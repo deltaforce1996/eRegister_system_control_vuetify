@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <v-data-table-virtual
     :headers="props.headers"
     :items="props.desserts"
@@ -102,4 +102,107 @@ const item_selection = [
   "Texas",
   "Wyoming",
 ];
+</script> -->
+
+<template>
+  <v-data-table-virtual
+    :headers="props.headers"
+    :items="props.desserts"
+    item-value="name"
+    hide-default-footer
+    density="compact"
+  >
+    <template
+      v-for="(header, index) in props.headers"
+      :key="index"
+      v-slot:[`item.${header.key}`]="{ item }"
+    >
+      <p v-if="header.key === 'permission' && isReadOnly">
+        {{ item.permission }}
+      </p>
+      <v-select
+        v-if="header.key === 'permission' && !isReadOnly"
+        density="compact"
+        v-model="item.permission"
+        :items="items_selection"
+        item-title="name_th"
+        item-value="id"
+        variant="solo"
+      />
+      <v-checkbox
+        v-if="header.key !== 'permission' && !isReadOnly"
+        density="compact"
+        color="secondary"
+        v-model="item[header.key]"
+        :readonly="isReadOnly"
+      ></v-checkbox>
+      <v-icon
+        v-if="isReadOnly && item[header.key] && header.key !== 'permission'"
+        color="green"
+        >mdi mdi-check-bold</v-icon
+      >
+    </template>
+
+    <template v-slot:[`item.action`]="{ item }">
+      <v-icon @click="on_delete_clicked(item)">mdi mdi-delete</v-icon>
+    </template>
+  </v-data-table-virtual>
+</template>
+
+<script setup>
+import { onMounted } from "vue";
+import { reactive } from "vue";
+import { defineProps, watch, ref } from "vue";
+
+const props = defineProps({
+  headers: {
+    type: Array,
+    default: () => [],
+  },
+  desserts: {
+    type: Array,
+    default: () => [],
+  },
+  isReadOnly: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+const emit = defineEmits(["on-item-change", "on-item-delete"]);
+
+const dessertsRef = ref(props.desserts);
+
+const data_mock_all_permission_api = [
+  {
+    id: 0,
+    name_th: "ไทย 0",
+    name_en: "",
+    description: "",
+  },
+  {
+    id: 1,
+    name_th: "ไทย 1",
+    name_en: "",
+    description: "",
+  },
+];
+
+let items_selection = reactive([]);
+
+watch(
+  dessertsRef,
+  (newDesserts) => {
+    emit("on-item-change", newDesserts);
+  },
+  { deep: true }
+);
+
+const on_delete_clicked = (item) => {
+  emit("on-item-delete", item);
+};
+
+onMounted(() => {
+  items_selection = data_mock_all_permission_api;
+});
 </script>

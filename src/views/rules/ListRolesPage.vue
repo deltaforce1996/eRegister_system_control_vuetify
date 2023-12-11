@@ -1,9 +1,6 @@
 <template>
   <v-container fluid>
     <h3>Role & Permission</h3>
-    <v-row no-gutters justify="end">
-      <button-control icon="mdi mdi-plus" text="Create Rule" @button-clicked="on_clicked_got_creatr_role_page" />
-    </v-row>
     <v-row dense>
       <v-col cols="12">
         <v-card color="secondary">
@@ -39,7 +36,7 @@
           :permission="role.name"
           :description="role.description"
           :is-active="role.is_active"
-          :sub-headers="herders_table"
+          :sub-headers="headers"
           :sub-desserts="generate_desserts(role.id)"
           :id="role.id"
           @edited-clicked="on_clicked_edit"
@@ -52,9 +49,8 @@
 
 <script setup>
 import { ref, watch } from "vue";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
-import ButtonControl from "../../components/controls/ButtonControl.vue";
 import RoleItem from "../../components/items/RoleItem.vue";
 
 const router = useRouter();
@@ -90,7 +86,7 @@ const permission_module_mock = [
             description: null,
           },
           {
-            id: 2,
+            id: 0,
             name: "get",
             description: null,
           },
@@ -113,13 +109,29 @@ const permission_module_mock = [
   },
 ];
 
-const herders_table = [
-  { title: "Permission Module", key: "permission" },
-  { title: "View", key: "view" },
-  { title: "Create", key: "created" },
-  { title: "Update", key: "updated" },
-  { title: "Delete", key: "deleted" },
+// const herders_table = [
+//   { title: "Permission Module", key: "permission" },
+//   { title: "View", key: "view" },
+//   { title: "Create", key: "created" },
+//   { title: "Update", key: "updated" },
+//   { title: "Delete", key: "deleted" },
+// ];
+
+const action_all_mock = [
+  { id: 0, name: "view", description: "" },
+  { id: 1, name: "created", description: "" },
+  { id: 2, name: "updated", description: "" },
+  { id: 3, name: "deleted", description: "" },
+  { id: 4, name: "other", description: "" },
 ];
+
+const headers = action_all_mock.map((action) => ({
+  title: action.name,
+  key: action.name,
+}));
+
+headers.unshift({ title: "Permission Module", key: "permission" });
+headers.push({ title: "Action", key: "action" });
 
 const is_item_expan = ref(null);
 
@@ -129,35 +141,51 @@ watch(is_item_expan, (newValue, oldValue) => {
   );
 });
 
+// const generate_desserts = (role_id) => {
+//   let desserts = [];
+//   const find_role_id = permission_module_mock.find(
+//     (el) => (el.role_id = role_id)
+//   );
+//   if (find_role_id)
+//     find_role_id.module.forEach((item) => {
+//       desserts.push({
+//         permission: item.name_th,
+//         view: item.action.some((obj) => obj.id === 2),
+//         created: item.action.some((obj) => obj.id === 1),
+//         updated: item.action.some((obj) => obj.id === 3),
+//         deleted: item.action.some((obj) => obj.id === 4),
+//       });
+//     });
+//   return desserts;
+// };
+
 const generate_desserts = (role_id) => {
-  let desserts = [];
+  const desserts_module = [];
+
   const find_role_id = permission_module_mock.find(
-    (el) => (el.role_id = role_id)
+    (el) => el.role_id === role_id
   );
+
   if (find_role_id)
     find_role_id.module.forEach((item) => {
-      desserts.push({
+      let dessert = {
         permission: item.name_th,
-        view: item.action.some((obj) => obj.id === 2),
-        created: item.action.some((obj) => obj.id === 1),
-        updated: item.action.some((obj) => obj.id === 3),
-        deleted: item.action.some((obj) => obj.id === 4),
+      };
+      action_all_mock.forEach((action) => {
+        dessert[action.name] = item.action.some((obj) => obj.id === action.id);
       });
+      desserts_module.push(dessert);
     });
 
-  return desserts;
+  return desserts_module;
 };
 
 const on_clicked_edit = (role_id) => {
-  router.push({ name: 'CreateRolePage', params: { role_id: role_id } })
+  router.push({ name: "CreateRolePage", params: { role_id: role_id } });
 };
 
 const on_clicked_history = (role_id) => {
   console.log(role_id);
-  router.push('/HistoryRolePage');
+  router.push("/HistoryRolePage");
 };
-
-const on_clicked_got_creatr_role_page = () => {
-  router.push('/CreateRolePage');
-}
 </script>
