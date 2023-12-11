@@ -10,6 +10,7 @@
           </v-col>
           <v-col cols="2">
             <v-btn class="me-2 text-none" color="secondary" prepend-icon="mdi-magnify" variant="flat" height="40" rounded
+             @click="fetchUserFiltering()"
               block>
               ค้นหา
             </v-btn>
@@ -63,7 +64,7 @@
     </v-card>
     <v-row justify="end" class="mt-2 mb-2">
       <v-col cols="1">
-        <v-btn variant="elevated" block class="text-capitalize" @click="handleAddUser">
+        <v-btn variant="outlined" block class="text-capitalize" @click="handleAddUser">
           <v-icon left>mdi-plus</v-icon>
           Add Users
         </v-btn>
@@ -89,8 +90,15 @@
           </v-col>
         </v-row>
       </v-card-item>
+
     </v-card>
     <v-expansion-panels class="mt-1" v-model="panel">
+      <v-progress-linear
+        class="rounded-pill"
+        :indeterminate="loading"
+        bg-color="transparent"
+        color="secondary"
+      ></v-progress-linear>
       <v-expansion-panel v-for="(i, index) in items" :key="index" class="mt-1"
         :style="index === panel ? 'border: 2px solid red;' : ''">
         <v-expansion-panel-title :color="index === panel ? '#FFF1F0' : ''">
@@ -99,22 +107,19 @@
           </template>
           <v-row no-gutters dense justify="space-around">
             <v-col cols="2" align-self="center">
-              <span> 08/04/66 12:45 {{ i.id }}</span>
+              <span> {{ dateParse(i.created_at) }}</span>
             </v-col>
             <v-col cols="2" align-self="center">
-              <span>xxx@gmail.com</span>
+              <span>{{i.email}}</span>
             </v-col>
             <v-col cols="2" align-self="center">
-              <v-chip color="green" label>
-                <v-icon>mdi-circle-medium</v-icon>
-                Green
-              </v-chip>
+              <Active :value="i.is_active" />
             </v-col>
             <v-col cols="2" align-self="center">
-              <span> บริษัท</span>
+              <span> {{i.company?.name_th}}</span>
             </v-col>
             <v-col cols="2" align-self="center">
-              <v-chip color="green" label> Vender </v-chip>
+                <Role  :value="i.role?.name" />
             </v-col>
             <v-col cols="2" align-self="center">
               <v-btn class="me-2 text-none" color="secondary" variant="flat" rounded @click="handleEditUser">
@@ -130,19 +135,19 @@
               <v-row align-center>
                 <v-col cols="2">
                   <v-card-item>
-                    <v-card-title class="text-secondary">This is a title</v-card-title>
-                    <strong>This is a subtitle</strong>
+                    <v-card-title class="text-secondary">User Type</v-card-title>
+                    <strong>{{i.member_type?.name}}</strong>
                   </v-card-item>
                 </v-col>
                 <v-col cols="2">
                   <v-card-item>
-                    <v-card-title class="text-secondary">This is a title</v-card-title>
+                    <v-card-title class="text-secondary">ฺBusiniess Unit</v-card-title>
                     <strong>This is a subtitle</strong>
                   </v-card-item>
                 </v-col>
                 <v-col cols="8">
                   <v-card-item>
-                    <v-card-title class="text-secondary">This is a title</v-card-title>
+                    <v-card-title class="text-secondary">Team</v-card-title>
                     <span> <strong class="text-secondary"> Freelance@gamil.com</strong> <strong>( Freelance /
                         Active)</strong></span>
                   </v-card-item>
@@ -161,60 +166,19 @@
       </v-expansion-panel>
     </v-expansion-panels>
     <PaginationControl />
-    <!-- <div class="text-center"> -->
-      <!-- <v-pagination
-      density="comfortable"
-      active-color="red" variant="text" :length="15" :total-visible="7">
-        <template #prev-button>
-
-          <v-btn  color="secondary" variant="flat" rounded>
-                แก้ไข
-              </v-btn>
-        </template>
-
-        <template #next-button>
-          <v-icon>mdi-chevron-right</v-icon>
-        </template>
-      </v-pagination> -->
-
-      <!-- <v-pagination
-    v-model="currentPage"
-    :length="15" :total-visible="7"
-    class="c-pagination"
-    @click="changePage"
-  />
-    </div> -->
   </div>
 </template>
-<style>
-
-.c-pagination .v-pagination__prev .v-btn,
-.c-pagination .v-pagination__next .v-btn{
-  background-color: red;
-}
-
-.c-pagination .v-pagination__prev .v-btn__content,
-.c-pagination .v-pagination__next .v-btn__content{
-  color: white;
-}
-
-.c-pagination .v-btn {
-  color:  black;
-}
-
-.c-pagination .v-pagination__item--is-active .v-btn {
-  color: red;
-  border: 1px solid red;
-}
-
-</style>
-
 <script setup>
 import { ref,onMounted } from 'vue';
 import PaginationControl from '@/components/controls/PaginationControl'
+import UserService from '@/apis/UserService';
+import Active from '@/components/status/Active'
+import Role from '@/components/status/Role'
+import dateUtils from '@/utils/dateUtils'
 
-// eslint-disable-next-line no-unused-vars
+import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 
+const { throwExceptionMessage } = useErrorHandlingDialog();
 
 const emit = defineEmits(["is-title",'is-view']);
 const init_userTypes =  ref([]);
@@ -222,63 +186,53 @@ const init_roles = ref([]);
 const init_status =  ref([]);
 const init_teamContactOwner = ref([]);
 const panel= ref([]);
-const items = [
-      { id: 1, name: "A" },
-      { id: 2, name: "B" },
-      { id: 3, name: "C" },
-]
+const items = ref([]);
+const loading = ref(false);
+let filter = {
+    offset :0,
+    limit :10,
+    sortBy :""
+}
+
 
 onMounted (() => {
   emit('is-title', "");
+  fetchUserFiltering();
+
 });
 
-const  handleAddUser=()=> {
-      const  component  = "user-add";
-      const  payload  = "";
-      emit("is-view",component,payload)
+const fetchUserFiltering = async ()=>{
+  try{
+     loading.value =true;
+     items.value=[];
+     const response =  await UserService.getUserAll(filter.offset,filter.limit,filter.sortBy);
+     items.value =  response.data?.data
+  }catch(e){
+    if (e.response) {
+      const val = e.response.data
+      throwExceptionMessage(val.message,val?.data.error);
+      return;
     }
-const  handleEditUser =()=> {
-      const  component  = "user-edit";
-      const  payload  = "";
-      emit("is-view",component,payload)
-    }
+      throwExceptionMessage("unknown",e.message);
+   }finally{
+    loading.value =false;
+   }
+}
+
+  const dateParse=(dateString)=>{
+    return dateUtils.parseDdMmYy(dateString)
+  }
+  const  handleAddUser=()=> {
+        const  component  = "user-add";
+        const  payload  = "";
+        emit("is-view",component,payload)
+      }
+  const  handleEditUser =()=> {
+        const  component  = "user-edit";
+        const  payload  = "";
+        emit("is-view",component,payload)
+      }
 </script>
-<script>
 
-// export default {
-//   data: () => ({
-//     currentPage: 1,
-//       itemsPerPage: 5, // Adjust based on your requirement
-//       totalItems: 20, // Adjust based on your requirement
-
-//     init_userTypes: [],
-//     init_roles: [],
-//     init_status: [],
-//     init_teamContactOwner: [],
-//     panel: [],
-//     items: [
-//       { id: 1, name: "A" },
-//       { id: 2, name: "B" },
-//       { id: 3, name: "C" },
-//     ],
-//   }),
-//   mounted() {
-//     this.$emit('is-title', "");
-
-//   },
-//   methods: {
-//     handleAddUser() {
-//       const  component  = "user-add";
-//       const  payload  = "";
-//       this.$emit("is-view",component,payload)
-//     },
-//     handleEditUser() {
-//       const  component  = "user-edit";
-//       const  payload  = "";
-//       this.$emit("is-view",component,payload)
-//     }
-//   },
-//};
-</script>
 
 

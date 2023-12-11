@@ -1,14 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <v-card class="mx-auto elevation-1" flat @dragover="dragover" @dragleave="dragleave" @drop="drop">
-    <v-card-item class="pa-8">
-      <v-row>
+      <v-row dense>
+        <v-col cols="12" v-if="title != null">
+          <strong>{{ title }}</strong>
+        </v-col>
         <v-col cols="6">
-          <v-card class="mx-auto" variant="outlined" style="border: 1px dashed #000000">
+          <v-card class="mx-auto ma-1" variant="outlined" style="border: 1px dashed #000000"  @dragover="dragover" @dragleave="dragleave" @drop="drop">
             <v-container class="bg-grey-lighten-3">
               <v-row no-gutters style="height: 200px;">
-
-
                 <v-col align-self="center" cols="12" class="text-center">
                   <v-icon size="70">mdi-microsoft-excel</v-icon>
                 </v-col>
@@ -26,12 +25,12 @@
                     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     @change="handleFileChanged">
                 </v-col>
-
               </v-row>
             </v-container>
           </v-card>
         </v-col>
         <v-col cols="6">
+          <strong v-if="listTitle != null">{{ listTitle }}</strong>
           <div v-if="file != null">
             <v-list-item>
               <template v-slot:prepend>
@@ -45,16 +44,28 @@
             <v-divider></v-divider>
           </div>
         </v-col>
+        <v-col cols="12">
+          <strong class="text-secondary">อัพโหลดเฉพาะไฟล์ Excel จำนวน 1 ไฟล์เท่านั้น*</strong>
+        </v-col>
       </v-row>
-    </v-card-item>
-    <v-card-actions class="pl-8">
-      <strong class="text-secondary">อัพโหลดเฉพาะไฟล์ Excel จำนวน 1 ไฟล์เท่านั้น*</strong>
-    </v-card-actions>
-  </v-card>
 </template>
 <script>
 import convertSize from "convert-size";
 export default {
+  props: {
+    isFile: {
+      type: Object,
+      default: null
+    },
+    title:{
+      type: String,
+      default: null
+    },
+    listTitle:{
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
       file: null,
@@ -63,16 +74,29 @@ export default {
       isDragging: false,
     };
   },
+  watch: {
+    isFile(val) {
+      if (val) {
+        this.file = val;
+        this.fileName = val.name
+        this.fileSize = convertSize(val.size)
+      }else{
+        this.file = null;
+        this.fileName = "";
+        this.fileSize = "";
+      }
+    }
+  },
   methods: {
     handlePickFile() {
       window.addEventListener('focus', () => { }, { once: true })
       this.$refs.uploader.click()
     },
     handleFileChanged(e) {
-      this.file = e.target.files[0];
-      this.fileName = e.target.files[0].name
-      this.fileSize = convertSize(e.target.files[0].size)
-      this.$emit('input-file', this.file);
+      // this.file = e.target.files[0];
+      // this.fileName = e.target.files[0].name
+      // this.fileSize = convertSize(e.target.files[0].size)
+      this.$emit('input-file', e.target.files[0]);
     },
     dragover(e) {
       e.preventDefault();

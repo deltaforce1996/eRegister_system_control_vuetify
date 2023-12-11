@@ -26,14 +26,15 @@ const isActive = (path) => {
 };
 
 const items = [
-  { id: 1, icon: "mdi mdi-information", path: "/" },
-  { id: 2, icon: "mdi mdi-account-cog", path: "/UserManagement" },
-  { id: 3, icon: "mdi mdi-account-lock", path: "/ListRolesPage" },
-  { id: 4, icon: "mdi mdi-clipboard-list", path: "/2" },
-  { id: 5, icon: "mdi mdi-text-search-variant", path: "/3" },
-  { id: 6, icon: "mdi mdi-chart-timeline-variant", path: "/4" },
-  { id: 7, icon: "mdi mdi-account-group", path: "/5" },
+  { id: 1, icon: "mdi mdi-information", isActive: false, path: "/" },
+  { id: 2, icon: "mdi mdi-account-cog", isActive: false, path: "/UserManagement" },
+  { id: 3, icon: "mdi mdi-account-lock", isActive: false, path: "/ListRolesPage" },
+  { id: 4, icon: "mdi mdi-clipboard-list", isActive: false, path: "/SDTeamMangement/SDActiveMangement" },
   { id: 8, icon: "mdi mdi-help-circle", path: "/MasterDataManagement" },
+  // { id: 5, icon: "mdi mdi-text-search-variant", isActive: false, path: "/" },
+  // { id: 6, icon: "mdi mdi-chart-timeline-variant", isActive: false, path: "/" },
+  // { id: 7, icon: "mdi mdi-account-group", isActive: false, path: "/" },
+  // { id: 8, icon: "mdi mdi-help-circle", isActive: false, path: "/" },
 ];
 
 </script>

@@ -76,6 +76,31 @@ const routes = [
         component: () =>
           import("@/views/master-data/TeamManagement.vue"),
       },
+      {
+        path: '/SDTeamMangement/SDActiveMangement',
+        name: 'SDActiveMangementPage',
+        component: () => import('@/views/SDTeamMangement/SDActiveMangement.vue'),
+      },
+      {
+        path: '/SDTeamMangement/RspPolicy',
+        name: 'RspPolicyPage',
+        component: () => import('@/views/SDTeamMangement/RspPolicy.vue'),
+      },
+      {
+        path: '/SDTeamMangement/Survey',
+        name: 'SurveyPage',
+        component: () => import('@/views/SDTeamMangement/Survey.vue'),
+      },
+      {
+        path: '/SDTeamMangement/Survey/Created',
+        name: 'SurveyCreatePage',
+        component: () => import('@/views/SDTeamMangement/SurveyCreate.vue'),
+      },
+      {
+        path: '/SDTeamMangement/Traning',
+        name: 'SurvayPage',
+        component: () => import('@/views/SDTeamMangement/Traning.vue'),
+      },
     ],
   },
 ];

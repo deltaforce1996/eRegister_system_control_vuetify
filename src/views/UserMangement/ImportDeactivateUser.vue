@@ -2,57 +2,26 @@
   <div>
     <v-row justify="end" class="mt-2 mb-2">
       <v-col cols="2">
-        <v-btn variant="elevated" class="text-capitalize" color="secondary" block>
+        <v-btn variant="elevated" class="text-capitalize" color="secondary" block @click="download">
           <v-icon left>mdi-microsoft-excel</v-icon>
           Download template
         </v-btn>
       </v-col>
     </v-row>
-    <Choosefile @input-file="handleOnChangeFile"></Choosefile>
-    <v-card class="mx-auto elevation-1 mt-5" color="secondary">
-      <v-card-item>
-        <v-row no-gutters>
-            <v-col cols="1">
-              <strong>No.</strong>
-            </v-col>
-            <v-divider vertical></v-divider>
-            <v-col cols="11">
-              <strong class="pl-1">Email</strong>
-            </v-col>
-          </v-row>
-      </v-card-item>
-    </v-card>
-    <v-card class="mx-auto elevation-1 mt-5">
-    <div v-for="n in 3" :key="n">
-
-        <v-card-item>
-          <v-row no-gutters>
-            <v-col cols="1">
-              <strong>No.</strong>
-            </v-col>
-            <v-divider vertical></v-divider>
-            <v-col cols="11">
-              <strong class="pl-1">Email</strong>
-            </v-col>
-          </v-row>
-        </v-card-item>
-        <v-divider></v-divider>
+    <Choosefile class="elevation-1 pa-8" @input-file="handleOnChangeFile" :is-file="file"></Choosefile>
+    <ImportDeactivateUserTable class="mt-5 mb-5" :items="items" />
+    <div v-if="isValid.length > 0">
+      <strong class="text-secondary">ไฟล์ที่ที่อัพไม่ตรงกับ template กรุณาตรวจสอบและอัพใหม่อีกครั้ง*</strong>
+      <div v-for="message in isValid" :key="message">
+        <strong class="text-secondary">{{ message }}</strong>
       </div>
-  </v-card>
-
-  <div>
-    <strong class="text-secondary">ไฟล์ที่ที่อัพไม่ตรงกับ template กรุณาตรวจสอบและอัพใหม่อีกครั้ง*</strong>
-      <div  v-for="message in errorCcurred" :key="message">
-        <strong class="text-secondary">{{message}}</strong>
-      </div>
-
-  </div>
-  <v-divider class="mt-5 mb-5"></v-divider>
-  <div class="text-center ">
-      <v-btn rounded class="ma-2" color="black"  style="width: 100px;" @Click="dismiss">
+    </div>
+    <v-divider class="mt-5 mb-5"></v-divider>
+    <div class="text-center ">
+      <v-btn rounded class="ma-2" color="black" style="width: 100px;" @Click="dismiss">
         <strong>ยกเลิก</strong>
       </v-btn>
-      <v-btn rounded class="ma-2" color="secondary" style="width: 100px;" @Click="handleClickConfirm">
+      <v-btn rounded class="ma-2" color="secondary" style="width: 100px;" @Click="submit">
         <strong>ตกลง</strong>
       </v-btn>
     </div>
@@ -62,33 +31,106 @@
 
 /*eslint-disable no-unused-vars  */
 import readXlsxFile from 'read-excel-file'
+import { Base64 } from 'js-base64'
+import { saveAs } from 'file-saver'
 import Choosefile from '@/components/forms/Choosefile'
-import { ref, reactive ,onMounted} from "vue";
+import ImportDeactivateUserTable from "@/components/tables/ImportDeactivateUserTable.vue";
+import validate from "@/utils/validateUtils";
+import userService from '@/apis/UserService';
+import { ref, reactive, onMounted } from "vue";
+import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
+import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
+import { useValidDialog } from '@/components/dialogs/TemplateDialogService'
 
-const emit = defineEmits(["is-title",'is-view']);
+const emit = defineEmits(["is-title", 'is-view']);
+const { showValidDialog } = useValidDialog();
+const { throwExceptionMessage } = useErrorHandlingDialog();
+const { showDialog } = useConfirmationDialog();
 
-
-const fileContent = ref(null);
 const file = ref(null);
-const errorCcurred = [
-  "-No 1 xxxxx",
-  "-No 2 xxxxx",
-  "-No 3 xxxxx",
-]
-onMounted (() => {
+const items = ref([]);
+const loading = ref(false);
+const isValid = ref([]);
+onMounted(() => {
   emit('is-title', "");
 });
 
-function  handleOnChangeFile(file){
-   console.log(file)
-   readXlsxFile(file).then((rows) => {
-    console.log(rows)
-    // `rows` is an array of rows
-    // each row being an array of cells.
-  })
+const handleOnChangeFile = async (_file) => {
+  file.value = _file;
+  items.value = [];
+  isValid.value = [];
+  const value = await readXlsxFile(_file);
+  for (let index = 1; index < value.length; index++) {
+    const format = {
+      email: value[index][0], // emial
+    }
+    if (!validate.isValidEmail(format.email)) {
+      const message = `No.${index} Email format ไม่ถูกต้อง`;
+      isValid.value.push(message)
+    }
+    items.value.push(format)
+  }
 }
-const dismiss=()=>{
-    emit("is-view",'user-main')
+const dismiss = () => {
+  emit("is-view", 'user-main')
 }
-
+const download = async () => {
+  try {
+    loading.value = true;
+    const response = await userService.downloadTemplateDeactiviteUser();
+    const { data } = response
+    const decode = Base64.toUint8Array(data)
+    const blob = new Blob([decode], { type: 'xlsx' })
+    saveAs(blob, "TemplateDeactiviteUser.xlsx")
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      throwExceptionMessage(val.message, val?.data.error);
+      return;
+    }
+    throwExceptionMessage("unknown", e.message);
+  } finally {
+    loading.value = false;
+  }
+}
+const submit = async (e) => {
+  e.preventDefault()
+  if (file.value === null) {
+    await showValidDialog('ไม่พบไฟล์', 'กรุณาตรวจสอบไฟล์และอัพโหลดใหม่อีกครั้ง');
+    return
+  }
+  const fileName = file.value.name
+  const isFile = fileName.split('.');
+  if (!validate.isValidExcel(isFile[1])) {
+    await showValidDialog('ไฟล์ที่อัพโหลดไม่ใช้ไฟล์ Excel', 'กรุณาตรวจสอบไฟล์และอัพโหลดใหม่อีกครั้ง');
+    return
+  }
+  if (isValid.value.length > 0) {
+    await showValidDialog('ไฟล์ที่อัพโหลดไม่ตรงกับ templete', 'กรุณาตรวจสอบไฟล์และอัพโหลดใหม่อีกครั้ง');
+    return
+  }
+  const confirmed = await showDialog('ยืนยันการบันทึก?', 'กรุณาตรวจสอบ คลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+  if (confirmed) {
+    try {
+      loading.value = true;
+      const response = await userService.submitImportActiveUser(items.value);
+      if (response.data?.is_success) {
+        file.value = null;
+        items.value = [];
+        isValid.value = [];
+      }
+    } catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        throwExceptionMessage(val.message, val?.data.error);
+        return;
+      }
+      throwExceptionMessage("unknown", e.message);
+    } finally {
+      loading.value = false;
+    }
+  } else {
+    console.log('Action cancelled.');
+  }
+}
 </script>

@@ -1,0 +1,32 @@
+{
+    "is_success": true,
+    "code": 200,
+    "message": "Ok",
+    "data": [
+      {
+        "id": 1,
+        "name": "Vender",
+        "description": ""
+      },
+      {
+        "id": 2,
+        "name": "Admin vendor",
+        "description": ""
+      },
+      {
+        "id": 3,
+        "name": "SD Team",
+        "description": ""
+      },
+      {
+        "id": 4,
+        "name": "Account",
+        "description": ""
+      },
+      {
+        "id": 5,
+        "name": "Admin",
+        "description": ""
+      }
+    ]
+}
