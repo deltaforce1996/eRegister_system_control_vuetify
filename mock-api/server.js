@@ -18,13 +18,14 @@ const port = process.env.PORT || 4000;
 const users = require('./data/user.json')
 const company = require('./data/company.json')
 const memberType = require('./data/memberType.json')
+const role = require('./data/role.json')
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 app.get('/v1/getAllMemberType', async (req, res) => {
   await delay(2000);
-  res.json(users);
+  res.json(memberType);
 });
 app.get('/v1/getAllCompany', async (req, res) => {
   await delay(2000);
@@ -32,7 +33,7 @@ app.get('/v1/getAllCompany', async (req, res) => {
 });
 app.get('/v1/getAllRole', async (req, res) => {
   await delay(2000);
-  res.json(memberType);
+  res.json(role);
 });
 app.get('/v1/users/get-users', async (req, res) => {
   await delay(2000);
