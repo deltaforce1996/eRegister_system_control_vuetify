@@ -64,13 +64,12 @@ const items_permission = reactive(props.desserts);
 const emit = defineEmits(["on-delete-permission", "on-permission-change"]);
 
 const on_clicked_add_module = () => {
-  items_permission.push({
-    permission: "Colorado",
-    view: false,
-    created: false,
-    updated: false,
-    deleted: false,
-  });
+  const item_allow = {}
+  props.headers.forEach((el) => {
+    item_allow[el.key] = false
+  })
+  item_allow.permission = null
+  items_permission.push(item_allow);
 };
 
 const on_permission_change = (new_items_permission) => {

@@ -88,7 +88,7 @@ const permission_module_mock = {
           description: null,
         },
         {
-          id: 2,
+          id: 0,
           name: "get",
           description: null,
         },
@@ -124,6 +124,7 @@ const desserts_module = reactive([]);
 const title = ref("");
 const role_name = ref("");
 const role_desc = ref("");
+// const body_updated_role_by_id = ref({})
 
 onMounted(() => {
   if (role_id) {
@@ -131,6 +132,7 @@ onMounted(() => {
     title.value = "Update Role & Permission";
     role_name.value = roles_mock.name;
     role_desc.value = roles_mock.description;
+    //call api here
     generate_desserts();
   } else {
     console.log("Without fetch role this is new form");
@@ -142,7 +144,6 @@ const headers = action_all_mock.map(action => ({
   title: action.name,
   key: action.name
 }));
-
 headers.unshift({ title: "Permission Module", key: "permission" });
 headers.push({ title: "Action", key: "action" });
 

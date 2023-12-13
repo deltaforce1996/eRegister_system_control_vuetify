@@ -117,11 +117,17 @@ const item_selection = [
       :key="index"
       v-slot:[`item.${header.key}`]="{ item }"
     >
-      <p v-if="header.key === 'permission' && isReadOnly">
+      <p
+        v-if="
+          header.key === 'permission' && isReadOnly && header.key !== 'action'
+        "
+      >
         {{ item.permission }}
       </p>
       <v-select
-        v-if="header.key === 'permission' && !isReadOnly"
+        v-else-if="
+          header.key === 'permission' && !isReadOnly && header.key !== 'action'
+        "
         density="compact"
         v-model="item.permission"
         :items="items_selection"
@@ -130,21 +136,29 @@ const item_selection = [
         variant="solo"
       />
       <v-checkbox
-        v-if="header.key !== 'permission' && !isReadOnly"
+        v-else-if="
+          header.key !== 'permission' && !isReadOnly && header.key !== 'action'
+        "
         density="compact"
         color="secondary"
         v-model="item[header.key]"
         :readonly="isReadOnly"
       ></v-checkbox>
       <v-icon
-        v-if="isReadOnly && item[header.key] && header.key !== 'permission'"
+        v-else-if="
+          isReadOnly &&
+          item[header.key] &&
+          header.key !== 'permission' &&
+          header.key !== 'action'
+        "
         color="green"
         >mdi mdi-check-bold</v-icon
       >
-    </template>
-
-    <template v-slot:[`item.action`]="{ item }">
-      <v-icon @click="on_delete_clicked(item)">mdi mdi-delete</v-icon>
+      <v-icon
+        v-else-if="!isReadOnly && header.key === 'action'"
+        @click="on_delete_clicked(item)"
+        >mdi mdi-delete</v-icon
+      >
     </template>
   </v-data-table-virtual>
 </template>

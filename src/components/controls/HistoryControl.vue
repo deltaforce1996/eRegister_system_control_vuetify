@@ -1,6 +1,6 @@
 <template>
   <v-row  no-gutters>
-    <v-col cols="12" class="d-flex justify-end pr-5 pb-2 pt-1">
+    <v-col cols="12" class="d-flex justify-end">
       <a>
         <p
           class="custom-font-size clickable-underline"

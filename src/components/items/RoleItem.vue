@@ -34,7 +34,7 @@
       </v-col>
       <v-col>
         <v-card style="border-radius: 0px;">
-            <history-control @link-clicked="onItemLogClicked" />
+            <history-control @link-clicked="onItemLogClicked" class="pr-5 pb-2 pt-1" />
           </v-card>
       </v-col>
       </v-row>
