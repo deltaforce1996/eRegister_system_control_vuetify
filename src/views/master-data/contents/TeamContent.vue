@@ -21,6 +21,8 @@ import MasterTable from "@/components/tables/MasterTable.vue";
 import ButtonControl from "@/components/controls/ButtonControl.vue";
 import { useRouter } from "vue-router";
 import { reactive } from "vue";
+import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
+const { showDialog } = useConfirmationDialog();
 
 const router = useRouter();
 
@@ -93,14 +95,25 @@ const on_go_to_create = () => {
   router.push({ name: "TeamManagement" });
 };
 
-const handle_item_clicked = (event) => {
+const handle_item_clicked = async (event) => {
   const result = event.split(",");
   if (result.length > 0 && result[1] === "edit") {
     router.push({ name: "TeamManagement", params: { id: result[0] } });
+  }
+
+  if (result.length > 0 && result[1] === "delete") {
+    const is_ok = await showDialog(
+      "ยืนยันการลบ Team ?",
+      "กรุณาตรวจสอบคุณไม่สามารถกลับมาแก้ไขได้\nคลิกปุ่มตกลง เพื่อดำเนินการ"
+    );
+    if (is_ok) {
+      console.log("Call api delete: ", result[0]);
+    }
   }
 };
 
 const handle_history = (index) => {
   console.log("history: ", index);
+  router.push({ name: "HistoryTeamPage" });
 };
 </script>

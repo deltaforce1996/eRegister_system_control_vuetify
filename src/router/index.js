@@ -77,6 +77,12 @@ const routes = [
           import("@/views/master-data/TeamManagement.vue"),
       },
       {
+        path: "/HistoryTeamPage",
+        name: "HistoryTeamPage",
+        component: () =>
+          import("@/views/historyLog/HistoryTeamPage.vue"),
+      },
+      {
         path: '/SDTeamMangement/SDActiveMangement',
         name: 'SDActiveMangementPage',
         component: () => import('@/views/SDTeamMangement/SDActiveMangement.vue'),
