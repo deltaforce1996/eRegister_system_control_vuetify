@@ -1,31 +1,22 @@
 <template>
   <div class="text-center">
       <v-pagination
-          :value="props.currentPage"
+          v-model="offset"
           :length="props.length" :total-visible="7"
+          density="compact"
            class="custom-pagination"
-          @change="onChangePage"
         />
     </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
-// currentPage: 1,
-//       itemsPerPage: 5, // Adjust based on your requirement
-//       totalItems: 20, // Adjust based on your requirement
+import { defineProps,computed } from 'vue';
+
+const emit = defineEmits(["value"]);
 const props = defineProps({
-  currentPage: {
+  value: {
     type: Number,
     default: 1
-  },
-  text: {
-    type: String,
-    default: 'None'
-  },
-  id: {
-    type: String,
-    default: null
   },
   length:{
     type:  Number,
@@ -33,10 +24,11 @@ const props = defineProps({
   }
 });
 
-const onChangePage=(e)=>{
-  console.log(e)
-}
-
+console.log("->"+props.value)
+const offset = computed({
+  get() { return props.value },
+  set(val) { emit("value", val) },
+});
 </script>
 
 <style>

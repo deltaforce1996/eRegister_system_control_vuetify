@@ -1,7 +1,7 @@
 import axios from 'axios'
 const _axios = axios.create()
 
-_axios.defaults.baseURL = " http://127.0.0.1:4000/v1",
+_axios.defaults.baseURL = " http://127.0.0.1:4000",
 _axios.defaults.timeout = 12000;
 
 
