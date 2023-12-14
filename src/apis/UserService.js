@@ -30,10 +30,10 @@ const  submitImportActiveUser = async (data = [])=>{
      }
    });
 }
-const  submitImportDeactiveUser = async (data = [])=>{
+const  updateDeactiveUsers = async (data = [])=>{
   return await axiosBase({
      method: 'post',
-     url: '/MockDeactiveUser',
+     url: '/user/deactivate-user',
      data: {
         user:Array.from(data, (i) => {
           return  {
@@ -53,10 +53,10 @@ const  downloadTemplateActiviteUser = async ()=>{
    });
 }
 
-const  downloadTemplateDeactiviteUser = async ()=>{
+const  downloadDeactiviteUsers = async ()=>{
   return await axiosBase({
      method: 'get',
-     url: '/MockDownlaodTemplate',
+     url: '/test/download/deactivate',
      data: {}
    });
 }
@@ -65,6 +65,6 @@ export default {
   getUserAll,
   downloadTemplateActiviteUser,
   submitImportActiveUser,
-  downloadTemplateDeactiviteUser,
-  submitImportDeactiveUser
+  downloadDeactiviteUsers,
+  updateDeactiveUsers
  }

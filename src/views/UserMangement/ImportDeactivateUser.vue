@@ -77,11 +77,11 @@ const dismiss = () => {
 const download = async () => {
   try {
     loading.value = true;
-    const response = await userService.downloadTemplateDeactiviteUser();
+    const response = await userService.downloadDeactiviteUsers();
     const { data } = response
     const decode = Base64.toUint8Array(data)
     const blob = new Blob([decode], { type: 'xlsx' })
-    saveAs(blob, "TemplateDeactiviteUser.xlsx")
+    saveAs(blob, "deactivate-user.xlsx")
   } catch (e) {
     if (e.response) {
       const val = e.response.data
@@ -113,7 +113,7 @@ const submit = async (e) => {
   if (confirmed) {
     try {
       loading.value = true;
-      const response = await userService.submitImportActiveUser(items.value);
+      const response = await userService.updateDeactiveUsers(items.value);
       if (response.data?.is_success) {
         file.value = null;
         items.value = [];

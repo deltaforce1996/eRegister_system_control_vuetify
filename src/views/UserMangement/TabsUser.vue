@@ -37,7 +37,7 @@ onBeforeMount(() => {
   currentComponent.value = UserForm;
   items.value= [
           { title: 'AddUser', icon: 'mdi-account-outline', content: UserForm },
-          { title: 'Import activite user', icon: 'mdi-link-variant', content: ImportActiviteUser },
+          { title: 'Import activate user', icon: 'mdi-link-variant', content: ImportActiviteUser },
           { title: 'Import deactivate user', icon: 'mdi-link-variant', content: ImportDeactivateUser }
         ]
 });

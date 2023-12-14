@@ -20,6 +20,7 @@ module.exports = (app) => {
     res.json(user_byId);
 });
   app.post('/user/deactivate-user', (req, res) => {
+    console.log(req.body)
       res.json({
         "is_success": true,
         "code": 200,
