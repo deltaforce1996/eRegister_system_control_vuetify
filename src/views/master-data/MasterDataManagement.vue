@@ -17,10 +17,10 @@
     </template>
   </v-navigation-drawer>
   <v-container fluid>
-    <CorparationContent v-if="activeItem === 'Corporation'" />
-    <BusinessUnit v-if="activeItem === 'Business Unit'" />
-    <CompanyContent v-if="activeItem === 'Company'"/>
-    <TeamContent v-if="activeItem === 'Team'" />
+    <CorparationContent v-if="activeItem && activeItem === 'Corporation'" />
+    <BusinessUnit v-if="activeItem && activeItem === 'Business Unit'" />
+    <CompanyContent v-if="activeItem && activeItem === 'Company'"/>
+    <TeamContent v-if="activeItem && activeItem === 'Team'" />
   </v-container>
 </template>
 

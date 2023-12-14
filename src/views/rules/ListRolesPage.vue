@@ -109,14 +109,6 @@ const permission_module_mock = [
   },
 ];
 
-// const herders_table = [
-//   { title: "Permission Module", key: "permission" },
-//   { title: "View", key: "view" },
-//   { title: "Create", key: "created" },
-//   { title: "Update", key: "updated" },
-//   { title: "Delete", key: "deleted" },
-// ];
-
 const action_all_mock = [
   { id: 0, name: "view", description: "" },
   { id: 1, name: "created", description: "" },
@@ -129,9 +121,7 @@ const headers = action_all_mock.map((action) => ({
   title: action.name,
   key: action.name,
 }));
-
 headers.unshift({ title: "Permission Module", key: "permission" });
-headers.push({ title: "Action", key: "action" });
 
 const is_item_expan = ref(null);
 
@@ -141,31 +131,11 @@ watch(is_item_expan, (newValue, oldValue) => {
   );
 });
 
-// const generate_desserts = (role_id) => {
-//   let desserts = [];
-//   const find_role_id = permission_module_mock.find(
-//     (el) => (el.role_id = role_id)
-//   );
-//   if (find_role_id)
-//     find_role_id.module.forEach((item) => {
-//       desserts.push({
-//         permission: item.name_th,
-//         view: item.action.some((obj) => obj.id === 2),
-//         created: item.action.some((obj) => obj.id === 1),
-//         updated: item.action.some((obj) => obj.id === 3),
-//         deleted: item.action.some((obj) => obj.id === 4),
-//       });
-//     });
-//   return desserts;
-// };
-
 const generate_desserts = (role_id) => {
   const desserts_module = [];
-
   const find_role_id = permission_module_mock.find(
     (el) => el.role_id === role_id
   );
-
   if (find_role_id)
     find_role_id.module.forEach((item) => {
       let dessert = {
@@ -176,7 +146,6 @@ const generate_desserts = (role_id) => {
       });
       desserts_module.push(dessert);
     });
-
   return desserts_module;
 };
 

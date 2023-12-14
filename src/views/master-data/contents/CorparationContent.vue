@@ -56,5 +56,6 @@ const handle_item_clicked = (event) => {
 
 const handle_history = (index) => {
   console.log("history: ", index);
+  router.push({ name: "HistoryTeamPage" });
 };
 </script>

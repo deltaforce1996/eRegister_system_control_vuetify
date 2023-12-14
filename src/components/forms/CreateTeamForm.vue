@@ -79,6 +79,9 @@
 import { ref } from "vue";
 import { reactive } from "vue";
 import ButtonControl from "../controls/ButtonControl.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 let item_business_unit = reactive([]);
 let item_companies = reactive([]);
@@ -121,7 +124,7 @@ item_business_unit = [
 ];
 
 const on_go_to_back = () => {
-
+  router.go(-1);
 }
 
 const submit_from_new_team = () => {

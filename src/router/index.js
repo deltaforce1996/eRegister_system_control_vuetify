@@ -71,10 +71,16 @@ const routes = [
           import("@/views/master-data/details/CompanyDetail.vue"),
       },
       {
-        path: "/TeamManagement",
+        path: "/MasterDataManagement/TeamManagement/:id?",
         name: "TeamManagement",
         component: () =>
           import("@/views/master-data/TeamManagement.vue"),
+      },
+      {
+        path: "/HistoryTeamPage",
+        name: "HistoryTeamPage",
+        component: () =>
+          import("@/views/historyLog/HistoryTeamPage.vue"),
       },
       {
         path: '/SDTeamMangement/SDActiveMangement',

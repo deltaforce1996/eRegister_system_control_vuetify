@@ -98,7 +98,7 @@
         >
           <div
             v-if="Array.isArray(item[header.value])"
-            style="justify-items: center"
+            style="justify-content: space-between; align-items: center;"
           >
             <ButtonControl
               v-for="(action, actionIndex) in item[header.value]"
@@ -108,6 +108,7 @@
               :color="action.color"
               :id="index.toString() + ',' + action.action"
               @button-clicked="handle_item_clicked"
+              style="flex: auto;"
             />
           </div>
           <p
@@ -126,20 +127,8 @@
             "
             :id="index.toString()"
             @link-clicked="handle_go_to_history"
-          />
-          <v-chip
-            density
-            :color="item[header.value] ? 'green' : 'gray'"
-            v-if="header.value === 'status'"
-            label
-          >
-            <v-badge
-              dot
-              inline
-              :color="item[header.value] ? 'green' : 'gray'"
-            ></v-badge>
-            <p>{{ item[header.value] ? "Active" : "Inactive" }}</p>
-          </v-chip>
+          /> 
+          <Active :value="item[header.value]" v-if="header.value === 'status'" />
         </v-col>
       </v-row>
     </v-col>
@@ -149,6 +138,7 @@
 <script setup>
 import ButtonControl from "../controls/ButtonControl.vue";
 import HistoryControl from "../controls/HistoryControl.vue";
+import Active from "../status/Active.vue";
 
 const props = defineProps({
   headers: {
