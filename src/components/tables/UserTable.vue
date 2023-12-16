@@ -85,7 +85,6 @@
               <v-divider class="mt-2 mb-2"></v-divider>
               <v-row justify="end">
                 <v-col cols="1">
-                   <v-btn variant="text" block> History log </v-btn>
                   <a href="/HistoryUserPage" class="text-black">History log</a>
                 </v-col>
               </v-row>
