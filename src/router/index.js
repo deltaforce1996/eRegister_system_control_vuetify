@@ -107,6 +107,12 @@ const routes = [
       //   name: 'SurvayPage',
       //   component: () => import('@/views/SDTeamMangement/Traning.vue'),
       // },
+
+      {
+        path: '/SDTeamDashboard/TrackingSDActivite',
+        name: 'TrackingSDActivitePage',
+        component: () => import('@/views/SDTeamDashboard/TrackingSDActivite.vue'),
+      },
     ],
   },
 ];
