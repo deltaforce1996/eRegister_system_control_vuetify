@@ -74,133 +74,130 @@
                 <v-col cols="8">
                   <v-row dense>
                     <v-col cols="12">
-                     <div class="text-h6 text-secondary font-weight-black">Company Info.</div>
+                      <div class="text-h6 text-secondary font-weight-black">Company Info.</div>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Business Partner Number</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Vendor Number</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Customer Number</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">FPT Affillate</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Organization Type</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Juristic Type</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Company Category</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Product / Service Category</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="12">
                       <label class="font-weight-medium  text-grey-lighten-1">Tax ID</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                   </v-row>
                   <v-divider class="mt-5 mb-5"></v-divider>
                   <v-row dense class="mt-5">
                     <v-col cols="12">
-                     <div class="text-h6 text-secondary font-weight-black">Branch Info.</div>
+                      <div class="text-h6 text-secondary font-weight-black">Branch Info.</div>
                     </v-col>
                     <v-col cols="12">
-                    <v-row>
-                      <v-col cols="4">
-                        <v-select density="compact" variant="outlined" placeholder="Roles" item-title="name" item-value="id">
-                      <template v-slot:append-inner>
-                        <v-badge color="#FF7E40" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                    </v-col>
-                    </v-row>
+                      <v-row>
+                        <v-col cols="4">
+                          <v-select density="compact" variant="outlined" placeholder="Roles" item-title="name"
+                            item-value="id">
+                            <template v-slot:append-inner>
+                              <v-badge color="#FF7E40" content="6" inline text-color="#FFFFFF"></v-badge>
+                            </template>
+                          </v-select>
+                        </v-col>
+                      </v-row>
 
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Business Partner Role</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="9">
                       <label class="font-weight-medium  text-grey-lighten-1">Branch Code </label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="12">
                       <label class="font-weight-medium  text-grey-lighten-1">Company Code</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="12">
                       <label class="font-weight-medium  text-grey-lighten-1">Branch Address</label>
-                      <br/>
+                      <br />
                       <span class="font-weight-black">value</span>
                     </v-col>
                     <v-col cols="12">
                       <label class="font-weight-medium  text-grey-lighten-1">Contact Person</label>
-                      <br/>
-                      <v-row v-for="(item,index) in 3" :key="index" dense>
+                      <br />
+                      <v-row v-for="(item, index) in 3" :key="index" dense>
                         <v-col cols="4">
-                          <span class="font-weight-black">  name surname-{{index}}</span>
-                         </v-col>
-                         <v-col cols="4">
-                          <span class="font-weight-black">  08465466</span>
-                         </v-col>
-                         <v-col cols="4">
-                            <span class="font-weight-black">  test@gamil.com</span>
-                         </v-col>
+                          <span class="font-weight-black"> name surname-{{ index }}</span>
+                        </v-col>
+                        <v-col cols="4">
+                          <span class="font-weight-black"> 08465466</span>
+                        </v-col>
+                        <v-col cols="4">
+                          <span class="font-weight-black"> test@gamil.com</span>
+                        </v-col>
                       </v-row>
                     </v-col>
                   </v-row>
                   <v-divider class="mt-5 mb-5"></v-divider>
                   <v-row dense>
                     <v-col cols="12">
-                     <div >
+                      <div>
                         <span class="text-h6 text-secondary font-weight-black">Sustainability Activites</span>
                         <span class="text-h6 text-secondary pl-1 mr-1">:</span>
                         <span class="text-h6 text-light-green-accent-4 font-weight-black">Align</span>
-                     </div>
+                      </div>
                     </v-col>
                     <v-col cols="12">
                       <v-list lines="two" width="340" dense>
-                          <v-list-item
-                            dense
-                            v-for="file in files"
-                            :key="file.title"
-                          >
-                          <v-list-item-title  class="font-weight-black">{{file.title}}</v-list-item-title>
-                          <v-list-item-subtitle class="font-weight-medium ">{{file.subtitle}}</v-list-item-subtitle>
-                            <template v-slot:append>
-                              <v-avatar color="secondary">
-                                <span class="text-h5">B</span>
-                              </v-avatar>
-                              <!-- <span class="text-h5">B</span> -->
-                            </template>
-                          </v-list-item>
-                        </v-list>
+                        <v-list-item dense v-for="file in files" :key="file.title">
+                          <v-list-item-title class="font-weight-black">{{ file.title }}</v-list-item-title>
+                          <v-list-item-subtitle class="font-weight-medium ">{{ file.subtitle }}</v-list-item-subtitle>
+                          <template v-slot:append>
+                            <v-avatar color="secondary">
+                              <span class="text-h5">B</span>
+                            </v-avatar>
+                            <!-- <span class="text-h5">B</span> -->
+                          </template>
+                        </v-list-item>
+                      </v-list>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -208,12 +205,14 @@
                 <v-col cols="4">
                   <v-row dense class="pa-10">
                     <v-col cols="12">
-                      <v-btn variant="outlined" block class="text-capitalize rounded-pill" color="black">
+                      <v-btn variant="outlined" to="/SDTeamDashboard/FollowUp" block class="text-capitalize rounded-pill"
+                        color="black">
                         Follow up
                       </v-btn>
                     </v-col>
                     <v-col cols="12">
-                      <v-btn block class="text-capitalize rounded-pill" color="teal-accent-4">
+                      <v-btn block to="/SDTeamDashboard/Documents" class="text-capitalize rounded-pill"
+                        color="teal-accent-4">
                         Documents
                       </v-btn>
                     </v-col>
@@ -254,22 +253,22 @@ const props = defineProps({
 const panel = ref([]);
 
 const files = ref([
-        {
-          subtitle: 'update 27/12/2553 10:00 น.',
-          title: 'Action',
-          value:'B'
-        },
-        {
-          subtitle: 'update 27/12/2553 10:00 น.',
-          title: 'Recipes',
-          value:'60'
-        },
-        {
-          subtitle: 'update 27/12/2553 10:00 น.',
-          title: 'Work',
-          value:'70'
-        },
-      ]);
+  {
+    subtitle: 'update 27/12/2553 10:00 น.',
+    title: 'Action',
+    value: 'B'
+  },
+  {
+    subtitle: 'update 27/12/2553 10:00 น.',
+    title: 'Recipes',
+    value: '60'
+  },
+  {
+    subtitle: 'update 27/12/2553 10:00 น.',
+    title: 'Work',
+    value: '70'
+  },
+]);
 
 // eslint-disable-next-line no-unused-vars
 const handleEditEvent = (item) => {

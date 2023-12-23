@@ -113,6 +113,21 @@ const routes = [
         name: 'TrackingSDActivitePage',
         component: () => import('@/views/SDTeamDashboard/TrackingSDActivite.vue'),
       },
+      {
+        path: '/SDTeamDashboard/FollowUp',
+        name: 'FollowUpPage',
+        component: () => import('@/views/SDTeamDashboard/FollowUp.vue'),
+      },
+      {
+        path: '/SDTeamDashboard/Documents',
+        name: 'DocumentsPage',
+        component: () => import('@/views/SDTeamDashboard/Documents.vue'),
+      },
+      {
+        path: '/SDTeamDashboard/AttachFileSurvey',
+        name: 'AttachFileSurveyPage',
+        component: () => import('@/views/SDTeamDashboard/AttachFileSurvey.vue'),
+      },
     ],
   },
 ];
