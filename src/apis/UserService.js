@@ -1,6 +1,6 @@
 
 import axiosBase  from './AxiosConfig';
-const  getUserAll = async (offset = 0,limit = 10, sort_by= 'id:desc')=>{
+const  getUserSearch = async (offset = 0,limit = 1000, sort_by= 'id:desc')=>{
  return await axiosBase({
     method: 'get',
     url: '/users/get-users', //?offset=0&limit=10&sort-by=id:desc
@@ -13,10 +13,10 @@ const  getUserAll = async (offset = 0,limit = 10, sort_by= 'id:desc')=>{
 }
 
 
-const  submitImportActiveUser = async (data = [])=>{
+const  createMultipleUser = async (data = [])=>{
   return await axiosBase({
      method: 'post',
-     url: '/MockActiveUser',
+     url: '/user/create-multiple-user',
      data: {
         user:Array.from(data, (i) => {
           return  {
@@ -30,7 +30,8 @@ const  submitImportActiveUser = async (data = [])=>{
      }
    });
 }
-const  updateDeactiveUsers = async (data = [])=>{
+const  deactivateUser
+= async (data = [])=>{
   return await axiosBase({
      method: 'post',
      url: '/user/deactivate-user',
@@ -40,31 +41,32 @@ const  updateDeactiveUsers = async (data = [])=>{
               email : i.email
             }
         }),
-      updated_user_id :'id-user'
+      updated_user_id : 16 //  mock
      }
    });
 }
 
-const  downloadTemplateActiviteUser = async ()=>{
+const  downloadCreateMultipleUserTemplate
+= async ()=>{
   return await axiosBase({
      method: 'get',
-     url: '/MockDownlaodTemplate',
+     url: '/user/download-create-multiple-user-template',
      data: {}
    });
 }
 
-const  downloadDeactiviteUsers = async ()=>{
+const  downloadDeactivateUserTemplate = async ()=>{
   return await axiosBase({
      method: 'get',
-     url: '/test/download/deactivate',
+     url: '/user/download-deactivate-user-template',
      data: {}
    });
 }
 
 export default {
-  getUserAll,
-  downloadTemplateActiviteUser,
-  submitImportActiveUser,
-  downloadDeactiviteUsers,
-  updateDeactiveUsers
+  getUserSearch,
+  downloadCreateMultipleUserTemplate,
+  downloadDeactivateUserTemplate,
+  createMultipleUser,
+  deactivateUser
  }

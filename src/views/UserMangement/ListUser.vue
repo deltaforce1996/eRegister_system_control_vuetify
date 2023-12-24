@@ -180,7 +180,7 @@ const handleFetchUsers = async () => {
     loading.value.tables = true;
     items.value.tables = [];
     const sort_by =  `id:desc&search_key=${filter.value.search_key}&member_type_id=${filter.value.member_type_id}&role_id=${filter.value.role_id}&is_active=${filter.value.is_active}`
-    const response = await UserService.getUserAll(filter.value.offset, filter.value.limit, sort_by);
+    const response = await UserService.getUserSearch(filter.value.offset, filter.value.limit, sort_by);
     items.value.tables = response.data?.data
   } catch (e) {
     if (e.response) {

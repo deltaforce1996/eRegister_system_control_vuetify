@@ -77,7 +77,7 @@ const dismiss = () => {
 const download = async () => {
   try {
     loading.value = true;
-    const response = await userService.downloadDeactiviteUsers();
+    const response = await userService.downloadDeactivateUserTemplate();
     const { data } = response
     const decode = Base64.toUint8Array(data)
     const blob = new Blob([decode], { type: 'xlsx' })
@@ -113,7 +113,7 @@ const submit = async (e) => {
   if (confirmed) {
     try {
       loading.value = true;
-      const response = await userService.updateDeactiveUsers(items.value);
+      const response = await userService.deactivateUser(items.value);
       if (response.data?.is_success) {
         file.value = null;
         items.value = [];
@@ -122,6 +122,7 @@ const submit = async (e) => {
     } catch (e) {
       if (e.response) {
         const val = e.response.data
+        //console.log(val)
         throwExceptionMessage(val.message, val?.data.error);
         return;
       }
