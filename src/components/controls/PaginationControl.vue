@@ -4,7 +4,7 @@
           v-model="offset"
           :length="props.length" :total-visible="7"
           density="compact"
-           class="custom-pagination"
+          class="custom-pagination"
         />
     </div>
 </template>
@@ -24,7 +24,6 @@ const props = defineProps({
   }
 });
 
-console.log("->"+props.value)
 const offset = computed({
   get() { return props.value },
   set(val) { emit("value", val) },

@@ -8,7 +8,7 @@ const state = reactive({
 
 const resolvePromise = ref(null);
 
-function throwExceptionMessage(title,message) {
+function handlingErrorsMessage(title,message) {
   state.title = title;
   state.message = message;
   state.isVisible = true;
@@ -22,6 +22,6 @@ function throwExceptionMessage(title,message) {
 export function useErrorHandlingDialog() {
   return {
     ...toRefs(state),
-    throwExceptionMessage
+    handlingErrorsMessage
   };
 }

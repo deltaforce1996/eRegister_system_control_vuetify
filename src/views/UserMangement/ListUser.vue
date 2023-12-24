@@ -74,7 +74,7 @@ import PaginationControl from '@/components/controls/PaginationControl'
 import UserTable from '@/components/tables/UserTable.vue'
 
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
-const { throwExceptionMessage } = useErrorHandlingDialog();
+const { handlingErrorsMessage } = useErrorHandlingDialog();
 
 const emit = defineEmits(["is-title", 'is-view']);
 const dialogFilter = ref(false)
@@ -132,10 +132,10 @@ const handleLoadAllMemberType = async () => {
   } catch (e) {
     if (e.response) {
       const val = e.response.data
-      throwExceptionMessage(val.message, val?.data.error);
+      handlingErrorsMessage(val.message, val?.data.error);
       return;
     }
-    throwExceptionMessage("unknown", e.message);
+    handlingErrorsMessage("unknown", e.message);
   } finally {
     loading.value.memberType = false;
   }
@@ -151,10 +151,10 @@ const handleLoadAllRole = async () => {
   } catch (e) {
     if (e.response) {
       const val = e.response.data
-      throwExceptionMessage(val.message, val?.data.error);
+      handlingErrorsMessage(val.message, val?.data.error);
       return;
     }
-    throwExceptionMessage("unknown", e.message);
+    handlingErrorsMessage("unknown", e.message);
   } finally {
     loading.value.roles = false;
   }
@@ -170,10 +170,10 @@ const handleFetchUsers = async () => {
   } catch (e) {
     if (e.response) {
       const val = e.response.data
-      throwExceptionMessage(val.message, val?.data.error);
+      handlingErrorsMessage(val.message, val?.data.error);
       return;
     }
-    throwExceptionMessage("unknown", e.message);
+    handlingErrorsMessage("unknown", e.message);
   } finally {
     loading.value.tables = false;
   }

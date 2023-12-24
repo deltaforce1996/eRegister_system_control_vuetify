@@ -44,7 +44,7 @@ import { useValidDialog } from '@/components/dialogs/TemplateDialogService'
 
 const emit = defineEmits(["is-title", 'is-view']);
 const { showValidDialog } = useValidDialog();
-const { throwExceptionMessage } = useErrorHandlingDialog();
+const { handlingErrorsMessage } = useErrorHandlingDialog();
 const { showDialog } = useConfirmationDialog();
 
 const file = ref(null);
@@ -85,10 +85,10 @@ const download = async () => {
   } catch (e) {
     if (e.response) {
       const val = e.response.data
-      throwExceptionMessage(val.message, val?.data.error);
+      handlingErrorsMessage(val.message, val?.data.error);
       return;
     }
-    throwExceptionMessage("unknown", e.message);
+    handlingErrorsMessage("unknown", e.message);
   } finally {
     loading.value = false;
   }
@@ -123,10 +123,10 @@ const submit = async (e) => {
       if (e.response) {
         const val = e.response.data
         //console.log(val)
-        throwExceptionMessage(val.message, val?.data.error);
+        handlingErrorsMessage(val.message, val?.data.error);
         return;
       }
-      throwExceptionMessage("unknown", e.message);
+      handlingErrorsMessage("unknown", e.message);
     } finally {
       loading.value = false;
     }
