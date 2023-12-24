@@ -30,27 +30,41 @@
       </v-col></v-row>
     <h3 style="margin-bottom: 15px">Drag drop compoenent</h3>
     <v-row>
-    <draggable v-model="dragDrop" item-key="id">
+      <draggable v-model="dragDrop" item-key="id">
         <template #item="{ element }">
-            <div>
-              <v-card class="mx-auto" max-width="344">
-                <v-card-actions>
-                  <v-btn variant="text" color="deep-purple-accent-4">
-                      move {{ element.title }}
-                    </v-btn>
-                </v-card-actions>
-                <component :is="element.content" />
-              </v-card>
-            </div>
-          </template>
+          <div>
+            <v-card class="mx-auto mt-1" max-width="344">
+                <v-btn variant="text" color="deep-purple-accent-4">
+                  move {{ element.title }}
+                </v-btn>
+              <component :is="element.content" />
+            </v-card>
+          </div>
+        </template>
       </draggable>
-  </v-row>
+    </v-row>
+
+    <h3 style="margin-bottom: 15px;margin-top: 15px">Scrom player</h3>
+    <v-row>
+      <!-- <iframe :src="courseURL"
+       name="course"
+       width="800"
+       height="500"
+       frameborder="0"></iframe> -->
+       <ScormPlayer
+          :path="`${courseURL}`"
+    ></ScormPlayer>
+       <iframe ref="scormFrame" :src="courseURL" width="100%" height="600"></iframe>
+    </v-row>
   </v-container>
 </template>
 
 <script setup>
 // eslint-disable-next-line no-unused-vars
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, onBeforeMount,onBeforeUnmount } from 'vue';
+// import  scormplayer from 'vue-scorm-player'
+// import { SCORM } from 'pipwerks-scorm-api-wrapper'
+// import { SCORM } from 'pipwerks-scorm-api-wrapper';
 import draggable from 'vuedraggable';
 import ButtonControl from "@/components/controls/ButtonControl.vue";
 import HistoryControl from "@/components/controls/HistoryControl.vue";
@@ -58,6 +72,8 @@ import PaginationControl from "@/components/controls/PaginationControl.vue";
 import HistoryTable from "@/components/tables/HistoryTable.vue";
 import MasterTable from "@/components/tables/MasterTable.vue";
 import PermissionTable from "@/components/tables/PermissionTable.vue";
+
+import { SCORM } from 'pipwerks-scorm-api-wrapper';
 
 import Home1 from "@/views/Home1.vue";
 import Home2 from "@/views/Home2.vue";
@@ -68,20 +84,12 @@ import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogSe
 const { showDialog } = useConfirmationDialog();
 
 const dragDrop = ref([
-          { title: 'Home1', content: Home1 },
-          { title: 'Home2', content: Home2 },
-          { title: 'Home3', content: Home3 },
-      ])
+  { title: 'Home1', content: Home1 },
+  { title: 'Home2', content: Home2 },
+  { title: 'Home3', content: Home3 },
+])
 
-
-// const drag_drop = [
-//   { title: 'Home1', content: Home1 },
-//   { title: 'Home2', content: Home2 },
-//   { title: 'Home3', content: Home3 },
-
-
-// ]
-
+const courseURL = ref(null);
 
 const herders_table = [
   { title: "Permission Module", key: "permission" },
@@ -92,7 +100,7 @@ const herders_table = [
 ];
 
 const desserts = [
-  {
+ {
     permission: "Permission",
     view: true,
     created: false,
@@ -100,7 +108,12 @@ const desserts = [
     deleted: true,
   },
 ];
+onMounted(() => {
 
+  SCORM.init();
+  courseURL.value = '/src/assets/scom/story.html'
+
+});
 const on_open_log = async () => {
   const confirmed = await showDialog(
     "ยืนยันการบันทึก",
@@ -112,4 +125,5 @@ const on_open_log = async () => {
     window.alert("Cancel");
   }
 };
+
 </script>
