@@ -8,7 +8,7 @@
         :is-active="isActive(item.path)"
         :icon="item.icon"
         :id="item.id"
-      />
+      ></nav-item>
     </v-list>
   </v-navigation-drawer>
 </template>
