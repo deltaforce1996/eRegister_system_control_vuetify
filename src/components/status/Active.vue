@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
-    <v-chip v-if="props.value" color="green" label>
+    <v-chip v-if="props.value" color="green" label class="font-weight-bold">
       <v-icon>mdi-circle-medium</v-icon>
       Active
     </v-chip>
-    <v-chip v-else color="secondary" label>
+    <v-chip v-else color="secondary" label class="font-weight-bold">
       <v-icon>mdi-circle-medium</v-icon>
       Inactive
     </v-chip>

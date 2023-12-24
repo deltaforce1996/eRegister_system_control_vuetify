@@ -1,10 +1,10 @@
 
 import axiosBase  from './AxiosConfig';
-const  getUserAll = async (offset,limit,sort_by)=>{
+const  getUserAll = async (offset = 0,limit = 10, sort_by= 'id:desc')=>{
  return await axiosBase({
     method: 'get',
-    url: '/users/get-users?offset=0&limit=10&sort-by=id:desc',
-    data: {
+    url: '/users/get-users', //?offset=0&limit=10&sort-by=id:desc
+    params: {
       "offset": offset,
       "limit": limit,
       "sort-by":sort_by

@@ -36,22 +36,22 @@
           </template>
           <v-row no-gutters dense justify="space-around">
             <v-col cols="2" align-self="center">
-              <span> {{ dateUtils.parseDdMmYy(i.created_at) }}</span>
+              <span class="font-weight-bold"> {{ dateUtils.parseDdMmYy(i.created_at) }}</span>
             </v-col>
             <v-col cols="2" align-self="center">
-              <span>{{i.email}}</span>
+              <span class="font-weight-bold">{{i.email}}</span>
             </v-col>
             <v-col cols="2" align-self="center">
               <Active :value="i.is_active" />
             </v-col>
             <v-col cols="2" align-self="center">
-              <span> {{i.company?.name_th}}</span>
+              <span class="font-weight-bold"> {{i.team?.company?.name_th}}</span>
             </v-col>
             <v-col cols="2" align-self="center">
                 <Role  :value="i.role?.name" />
             </v-col>
             <v-col cols="2" align-self="center">
-              <v-btn class="me-2 text-none" color="secondary" variant="flat" rounded @click="handleEditEvent(i)">
+              <v-btn class="me-2 text-none font-weight-bold" color="secondary" variant="flat" rounded @click="handleEditEvent(i)">
                 แก้ไข
               </v-btn>
             </v-col>

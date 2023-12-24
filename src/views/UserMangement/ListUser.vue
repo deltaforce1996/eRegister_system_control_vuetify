@@ -1,65 +1,61 @@
 <template>
   <div>
-    <v-card class="mx-auto mt-10 elevation-1">
-      <v-card-item class="pa-8">
-        <v-row dense>
-          <v-col cols="10">
-            <v-text-field v-model="name" density="compact" variant="outlined" rounded base-color="#F7F7F6"
-              bg-color="#F7F7F6" placeholder="ค้นหา ชื่อบริษัท ,Contact owner" prepend-inner-icon="mdi-magnify"
-              single-line hide-details></v-text-field>
+    <v-row dense>
+      <v-col cols="10">
+        <v-row no-gutters>
+          <v-col cols="4">
+            <v-select v-model="filter.search_topic" density="compact" class="rounded-s-lg" variant="solo" flat
+              :items="['Business Partner Name', 'Company Name', 'Contact Owner']" />
           </v-col>
-          <v-col cols="2">
-            <v-btn class="me-2 text-none" color="secondary" prepend-icon="mdi-magnify" variant="flat" height="40" rounded
-              :loading="loading.tables" @click="handleGetUserFiltering()" block>
-              ค้นหา
+          <v-col cols="8">
+            <v-row no-gutters>
+              <v-divider vertical></v-divider>
+              <v-text-field v-model="filter.search_key" density="compact" variant="solo" flat class="rounded-e-lg"
+                placeholder="ค้นหา ชื่อบริษัท ,Contact owner" single-line
+                hide-details></v-text-field>
+              <v-btn color="grey-lighten-2" height="40" variant="flat" rounded="0" class="rounded-e" @click="handleFetchUsers">
+                <v-icon size="25">mdi-magnify</v-icon>
+              </v-btn>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols="2">
+        <v-menu v-model="dialogFilter" :close-on-content-click="false" location="bottom">
+          <template v-slot:activator="{ props }">
+            <v-btn class="text-capitalize" color="grey-lighten-2" block height="40" variant="flat" v-bind="props">
+              Filter
+              <v-icon right>mdi-chevron-down</v-icon>
             </v-btn>
-          </v-col>
-        </v-row>
-        <v-row align-center>
-          <v-col cols="2">
-            <v-select v-model="selectedMemberType" density="compact" variant="outlined" :loading="loading.memberType" :disabled="loading.memberType"
-              placeholder="User Type" :items="items.memberType"  item-title="name" item-value="id">
-              <template v-slot:append-inner>
-                <v-badge color="#5BB9DF" content="0" inline text-color="#FFFFFF"></v-badge>
-              </template>
-            </v-select>
-          </v-col>
-          <v-col cols="2">
-            <v-select v-model="selectedRole" density="compact" :loading="loading.roles" :disabled="loading.roles" variant="outlined"
-              placeholder="Roles" :items="items.roles" item-title="name" item-value="id">
-              <template v-slot:append-inner>
-                <v-badge color="#FF7E40" content="6" inline text-color="#FFFFFF"></v-badge>
-              </template>
-            </v-select>
-          </v-col>
-          <v-col cols="2">
-            <v-select v-model="selectedStatus" density="compact" :loading="loading.status" :disabled="loading.status" variant="outlined"
-              placeholder="Status" :items="items.status" return-object>
-              <template v-slot:append-inner>
-                <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-              </template>
-            </v-select>
-          </v-col>
-          <v-col cols="12">
-            <v-chip closable variant="outlined" color="secondary" class="ma-1" density="compact">
-              Chip
-            </v-chip>
-            <v-chip closable variant="outlined" color="secondary" class="ma-1" density="compact">
-              Chip
-            </v-chip>
-            <v-chip closable variant="outlined" color="secondary" class="ma-1" density="compact">
-              Chip
-            </v-chip>
-          </v-col>
-        </v-row>
-        <v-divider class="mt-5 mb-5"></v-divider>
-        <v-btn variant="text"> ล้าง Filter </v-btn>
-      </v-card-item>
-    </v-card>
+          </template>
+          <v-card min-width="1200" elevation="5">
+            <v-card-item class="pa-8">
+              <v-row align-center>
+                <v-col cols="3">
+                  <v-select v-model="filter.member_type_id" density="compact" variant="outlined" placeholder="Member Type"
+                    item-title="name" :items="items.memberType" item-value="id" />
+                </v-col>
+                <v-col cols="3">
+                  <v-select v-model="filter.role_id" density="compact" variant="outlined" placeholder="Roles"
+                    item-title="name" item-value="id" :items="items.roles" />
+                </v-col>
+                <v-col cols="3">
+                  <v-select v-model="filter.is_active" density="compact" variant="outlined" placeholder="Status"
+                    :items="items.status" item-title="name" item-value="id" />
+                </v-col>
+                <v-col cols="3">
+                  <v-btn variant="text" class="text-capitalize" @click="handleFilterClear"> Clear All</v-btn>
+                </v-col>
+              </v-row>
+            </v-card-item>
+          </v-card>
+        </v-menu>
+      </v-col>
+    </v-row>
     <v-row justify="end" class="mt-2 mb-2">
-      <v-col cols="1">
+      <v-col cols="2">
         <v-btn variant="outlined" block :loading="loading.tables" class="text-capitalize" @click="handleAddUserEvent">
-          <v-icon left>mdi-plus</v-icon>
+          <v-icon left>mdi-account-plus</v-icon>
           Add Users
         </v-btn>
       </v-col>
@@ -70,7 +66,7 @@
 </template>
 <script setup>
 // eslint-disable-next-line no-unused-vars
-import { ref,watch,onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import memberTypeService from '@/apis/MemberTypeService';
 import roleService from '@/apis/RoleService';
 import UserService from '@/apis/UserService';
@@ -81,10 +77,20 @@ import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDial
 const { throwExceptionMessage } = useErrorHandlingDialog();
 
 const emit = defineEmits(["is-title", 'is-view']);
+const dialogFilter = ref(false)
 const items = ref({
   memberType: [],
   roles: [],
-  status: [],
+  status: [
+    {
+      id: 0,
+      name: 'Inactive'
+    },
+    {
+      id: 1,
+      name: 'Active'
+    }
+  ],
   tables: []
 });
 const loading = ref({
@@ -97,6 +103,11 @@ const selectedMemberType = ref(null);
 const selectedRole = ref(null);
 const selectedStatus = ref(null);
 const filter = ref({
+  search_topic: 'Business Partner Name',
+  search_key: null,
+  member_type_id: null,
+  role_id: null,
+  is_active: null,
   offset: 1,
   limit: 10,
   sortBy: ""
@@ -104,23 +115,28 @@ const filter = ref({
 
 
 watch(() => selectedMemberType.value, (val) => {
-   console.log(val);
+  console.log(val);
 });
 watch(() => selectedRole.value, (val) => {
-   console.log(val);
+  console.log(val);
 });
 watch(() => selectedStatus.value, (val) => {
-   console.log(val);
+  console.log(val);
 });
 
 onMounted(() => {
   emit('is-title', "");
   handleLoadAllMemberType();
   handleLoadAllRole();
-  handleGetUserFiltering();
+  handleFetchUsers();
 
 });
-
+const handleFilterClear = ()=>{
+    filter.value.role_id = null;
+    filter.value.member_type_id= null;
+    filter.value.search_key= null;
+    filter.value.is_active= null;
+}
 const handleLoadAllMemberType = async () => {
   try {
     loading.value.memberType = true;
@@ -159,11 +175,12 @@ const handleLoadAllRole = async () => {
   }
 }
 
-const handleGetUserFiltering = async () => {
+const handleFetchUsers = async () => {
   try {
     loading.value.tables = true;
     items.value.tables = [];
-    const response = await UserService.getUserAll(filter.value.offset, filter.value.limit, filter.value.sortBy);
+    const sort_by =  `id:desc&search_key=${filter.value.search_key}&member_type_id=${filter.value.member_type_id}&role_id=${filter.value.role_id}&is_active=${filter.value.is_active}`
+    const response = await UserService.getUserAll(filter.value.offset, filter.value.limit, sort_by);
     items.value.tables = response.data?.data
   } catch (e) {
     if (e.response) {
@@ -178,6 +195,7 @@ const handleGetUserFiltering = async () => {
 }
 const handlePaginationEvent = (offset) => {
   filter.value.offset = offset;
+  handleFetchUsers();
 }
 
 
