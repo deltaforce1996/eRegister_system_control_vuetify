@@ -21,12 +21,13 @@ const  createMultipleUser = async (data = [])=>{
         user:Array.from(data, (i) => {
           return  {
               email : i.email,
-              member_type_id :i.member_type?.id,
-              team_id :i.team?.id,
-              role_id :i.role?.id
+              member_type :i.member_type,
+              role :i.role,
+              company_code : i.company_code,
+              team :i.team,
             }
         }),
-      created_user_id :'id-user'
+      created_user_id : 1 //  mock id_user
      }
    });
 }

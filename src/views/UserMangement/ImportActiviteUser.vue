@@ -9,7 +9,7 @@
       </v-col>
     </v-row>
     <Choosefile class="elevation-1 pa-8" @input-file="handleOnChangeFile" :is-file="file"></Choosefile>
-    <ImportActiveUserTable class="mt-5 mb-5" :items="items" />
+    <ImportActiveUserTable class="mt-5 mb-5" :items="items" :company-code="comapnies_code" />
     <div v-if="isValid.length > 0" >
       <strong class="text-secondary">ไฟล์ที่ที่อัพไม่ตรงกับ template กรุณาตรวจสอบและอัพใหม่อีกครั้ง*</strong>
       <div v-for="message in isValid" :key="message">
@@ -34,12 +34,14 @@ import readXlsxFile from 'read-excel-file'
 import { Base64 } from 'js-base64'
 import { saveAs } from 'file-saver'
 import Choosefile from '@/components/forms/Choosefile'
+import compnayService from '@/apis/CompnayService';
 import ImportActiveUserTable from "@/components/tables/ImportActiveUserTable.vue";
 import validate from "@/utils/validateUtils";
 import userService from '@/apis/UserService';
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 import { useValidDialog } from '@/components/dialogs/TemplateDialogService'
+
 import { ref, reactive, onMounted } from "vue";
 
 const emit = defineEmits(["is-title", 'is-view']);
@@ -49,11 +51,35 @@ const { showDialog } = useConfirmationDialog();
 
 const file = ref(null);
 const items = ref([]);
-const loading = ref(false);
+const loading = ref({
+  companies_code :false
+});
+const comapnies_code = ref([]);
 const isValid = ref([]);
 onMounted(() => {
   emit('is-title', "");
+  handleLoadCompaniesCodeAll();
 });
+const handleLoadCompaniesCodeAll = async () => {
+  try {
+    loading.value.companies_code = true;
+    const response = await compnayService.getCompanyAll();
+    if (response.data?.is_success) {
+      comapnies_code.value = Array.from(response.data.data, (i) => i.company_code)
+      console.log(Array.from(response.data.data, (i) => i.company_code))
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+       throwExceptionMessage(val.message, val?.data.error);
+      return;
+    }
+    throwExceptionMessage("unknown", e.message);
+  } finally {
+     loading.value.companies_code = false;
+  }
+}
+
 
 const handleOnChangeFile = async (_file) => {
   file.value = _file;
@@ -63,30 +89,21 @@ const handleOnChangeFile = async (_file) => {
   for (let index = 1; index < value.length; index++) {
     const format = {
       email: value[index][0], // emial
-      member_type: {
-        id: 20,
-        name: value[index][1], //User Type
-      },
-      company: {
-        id: 10,
-        company_code: value[index][2], // company
-      },
-      role: {
-        id: 40,
-        name: value[index][3], // role
-      },
-      team: {
-        id: 30,
-        name: value[index][4], // tea,
-      }
-
+      member_type:  value[index][1], //User Type
+      company_code: value[index][2], // company
+      role: value[index][3], // role
+      team: value[index][4], // tea,
     }
     if (!validate.isValidEmail(format.email)) {
       const message = `No.${index} Email format ไม่ถูกต้อง`;
       isValid.value.push(message)
     }
-    if (!validate.isValidRole(format.role.name)) {
+    if (!validate.isValidRole(format.role)) {
       const message = `No.${index} ไม่มี Role ที่เลือก`;
+      isValid.value.push(message)
+    }
+    if(!comapnies_code.value.includes(String(format.company_code))){
+      const message = `No.${index} company format ไม่ถูกต้อง`;
       isValid.value.push(message)
     }
     items.value.push(format)
@@ -134,7 +151,7 @@ const submit = async (e) => {
   if (confirmed) {
     try {
       loading.value = true;
-      const response = await userService.submitImportActiveUser(items.value);
+      const response = await userService.createMultipleUser(items.value);
       if (response.data?.is_success) {
         file.value = null;
         items.value = [];

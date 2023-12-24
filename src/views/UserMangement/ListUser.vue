@@ -99,9 +99,6 @@ const loading = ref({
   status: false,
   tables: false
 });
-const selectedMemberType = ref(null);
-const selectedRole = ref(null);
-const selectedStatus = ref(null);
 const filter = ref({
   search_topic: 'Business Partner Name',
   search_key: null,
@@ -110,18 +107,6 @@ const filter = ref({
   is_active: null,
   offset: 1,
   limit: 10,
-  sortBy: ""
-});
-
-
-watch(() => selectedMemberType.value, (val) => {
-  console.log(val);
-});
-watch(() => selectedRole.value, (val) => {
-  console.log(val);
-});
-watch(() => selectedStatus.value, (val) => {
-  console.log(val);
 });
 
 onMounted(() => {
