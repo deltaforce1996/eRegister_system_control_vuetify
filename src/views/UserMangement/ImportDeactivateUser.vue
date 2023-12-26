@@ -44,7 +44,7 @@ import { useValidDialog } from '@/components/dialogs/TemplateDialogService'
 
 const emit = defineEmits(["is-title", 'is-view']);
 const { showValidDialog } = useValidDialog();
-const { throwExceptionMessage } = useErrorHandlingDialog();
+const { handlingErrorsMessage } = useErrorHandlingDialog();
 const { showDialog } = useConfirmationDialog();
 
 const file = ref(null);
@@ -77,18 +77,18 @@ const dismiss = () => {
 const download = async () => {
   try {
     loading.value = true;
-    const response = await userService.downloadTemplateDeactiviteUser();
+    const response = await userService.downloadDeactivateUserTemplate();
     const { data } = response
     const decode = Base64.toUint8Array(data)
     const blob = new Blob([decode], { type: 'xlsx' })
-    saveAs(blob, "TemplateDeactiviteUser.xlsx")
+    saveAs(blob, "deactivate-user.xlsx")
   } catch (e) {
     if (e.response) {
       const val = e.response.data
-      throwExceptionMessage(val.message, val?.data.error);
+      handlingErrorsMessage(val.message, val?.data.error);
       return;
     }
-    throwExceptionMessage("unknown", e.message);
+    handlingErrorsMessage("unknown", e.message);
   } finally {
     loading.value = false;
   }
@@ -113,7 +113,7 @@ const submit = async (e) => {
   if (confirmed) {
     try {
       loading.value = true;
-      const response = await userService.submitImportActiveUser(items.value);
+      const response = await userService.deactivateUser(items.value);
       if (response.data?.is_success) {
         file.value = null;
         items.value = [];
@@ -122,10 +122,11 @@ const submit = async (e) => {
     } catch (e) {
       if (e.response) {
         const val = e.response.data
-        throwExceptionMessage(val.message, val?.data.error);
+        //console.log(val)
+        handlingErrorsMessage(val.message, val?.data.error);
         return;
       }
-      throwExceptionMessage("unknown", e.message);
+      handlingErrorsMessage("unknown", e.message);
     } finally {
       loading.value = false;
     }

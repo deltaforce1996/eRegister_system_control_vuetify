@@ -1,10 +1,10 @@
 
 import axiosBase  from './AxiosConfig';
-const  getUserAll = async (offset,limit,sort_by)=>{
+const  getUserSearch = async (offset = 0,limit = 1000, sort_by= 'id:desc')=>{
  return await axiosBase({
     method: 'get',
-    url: '/users/get-users?offset=0&limit=10&sort-by=id:desc',
-    data: {
+    url: '/users/get-users', //?offset=0&limit=10&sort-by=id:desc
+    params: {
       "offset": offset,
       "limit": limit,
       "sort-by":sort_by
@@ -13,58 +13,61 @@ const  getUserAll = async (offset,limit,sort_by)=>{
 }
 
 
-const  submitImportActiveUser = async (data = [])=>{
+const  createMultipleUser = async (data = [])=>{
   return await axiosBase({
      method: 'post',
-     url: '/MockActiveUser',
+     url: '/user/create-multiple-user',
      data: {
         user:Array.from(data, (i) => {
           return  {
               email : i.email,
-              member_type_id :i.member_type?.id,
-              team_id :i.team?.id,
-              role_id :i.role?.id
+              member_type :i.member_type,
+              role :i.role,
+              company_code : i.company_code,
+              team :i.team,
             }
         }),
-      created_user_id :'id-user'
+      created_user_id : 1 //  mock id_user
      }
    });
 }
-const  submitImportDeactiveUser = async (data = [])=>{
+const  deactivateUser
+= async (data = [])=>{
   return await axiosBase({
      method: 'post',
-     url: '/MockDeactiveUser',
+     url: '/user/deactivate-user',
      data: {
         user:Array.from(data, (i) => {
           return  {
               email : i.email
             }
         }),
-      updated_user_id :'id-user'
+      updated_user_id : 16 //  mock
      }
    });
 }
 
-const  downloadTemplateActiviteUser = async ()=>{
+const  downloadCreateMultipleUserTemplate
+= async ()=>{
   return await axiosBase({
      method: 'get',
-     url: '/MockDownlaodTemplate',
+     url: '/user/download-create-multiple-user-template',
      data: {}
    });
 }
 
-const  downloadTemplateDeactiviteUser = async ()=>{
+const  downloadDeactivateUserTemplate = async ()=>{
   return await axiosBase({
      method: 'get',
-     url: '/MockDownlaodTemplate',
+     url: '/user/download-deactivate-user-template',
      data: {}
    });
 }
 
 export default {
-  getUserAll,
-  downloadTemplateActiviteUser,
-  submitImportActiveUser,
-  downloadTemplateDeactiviteUser,
-  submitImportDeactiveUser
+  getUserSearch,
+  downloadCreateMultipleUserTemplate,
+  downloadDeactivateUserTemplate,
+  createMultipleUser,
+  deactivateUser
  }

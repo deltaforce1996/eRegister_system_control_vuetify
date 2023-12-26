@@ -38,22 +38,22 @@
             <v-divider vertical></v-divider>
             <v-col cols="2" class="pa-3">
               <!-- User Type -->
-              <span  class="pl-1">{{item.member_type?.name}}</span>
+              <span  class="pl-1">{{item.member_type}}</span>
             </v-col>
             <v-divider vertical></v-divider>
-            <v-col cols="2" class="pa-3">
+            <v-col cols="2" class="pa-3" :style="companyCode.includes(String(item.company_code)) ? '' : 'border: 2px solid red;'">
               <!-- Company -->
-              <span  class="pl-1">{{item.company?.company_code}}</span>
+              <span  class="pl-1">{{item.company_code}}</span>
             </v-col>
             <v-divider vertical></v-divider>
-            <v-col cols="2" class="pa-3" :style="validate.isValidRole(item.role?.name) ? '' : 'border: 2px solid red;'">
+            <v-col cols="2" class="pa-3" :style="validate.isValidRole(item.role) ? '' : 'border: 2px solid red;'">
               <!-- Role -->
-              <span  class="pl-1">{{item.role?.name}}</span>
+              <span  class="pl-1">{{item.role}}</span>
             </v-col>
             <v-divider vertical></v-divider>
             <v-col cols="2" class="pa-3">
              <!-- Team -->
-              <span  class="pl-1">{{item.team?.name}}</span>
+              <span  class="pl-1">{{item.team}}</span>
             </v-col>
           </v-row>
         <v-divider></v-divider>
@@ -66,6 +66,10 @@ import { defineProps } from 'vue';
 import validate from "@/utils/validateUtils";
 const props = defineProps({
   items: {
+    type: Array,
+    default: ()=> []
+  },
+  companyCode: {
     type: Array,
     default: ()=> []
   },

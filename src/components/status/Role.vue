@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
-    <v-chip :color="toggleColor(props.value)" label >
+    <v-chip :color="toggleColor(props.value)" label  class="font-weight-bold">
       {{props.value}}
     </v-chip>
   </div>

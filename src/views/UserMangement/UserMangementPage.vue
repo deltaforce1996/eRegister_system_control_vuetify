@@ -1,5 +1,5 @@
 <template>
-  <div id="user">
+  <v-container>
     <h2>User Mangement</h2>
     <div class="text-center mt-5">
       <h2>{{isTitle}}</h2>
@@ -11,7 +11,7 @@
         :item="{}"
         @is-title="toggleTitle"
         @is-view="toggleView" />
-  </div>
+  </v-container>
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */

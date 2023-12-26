@@ -1,7 +1,7 @@
 <template>
     <v-card class="elevation-1">
       <v-card-text>
-        <v-form ref="form" v-model="valid">
+        <v-form ref="form" v-model="valid" @submit.prevent>
           <v-row no-gutters dense>
             <v-col>
               <h4>Email</h4>
@@ -99,13 +99,14 @@
 import memberTypeService from '@/apis/MemberTypeService';
 import roleService from '@/apis/RoleService';
 import compnayService from '@/apis/CompnayService';
+import teamService from '@/apis/TeamService';
 import { ref, reactive, onMounted  } from "vue";
-import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
+//import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 
 const emit = defineEmits(["is-title","is-view"]);
-const { throwExceptionMessage } = useErrorHandlingDialog();
-const { showDialog } = useConfirmationDialog();
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+// const { showDialog } = useConfirmationDialog();
 
 const props = defineProps({
   index: {
@@ -130,6 +131,7 @@ const items =ref({
   role:[],
   comapny :[],
   memberType:[],
+  team:[]
 })
 const form = reactive({
   email: "",
@@ -147,12 +149,13 @@ onMounted (() => {
       console.log(props.index);
       emit('is-title', "Edit User");
     }
-    handleLoadAllMemberType();
-    handleLoadAllCompany();
-    handleLoadAllRole();
+    onLoadedMemberTypeAll();
+    onLoadedCompaniesAll();
+    onLoadedRoleAll();
+    onLoadedATeamAll();
 });
 
-const handleLoadAllMemberType = async() =>{
+const onLoadedMemberTypeAll = async() =>{
   try {
       loading.value.memberType = true;
       const response = await memberTypeService.getMemberTypeAll();
@@ -162,15 +165,15 @@ const handleLoadAllMemberType = async() =>{
     } catch (e) {
       if (e.response) {
         const val = e.response.data
-        throwExceptionMessage(val.message, val?.data.error);
+        handlingErrorsMessage(val.message, val?.data.error);
         return;
       }
-      throwExceptionMessage("unknown", e.message);
+      handlingErrorsMessage("unknown", e.message);
     } finally {
       loading.value.memberType = false;
     }
 }
-const handleLoadAllCompany = async () =>{
+const onLoadedCompaniesAll = async () =>{
   try {
       loading.value.comapny = true;
       const response = await compnayService.getCompanyAll();
@@ -180,15 +183,15 @@ const handleLoadAllCompany = async () =>{
     } catch (e) {
       if (e.response) {
         const val = e.response.data
-        throwExceptionMessage(val.message, val?.data.error);
+        handlingErrorsMessage(val.message, val?.data.error);
         return;
       }
-      throwExceptionMessage("unknown", e.message);
+      handlingErrorsMessage("unknown", e.message);
     } finally {
       loading.value.comapny = false;
     }
 }
-const handleLoadAllRole = async () =>{
+const onLoadedRoleAll = async () =>{
   try {
       loading.value.role = true;
       const response = await roleService.getRoleAll();
@@ -198,10 +201,28 @@ const handleLoadAllRole = async () =>{
     } catch (e) {
       if (e.response) {
         const val = e.response.data
-        throwExceptionMessage(val.message, val?.data.error);
+        handlingErrorsMessage(val.message, val?.data.error);
         return;
       }
-      throwExceptionMessage("unknown", e.message);
+      handlingErrorsMessage("unknown", e.message);
+    } finally {
+      loading.value.role = false;
+    }
+}
+const onLoadedATeamAll = async () =>{
+  try {
+      loading.value.role = true;
+      const response = await teamService.getTeamAll();
+      if (response.data?.is_success) {
+        items.value.team = response.data.data
+      }
+    } catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
     } finally {
       loading.value.role = false;
     }
@@ -213,15 +234,15 @@ const dismiss=()=>{
 }
 const submit = async (e) => {
   e.preventDefault()
-  const confirmed = await showDialog('Confirm Action','Are you sure you want to proceed?');
-      if (confirmed) {
-        console.log('Action confirmed!');
-      } else {
-        console.log('Action cancelled.');
-      }
-  // if (valid.value) {
-  //   console.log(form);
-  // }
+  // const confirmed = await showDialog('Confirm Action','Are you sure you want to proceed?');
+  //     if (confirmed) {
+  //       console.log('Action confirmed!');
+  //     } else {
+  //       console.log('Action cancelled.');
+  //     }
+  if (valid.value) {
+    console.log(form);
+  }
 };
 
 // const submit_from_new_role = async () => {
