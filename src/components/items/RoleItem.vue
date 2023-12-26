@@ -3,7 +3,7 @@
     <v-expansion-panel-title :color="isExpandView ? 'secondary_active' : ''">
       <v-row no-gutters dense>
         <v-col cols="3" align-self="center">
-          <p>{{ computedPermission }}</p>
+          <h4>{{ computedPermission }}</h4>
         </v-col>
         <v-col cols="5" align-self="center">
           <p>{{ computedDescription }}</p>

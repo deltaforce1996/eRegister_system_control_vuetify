@@ -87,14 +87,15 @@ const handleFetchActions = async () => {
 
 const handleFetchListPermission = async () => {
   try {
-    const result_permissions = await permissionService.getPermissionAll();
+    // const result_permissions = await permissionService.getPermissionAll();
+    const result_permissions = { data: { is_success: true } };
     if (result_permissions.data.is_success) {
       permission_module_mock.value = [
         {
           role_id: 1,
           module: [
             {
-              id: 1,
+              id: 6,
               name_th: "รายการพาร์ทเนอร์",
               name_en: "Business partner list",
               description: null,
