@@ -130,7 +130,7 @@ const item_selection = [
         "
         density="compact"
         v-model="item.permission"
-        :items="items_selection"
+        :items="data_mock_all_module_api"
         item-title="name_th"
         item-value="id"
         variant="solo"
@@ -164,9 +164,9 @@ const item_selection = [
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-import { reactive } from "vue";
-import { defineProps, watch, ref } from "vue";
+import { defineProps, watch, ref, onMounted } from "vue";
+
+import ModuleService from "@/apis/ModuleService";
 
 const props = defineProps({
   headers: {
@@ -186,23 +186,16 @@ const props = defineProps({
 const emit = defineEmits(["on-item-change", "on-item-delete"]);
 
 const dessertsRef = ref(props.desserts);
+let data_mock_all_module_api = ref([]);
 
-const data_mock_all_permission_api = [
-  {
-    id: 0,
-    name_th: "ไทย 0",
-    name_en: "",
-    description: "",
-  },
-  {
-    id: 1,
-    name_th: "ไทย 1",
-    name_en: "",
-    description: "",
-  },
-];
-
-let items_selection = reactive([]);
+const handleFetchModuleAll = async () => {
+  const result_modules = await ModuleService.getModuleAll();
+  if (result_modules.data.is_success) {
+    data_mock_all_module_api.value = result_modules.data.data;
+  } else {
+    // Failed
+  }
+};
 
 watch(
   dessertsRef,
@@ -216,7 +209,7 @@ const on_delete_clicked = (item) => {
   emit("on-item-delete", item);
 };
 
-onMounted(() => {
-  items_selection = data_mock_all_permission_api;
+onMounted(async() => {
+  await handleFetchModuleAll()
 });
 </script>

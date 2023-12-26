@@ -48,82 +48,100 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRouter } from "vue-router";
-
+import roleService from "@/apis/RoleService";
+import permissionService from "@/apis/PermissionService";
+import actionService from "@/apis/ActionService";
 import RoleItem from "../../components/items/RoleItem.vue";
 
 const router = useRouter();
 
-const roles_mock = [
-  {
-    id: 0,
-    name: "Admin",
-    description: "Desc of admin access",
-    is_active: true,
-  },
-  {
-    id: 1,
-    name: "Manager",
-    description: "Desc of manager access",
-    is_active: false,
-  },
-];
+let roles_mock = ref([]);
+let action_all_mock = ref([]);
+let permission_module_mock = ref([]);
+let headers = ref([]);
 
-const permission_module_mock = [
-  {
-    role_id: 1,
-    module: [
-      {
-        id: 1,
-        name_th: "รายการพาร์ทเนอร์",
-        name_en: "Business partner list",
-        description: null,
-        action: [
-          {
-            id: 1,
-            name: "add",
-            description: null,
-          },
-          {
-            id: 0,
-            name: "get",
-            description: null,
-          },
-        ],
-      },
-      {
-        id: 2,
-        name_th: "สร้างใบสมัครใหม่",
-        name_en: "Create new register form",
-        description: null,
-        action: [
-          {
-            id: 1,
-            name: "add",
-            description: null,
-          },
-        ],
-      },
-    ],
-  },
-];
+const handleFetchListRoles = async () => {
+  const result_roles = await roleService.getRoleAll();
+  if (result_roles.data.is_success) {
+    roles_mock.value = result_roles.data.data;
+  } else {
+    // Failed
+  }
+};
 
-const action_all_mock = [
-  { id: 0, name: "view", description: "" },
-  { id: 1, name: "created", description: "" },
-  { id: 2, name: "updated", description: "" },
-  { id: 3, name: "deleted", description: "" },
-  { id: 4, name: "other", description: "" },
-];
+const handleFetchActions = async () => {
+  const result_actions = await actionService.getActionAll();
+  if (result_actions.data.is_success) {
+    action_all_mock.value = result_actions.data.data;
+    headers.value = action_all_mock.value.map((action) => ({
+      title: action.name,
+      key: action.name,
+    }));
+    headers.value.unshift({ title: "Permission Module", key: "permission" });
+  } else {
+    // Failed
+  }
+};
 
-const headers = action_all_mock.map((action) => ({
-  title: action.name,
-  key: action.name,
-}));
-headers.unshift({ title: "Permission Module", key: "permission" });
+const handleFetchListPermission = async () => {
+  try {
+    const result_permissions = await permissionService.getPermissionAll();
+    if (result_permissions.data.is_success) {
+      permission_module_mock.value = [
+        {
+          role_id: 1,
+          module: [
+            {
+              id: 1,
+              name_th: "รายการพาร์ทเนอร์",
+              name_en: "Business partner list",
+              description: null,
+              action: [
+                {
+                  id: 2,
+                  name: "add",
+                  description: null,
+                },
+                {
+                  id: 1,
+                  name: "get",
+                  description: null,
+                },
+              ],
+            },
+            {
+              id: 2,
+              name_th: "สร้างใบสมัครใหม่",
+              name_en: "Create new register form",
+              description: null,
+              action: [
+                {
+                  id: 3,
+                  name: "add",
+                  description: null,
+                },
+              ],
+            },
+          ],
+        },
+      ];
+    } else {
+      //Failed
+    }
+  } catch (error) {
+    //Failed
+  }
+};
 
 const is_item_expan = ref(null);
+
+onMounted(async () => {
+  await handleFetchActions();
+  await handleFetchListRoles();
+  await handleFetchListPermission();
+});
 
 watch(is_item_expan, (newValue, oldValue) => {
   console.log(
@@ -133,7 +151,7 @@ watch(is_item_expan, (newValue, oldValue) => {
 
 const generate_desserts = (role_id) => {
   const desserts_module = [];
-  const find_role_id = permission_module_mock.find(
+  const find_role_id = permission_module_mock.value.find(
     (el) => el.role_id === role_id
   );
   if (find_role_id)
@@ -141,7 +159,7 @@ const generate_desserts = (role_id) => {
       let dessert = {
         permission: item.name_th,
       };
-      action_all_mock.forEach((action) => {
+      action_all_mock.value.forEach((action) => {
         dessert[action.name] = item.action.some((obj) => obj.id === action.id);
       });
       desserts_module.push(dessert);
