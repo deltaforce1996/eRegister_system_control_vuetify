@@ -10,8 +10,9 @@
 </template>
 
 <script setup>
+import CompnayService from "@/apis/CompnayService";
 import MasterTable from "@/components/tables/MasterTable.vue";
-import { reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -25,54 +26,8 @@ const headers = reactive([
   { text: "", value: "history", width: 2 },
 ]);
 
-const input = [
-  {
-    id: 51,
-    company_code: "5003",
-    name_th: "บริษัท มัส บี จำกัด",
-    name_en: "MUST BE Co., Ltd.",
-    taxpayer_id_number: "0105565131781",
-    address_th: "62 ถนนรัชดาภิเษก แขวงคลองเตย เขตคลองเตย กรุงเทพมหานคร 10110",
-    address_en:
-      "62 Ratchadapisek Road, Klongtoey Sub-District, Klongtoey District, Bangkok 10110",
-    business_unit: {
-      id: 4,
-      name_th: "FPHT & Others",
-      name_en: "FPHT & Others",
-      purchasing_organization: "FPHT",
-      corporation: {
-        id: 1,
-        name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
-        name_en: "Frasers Property Thailand",
-      },
-    },
-  },
-  {
-    id: 50,
-    company_code: "5002",
-    name_th:
-      "บริษัท เฟรเซอร์ส พร็อพเพอร์ตี้ คอร์เปอร์เรท เซอร์วิสเซส (ประเทศไทย) จำกัด",
-    name_en: "Frasers Property Corporate Services (Thailand) Co.,Ltd.",
-    taxpayer_id_number: "0105564174495",
-    address_th:
-      "944 มิตรทาวน์ ออฟฟิศ ทาวเวอร์ ชั้นที่ 20 ถนนพระราม 4 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330",
-    address_en:
-      "20th Floor, Mitrtown Office Tower, 944 Rama 4 Road, Wangmai, Pathumwan, Bangkok 10330",
-    business_unit: {
-      id: 4,
-      name_th: "FPHT & Others",
-      name_en: "FPHT & Others",
-      purchasing_organization: "FPHT",
-      corporation: {
-        id: 1,
-        name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
-        name_en: "Frasers Property Thailand",
-      },
-    },
-  },
-];
-
-let items = reactive([]);
+let items = ref([]);
+let companies = ref([]);
 
 const process_array = (inputArray) => {
   return inputArray.map((item) => ({
@@ -92,12 +47,24 @@ const process_array = (inputArray) => {
   }));
 };
 
-items = process_array(input);
+const handleFetchCompanies = async () => {
+  try {
+    const result_companies = await CompnayService.getCompanyAll();
+    if (result_companies.data.is_success) {
+      companies.value = result_companies.data.data;
+      items.value = process_array(companies.value);
+    } else {
+      // Failed
+    }
+  } catch (error) {
+    // Failed
+  }
+};
 
 const handle_item_clicked = (event) => {
   const action = event.split(",");
   if (action[1] && action[1] === "view") {
-    router.push({ name: "CompanyDetail", params: { id: items[0].id } });
+    router.push({ name: "CompanyDetail", params: { id: items.value[0].id } });
   }
 };
 
@@ -105,4 +72,8 @@ const handle_history = (index) => {
   console.log("history: ", index);
   router.push({ name: "HistoryTeamPage" });
 };
+
+onMounted(async () => {
+  await handleFetchCompanies();
+});
 </script>

@@ -98,7 +98,7 @@
         >
           <div
             v-if="Array.isArray(item[header.value])"
-            style="justify-content: space-between; align-items: center;"
+            style="display: flex; justify-content: start; align-items: center;"
           >
             <ButtonControl
               v-for="(action, actionIndex) in item[header.value]"
@@ -108,7 +108,7 @@
               :color="action.color"
               :id="index.toString() + ',' + action.action"
               @button-clicked="handle_item_clicked"
-              style="flex: auto;"
+              style="flex: 1; margin: 0 1px;"
             />
           </div>
           <p

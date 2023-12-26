@@ -11,8 +11,9 @@
 
 <script setup>
 import MasterTable from "@/components/tables/MasterTable.vue";
-import { reactive } from "vue";
 import { useRouter } from "vue-router";
+import BusinessUnitService from "@/apis/BusinessUnitService";
+import { onMounted, reactive, ref } from "vue";
 
 const router = useRouter();
 
@@ -23,31 +24,6 @@ const headers = reactive([
   { text: "Action", value: "action", width: 1 },
   { text: "", value: "history", width: 2 },
 ]);
-
-const input = [
-  {
-    id: 4,
-    name_th: "FPHT & Others",
-    name_en: "FPHT & Others",
-    purchasing_organization: "FPHT",
-    corporation: {
-      id: 1,
-      name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
-      name_en: "Frasers Property Thailand",
-    },
-  },
-  {
-    id: 3,
-    name_th: "Industrial",
-    name_en: "Industrial",
-    purchasing_organization: "FPT",
-    corporation: {
-      id: 1,
-      name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
-      name_en: "Frasers Property Thailand",
-    },
-  },
-];
 
 const process_array = (inputArray) => {
   return inputArray.map((item) => ({
@@ -66,13 +42,34 @@ const process_array = (inputArray) => {
   }));
 };
 
-let items = reactive([]);
-items = process_array(input);
+let items = ref([]);
+let business_units = ref([]);
+
+const handleFetchBusinessUnit = async () => {
+  try {
+    const result_business_units = await BusinessUnitService.getBusinesUnitAll();
+    if (result_business_units.data.is_success) {
+      business_units.value = result_business_units.data.data;
+      items.value = process_array(business_units.value);
+    } else {
+      // Failed
+    }
+  } catch (error) {
+    // Failed
+  }
+};
+
+onMounted(async () => {
+  await handleFetchBusinessUnit();
+});
 
 const handle_item_clicked = (event) => {
   const action = event.split(",");
   if (action[1] && action[1] === "view") {
-    router.push({ name: "BusinessUnitDetail", params: { id: items[0].id } });
+    router.push({
+      name: "BusinessUnitDetail",
+      params: { id: items.value[0].id },
+    });
   }
 };
 

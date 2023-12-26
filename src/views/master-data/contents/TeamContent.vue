@@ -20,8 +20,9 @@
 import MasterTable from "@/components/tables/MasterTable.vue";
 import ButtonControl from "@/components/controls/ButtonControl.vue";
 import { useRouter } from "vue-router";
-import { reactive } from "vue";
 import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
+import TeamService from "@/apis/TeamService";
+import { onMounted, ref, reactive } from "vue";
 const { showDialog } = useConfirmationDialog();
 
 const router = useRouter();
@@ -29,49 +30,14 @@ const router = useRouter();
 const headers = reactive([
   { text: "ID", value: "id", width: 1 },
   { text: "Business Unit", value: "business_unit", width: 2 },
-  { text: "Company", value: "company", width: 2 },
+  { text: "Company", value: "company", width: 3 },
   { text: "Name TH", value: "name_th", width: 3 },
   { text: "Status", value: "status", width: 1 },
-  { text: "Action", value: "action", width: 2 },
+  { text: "Action", value: "action", width: 1 },
   { text: "", value: "history", width: 1 },
 ]);
 
-let items = reactive([]);
-
-const data_api_get_all_team_mock = [
-  {
-    id: 3,
-    company: {
-      id: 3,
-      company_code: "1200",
-      name_th: "บริษัท โกลเด้น แลนด์ โปโล จำกัด",
-      name_en: "Golden Land Polo Ltd.",
-      taxpayer_id_number: "0105545007422",
-      address_th:
-        "944 มิตรทาวน์ ออฟฟิศ ทาวเวอร์ ชั้นที่ 20 ถนนพระราม 4 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330",
-      address_en:
-        "20th Floor, Mitrtown Office Tower, 944 Rama 4 Road, Wangmai, Pathumwan, Bangkok 10330",
-      business_unit: {
-        id: 1,
-        name_th: "Commercial",
-        name_en: "Commercial",
-        purchasing_organization: "GL00",
-        corporation: {
-          id: 1,
-          name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
-          name_en: "Frasers Property Thailand",
-        },
-      },
-    },
-    name_th: "บริษัท เทสคอมพานี 3",
-    name_en: "Test Company_3",
-    is_active: false,
-    created_at: "2023-12-21T15:14:14.803Z",
-    created_user_id: 1,
-    updated_at: "2023-12-21T15:45:59.313Z",
-    updated_user_id: 1,
-  },
-];
+let items = ref([]);
 
 const process_array = (inputArray) => {
   return inputArray.map((item) => ({
@@ -91,7 +57,18 @@ const process_array = (inputArray) => {
   }));
 };
 
-items = process_array(data_api_get_all_team_mock);
+const handleFetchTeams = async () => {
+  try {
+    const result_teams = await TeamService.getTeamAll();
+    if (result_teams.data.is_success) {
+      items.value = process_array(result_teams.data.data);
+    } else {
+      // Failed
+    }
+  } catch (error) {
+    // Failed
+  }
+};
 
 const on_go_to_create = () => {
   router.push({ name: "TeamManagement" });
@@ -118,4 +95,8 @@ const handle_history = (index) => {
   console.log("history: ", index);
   router.push({ name: "HistoryTeamPage" });
 };
+
+onMounted(async () => {
+  await handleFetchTeams();
+});
 </script>

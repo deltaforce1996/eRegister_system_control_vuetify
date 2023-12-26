@@ -10,23 +10,12 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
 import MasterTable from "@/components/tables/MasterTable.vue";
 import { useRouter } from "vue-router";
+import CorporationService from "@/apis/CorporationService";
+import { onMounted, reactive, ref } from "vue";
 
 const router = useRouter();
-
-const input = [
-  {
-    id: 1,
-    name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
-    name_en: "Frasers Property Thailand",
-    created_at: "2023-09-25T15:29:08Z",
-    created_user_id: 1,
-    updated_at: "2023-09-25T15:29:08Z",
-    updated_user_id: 1,
-  },
-];
 
 const headers = reactive([
   { text: "ID", value: "id", width: 1 },
@@ -53,14 +42,27 @@ const process_array = (inputArray) => {
   }));
 };
 
-let items = reactive([]);
+let items = ref([]);
+let corporations = ref([]);
 
-items = process_array(input);
+const handleFetchCorporations = async () => {
+  try {
+    const result_corporations = await CorporationService.getCorporationAll();
+    if (result_corporations.data.is_success) {
+      corporations.value = result_corporations.data.data;
+      items.value = process_array(corporations.value);
+    } else {
+      // Failed
+    }
+  } catch (error) {
+    // Failed
+  }
+};
 
 const handle_item_clicked = (event) => {
   const action = event.split(",");
   if (action[1] && action[1] === "view") {
-    router.push({ name: "CorparationDetail", params: { id: items[0].id } });
+    router.push({ name: "CorparationDetail", params: { id: items.value[0].id } });
   }
 };
 
@@ -68,4 +70,8 @@ const handle_history = (index) => {
   console.log("history: ", index);
   router.push({ name: "HistoryTeamPage" });
 };
+
+onMounted(async () => {
+  await handleFetchCorporations();
+});
 </script>

@@ -1,6 +1,12 @@
 <template>
   <v-expansion-panel class="mt-1">
     <v-expansion-panel-title :color="isExpandView ? 'secondary_active' : ''">
+      <template v-slot:actions="{ expanded }">
+        <v-icon
+          color="secondary"
+          :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+        ></v-icon>
+      </template>
       <v-row no-gutters dense>
         <v-col cols="3" align-self="center">
           <h4>{{ computedPermission }}</h4>
@@ -26,17 +32,20 @@
     <v-expansion-panel-text :class="{ 'active-expand-bg': isExpandView }">
       <v-row no-gutters dense>
         <v-col cols="12">
-        <permission-table
-          :headers="subHeaders"
-          :desserts="subDesserts"
-          :is-read-only="true"
-        />
-      </v-col>
-      <v-col>
-        <v-card style="border-radius: 0px;">
-            <history-control @link-clicked="onItemLogClicked" class="pr-5 pb-2 pt-1" />
+          <permission-table
+            :headers="subHeaders"
+            :desserts="subDesserts"
+            :is-read-only="true"
+          />
+        </v-col>
+        <v-col>
+          <v-card style="border-radius: 0px">
+            <history-control
+              @link-clicked="onItemLogClicked"
+              class="pr-5 pb-2 pt-1"
+            />
           </v-card>
-      </v-col>
+        </v-col>
       </v-row>
     </v-expansion-panel-text>
   </v-expansion-panel>
@@ -91,7 +100,7 @@ const computedDescription = computed(() => {
 });
 
 const computedRoleId = computed(() => {
-  return props.id
+  return props.id;
 });
 
 const onItemEditClicked = () => {
