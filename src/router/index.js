@@ -83,6 +83,12 @@ const routes = [
           import("@/views/historyLog/HistoryTeamPage.vue"),
       },
       {
+        path: "/CreditScorePage",
+        name: "CreditScorePage",
+        component: () =>
+          import("@/views/sd-team-credit-score/CreditScorePage.vue"),
+      },
+      {
         path: '/SDTeamMangement/SDActiveMangement',
         name: 'SDActiveMangementPage',
         component: () => import('@/views/SDTeamMangement/SDActiveMangement.vue'),

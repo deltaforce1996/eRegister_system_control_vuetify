@@ -26,10 +26,26 @@ const headers = reactive([
 
 const input = [
   {
-    id: 1,
-    name_th: "ชื่อที่ไทย",
-    name_en: "Thai Name",
-    purchasing_organization: "10002",
+    id: 4,
+    name_th: "FPHT & Others",
+    name_en: "FPHT & Others",
+    purchasing_organization: "FPHT",
+    corporation: {
+      id: 1,
+      name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
+      name_en: "Frasers Property Thailand",
+    },
+  },
+  {
+    id: 3,
+    name_th: "Industrial",
+    name_en: "Industrial",
+    purchasing_organization: "FPT",
+    corporation: {
+      id: 1,
+      name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
+      name_en: "Frasers Property Thailand",
+    },
   },
 ];
 

@@ -78,23 +78,25 @@ const id = route.params.id;
 let data = reactive([]);
 data = {
   id: 1,
-  company_code: "0006",
-  name_th: "Thai name",
-  name_en: "English name",
-  taxpayer_id_number: "Taxpayer ID number of the company",
+  company_code: "1000",
+  name_th: "บริษัท แผ่นดินทอง พร็อพเพอร์ตี้ ดีเวลลอปเม้นท์ จำกัด (มหาชน)",
+  name_en: "Golden Land Property Development PLC.",
+  taxpayer_id_number: "0107537002273",
+  address_th:
+    "944 มิตรทาวน์ ออฟฟิศ ทาวเวอร์ ชั้นที่ 20 ถนนพระราม 4 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330",
+  address_en:
+    "20th Floor, Mitrtown Office Tower 944 Rama 4 Road, Wangmai, Pathumwan, Bangkok 10330",
   business_unit: {
-    id: "ID of the business unit",
-    name_th: "business unit",
-    name_en: "business unit",
-    purchasing_organization: "Purchasing organization code",
+    id: 1,
+    name_th: "Commercial",
+    name_en: "Commercial",
+    purchasing_organization: "GL00",
+    corporation: {
+      id: 1,
+      name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
+      name_en: "Frasers Property Thailand",
+    },
   },
-  address_th: "Address of the company in Thai",
-  address_en: "Address of the company in English",
-  is_active: "The company active status (0 is inactive, 1 is active)",
-  created_at: "Created date time (format: yyyy-MM-ddTHH:mm:ss)",
-  created_user_id: "User ID who created",
-  updated_at: "Last updated date time (format: yyyy-MM-ddTHH:mm:ss)",
-  updated_user_id: "User ID who is last updated (required)",
 };
 
 const on_go_to_back = () => {

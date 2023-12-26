@@ -59,10 +59,15 @@ const id = route.params.id;
 
 let data = reactive([]);
 data = {
-  id: 1,
-  name_th: "ชื่อที่ไทย",
-  name_en: "Thai Name",
-  purchasing_organization: "10002",
+  id: 2,
+  name_th: "Residential",
+  name_en: "Residential",
+  purchasing_organization: "GL00",
+  corporation: {
+    id: 1,
+    name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
+    name_en: "Frasers Property Thailand",
+  },
 };
 
 const on_go_to_back = () => {

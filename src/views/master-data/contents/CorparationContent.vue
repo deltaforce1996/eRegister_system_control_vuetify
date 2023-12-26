@@ -16,7 +16,17 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const input = [{ id: 1, name_th: "ชื่อขนามสกุลไทย", name_en: "Name Lastname" }];
+const input = [
+  {
+    id: 1,
+    name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
+    name_en: "Frasers Property Thailand",
+    created_at: "2023-09-25T15:29:08Z",
+    created_user_id: 1,
+    updated_at: "2023-09-25T15:29:08Z",
+    updated_user_id: 1,
+  },
+];
 
 const headers = reactive([
   { text: "ID", value: "id", width: 1 },
