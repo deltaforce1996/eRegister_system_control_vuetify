@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <h2>Mangement > RSP Policy</h2>
     <div class="mt-5">
       <v-row>
@@ -125,7 +125,7 @@
       </div>
     </div>
     <UploadPolicy  :visible="dialog.uploadPolicy" @visible="dialog.uploadPolicy = $event"  />
-  </div>
+  </v-container>
 </template>
 <script setup>
 import { ref, onBeforeMount } from 'vue';

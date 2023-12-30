@@ -1,13 +1,13 @@
 <template>
     <v-card class="elevation-1">
       <v-card-text>
-        <v-form ref="form" v-model="valid" @submit.prevent>
+        <v-form ref="form">
           <v-row no-gutters dense>
             <v-col>
               <h4>Email</h4>
             </v-col>
             <v-col cols="12">
-              <v-text-field variant="outlined" v-model="form.email" placeholder="Email"
+              <v-text-field variant="outlined" v-model="item_input.email" placeholder="Email"
                 :rules="[(v) => !!v || 'email is required']" density="compact"></v-text-field>
             </v-col>
           </v-row>
@@ -21,7 +21,8 @@
                 density="compact"
                 :disabled="loading.memberType"
                 :loading="loading.memberType"
-                :items="items.memberType"
+                :items="item_list.memberType"
+                placeholder="User type"
                 item-title="name"
                 item-value="id"
               ></v-select>
@@ -29,7 +30,7 @@
                 :rules="[(v) => !!v || 'User Type is required']" required density="compact"></v-text-field> -->
             </v-col>
           </v-row>
-          <v-row no-gutters dense>
+          <!-- <v-row no-gutters dense>
             <v-col>
               <h4>Company</h4>
             </v-col>
@@ -43,10 +44,10 @@
                 item-title="name_th"
                 item-value="id"
               ></v-select>
-              <!-- <v-text-field variant="outlined" v-model="form.company" placeholder="company"
-                :rules="[(v) => !!v || 'Comapny is required']" required density="compact"></v-text-field> -->
+              <v-text-field variant="outlined" v-model="form.company" placeholder="company"
+                :rules="[(v) => !!v || 'Comapny is required']" required density="compact"></v-text-field>
             </v-col>
-          </v-row>
+          </v-row> -->
           <v-row no-gutters dense>
             <v-col>
               <h4>Role</h4>
@@ -55,9 +56,10 @@
               <v-select
                 variant="outlined"
                 density="compact"
+                placeholder="Role"
                 :disabled="loading.role"
                 :loading="loading.role"
-                :items="items.role"
+                :items="item_list.role"
                 item-title="name"
                 item-value="id"
               ></v-select>
@@ -70,8 +72,18 @@
               <h4>Team</h4>
             </v-col>
             <v-col cols="12">
-              <v-text-field variant="outlined" v-model="form.team" placeholder="Team"
-                :rules="[(v) => !!v || 'Team is required']" required density="compact"></v-text-field>
+              <v-select
+                variant="outlined"
+                density="compact"
+                placeholder="Team"
+                :disabled="loading.team"
+                :loading="loading.team"
+                :items="item_list.team"
+                item-title="name_th"
+                item-value="id"
+              ></v-select>
+              <!-- <v-text-field variant="outlined" v-model="form.team" placeholder="Team"
+                :rules="[(v) => !!v || 'Team is required']" required density="compact"></v-text-field> -->
             </v-col>
           </v-row>
           <v-row v-if="p_index > -1" no-gutters dense>
@@ -79,7 +91,7 @@
               <h4>Status</h4>
             </v-col>
             <v-col cols="12">
-              <v-checkbox v-model="form.status"></v-checkbox>
+              <v-checkbox v-model="item_input.status"></v-checkbox>
             </v-col>
           </v-row>
         </v-form>
@@ -120,25 +132,27 @@ const props = defineProps({
 });
 
 const p_index = reactive(props.index);
-const valid = ref(false);
+const form = ref(null);
+//const valid = ref(false);
 const loading =ref({
   submit :false,
   role:false,
+  team:false,
   comapny :false,
   memberType:false,
 })
-const items =ref({
+const item_list =ref({
   role:[],
   comapny :[],
   memberType:[],
   team:[]
 })
-const form = reactive({
+const item_input = reactive({
   email: "",
-  userType: "",
+  memberTypeId: "",
   company: "",
-  role: "",
-  team: "",
+  roleId: "",
+  teamId: "",
   status: false,
 });
 
@@ -149,18 +163,21 @@ onMounted (() => {
       console.log(props.index);
       emit('is-title', "Edit User");
     }
+
+
+    // onLoadedCompaniesAll();
     onLoadedMemberTypeAll();
-    onLoadedCompaniesAll();
     onLoadedRoleAll();
-    onLoadedATeamAll();
+    onLoadedTeamAll();
 });
 
+// eslint-disable-next-line no-unused-vars
 const onLoadedMemberTypeAll = async() =>{
   try {
       loading.value.memberType = true;
       const response = await memberTypeService.getMemberTypeAll();
       if (response.data?.is_success) {
-        items.value.memberType = response.data.data
+        item_list.value.memberType = response.data.data
       }
     } catch (e) {
       if (e.response) {
@@ -173,12 +190,13 @@ const onLoadedMemberTypeAll = async() =>{
       loading.value.memberType = false;
     }
 }
+// eslint-disable-next-line no-unused-vars
 const onLoadedCompaniesAll = async () =>{
   try {
       loading.value.comapny = true;
       const response = await compnayService.getCompanyAll();
       if (response.data?.is_success) {
-        items.value.comapny = response.data.data
+        item_list.value.comapny = response.data.data
       }
     } catch (e) {
       if (e.response) {
@@ -191,12 +209,13 @@ const onLoadedCompaniesAll = async () =>{
       loading.value.comapny = false;
     }
 }
+// eslint-disable-next-line no-unused-vars
 const onLoadedRoleAll = async () =>{
   try {
       loading.value.role = true;
       const response = await roleService.getRoleAll();
       if (response.data?.is_success) {
-        items.value.role = response.data.data
+        item_list.value.role = response.data.data
       }
     } catch (e) {
       if (e.response) {
@@ -209,12 +228,12 @@ const onLoadedRoleAll = async () =>{
       loading.value.role = false;
     }
 }
-const onLoadedATeamAll = async () =>{
+const onLoadedTeamAll = async () =>{
   try {
-      loading.value.role = true;
+      loading.value.team = true;
       const response = await teamService.getTeamAll();
       if (response.data?.is_success) {
-        items.value.team = response.data.data
+        item_list.value.team = response.data.data
       }
     } catch (e) {
       if (e.response) {
@@ -224,7 +243,7 @@ const onLoadedATeamAll = async () =>{
       }
       handlingErrorsMessage("unknown", e.message);
     } finally {
-      loading.value.role = false;
+      loading.value.team = false;
     }
 }
 
@@ -232,17 +251,37 @@ const onLoadedATeamAll = async () =>{
 const dismiss=()=>{
     emit("is-view",'user-main')
 }
-const submit = async (e) => {
-  e.preventDefault()
+const submit = async () => {
+
+
+  if (form.value && form.value.validate()) {
+    // Form is valid, you can perform further actions
+    console.log('Form is valid');
+  } else {
+    // Form is not valid, handle accordingly
+    console.log('Form is not valid');
+  }
+  // const { valid } = await this.$refs.form.validate()
+
+  // if (valid) alert('Form is valid')
+  //e.preventDefault()
+//   const form = this.$refs.form;
+//  if (form.validate()) {
+//         // Form is valid, you can perform further actions
+//         console.log('Form is valid');
+//       } else {
+//         // Form is not valid, handle accordingly
+//         console.log('Form is not valid');
+//     }
   // const confirmed = await showDialog('Confirm Action','Are you sure you want to proceed?');
   //     if (confirmed) {
   //       console.log('Action confirmed!');
   //     } else {
   //       console.log('Action cancelled.');
   //     }
-  if (valid.value) {
-    console.log(form);
-  }
+  // if (valid.value) {
+  //   console.log(form);
+  // }
 };
 
 // const submit_from_new_role = async () => {

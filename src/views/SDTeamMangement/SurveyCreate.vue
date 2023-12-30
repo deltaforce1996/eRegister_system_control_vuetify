@@ -1,8 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div>
+<v-container>
     <h2>Mangement > Survey</h2>
-    <v-container>
       <v-stepper v-model="step" alt-labels elevation="0" bg-color="transparent">
         <v-stepper-header>
           <v-stepper-item value="1" color="secondary"
@@ -60,7 +59,6 @@
         </div>
       </div>
     </v-container>
-  </div>
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */

@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div>
+<v-container>
     <h2>Mangement > Survey</h2>
     <div class="mt-5">
       <v-row>
@@ -123,7 +123,7 @@
         </v-tabs-items>
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */

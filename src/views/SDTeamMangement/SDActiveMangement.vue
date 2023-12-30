@@ -1,5 +1,5 @@
 <template>
-  <div>
+ <v-container>
     <h2>SD Active Mangement</h2>
     <div class="mt-5">
       <v-list-item class="elevation-5 pa-5" color="white" to="/SDTeamMangement/RspPolicy">
@@ -21,7 +21,7 @@
         <v-list-item-title>Traning</v-list-item-title>
       </v-list-item>
     </div>
-  </div>
+  </v-container>
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */

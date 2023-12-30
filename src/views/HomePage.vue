@@ -77,13 +77,13 @@
        width="800"
        height="500"
        frameborder="0"></iframe> -->
-      <ScormPlayer :path="`${courseURL}`"></ScormPlayer>
+      <!-- <ScormPlayer :path="`${courseURL}`"></ScormPlayer>
       <iframe
         ref="scormFrame"
         :src="courseURL"
         width="100%"
         height="600"
-      ></iframe>
+      ></iframe> -->
     </v-row>
   </v-container>
 </template>
@@ -103,7 +103,6 @@ import MasterTable from "@/components/tables/MasterTable.vue";
 import PermissionTable from "@/components/tables/PermissionTable.vue";
 import CreditOption from "@/components/survey/CreditOption.vue";
 
-import { SCORM } from "pipwerks-scorm-api-wrapper";
 
 import Home1 from "@/views/Home1.vue";
 import Home2 from "@/views/Home2.vue";
@@ -120,7 +119,7 @@ const dragDrop = ref([
   { title: "Home3", content: Home3 },
 ]);
 
-const courseURL = ref(null);
+
 
 const herders_table = [
   { title: "Permission Module", key: "permission" },
@@ -140,8 +139,6 @@ const desserts = [
   },
 ];
 onMounted(() => {
-  SCORM.init();
-  courseURL.value = "/src/assets/scom/story.html";
 });
 const on_open_log = async () => {
   const confirmed = await showDialog(

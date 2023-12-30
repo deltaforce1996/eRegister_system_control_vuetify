@@ -9,13 +9,13 @@
           <v-col cols="2">
             <strong> Email</strong>
           </v-col>
-          <v-col cols="2">
+          <v-col cols="1">
             <strong>Status</strong>
           </v-col>
-          <v-col cols="2">
+          <v-col cols="4">
             <strong>Company</strong>
           </v-col>
-          <v-col cols="2">
+          <v-col cols="1">
             <strong>Role</strong>
           </v-col>
         </v-row>
@@ -39,15 +39,15 @@
               <span class="font-weight-bold"> {{ dateUtils.parseDdMmYy(i.created_at) }}</span>
             </v-col>
             <v-col cols="2" align-self="center">
-              <span class="font-weight-bold">{{i.email}}</span>
+               <span class="font-weight-bold">{{i.email}}</span>
             </v-col>
-            <v-col cols="2" align-self="center">
+            <v-col cols="1" align-self="center">
               <Active :value="i.is_active" />
             </v-col>
-            <v-col cols="2" align-self="center">
+            <v-col cols="4" align-self="center">
               <span class="font-weight-bold"> {{i.team?.company?.name_th}}</span>
             </v-col>
-            <v-col cols="2" align-self="center">
+            <v-col cols="1" align-self="center">
                 <Role  :value="i.role?.name" />
             </v-col>
             <v-col cols="2" align-self="center">
@@ -61,7 +61,7 @@
         <v-expansion-panel-text style="background-color: #fff1f0">
           <v-card class="ml-n3 mr-n3" elevation="0" rounded="0">
             <v-card-item class="ma-2">
-              <v-row align-center>
+              <v-row align-center  v-if="i.member_type.id === 1">
                 <v-col cols="2">
                   <v-card-item>
                     <v-card-title class="text-secondary">User Type</v-card-title>
@@ -71,14 +71,29 @@
                 <v-col cols="2">
                   <v-card-item>
                     <v-card-title class="text-secondary">ฺBusiniess Unit</v-card-title>
-                    <strong>This is a subtitle</strong>
+                    <strong>{{i.team?.company?.business_unit?.name_th}}</strong>
                   </v-card-item>
                 </v-col>
                 <v-col cols="8">
                   <v-card-item>
                     <v-card-title class="text-secondary">Team</v-card-title>
-                    <span> <strong class="text-secondary"> Freelance@gamil.com</strong> <strong>( Freelance /
-                        Active)</strong></span>
+                    <strong>{{i.team?.name_th}}</strong>
+                  </v-card-item>
+                </v-col>
+              </v-row>
+              <v-row align-center  v-if="i.member_type.id === 2">
+                <v-col cols="2">
+                  <v-card-item>
+                    <v-card-title class="text-secondary">User Type</v-card-title>
+                    <strong>{{i.member_type?.name}}</strong>
+                  </v-card-item>
+                </v-col>
+                <v-col cols="10">
+                  <v-card-item>
+                    <v-card-title class="text-secondary">Contact Owner</v-card-title>
+                    ????
+                      <!-- <span> <strong class="text-secondary"> Freelance@gamil.com</strong> <strong>( Freelance /
+                        Active)</strong></span> -->
                   </v-card-item>
                 </v-col>
               </v-row>
@@ -122,7 +137,7 @@ const panel= ref([]);
 
 const  handleEditEvent=(item)=> {
       emit("action-edit",item)
-    }
+}
 </script>
 
 
