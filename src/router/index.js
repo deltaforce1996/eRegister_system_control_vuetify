@@ -99,6 +99,11 @@ const routes = [
         component: () => import('@/views/SDTeamMangement/RspPolicy.vue'),
       },
       {
+        path: '/SDTeamMangement/RspPolicyUploaded',
+        name: 'RspPolicyUploadedPage',
+        component: () => import('@/views/SDTeamMangement/RspPolicyUploaded.vue'),
+      },
+      {
         path: '/SDTeamMangement/Survey',
         name: 'SurveyPage',
         component: () => import('@/views/SDTeamMangement/Survey.vue'),

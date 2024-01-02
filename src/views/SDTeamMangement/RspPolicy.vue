@@ -13,8 +13,8 @@
           variant="flat"
           height="40"
           rounded
-          @click="dialog.uploadPolicy = true"
-            block>
+          to="/SDTeamMangement/RspPolicyUploaded"
+          block>
             Create new
           </v-btn>
         </v-col>
