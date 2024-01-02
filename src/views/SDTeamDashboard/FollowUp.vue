@@ -5,8 +5,6 @@
       <h2>FollowUp</h2>
     </div>
     <v-card class="mx-auto mt-10 elevation-1">
-    {{date }}
-      <v-date-picker  v-model="date" show-adjacent-months></v-date-picker>
       <v-card-item class="pa-8" v-if="isRadio">
         <div class="font-weight-bold">ต้องการติดตามข้อมูล SD Activites แบบใด</div>
 

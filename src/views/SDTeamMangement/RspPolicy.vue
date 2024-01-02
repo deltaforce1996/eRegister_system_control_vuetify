@@ -124,7 +124,7 @@
         </v-tabs-items>
       </div>
     </div>
-    <UploadPolicy  :visible="dialog.uploadPolicy" @visible="dialog.uploadPolicy = $event"  />
+    <upload-policy  :visible="dialog.uploadPolicy" @visible="dialog.uploadPolicy = $event"  />
   </v-container>
 </template>
 <script setup>
