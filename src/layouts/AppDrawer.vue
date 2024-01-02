@@ -44,10 +44,17 @@ const items = [
   },
   {
     id: 4,
-    title: "SDActiveMangement",
+    title: "SD team mangement",
     icon: "mdi mdi-clipboard-list",
     isActive: false,
     path: "/SDTeamMangement/SDActiveMangement"
+  },
+  {
+    id: 8,
+    title:'SD team dashboard',
+    icon: "mdi mdi-help-circle",
+    isActive: false,
+    path: "/SDTeamDashboard/TrackingSDActivite"
   },
   {
     id: 8,
@@ -62,14 +69,7 @@ const items = [
     icon: "mdi mdi-widgets",
     isActive: false,
     path: "/CreditScorePage"
-  },
-  {
-    id: 8,
-    title:'SDTeamDashboard',
-    icon: "mdi mdi-help-circle",
-    isActive: false,
-    path: "/SDTeamDashboard/TrackingSDActivite"
-  },
+  }
   // { id: 5, icon: "mdi mdi-text-search-variant", isActive: false, path: "/SDTeamDashboard/TrackingSDActivite" },
   // { id: 6, icon: "mdi mdi-chart-timeline-variant", isActive: false, path: "/" },
   // { id: 7, icon: "mdi mdi-account-group", isActive: false, path: "/" },

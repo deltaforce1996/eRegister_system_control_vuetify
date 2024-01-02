@@ -120,7 +120,7 @@ const routes = [
         component: () => import('@/views/SDTeamDashboard/TrackingSDActivite.vue'),
       },
       {
-        path: '/SDTeamDashboard/FollowUp',
+        path: '/SDTeamDashboard/FollowUp/:owner?/:vendor?',
         name: 'FollowUpPage',
         component: () => import('@/views/SDTeamDashboard/FollowUp.vue'),
       },
