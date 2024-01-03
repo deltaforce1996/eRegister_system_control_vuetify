@@ -1,0 +1,178 @@
+<template>
+  <v-row
+    style="background-color: white; border-radius: 10px"
+    dense
+    align="center"
+    class="mt-2"
+  >
+    <v-col cols="10">
+      <v-text-field
+        placeholder="กรุณากรอกคำถาม"
+        variant="outlined"
+        v-model="metaData.question"
+        density="compact"
+      ></v-text-field>
+    </v-col>
+    <v-col cols="2">
+      <v-text-field
+        class="centered-placeholder"
+        placeholder="คะแนนคำตอบ"
+        disabled
+        variant="outlined"
+        density="compact"
+      ></v-text-field>
+    </v-col>
+    <v-col cols="12" v-for="(item, index) in metaData.answers" :key="index">
+      <v-row dense v-if="item.title === 'chioce'">
+        <v-col cols="1" class="d-flex justify-end"
+          ><v-icon> mdi mdi-checkbox-blank-outline </v-icon>
+        </v-col>
+        <v-col cols="9">
+          <v-row dense no-gutters>
+            <v-text-field
+              class="centered-placeholder"
+              placeholder="ตัวเลือก"
+              variant="outlined"
+              v-model="item.answer"
+              density="compact"
+            >
+              <template v-slot:append>
+                <v-icon @click="onIconClick(index)" color="red">
+                  mdi mdi-close-circle
+                </v-icon>
+              </template>
+            </v-text-field>
+          </v-row>
+          <v-row dense no-gutters>
+            <v-checkbox
+              v-model="item.isAlign"
+              class="pa-n0 ma-0 mt-n6"
+              label="Align"
+            ></v-checkbox>
+          </v-row>
+        </v-col>
+        <v-col cols="2">
+          <v-text-field
+            class="centered-placeholder"
+            placeholder="คะแนนคำตอบ"
+            variant="outlined"
+            v-model="item.score"
+            density="compact"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row dense v-if="item.title === 'other'">
+        <v-col cols="1" class="d-flex justify-end"> อื่นๆ</v-col>
+        <v-col cols="9">
+          <v-row dense no-gutters>
+            <v-text-field
+              class="centered-placeholder"
+              placeholder="ตัวเลือกอื่นๆ"
+              variant="outlined"
+              v-model="item.answer"
+              density="compact"
+            >
+              <template v-slot:append>
+                <v-icon @click="onIconClick(index)" color="red">
+                  mdi mdi-close-circle
+                </v-icon>
+              </template></v-text-field
+            >
+          </v-row>
+          <v-row dense no-gutters>
+            <v-checkbox
+              v-model="item.isAlign"
+              class="pa-n0 ma-0 mt-n6"
+              label="Align"
+            ></v-checkbox>
+          </v-row>
+        </v-col>
+        <v-col cols="2">
+          <v-text-field
+            class="centered-placeholder"
+            placeholder="คะแนนคำถาม"
+            variant="outlined"
+            v-model="item.score"
+            density="compact"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-col>
+    <v-col cols="12" class="d-flex">
+      <a>
+        <p class="clickable-underline" @click="addChoice()">เพิ่มตัวเลือก</p>
+      </a>
+      <p class="clickable-underline mr-1 ml-1 custom-grey">หรือ</p>
+      <a>
+        <p class="clickable-underline custom-red" @click="addOther()">
+          เพิ่มอื่นๆ
+        </p>
+      </a>
+    </v-col>
+    <v-divider></v-divider>
+    <v-col cols="1" class="d-flex justify-end">
+      <v-checkbox v-model="metaData.isRequired" class="pa-0 ma-0" label="Require"></v-checkbox>
+    </v-col>
+    <v-col cols="8" class="d-flex justify-end">
+      <v-checkbox v-model="metaData.isAlign" class="pa-0 ma-0" label="ผู้ตอบแบบสอบถามต้องเลือกตัวเลือก Align ที่เลือกไว้ทั้งหมดถึงจะ Align"></v-checkbox>
+    </v-col>
+    <v-col cols="3" class="d-flex justify-end">
+      <v-btn prepend-icon="mdi mdi-delete-outline" variant="outlined" rounded>
+        Delete
+      </v-btn>
+    </v-col>
+  </v-row>
+</template>
+
+<script setup>
+import { ref, watch, defineEmits } from "vue";
+const metaData = ref({
+  question: "",
+  isRequired: false,
+  isAlign: false,
+  totalScore: 0,
+  answers: [],
+});
+
+const addChoice = () => {
+  metaData.value.answers.push({
+    title: "chioce",
+    isChecked: false,
+    score: "",
+    answer: "",
+  });
+};
+
+const addOther = () => {
+  metaData.value.answers.push({
+    title: "other",
+    isChecked: false,
+    score: "",
+    answer: "",
+  });
+};
+
+const onIconClick = (index) => {
+  metaData.value.answers.splice(index, 1);
+};
+
+const emit = defineEmits(["on-update"]);
+watch(metaData.value, (newValue) => {
+  emit("on-update", { check_box_align: newValue });
+  console.log(JSON.stringify({ check_box_align: newValue }));
+});
+</script>
+
+<style>
+.custom-red {
+  color: red;
+}
+.custom-grey {
+  color: grey;
+}
+
+.clickable-underline {
+  text-decoration: underline;
+  cursor: pointer;
+}
+</style>

@@ -70,20 +70,64 @@
       </draggable>
     </v-row>
 
-    <h3 style="margin-bottom: 15px; margin-top: 15px">Scrom player</h3>
-    <v-row>
+    <!-- <h3 style="margin-bottom: 15px; margin-top: 15px">Scrom player</h3> -->
+    <!-- <v-row> -->
       <!-- <iframe :src="courseURL"
        name="course"
        width="800"
        height="500"
        frameborder="0"></iframe> -->
-      <ScormPlayer :path="`${courseURL}`"></ScormPlayer>
-      <iframe
+      <!-- <ScormPlayer :path="`${courseURL}`"></ScormPlayer> -->
+      <!-- <iframe
         ref="scormFrame"
         :src="courseURL"
-        width="100%"
-        height="600"
-      ></iframe>
+        width="85%"
+        height="700"
+      ></iframe> -->
+    <!-- </v-row> -->
+    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Paragragps</h3>
+    <v-row>
+      <ParagrahpNone />
+    </v-row>
+    <v-row>
+      <ParagrahpScore />
+    </v-row>
+    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Multi choices</h3>
+    <v-row>
+      <MultiChoiceNone />
+    </v-row>
+    <v-row>
+      <MultiChoiceScore />
+    </v-row>
+    <v-row>
+      <MultiChoiceAlign />
+    </v-row>
+    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Checkboxs</h3>
+    <v-row>
+      <CheckboxNone />
+    </v-row>
+    <v-row>
+      <CheckboxScore />
+    </v-row>
+    <v-row>
+      <CheckboxAlign />
+    </v-row>
+    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Dropdawns</h3>
+    <v-row>
+      <DropdownNone />
+    </v-row>
+    <v-row>
+      <DropdownScore />
+    </v-row>
+    <v-row>
+      <DcropdownAlign />
+    </v-row>
+    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Upload</h3>
+    <v-row>
+      <UploadNone />
+    </v-row>
+    <v-row>
+      <UploadScore />
     </v-row>
   </v-container>
 </template>
@@ -102,6 +146,24 @@ import HistoryTable from "@/components/tables/HistoryTable.vue";
 import MasterTable from "@/components/tables/MasterTable.vue";
 import PermissionTable from "@/components/tables/PermissionTable.vue";
 import CreditOption from "@/components/survey/CreditOption.vue";
+
+import ParagrahpNone from "@/components/survey/forms/paragrahps/ParagrahpNone.vue";
+import ParagrahpScore from "@/components/survey/forms/paragrahps/ParagrahpScore.vue";
+
+import MultiChoiceNone from "@/components/survey/forms/multi-choice/MultiChoiceNone.vue";
+import MultiChoiceScore from "@/components/survey/forms/multi-choice/MultiChoiceScore.vue";
+import MultiChoiceAlign from "@/components/survey/forms/multi-choice/MultiChoiceAlign.vue";
+
+import CheckboxNone from "@/components/survey/forms/checkboxs/CheckboxNone.vue";
+import CheckboxScore from "@/components/survey/forms/checkboxs/CheckboxScore.vue";
+import CheckboxAlign from "@/components/survey/forms/checkboxs/CheckboxAlign.vue";
+
+import DropdownNone from "@/components/survey/forms/dropsdawn/DropdownNone.vue";
+import DropdownScore from "@/components/survey/forms/dropsdawn/DropdownScore.vue";
+import DcropdownAlign from "@/components/survey/forms/dropsdawn/DcropdownAlign.vue";
+
+import UploadNone from "@/components/survey/forms/uploads-control/UploadNone.vue";
+import UploadScore from "@/components/survey/forms/uploads-control/UploadScore.vue";
 
 import { SCORM } from "pipwerks-scorm-api-wrapper";
 
@@ -141,7 +203,8 @@ const desserts = [
 ];
 onMounted(() => {
   SCORM.init();
-  courseURL.value = "/src/assets/scom/story.html";
+  courseURL.value =
+    "https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal";
 });
 const on_open_log = async () => {
   const confirmed = await showDialog(
