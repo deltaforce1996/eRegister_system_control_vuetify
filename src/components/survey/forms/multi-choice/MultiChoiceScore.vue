@@ -10,6 +10,8 @@
         placeholder="กรุณากรอกคำถาม"
         variant="outlined"
         v-model="metaData.question"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         density="compact"
       ></v-text-field>
     </v-col>
@@ -18,6 +20,8 @@
         class="centered-placeholder"
         placeholder="คะแนนคำถาม"
         variant="outlined"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         density="compact"
       ></v-text-field>
     </v-col>
@@ -28,6 +32,8 @@
           <v-text-field
             class="centered-placeholder"
             placeholder="ตัวเลือก"
+            required
+            :rules="[(v) => !!v || 'Required.']"
             variant="outlined"
             v-model="item.answer"
             density="compact"
@@ -43,6 +49,8 @@
           <v-text-field
             class="centered-placeholder"
             placeholder="คะแนนคำตอบ"
+            required
+            :rules="[(v) => !!v || 'Required.']"
             variant="outlined"
             density="compact"
             v-model="item.score"
@@ -56,6 +64,8 @@
             class="centered-placeholder"
             placeholder="ตัวเลือกอื่นๆ"
             variant="outlined"
+            required
+            :rules="[(v) => !!v || 'Required.']"
             v-model="item.answer"
             density="compact"
           >
@@ -70,6 +80,8 @@
           <v-text-field
             class="centered-placeholder"
             placeholder="คะแนนคำตอบ"
+            required
+            :rules="[(v) => !!v || 'Required.']"
             variant="outlined"
             v-model="item.score"
             density="compact"
@@ -90,7 +102,11 @@
     </v-col>
     <v-divider></v-divider>
     <v-col cols="6" class="d-flex justify-start">
-      <v-checkbox v-model="metaData.isRequired" class="pa-0 ma-0" label="Require"></v-checkbox>
+      <v-checkbox
+        v-model="metaData.isRequired"
+        class="pa-0 ma-0"
+        label="Require"
+      ></v-checkbox>
     </v-col>
     <v-col cols="6" class="d-flex justify-end">
       <v-btn prepend-icon="mdi mdi-delete-outline" variant="outlined" rounded>

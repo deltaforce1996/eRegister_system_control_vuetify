@@ -1,10 +1,17 @@
 <template>
-  <v-row style="background-color: white; border-radius: 10px;" dense align="center" class="mt-2">
+  <v-row
+    style="background-color: white; border-radius: 10px"
+    dense
+    align="center"
+    class="mt-2"
+  >
     <v-col cols="10">
       <v-text-field
         placeholder="กรุณากรอกคำถาม"
         variant="outlined"
         v-model="metaData.question"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         density="compact"
       ></v-text-field>
     </v-col>
@@ -13,6 +20,8 @@
         class="centered-placeholder"
         placeholder="คะแนนคำถาม"
         v-model="metaData.totalScore"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         variant="outlined"
         density="compact"
       ></v-text-field>
@@ -21,6 +30,8 @@
       <v-text-field
         variant="outlined"
         v-model="metaData.answer"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         placeholder="คำตอบ"
         density="compact"
       ></v-text-field>

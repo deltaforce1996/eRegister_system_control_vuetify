@@ -10,6 +10,8 @@
         placeholder="กรุณากรอกคำถาม"
         variant="outlined"
         v-model="metaData.question"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         density="compact"
       ></v-text-field>
     </v-col>
@@ -26,6 +28,8 @@
               class="centered-placeholder"
               placeholder="ตัวเลือก"
               variant="outlined"
+              required
+              :rules="[(v) => !!v || 'Required.']"
               v-model="item.answer"
               density="compact"
             >
@@ -43,6 +47,8 @@
             placeholder="คะแนนคำตอบ"
             v-model="item.score"
             variant="outlined"
+            required
+            :rules="[(v) => !!v || 'Required.']"
             density="compact"
           ></v-text-field>
         </v-col>

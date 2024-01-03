@@ -72,62 +72,73 @@
 
     <!-- <h3 style="margin-bottom: 15px; margin-top: 15px">Scrom player</h3> -->
     <!-- <v-row> -->
-      <!-- <iframe :src="courseURL"
+    <!-- <iframe :src="courseURL"
        name="course"
        width="800"
        height="500"
        frameborder="0"></iframe> -->
-      <!-- <ScormPlayer :path="`${courseURL}`"></ScormPlayer> -->
-      <!-- <iframe
+    <!-- <ScormPlayer :path="`${courseURL}`"></ScormPlayer> -->
+    <!-- <iframe
         ref="scormFrame"
         :src="courseURL"
         width="85%"
         height="700"
       ></iframe> -->
     <!-- </v-row> -->
-    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Paragragps</h3>
     <v-row>
-      <ParagrahpNone />
-    </v-row>
-    <v-row>
-      <ParagrahpScore />
-    </v-row>
-    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Multi choices</h3>
-    <v-row>
-      <MultiChoiceNone />
-    </v-row>
-    <v-row>
-      <MultiChoiceScore />
-    </v-row>
-    <v-row>
-      <MultiChoiceAlign />
-    </v-row>
-    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Checkboxs</h3>
-    <v-row>
-      <CheckboxNone />
-    </v-row>
-    <v-row>
-      <CheckboxScore />
-    </v-row>
-    <v-row>
-      <CheckboxAlign />
-    </v-row>
-    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Dropdawns</h3>
-    <v-row>
-      <DropdownNone />
-    </v-row>
-    <v-row>
-      <DropdownScore />
-    </v-row>
-    <v-row>
-      <DcropdownAlign />
-    </v-row>
-    <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Upload</h3>
-    <v-row>
-      <UploadNone />
-    </v-row>
-    <v-row>
-      <UploadScore />
+      <v-col cols="12">
+        <v-form ref="form">
+          <h3 style="margin-bottom: 15px; margin-top: 15px">
+            Suvey Paragragps
+          </h3>
+          <v-row dense>
+            <ParagrahpNone />
+          </v-row>
+          <v-row dense>
+            <ParagrahpScore />
+          </v-row>
+          <h3 style="margin-bottom: 15px; margin-top: 15px">
+            Suvey Multi choices
+          </h3>
+          <v-row dense>
+            <MultiChoiceNone />
+          </v-row>
+          <v-row dense>
+            <MultiChoiceScore />
+          </v-row>
+          <v-row dense>
+            <MultiChoiceAlign />
+          </v-row>
+          <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Checkboxs</h3>
+          <v-row>
+            <CheckboxNone />
+          </v-row>
+          <v-row>
+            <CheckboxScore />
+          </v-row>
+          <v-row>
+            <CheckboxAlign />
+          </v-row>
+          <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Dropdawns</h3>
+          <v-row>
+            <DropdownNone />
+          </v-row>
+          <v-row>
+            <DropdownScore />
+          </v-row>
+          <v-row>
+            <DcropdownAlign />
+          </v-row>
+          <h3 style="margin-bottom: 15px; margin-top: 15px">Suvey Upload</h3>
+          <v-row>
+            <UploadNone />
+          </v-row>
+          <v-row>
+            <UploadScore />
+          </v-row>
+        </v-form>
+        <v-btn @click="submitForm">Submit</v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -182,8 +193,6 @@ const dragDrop = ref([
   { title: "Home3", content: Home3 },
 ]);
 
-
-
 const herders_table = [
   { title: "Permission Module", key: "permission" },
   { title: "View", key: "view" },
@@ -201,11 +210,21 @@ const desserts = [
     deleted: true,
   },
 ];
-// onMounted(() => {
-//   SCORM.init();
-//   courseURL.value =
-//     "https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal";
-// });
+
+const form = ref(null);
+
+const submitForm = () => {
+  if (form.value.validate()) {
+    // ทำการส่งข้อมูลของฟอร์มหากผ่านการตรวจสอบความถูกต้อง
+    // สามารถทำการนำทางหรือจัดการข้อมูลต่อได้ที่นี่
+  }
+};
+
+onMounted(() => {
+  //   SCORM.init();
+  //   courseURL.value =
+  //     "https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal";
+});
 const on_open_log = async () => {
   const confirmed = await showDialog(
     "ยืนยันการบันทึก",

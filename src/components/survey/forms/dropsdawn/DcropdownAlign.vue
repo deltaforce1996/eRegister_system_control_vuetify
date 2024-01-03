@@ -11,6 +11,8 @@
         variant="outlined"
         v-model="metaData.question"
         density="compact"
+        required
+        :rules="[(v) => !!v || 'Required.']"
       ></v-text-field>
     </v-col>
     <v-col
@@ -25,6 +27,8 @@
             <v-text-field
               class="centered-placeholder"
               placeholder="ตัวเลือก"
+              required
+              :rules="[(v) => !!v || 'Required.']"
               variant="outlined"
               v-model="item.answer"
               density="compact"
@@ -42,6 +46,8 @@
             class="centered-placeholder"
             placeholder="คะแนนคำตอบ"
             v-model="item.score"
+            required
+            :rules="[(v) => !!v || 'Required.']"
             variant="outlined"
             density="compact"
           ></v-text-field>

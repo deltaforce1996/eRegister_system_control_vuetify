@@ -10,6 +10,8 @@
         placeholder="กรุณากรอกคำถาม"
         variant="outlined"
         v-model="metaData.question"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         density="compact"
       ></v-text-field>
     </v-col>
@@ -22,6 +24,8 @@
               placeholder="ตัวเลือก"
               variant="outlined"
               v-model="item.answer"
+              required
+        :rules="[(v) => !!v || 'Required.']"
               density="compact"
             >
               <template v-slot:append>

@@ -9,6 +9,8 @@
       <v-text-field
         placeholder="กรุณากรอกคำถาม"
         variant="outlined"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         v-model="metaData.question"
         density="compact"
       ></v-text-field>
@@ -17,6 +19,8 @@
       <v-text-field
         class="centered-placeholder"
         placeholder="คะแนนคำตอบ"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         v-model="metaData.totalScore"
         variant="outlined"
         density="compact"

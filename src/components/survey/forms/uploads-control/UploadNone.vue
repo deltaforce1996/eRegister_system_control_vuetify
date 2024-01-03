@@ -9,6 +9,8 @@
       <v-text-field
         placeholder="กรุณากรอกคำถาม"
         variant="outlined"
+        required
+        :rules="[(v) => !!v || 'Required.']"
         v-model="metaData.question"
         density="compact"
       ></v-text-field>
