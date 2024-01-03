@@ -18,7 +18,9 @@
     <v-col cols="2"> </v-col>
     <v-col cols="12" v-for="(item, index) in metaData.answers" :key="index">
       <v-row dense v-if="item.title === 'chioce'">
-        <v-col cols="1"></v-col>
+        <v-col cols="1" class="d-flex justify-end"
+          ><v-icon>mdi mdi-radiobox-blank</v-icon></v-col
+        >
         <v-col cols="9">
           <div>
             <v-text-field
@@ -80,7 +82,12 @@
       ></v-checkbox>
     </v-col>
     <v-col cols="6" class="d-flex justify-end">
-      <v-btn prepend-icon="mdi mdi-delete-outline" variant="outlined" rounded>
+      <v-btn
+        prepend-icon="mdi mdi-delete-outline"
+        variant="outlined"
+        rounded
+        @click="$emit('on-remove')"
+      >
         Delete
       </v-btn>
     </v-col>
@@ -115,10 +122,10 @@ const onIconClick = (index) => {
   metaData.value.answers.splice(index, 1);
 };
 
-const emit = defineEmits(["on-update"]);
+const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
   emit("on-update", { multi_chioce_none: newValue });
-  console.log(JSON.stringify({ multi_chioce_none: newValue }));
+  // console.log(JSON.stringify({ multi_chioce_none: newValue }));
 });
 </script>
 

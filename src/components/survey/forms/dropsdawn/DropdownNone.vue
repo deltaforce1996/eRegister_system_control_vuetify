@@ -15,7 +15,12 @@
         density="compact"
       ></v-text-field>
     </v-col>
-    <v-col class="ml-2" cols="12" v-for="(item, index) in metaData.answers" :key="index">
+    <v-col
+      class="ml-2"
+      cols="12"
+      v-for="(item, index) in metaData.answers"
+      :key="index"
+    >
       <v-row dense>
         <v-col cols="10">
           <div>
@@ -25,7 +30,7 @@
               variant="outlined"
               v-model="item.answer"
               required
-        :rules="[(v) => !!v || 'Required.']"
+              :rules="[(v) => !!v || 'Required.']"
               density="compact"
             >
               <template v-slot:append>
@@ -52,7 +57,12 @@
       ></v-checkbox>
     </v-col>
     <v-col cols="6" class="d-flex justify-end">
-      <v-btn prepend-icon="mdi mdi-delete-outline" variant="outlined" rounded>
+      <v-btn
+        prepend-icon="mdi mdi-delete-outline"
+        variant="outlined"
+        rounded
+        @click="$emit('on-remove')"
+      >
         Delete
       </v-btn>
     </v-col>
@@ -75,10 +85,10 @@ const onIconClick = (index) => {
   metaData.value.answers.splice(index, 1);
 };
 
-const emit = defineEmits(["on-update"]);
+const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
   emit("on-update", { dropdown_none: newValue });
-  console.log(JSON.stringify({ dropdown_none: newValue }));
+  // console.log(JSON.stringify({ dropdown_none: newValue }));
 });
 </script>
 

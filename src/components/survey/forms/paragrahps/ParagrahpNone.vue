@@ -1,5 +1,9 @@
 <template>
-  <v-row style="background-color: white; border-radius: 10px;" dense align="center" class="mt-2">
+  <v-row
+    style="background-color: white; border-radius: 10px"
+    dense
+    align="center"
+  >
     <v-col cols="10">
       <v-text-field
         placeholder="กรุณากรอกคำถาม"
@@ -29,7 +33,12 @@
       ></v-checkbox>
     </v-col>
     <v-col cols="6" class="d-flex justify-end">
-      <v-btn prepend-icon="mdi mdi-delete-outline" variant="outlined" rounded>
+      <v-btn
+        prepend-icon="mdi mdi-delete-outline"
+        variant="outlined"
+        rounded
+        @click="$emit('on-remove')"
+      >
         Delete
       </v-btn>
     </v-col>
@@ -43,11 +52,9 @@ const metaData = ref({
   answer: "",
   isRequire: false,
 });
-const emit = defineEmits(["on-update"]);
+const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
   emit("on-update", { paragraph_none: newValue });
-  console.log(JSON.stringify({ paragraph_none: newValue }));
+  // console.log(JSON.stringify({ paragraph_none: newValue }));
 });
 </script>
-
-

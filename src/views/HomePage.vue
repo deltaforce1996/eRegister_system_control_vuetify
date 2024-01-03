@@ -140,6 +140,11 @@
         <v-btn @click="submitForm">Submit</v-btn>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <QuestionOption type="None" id="0" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -157,6 +162,7 @@ import HistoryTable from "@/components/tables/HistoryTable.vue";
 import MasterTable from "@/components/tables/MasterTable.vue";
 import PermissionTable from "@/components/tables/PermissionTable.vue";
 import CreditOption from "@/components/survey/CreditOption.vue";
+import QuestionOption from "@/components/survey/QuestionOption.vue";
 
 import ParagrahpNone from "@/components/survey/forms/paragrahps/ParagrahpNone.vue";
 import ParagrahpScore from "@/components/survey/forms/paragrahps/ParagrahpScore.vue";

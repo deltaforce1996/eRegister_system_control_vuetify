@@ -46,7 +46,12 @@
       ></v-checkbox>
     </v-col>
     <v-col cols="6" class="d-flex justify-end">
-      <v-btn prepend-icon="mdi mdi-delete-outline" variant="outlined" rounded>
+      <v-btn
+        prepend-icon="mdi mdi-delete-outline"
+        variant="outlined"
+        rounded
+        @click="$emit('on-remove')"
+      >
         Delete
       </v-btn>
     </v-col>
@@ -67,10 +72,10 @@ const metaData = ref({
 
 const on_recieved_file = ref(null);
 
-const emit = defineEmits(["on-update"]);
+const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
   emit("on-update", { upload_file_score: newValue });
-  console.log(JSON.stringify({ upload_file_score: newValue }));
+  // console.log(JSON.stringify({ upload_file_score: newValue }));
 });
 
 watch(on_recieved_file, (newValue) => {

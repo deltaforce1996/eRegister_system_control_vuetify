@@ -45,7 +45,12 @@
       ></v-checkbox>
     </v-col>
     <v-col cols="6" class="d-flex justify-end">
-      <v-btn prepend-icon="mdi mdi-delete-outline" variant="outlined" rounded>
+      <v-btn
+        prepend-icon="mdi mdi-delete-outline"
+        variant="outlined"
+        rounded
+        @click="$emit('on-remove')"
+      >
         Delete
       </v-btn>
     </v-col>
@@ -60,10 +65,10 @@ const metaData = ref({
   isRequire: false,
   totalScore: "",
 });
-const emit = defineEmits(["on-update"]);
+const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
   emit("on-update", { paragraph_none: newValue });
-  console.log(JSON.stringify({ paragraph_score: newValue }));
+  // console.log(JSON.stringify({ paragraph_score: newValue }));
 });
 </script>
 

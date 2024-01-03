@@ -137,7 +137,12 @@
       ></v-checkbox>
     </v-col>
     <v-col cols="3" class="d-flex justify-end">
-      <v-btn prepend-icon="mdi mdi-delete-outline" variant="outlined" rounded>
+      <v-btn
+        prepend-icon="mdi mdi-delete-outline"
+        variant="outlined"
+        rounded
+        @click="$emit('on-remove')"
+      >
         Delete
       </v-btn>
     </v-col>
@@ -176,10 +181,10 @@ const onIconClick = (index) => {
   metaData.value.answers.splice(index, 1);
 };
 
-const emit = defineEmits(["on-update"]);
+const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
   emit("on-update", { check_box_align: newValue });
-  console.log(JSON.stringify({ check_box_align: newValue }));
+  // console.log(JSON.stringify({ check_box_align: newValue }));
 });
 </script>
 
