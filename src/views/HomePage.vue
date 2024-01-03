@@ -54,7 +54,7 @@
           @button-clicked="on_open_log"
         /> </v-col
     ></v-row>
-    <h3 style="margin-bottom: 15px">Drag drop compoenent</h3>
+    <!-- <h3 style="margin-bottom: 15px">Drag drop compoenent</h3>
     <v-row>
       <draggable v-model="dragDrop" item-key="id">
         <template #item="{ element }">
@@ -68,7 +68,7 @@
           </div>
         </template>
       </draggable>
-    </v-row>
+    </v-row> -->
 
     <!-- <h3 style="margin-bottom: 15px; margin-top: 15px">Scrom player</h3> -->
     <!-- <v-row> -->
@@ -143,11 +143,26 @@
     <v-row>
       <v-col cols="12">
         <v-form ref="form">
-        <QuestionOption type="None" id="0" />
+          <QuestionOption type="None" id="0" />
         </v-form>
       </v-col>
     </v-row>
     <v-btn @click="submitForm">Submit</v-btn>
+    <draggable v-model="cardsDragDrop"  tag="ul" handle=".handle" item-key="id">
+      <template v-slot:item="{ element }">
+        <v-row>
+          <v-col cols="12" sm="6" md="4">
+            <v-card :color="element.color" dark>
+              <v-card-title>
+                {{ element.title }}
+                <v-btn small class="handle">☰</v-btn>
+              </v-card-title>
+              <v-card-text>{{ element.text }}</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </template>
+    </draggable>
   </v-container>
 </template>
 
@@ -187,19 +202,24 @@ import UploadScore from "@/components/survey/forms/uploads-control/UploadScore.v
 
 // import { SCORM } from "pipwerks-scorm-api-wrapper";
 
-import Home1 from "@/views/Home1.vue";
-import Home2 from "@/views/Home2.vue";
-import Home3 from "@/views/Home3.vue";
+// import Home1 from "@/views/Home1.vue";
+// import Home2 from "@/views/Home2.vue";
+// import Home3 from "@/views/Home3.vue";
 
 import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
 const { showDialog } = useConfirmationDialog();
 
 import { useAlertDialogDialog } from "@/components/dialogs/AlertSuccessDialogService";
 const { showAlert } = useAlertDialogDialog();
-const dragDrop = ref([
-  { title: "Home1", content: Home1 },
-  { title: "Home2", content: Home2 },
-  { title: "Home3", content: Home3 },
+// const dragDrop = ref([
+//   { title: "Home1", content: Home1 },
+//   { title: "Home2", content: Home2 },
+//   { title: "Home3", content: Home3 },
+// ]);
+
+const cardsDragDrop = ref([
+  { id: 1, title: "Card 1", text: "This is card 1", color: "blue" },
+  { id: 2, title: "Card 2", text: "This is card 2", color: "green" },
 ]);
 
 const herders_table = [
