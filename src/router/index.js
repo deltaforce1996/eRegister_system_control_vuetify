@@ -99,6 +99,11 @@ const routes = [
         component: () => import('@/views/SDTeamMangement/RspPolicy.vue'),
       },
       {
+        path: '/SDTeamMangement/RspPolicyUploaded',
+        name: 'RspPolicyUploadedPage',
+        component: () => import('@/views/SDTeamMangement/RspPolicyUploaded.vue'),
+      },
+      {
         path: '/SDTeamMangement/Survey',
         name: 'SurveyPage',
         component: () => import('@/views/SDTeamMangement/Survey.vue'),
@@ -120,7 +125,7 @@ const routes = [
         component: () => import('@/views/SDTeamDashboard/TrackingSDActivite.vue'),
       },
       {
-        path: '/SDTeamDashboard/FollowUp',
+        path: '/SDTeamDashboard/FollowUp/:owner?/:vendor?',
         name: 'FollowUpPage',
         component: () => import('@/views/SDTeamDashboard/FollowUp.vue'),
       },

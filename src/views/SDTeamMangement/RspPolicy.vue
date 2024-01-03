@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <h2>Mangement > RSP Policy</h2>
     <div class="mt-5">
       <v-row>
@@ -13,8 +13,8 @@
           variant="flat"
           height="40"
           rounded
-          @click="dialog.uploadPolicy = true"
-            block>
+          to="/SDTeamMangement/RspPolicyUploaded"
+          block>
             Create new
           </v-btn>
         </v-col>
@@ -124,8 +124,8 @@
         </v-tabs-items>
       </div>
     </div>
-    <UploadPolicy  :visible="dialog.uploadPolicy" @visible="dialog.uploadPolicy = $event"  />
-  </div>
+    <upload-policy  :visible="dialog.uploadPolicy" @visible="dialog.uploadPolicy = $event"  />
+  </v-container>
 </template>
 <script setup>
 import { ref, onBeforeMount } from 'vue';

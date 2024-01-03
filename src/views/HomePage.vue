@@ -165,7 +165,7 @@ import DcropdownAlign from "@/components/survey/forms/dropsdawn/DcropdownAlign.v
 import UploadNone from "@/components/survey/forms/uploads-control/UploadNone.vue";
 import UploadScore from "@/components/survey/forms/uploads-control/UploadScore.vue";
 
-import { SCORM } from "pipwerks-scorm-api-wrapper";
+// import { SCORM } from "pipwerks-scorm-api-wrapper";
 
 import Home1 from "@/views/Home1.vue";
 import Home2 from "@/views/Home2.vue";
@@ -182,7 +182,7 @@ const dragDrop = ref([
   { title: "Home3", content: Home3 },
 ]);
 
-const courseURL = ref(null);
+
 
 const herders_table = [
   { title: "Permission Module", key: "permission" },
@@ -201,11 +201,11 @@ const desserts = [
     deleted: true,
   },
 ];
-onMounted(() => {
-  SCORM.init();
-  courseURL.value =
-    "https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal";
-});
+// onMounted(() => {
+//   SCORM.init();
+//   courseURL.value =
+//     "https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal";
+// });
 const on_open_log = async () => {
   const confirmed = await showDialog(
     "ยืนยันการบันทึก",

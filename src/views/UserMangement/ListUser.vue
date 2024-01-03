@@ -4,13 +4,13 @@
       <v-col cols="10">
         <v-row no-gutters>
           <v-col cols="4">
-            <v-select v-model="filter.search_topic" density="compact" class="rounded-s-lg" variant="solo" flat
-              :items="['Business Partner Name', 'Company Name', 'Contact Owner']" />
+            <v-select v-model="filter.search_key" density="compact" class="rounded-s-lg" variant="solo" flat
+              :items="items.topics" item-title="name" item-value="id" />
           </v-col>
           <v-col cols="8">
             <v-row no-gutters>
               <v-divider vertical></v-divider>
-              <v-text-field v-model="filter.search_key" density="compact" variant="solo" flat class="rounded-e-lg"
+              <v-text-field v-model="filter.search_value" density="compact" variant="solo" flat class="rounded-e-lg"
                 placeholder="ค้นหา ชื่อบริษัท ,Contact owner" single-line
                 hide-details></v-text-field>
               <v-btn color="grey-lighten-2" height="40" variant="flat" rounded="0" class="rounded-e" @click="handleFetchUsers">
@@ -79,6 +79,18 @@ const { handlingErrorsMessage } = useErrorHandlingDialog();
 const emit = defineEmits(["is-title", 'is-view']);
 const dialogFilter = ref(false)
 const items = ref({
+  topics:[
+    {
+      id: 'business_partner_name',
+      name: 'Business Partner Name'
+    },{
+      id: 'company_name',
+      name: 'Company Name'
+    },{
+      id: 'contact_owner',
+      name: 'Contact Owner'
+    }
+  ],
   memberType: [],
   roles: [],
   status: [
@@ -100,8 +112,8 @@ const loading = ref({
   tables: false
 });
 const filter = ref({
-  search_topic: 'Business Partner Name',
-  search_key: null,
+  search_key: 'business_partner_name',
+  search_value: null,
   member_type_id: null,
   role_id: null,
   is_active: null,
@@ -164,7 +176,7 @@ const handleFetchUsers = async () => {
   try {
     loading.value.tables = true;
     items.value.tables = [];
-    const sort_by =  `id:desc&search_key=${filter.value.search_key}&member_type_id=${filter.value.member_type_id}&role_id=${filter.value.role_id}&is_active=${filter.value.is_active}`
+    const sort_by =  `id:desc&search_key=${filter.value.search_key}&search_value=${filter.value.search_value}&member_type_id=${filter.value.member_type_id}&role_id=${filter.value.role_id}&is_active=${filter.value.is_active}`
     const response = await UserService.getUserSearch(filter.value.offset, filter.value.limit, sort_by);
     items.value.tables = response.data?.data
   } catch (e) {

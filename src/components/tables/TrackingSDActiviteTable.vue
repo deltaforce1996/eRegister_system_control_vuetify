@@ -205,7 +205,10 @@
                 <v-col cols="4">
                   <v-row dense class="pa-10">
                     <v-col cols="12">
-                      <v-btn variant="outlined" to="/SDTeamDashboard/FollowUp" block class="text-capitalize rounded-pill"
+                      <v-btn variant="outlined"
+                      :to="`/SDTeamDashboard/FollowUp?owner=_owner&vendor=_vendor`"
+                      block
+                      class="text-capitalize rounded-pill"
                         color="black">
                         Follow up
                       </v-btn>
