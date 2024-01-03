@@ -137,14 +137,17 @@
             <UploadScore />
           </v-row>
         </v-form>
-        <v-btn @click="submitForm">Submit</v-btn>
       </v-col>
     </v-row>
+    <h3 style="margin-bottom: 15px; margin-top: 15px">Question card</h3>
     <v-row>
       <v-col cols="12">
+        <v-form ref="form">
         <QuestionOption type="None" id="0" />
+        </v-form>
       </v-col>
     </v-row>
+    <v-btn @click="submitForm">Submit</v-btn>
   </v-container>
 </template>
 
