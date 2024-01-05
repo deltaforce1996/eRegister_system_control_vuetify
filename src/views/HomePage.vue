@@ -54,6 +54,7 @@
           @button-clicked="on_open_log"
         /> </v-col
     ></v-row>
+
     <!-- <h3 style="margin-bottom: 15px">Drag drop compoenent</h3>
     <v-row>
       <draggable v-model="dragDrop" item-key="id">
@@ -85,6 +86,7 @@
         height="700"
       ></iframe> -->
     <!-- </v-row> -->
+
     <v-row>
       <v-col cols="12">
         <v-form ref="form">
@@ -139,19 +141,23 @@
         </v-form>
       </v-col>
     </v-row>
-    <h3 style="margin-bottom: 15px; margin-top: 15px">Question card</h3>
+
+    <!-- <h3 style="margin-bottom: 15px; margin-top: 15px">Question card</h3>
     <v-row>
       <v-col cols="12">
         <v-form ref="form">
           <QuestionOption type="None" id="0" />
         </v-form>
       </v-col>
-    </v-row>
-    <v-btn @click="submitForm">Submit</v-btn>
-    <draggable v-model="cardsDragDrop"  tag="ul" handle=".handle" item-key="id">
+    </v-row> -->
+
+    <h3 style="margin-bottom: 15px; margin-top: 15px">
+      List Drag & Drop Question card
+    </h3>
+    <draggable v-model="cardsDragDrop" tag="ul" handle=".handle" item-key="id">
       <template v-slot:item="{ element }">
         <v-row>
-          <v-col cols="12" sm="6" md="4">
+          <!-- <v-col cols="12" sm="6" md="4">
             <v-card :color="element.color" dark>
               <v-card-title>
                 {{ element.title }}
@@ -159,10 +165,16 @@
               </v-card-title>
               <v-card-text>{{ element.text }}</v-card-text>
             </v-card>
+          </v-col> -->
+          <v-col cols="12">
+            <v-form ref="form">
+              <QuestionOption type="None" :id="element.id" />
+            </v-form>
           </v-col>
         </v-row>
       </template>
     </draggable>
+    <v-btn @click="submitForm">Submit</v-btn>
   </v-container>
 </template>
 
