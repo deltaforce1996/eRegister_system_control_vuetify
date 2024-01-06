@@ -59,13 +59,24 @@
 
 <script setup>
 import { ref, watch, defineEmits } from "vue";
-const metaData = ref({
-  question: "",
-  answer: "",
-  isRequire: false,
-  totalScore: "",
+
+const propsVar = defineProps({
+  metaDataParagrahpScore: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        answer: "",
+        isRequire: false,
+        totalScore: "",
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataParagrahpScore);
 const emit = defineEmits(["on-update", "on-remove"]);
+
 watch(metaData.value, (newValue) => {
   emit("on-update", { paragraph_score: newValue });
   // console.log(JSON.stringify({ paragraph_score: newValue }));

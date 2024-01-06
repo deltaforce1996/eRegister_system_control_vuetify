@@ -101,13 +101,23 @@
 
 <script setup>
 import { ref, watch, defineEmits } from "vue";
-const metaData = ref({
-  question: "",
-  isRequired: false,
-  isAlign: false,
-  totalScore: 0,
-  answers: [],
+
+const propsVar = defineProps({
+  metaDataDropdownAlign: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        isRequired: false,
+        isAlign: false,
+        totalScore: 0,
+        answers: [],
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataDropdownAlign);
 
 const addChoice = () => {
   metaData.value.answers.push({ score: "", isAlign: true, answer: "" });
@@ -118,6 +128,7 @@ const onIconClick = (index) => {
 };
 
 const emit = defineEmits(["on-update", "on-remove"]);
+
 watch(metaData.value, (newValue) => {
   metaData.value.totalScore = newValue.answers.reduce((max, answer) => {
     const score = Number(answer.score);

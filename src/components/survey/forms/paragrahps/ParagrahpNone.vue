@@ -47,12 +47,23 @@
 
 <script setup>
 import { ref, watch, defineEmits } from "vue";
-const metaData = ref({
-  question: "",
-  answer: "",
-  isRequire: false,
+
+const propsVar = defineProps({
+  metaDataParagrahpNone: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        answer: "",
+        isRequire: false,
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataParagrahpNone);
 const emit = defineEmits(["on-update", "on-remove"]);
+
 watch(metaData.value, (newValue) => {
   emit("on-update", { paragraph_none: newValue });
   // console.log(JSON.stringify({ paragraph_none: newValue }));

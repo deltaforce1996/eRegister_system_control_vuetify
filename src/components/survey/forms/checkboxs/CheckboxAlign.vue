@@ -152,13 +152,23 @@
 
 <script setup>
 import { ref, watch, defineEmits } from "vue";
-const metaData = ref({
-  question: "",
-  isRequired: false,
-  isAlign: false,
-  totalScore: 0,
-  answers: [],
+
+const propsVar = defineProps({
+  metaDataCheckboxAlign: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        isRequired: false,
+        isAlign: false,
+        totalScore: 0,
+        answers: [],
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataCheckboxAlign);
 
 const addChoice = () => {
   metaData.value.answers.push({
@@ -183,6 +193,7 @@ const onIconClick = (index) => {
 };
 
 const emit = defineEmits(["on-update", "on-remove"]);
+
 watch(metaData.value, (newValue) => {
   metaData.value.totalScore = newValue.answers.reduce(
     (sum, answer) => sum + Number(answer.score),

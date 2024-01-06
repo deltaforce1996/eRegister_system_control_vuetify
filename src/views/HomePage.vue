@@ -154,16 +154,12 @@
     <h3 style="margin-bottom: 15px; margin-top: 15px">
       List Drag & Drop Question card
     </h3>
-    <v-select
+    <!-- <v-select
       label="Select"
-      :items="[
-        'None',
-        'Score',
-        'Align',
-      ]"
+      :items="['None', 'Score', 'Align']"
       variant="solo"
       v-model="typeQuestionCard"
-    ></v-select>
+    ></v-select> -->
     <draggable v-model="cardsDragDrop" tag="ul" handle=".handle" item-key="id">
       <template v-slot:item="{ element, index }">
         <v-row>
@@ -179,9 +175,10 @@
           <v-col cols="12">
             <v-form ref="form">
               <QuestionOption
-                :type="typeQuestionCard"
+                :type="element.typeQuestionCard"
                 :id="element.id.toString()"
                 :index="Number(index)"
+                :data="element.data"
                 @on-update="handleQuestionUpdate"
                 @on-remove="handleQuestionRemove"
               />
@@ -246,12 +243,44 @@ const { showAlert } = useAlertDialogDialog();
 // ]);
 
 const cardsDragDrop = ref([
-  { id: "1", title: "Card 1", text: "This is card 1", color: "blue" },
-  { id: "2", title: "Card 2", text: "This is card 2", color: "green" },
-  { id: "2", title: "Card 2", text: "This is card 2", color: "green" },
+  {
+    id: "1",
+    typeQuestionCard: "None",
+    data: {
+      controlType: "Paragraph",
+      metaData: {
+        question: "gvgukgug",
+        answer: "",
+        isRequire: true,
+      },
+    },
+  },
+  {
+    id: "2",
+    typeQuestionCard: "None",
+    data: {
+      controlType: "Multichoice",
+      metaData: {
+        question: "ข้อใดถูกที่สุด",
+        isRequired: false,
+        answers: [
+          {
+            title: "chioce",
+            isChecked: false,
+            answer: "ตัวเลือกที่ 1",
+          },
+          {
+            title: "chioce",
+            isChecked: false,
+            answer: "ตัวเลือกที่ 2",
+          },
+        ],
+      },
+    },
+  },
 ]);
 
-const typeQuestionCard = ref('None')
+// const typeQuestionCard = ref("None");
 
 const herders_table = [
   { title: "Permission Module", key: "permission" },

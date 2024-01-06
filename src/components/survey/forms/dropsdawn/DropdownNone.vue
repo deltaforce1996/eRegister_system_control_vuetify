@@ -71,11 +71,21 @@
 
 <script setup>
 import { ref, watch, defineEmits } from "vue";
-const metaData = ref({
-  question: "",
-  isRequired: false,
-  answers: [],
+
+const propsVar = defineProps({
+  metaDataDropdownNone: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        isRequired: false,
+        answers: [],
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataDropdownNone);
 
 const addChoice = () => {
   metaData.value.answers.push({ answer: "" });
@@ -86,6 +96,7 @@ const onIconClick = (index) => {
 };
 
 const emit = defineEmits(["on-update", "on-remove"]);
+
 watch(metaData.value, (newValue) => {
   emit("on-update", { dropdown_none: newValue });
   // console.log(JSON.stringify({ dropdown_none: newValue }));

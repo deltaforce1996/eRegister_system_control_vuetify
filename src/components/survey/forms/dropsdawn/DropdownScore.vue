@@ -94,12 +94,22 @@
 
 <script setup>
 import { ref, watch, defineEmits } from "vue";
-const metaData = ref({
-  question: "",
-  isRequired: false,
-  totalScore: 0,
-  answers: [],
+
+const propsVar = defineProps({
+  metaDataDropdownScore: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        isRequired: false,
+        totalScore: 0,
+        answers: [],
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataDropdownScore);
 
 const addChoice = () => {
   metaData.value.answers.push({ answer: "", score: "" });
@@ -110,14 +120,12 @@ const onIconClick = (index) => {
 };
 
 const emit = defineEmits(["on-update", "on-remove"]);
+
 watch(metaData.value, (newValue) => {
-  metaData.value.totalScore = newValue.answers.reduce(
-    (max, answer) => {
-        const score = Number(answer.score);
-        return score > max ? score : max;
-      },
-    0
-  );
+  metaData.value.totalScore = newValue.answers.reduce((max, answer) => {
+    const score = Number(answer.score);
+    return score > max ? score : max;
+  }, 0);
 
   emit("on-update", { dropdown_score: newValue });
   // console.log(JSON.stringify({ dropdown_score: newValue }));

@@ -53,68 +53,81 @@
           <v-col cols="12" class="mt-n5">
             <div>
               <ParagrahpNone
+                :meta-data-paragrahp-none="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Paragraph' && propsVar.type === 'None'"
               />
               <MultiChoiceNone
+                :meta-data-multi-choice-none="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Multichoice' && propsVar.type === 'None'"
               />
               <CheckboxNone
+                :meta-data-checkbox-none="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Checkbox' && propsVar.type === 'None'"
               />
               <DropdownNone
+                :meta-data-dropdown-none="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Dropdown' && propsVar.type === 'None'"
               />
               <UploadNone
+                :meta-data-upload-none="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Uploads' && propsVar.type === 'None'"
               />
 
               <ParagrahpScore
+                :meta-data-paragrahp-score="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Paragraph' && propsVar.type === 'Score'"
               />
               <MultiChoiceScore
+                :meta-data-multi-choice-score="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Multichoice' && propsVar.type === 'Score'"
               />
               <CheckboxScore
+                :meta-data-checkbox-score="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Checkbox' && propsVar.type === 'Score'"
               />
               <DropdownScore
+                :meta-data-dropdown-score="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Dropdown' && propsVar.type === 'Score'"
               />
               <UploadScore
+                :meta-data-upload-score="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Uploads' && propsVar.type === 'Score'"
               />
 
               <MultiChoiceAlign
+                :meta-data-multi-choice-align="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Multichoice' && propsVar.type === 'Align'"
               />
               <CheckboxAlign
+                :meta-data-checkbox-align="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Checkbox' && propsVar.type === 'Align'"
               />
               <DcropdownAlign
+                :meta-data-dropdown-align="propsVar.data.metaData"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
                 v-if="select === 'Dropdown' && propsVar.type === 'Align'"
@@ -160,6 +173,15 @@ const propsVar = defineProps({
     type: String,
     default: "Align", // None, Score, Align
   },
+  data: {
+    type: Object,
+    default: () => {
+      return {
+        controlType: "Paragraph", //Paragraph, Multichoice, Checkbox, Dropdown, Uploads
+        metaData: () => {},
+      };
+    },
+  },
 });
 
 const emit = defineEmits(["on-update", "on-remove"]);
@@ -181,5 +203,5 @@ const handleQuestRemove = () => {
   console.log("Remove quest at : ", propsVar.id);
   emit("on-remove", propsVar.id);
 };
-const select = ref(items[0].text);
+const select = ref(propsVar.data.controlType);
 </script>

@@ -96,11 +96,21 @@
 
 <script setup>
 import { ref, watch, defineEmits } from "vue";
-const metaData = ref({
-  question: "",
-  isRequired: false,
-  answers: [],
+
+const propsVar = defineProps({
+  metaDataMultiChoiceNone: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        isRequired: false,
+        answers: [],
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataMultiChoiceNone);
 
 const addChoice = () => {
   metaData.value.answers.push({
@@ -123,6 +133,7 @@ const onIconClick = (index) => {
 };
 
 const emit = defineEmits(["on-update", "on-remove"]);
+
 watch(metaData.value, (newValue) => {
   emit("on-update", { multi_chioce_none: newValue });
   // console.log(JSON.stringify({ multi_chioce_none: newValue }));

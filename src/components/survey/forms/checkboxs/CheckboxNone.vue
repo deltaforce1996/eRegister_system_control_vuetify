@@ -96,11 +96,21 @@
 
 <script setup>
 import { ref, watch, defineEmits } from "vue";
-const metaData = ref({
-  question: "",
-  isRequired: false,
-  answers: [],
+
+const propsVar = defineProps({
+  metaDataCheckboxNone: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        isRequired: false,
+        answers: [],
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataCheckboxNone);
 
 const addChoice = () => {
   metaData.value.answers.push({

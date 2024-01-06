@@ -51,15 +51,25 @@
 import { ref, watch, defineEmits } from "vue";
 import Choosefile from "../../../forms/Choosefile.vue";
 
-const metaData = ref({
-  question: "",
-  isRequire: false,
-  files: [],
+const propsVar = defineProps({
+  metaDataUploadNone: {
+    type: Object,
+    default: () => {
+      return {
+        question: "",
+        isRequire: false,
+        files: [],
+      };
+    },
+  },
 });
+
+let metaData = ref(propsVar.metaDataUploadNone);
 
 const on_recieved_file = ref(null);
 
 const emit = defineEmits(["on-update", "on-remove"]);
+
 watch(metaData.value, (newValue) => {
   emit("on-update", { upload_file_none: newValue });
   // console.log(JSON.stringify({ upload_file_none: newValue }));
