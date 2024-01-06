@@ -12,7 +12,10 @@
           style="background-color: white; border-radius: 10px; height: auto"
         >
           <v-col cols="5" class="mt-1">
-            <h4><span>คำถามที่</span> <span>{{ propsVar.id }}</span></h4>
+            <h4>
+              <span>คำถามที่</span> <span>{{ propsVar.index + 1 }}</span>
+              <span> id</span> <span>{{ propsVar.id }}</span>
+            </h4>
           </v-col>
           <v-col cols="4">
             <v-btn
@@ -20,7 +23,7 @@
               class="ml-10 mt-n8 handle"
               variant="text"
               density="comfortable"
-              icon="mdi mdi-dots-horizontal"
+              icon="mdi mdi-dots-grid"
             ></v-btn>
           </v-col>
           <v-col cols="3">
@@ -49,73 +52,73 @@
           </v-col>
           <v-col cols="12" class="mt-n5">
             <div>
-            <ParagrahpNone
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Paragraph' && propsVar.type === 'None'"
-            />
-            <MultiChoiceNone
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Multichoice' && propsVar.type === 'None'"
-            />
-            <CheckboxNone
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Checkbox' && propsVar.type === 'None'"
-            />
-            <DropdownNone
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Dropdown' && propsVar.type === 'None'"
-            />
-            <UploadNone
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Uploads' && propsVar.type === 'None'"
-            />
+              <ParagrahpNone
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Paragraph' && propsVar.type === 'None'"
+              />
+              <MultiChoiceNone
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Multichoice' && propsVar.type === 'None'"
+              />
+              <CheckboxNone
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Checkbox' && propsVar.type === 'None'"
+              />
+              <DropdownNone
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Dropdown' && propsVar.type === 'None'"
+              />
+              <UploadNone
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Uploads' && propsVar.type === 'None'"
+              />
 
-            <ParagrahpScore
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Paragraph' && propsVar.type === 'Score'"
-            />
-            <MultiChoiceScore
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Multichoice' && propsVar.type === 'Score'"
-            />
-            <CheckboxScore
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Checkbox' && propsVar.type === 'Score'"
-            />
-            <DropdownScore
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Dropdown' && propsVar.type === 'Score'"
-            />
-            <UploadScore
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Uploads' && propsVar.type === 'Score'"
-            />
+              <ParagrahpScore
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Paragraph' && propsVar.type === 'Score'"
+              />
+              <MultiChoiceScore
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Multichoice' && propsVar.type === 'Score'"
+              />
+              <CheckboxScore
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Checkbox' && propsVar.type === 'Score'"
+              />
+              <DropdownScore
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Dropdown' && propsVar.type === 'Score'"
+              />
+              <UploadScore
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Uploads' && propsVar.type === 'Score'"
+              />
 
-            <MultiChoiceAlign
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Multichoice' && propsVar.type === 'Align'"
-            />
-            <CheckboxAlign
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Checkbox' && propsVar.type === 'Align'"
-            />
-            <DcropdownAlign
-              @on-update="handleFormUpdated"
-              @on-remove="handleQuestRemove"
-              v-if="select === 'Dropdown' && propsVar.type === 'Align'"
-            />
+              <MultiChoiceAlign
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Multichoice' && propsVar.type === 'Align'"
+              />
+              <CheckboxAlign
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Checkbox' && propsVar.type === 'Align'"
+              />
+              <DcropdownAlign
+                @on-update="handleFormUpdated"
+                @on-remove="handleQuestRemove"
+                v-if="select === 'Dropdown' && propsVar.type === 'Align'"
+              />
             </div>
           </v-col>
         </v-row>
@@ -149,6 +152,10 @@ const propsVar = defineProps({
     type: String,
     required: true,
   },
+  index: {
+    type: Number,
+    required: true,
+  },
   type: {
     type: String,
     default: "Align", // None, Score, Align
@@ -167,7 +174,7 @@ const items = [
 
 const handleFormUpdated = (item) => {
   console.log(JSON.stringify(item));
-  emit("on-update", propsVar.id);
+  emit("on-update", item);
 };
 
 const handleQuestRemove = () => {

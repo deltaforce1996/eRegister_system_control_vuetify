@@ -15,6 +15,18 @@
         density="compact"
       ></v-text-field>
     </v-col>
+    <v-col cols="2">
+      <v-text-field
+        class="centered-placeholder"
+        placeholder="คะแนนคำถาม"
+        variant="outlined"
+        required
+        v-model="metaData.totalScore"
+        disabled
+        :rules="[(v) => !!v || 'Required.']"
+        density="compact"
+      ></v-text-field>
+    </v-col>
     <v-col
       class="ml-2"
       cols="12"
@@ -85,6 +97,7 @@ import { ref, watch, defineEmits } from "vue";
 const metaData = ref({
   question: "",
   isRequired: false,
+  totalScore: 0,
   answers: [],
 });
 
@@ -98,6 +111,14 @@ const onIconClick = (index) => {
 
 const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
+  metaData.value.totalScore = newValue.answers.reduce(
+    (max, answer) => {
+        const score = Number(answer.score);
+        return score > max ? score : max;
+      },
+    0
+  );
+
   emit("on-update", { dropdown_score: newValue });
   // console.log(JSON.stringify({ dropdown_score: newValue }));
 });

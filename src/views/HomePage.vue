@@ -154,8 +154,18 @@
     <h3 style="margin-bottom: 15px; margin-top: 15px">
       List Drag & Drop Question card
     </h3>
+    <v-select
+      label="Select"
+      :items="[
+        'None',
+        'Score',
+        'Align',
+      ]"
+      variant="solo"
+      v-model="typeQuestionCard"
+    ></v-select>
     <draggable v-model="cardsDragDrop" tag="ul" handle=".handle" item-key="id">
-      <template v-slot:item="{ element }">
+      <template v-slot:item="{ element, index }">
         <v-row>
           <!-- <v-col cols="12" sm="6" md="4">
             <v-card :color="element.color" dark>
@@ -168,7 +178,13 @@
           </v-col> -->
           <v-col cols="12">
             <v-form ref="form">
-              <QuestionOption type="None" :id="element.id" />
+              <QuestionOption
+                :type="typeQuestionCard"
+                :id="element.id.toString()"
+                :index="Number(index)"
+                @on-update="handleQuestionUpdate"
+                @on-remove="handleQuestionRemove"
+              />
             </v-form>
           </v-col>
         </v-row>
@@ -230,9 +246,12 @@ const { showAlert } = useAlertDialogDialog();
 // ]);
 
 const cardsDragDrop = ref([
-  { id: 1, title: "Card 1", text: "This is card 1", color: "blue" },
-  { id: 2, title: "Card 2", text: "This is card 2", color: "green" },
+  { id: "1", title: "Card 1", text: "This is card 1", color: "blue" },
+  { id: "2", title: "Card 2", text: "This is card 2", color: "green" },
+  { id: "2", title: "Card 2", text: "This is card 2", color: "green" },
 ]);
+
+const typeQuestionCard = ref('None')
 
 const herders_table = [
   { title: "Permission Module", key: "permission" },
@@ -286,5 +305,14 @@ const on_open_alert = async () => {
   if (confirmed) {
     window.alert("Accept");
   }
+};
+
+const handleQuestionUpdate = (item) => {
+  console.log(JSON.stringify(item));
+};
+
+const handleQuestionRemove = (id) => {
+  const indexOfById = cardsDragDrop.value.findIndex((el) => el.id == id);
+  if (indexOfById > -1) cardsDragDrop.value.splice(indexOfById, 1);
 };
 </script>

@@ -15,6 +15,18 @@
         :rules="[(v) => !!v || 'Required.']"
       ></v-text-field>
     </v-col>
+    <v-col cols="2">
+      <v-text-field
+        class="centered-placeholder"
+        placeholder="คะแนนคำถาม"
+        variant="outlined"
+        required
+        v-model="metaData.totalScore"
+        disabled
+        :rules="[(v) => !!v || 'Required.']"
+        density="compact"
+      ></v-text-field>
+    </v-col>
     <v-col
       class="ml-2"
       cols="12"
@@ -61,11 +73,11 @@
         ></v-checkbox>
       </v-row>
     </v-col>
-    <!-- <v-col cols="12" class="d-flex">
+    <v-col cols="12" class="d-flex">
       <a>
         <p class="clickable-underline" @click="addChoice()">เพิ่มตัวเลือก</p>
       </a>
-    </v-col> -->
+    </v-col>
     <v-divider></v-divider>
     <v-col cols="6" class="d-flex justify-start">
       <v-checkbox
@@ -92,11 +104,25 @@ import { ref, watch, defineEmits } from "vue";
 const metaData = ref({
   question: "",
   isRequired: false,
-  files: [],
+  isAlign: false,
+  totalScore: 0,
+  answers: [],
 });
+
+const addChoice = () => {
+  metaData.value.answers.push({ score: "", isAlign: true, answer: "" });
+};
+
+const onIconClick = (index) => {
+  metaData.value.answers.splice(index, 1);
+};
 
 const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
+  metaData.value.totalScore = newValue.answers.reduce((max, answer) => {
+    const score = Number(answer.score);
+    return score > max ? score : max;
+  }, 0);
   emit("on-update", { dropdown_align: newValue });
   // console.log(JSON.stringify({ dropdown_align: newValue }));
 });

@@ -22,6 +22,7 @@
         required
         :rules="[(v) => !!v || 'Required.']"
         disabled
+        v-model="metaData.totalScore"
         variant="outlined"
         density="compact"
       ></v-text-field>
@@ -183,6 +184,10 @@ const onIconClick = (index) => {
 
 const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
+  metaData.value.totalScore = newValue.answers.reduce(
+    (sum, answer) => sum + Number(answer.score),
+    0
+  );
   emit("on-update", { check_box_align: newValue });
   // console.log(JSON.stringify({ check_box_align: newValue }));
 });

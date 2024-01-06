@@ -19,6 +19,8 @@
       <v-text-field
         class="centered-placeholder"
         placeholder="คะแนนคำถาม"
+        v-model="metaData.totalScore"
+        disabled
         variant="outlined"
         required
         :rules="[(v) => !!v || 'Required.']"
@@ -158,6 +160,10 @@ const onIconClick = (index) => {
 
 const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
+  metaData.value.totalScore = newValue.answers.reduce(
+    (sum, answer) => sum + Number(answer.score),
+    0
+  );
   emit("on-update", { check_box_score: newValue });
   // console.log(JSON.stringify({ check_box_score: newValue }));
 });

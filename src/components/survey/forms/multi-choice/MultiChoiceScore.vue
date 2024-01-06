@@ -21,6 +21,8 @@
         placeholder="คะแนนคำถาม"
         variant="outlined"
         required
+        v-model="metaData.totalScore"
+        disabled
         :rules="[(v) => !!v || 'Required.']"
         density="compact"
       ></v-text-field>
@@ -156,6 +158,10 @@ const onIconClick = (index) => {
 
 const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
+  metaData.value.totalScore = newValue.answers.reduce((max, answer) => {
+    const score = Number(answer.score);
+    return score > max ? score : max;
+  }, 0);
   emit("on-update", { multi_chioce_score: newValue });
   // console.log(JSON.stringify({ multi_chioce_score: newValue }));
 });

@@ -67,7 +67,7 @@ const metaData = ref({
 });
 const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
-  emit("on-update", { paragraph_none: newValue });
+  emit("on-update", { paragraph_score: newValue });
   // console.log(JSON.stringify({ paragraph_score: newValue }));
 });
 </script>
