@@ -274,6 +274,11 @@ const cardsDragDrop = ref([
             isChecked: false,
             answer: "ตัวเลือกที่ 2",
           },
+          {
+            title: "other",
+            isChecked: false,
+            answer: "ตัวเลือกอื่นๆ",
+          },
         ],
       },
     },
