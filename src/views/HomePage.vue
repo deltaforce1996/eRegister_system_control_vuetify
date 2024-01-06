@@ -249,7 +249,7 @@ const cardsDragDrop = ref([
     data: {
       controlType: "Paragraph",
       metaData: {
-        question: "gvgukgug",
+        question: "ไข่กับไก่อะไรเกิดก่อน ?",
         answer: "",
         isRequire: true,
       },
@@ -262,7 +262,7 @@ const cardsDragDrop = ref([
       controlType: "Multichoice",
       metaData: {
         question: "ข้อใดถูกที่สุด",
-        isRequired: false,
+        isRequired: true,
         answers: [
           {
             title: "chioce",
@@ -279,6 +279,22 @@ const cardsDragDrop = ref([
             isChecked: false,
             answer: "ตัวเลือกอื่นๆ",
           },
+        ],
+      },
+    },
+  },
+  {
+    id: "3",
+    typeQuestionCard: "None",
+    data: {
+      controlType: "Dropdown",
+      metaData: {
+        question: "ขอใดถูกต้องที่สุด ?",
+        isRequired: false,
+        answers: [
+          { answer: "Option 1" },
+          { answer: "Option 2" },
+          { answer: "Option 3" },
         ],
       },
     },
