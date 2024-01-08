@@ -1,6 +1,6 @@
 <template>
   <v-row dense>
-    <v-col cols="12" v-for="(item, index) in 5" :key="index">
+    <v-col cols="12" v-for="(item, index) in 1" :key="index">
       <credit-score-management />
     </v-col>
     <v-col cols="12">
