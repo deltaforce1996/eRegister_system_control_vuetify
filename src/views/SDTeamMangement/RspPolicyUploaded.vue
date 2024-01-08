@@ -31,7 +31,7 @@
                 <strong class="text-black">Active วันที่ </strong>
               </v-col>
               <v-col cols="9" align-self="center">
-                <MenuDatePickerControl width="500" :value="date" @value="date = $event" />
+                <MenuDatePickerControl :value="date" @value="date = $event" />
               </v-col>
               </v-row>
               </div>
