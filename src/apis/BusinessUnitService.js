@@ -6,6 +6,15 @@ const getBusinesUnitAll = async (offset = 0, limit = 1000, sort_by = "id:desc") 
     data: {},
   });
 };
+
+const getBusinessById = async (businessId) => {
+  return await axiosBase({
+    method: "get",
+    url: `/master/get-business-unit/${businessId}`,
+    data: {},
+  });
+};
 export default {
   getBusinesUnitAll,
+  getBusinessById
 };

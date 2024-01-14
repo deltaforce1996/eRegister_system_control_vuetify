@@ -76,10 +76,10 @@ const desserts_module = reactive([]);
 const title = ref("");
 const role_name = ref("");
 const role_desc = ref("");
-let headers = ref([]);
-let action_all_mock = ref([]);
-let roles_mock = ref({});
-let permission_module_mock = ref({});
+const headers = ref([]);
+const action_all_mock = ref([]);
+const roles_mock = ref({});
+const permission_module_mock = ref({});
 
 const handleFetchRoleById = async (role_id) => {
   try {
@@ -100,42 +100,43 @@ const handleFetchPermissionByRoleId = async (role_id) => {
       role_id
     );
     if (result_permission.data.is_success) {
-      permission_module_mock.value = {
-        role_id: 1,
-        module: [
-          {
-            id: 6,
-            name_th: "รายการพาร์ทเนอร์",
-            name_en: "Business partner list",
-            description: null,
-            action: [
-              {
-                id: 1,
-                name: "add",
-                description: null,
-              },
-              {
-                id: 2,
-                name: "get",
-                description: null,
-              },
-            ],
-          },
-          {
-            id: 1,
-            name_th: "สร้างใบสมัครใหม่",
-            name_en: "Create new register form",
-            description: null,
-            action: [
-              {
-                id: 1,
-                name: "add",
-                description: null,
-              },
-            ],
-          },
-        ],
-      };
+      // permission_module_mock.value = {
+      //   role_id: 1,
+      //   module: [
+      //     {
+      //       id: 6,
+      //       name_th: "รายการพาร์ทเนอร์",
+      //       name_en: "Business partner list",
+      //       description: null,
+      //       action: [
+      //         {
+      //           id: 1,
+      //           name: "add",
+      //           description: null,
+      //         },
+      //         {
+      //           id: 2,
+      //           name: "get",
+      //           description: null,
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       id: 1,
+      //       name_th: "สร้างใบสมัครใหม่",
+      //       name_en: "Create new register form",
+      //       description: null,
+      //       action: [
+      //         {
+      //           id: 1,
+      //           name: "add",
+      //           description: null,
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // };
+        permission_module_mock.value = result_permission.data.data
     } else {
       // Failed
     }
