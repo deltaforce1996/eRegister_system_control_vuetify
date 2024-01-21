@@ -211,7 +211,7 @@ watch(propsVar, (newValue) => {
 })
 
 const handleFormUpdated = (item) => {
-  dataForm.value = { index: propsVar.index + 1, control: item };
+  dataForm.value.control = item
 };
 
 const handleQuestRemove = () => {
