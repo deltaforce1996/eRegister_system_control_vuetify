@@ -52,6 +52,8 @@
           <v-row dense no-gutters>
             <v-checkbox
               v-model="item.isAlign"
+              hide-spin-buttons
+              hide-details
               class="pa-n0 ma-0 mt-n6"
               label="Align"
             ></v-checkbox>
@@ -67,6 +69,16 @@
             density="compact"
             v-model="item.score"
           ></v-text-field>
+        </v-col>
+        <v-col cols="2">
+          <v-select
+            label="ทำข้อต่อไป"
+            :items="propsVar.items_selection"
+            v-model="item.nextQuestion"
+            density="compact"
+            variant="outlined"
+          >
+          </v-select>
         </v-col>
       </v-row>
       <v-row dense v-if="item.title === 'other'">
@@ -92,6 +104,8 @@
           <v-row dense no-gutters>
             <v-checkbox
               v-model="item.isAlign"
+              hide-spin-buttons
+              hide-details
               class="pa-n0 ma-0 mt-n6"
               label="Align"
             ></v-checkbox>
@@ -107,6 +121,16 @@
             v-model="item.score"
             density="compact"
           ></v-text-field>
+        </v-col>
+        <v-col cols="2">
+          <v-select
+            label="ทำข้อต่อไป"
+            :items="propsVar.items_selection"
+            v-model="item.nextQuestion"
+            density="compact"
+            variant="outlined"
+          >
+          </v-select>
         </v-col>
       </v-row>
     </v-col>
@@ -126,6 +150,8 @@
       <v-checkbox
         v-model="metaData.isRequired"
         class="pa-0 ma-0"
+        hide-spin-buttons
+        hide-details
         label="Require"
       ></v-checkbox>
     </v-col>
@@ -157,6 +183,10 @@ const propsVar = defineProps({
       };
     },
   },
+  items_selection: {
+    type: Array,
+    default: () => [1, 2, 3, 4],
+  },
 });
 
 let metaData = ref(propsVar.metaDataMultiChoiceAlign);
@@ -168,6 +198,7 @@ const addChoice = () => {
     isAlign: true,
     score: "",
     answer: "",
+    nextQuestion: "",
   });
 };
 
@@ -178,6 +209,7 @@ const addOther = () => {
     isAlign: true,
     score: "",
     answer: "",
+    nextQuestion: "",
   });
 };
 
