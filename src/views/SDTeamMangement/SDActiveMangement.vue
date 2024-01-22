@@ -1,24 +1,12 @@
 <template>
- <v-container>
+  <v-container>
     <h2>SD Active Mangement</h2>
     <div class="mt-5">
-      <v-list-item class="elevation-5 pa-5" color="white" to="/SDTeamMangement/RspPolicy">
+      <v-list-item v-for="(i, index) in item" :key="index" class="elevation-5 pa-5 mt-2" :to="i.path">
         <template v-slot:prepend>
-          <v-icon icon="mdi-plus" color="secondary" size="40"></v-icon>
+          <v-icon :icon="i.icon" color="secondary" size="40"></v-icon>
         </template>
-        <v-list-item-title>RSP Policy</v-list-item-title>
-      </v-list-item>
-      <v-list-item class="elevation-5 pa-5 mt-2" color="white" to="/SDTeamMangement/Survey">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-plus" color="secondary" size="40"></v-icon>
-        </template>
-        <v-list-item-title>Survey</v-list-item-title>
-      </v-list-item>
-      <v-list-item class="elevation-5 pa-5 mt-2" color="white" to="/SDTeamMangement/Traning">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-plus" color="secondary" size="40"></v-icon>
-        </template>
-        <v-list-item-title>Traning</v-list-item-title>
+        <v-list-item-title class="font-weight-medium">{{ i.title }}</v-list-item-title>
       </v-list-item>
     </div>
   </v-container>
@@ -28,8 +16,26 @@
 import { ref, onBeforeMount } from 'vue';
 
 
-onBeforeMount(() => {
+const item = ref([])
 
+onBeforeMount(() => {
+  item.value = [
+    {
+      icon: "mdi-shield-check",
+      title: "RSP Policy",
+      path: "/SDTeamMangement/RspPolicy"
+    },
+    {
+      icon: "mdi-list-box",
+      title: "Survey",
+      path: "/SDTeamMangement/Survey"
+    },
+    {
+      icon: "mdi-laptop-account",
+      title: "Traning",
+      path: "/SDTeamMangement/Traning"
+    }
+  ]
 
 });
 

@@ -12,7 +12,38 @@ const  getUserSearch = async (offset = 0,limit = 1000, sort_by= 'id:desc')=>{
     }
   });
 }
-
+const  createdUser = async (p_email , p_memberTypeId , p_roleId , p_teamId)=>{
+  return await axiosBase({
+     method: 'post',
+     url: '/users/create-user',
+     data: {
+      email: p_email,
+      firstname: null,
+      lastname: null,
+      member_type_id: p_memberTypeId,
+      role_id: p_roleId,
+      team_id: p_teamId,
+      created_user_id  : 1
+     }
+   });
+}
+const  updatedUser = async (p_email , p_memberTypeId , p_roleId , p_teamId)=>{
+  return await axiosBase({
+     method: 'post',
+     url: '/users/create-user',
+     data: {
+      email: p_email,
+      firstname: null,
+      lastname: null,
+      is_register:true,
+      is_active:true,
+      member_type_id: p_memberTypeId,
+      role_id: p_roleId,
+      team_id: p_teamId,
+      updated_user_id  : 1
+     }
+   });
+}
 
 const  createMultipleUser = async (data = [])=>{
   return await axiosBase({
@@ -69,6 +100,8 @@ export default {
   getUserSearch,
   downloadCreateMultipleUserTemplate,
   downloadDeactivateUserTemplate,
+  createdUser,
+  updatedUser,
   createMultipleUser,
   deactivateUser
  }

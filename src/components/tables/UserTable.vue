@@ -91,9 +91,10 @@
                 <v-col cols="10">
                   <v-card-item>
                     <v-card-title class="text-secondary">Contact Owner</v-card-title>
-                    ????
+                    <strong>{{i.business_partner?.contact_owner_name}}</strong>
+
                       <!-- <span> <strong class="text-secondary"> Freelance@gamil.com</strong> <strong>( Freelance /
-                        Active)</strong></span> -->
+                        Active)</strong></span>???? business_partner contact_owner_name -->
                   </v-card-item>
                 </v-col>
               </v-row>
