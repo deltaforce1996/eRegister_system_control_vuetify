@@ -54,6 +54,8 @@
             <v-checkbox
               v-model="item.isAlign"
               class="pa-n0 ma-0 mt-n6"
+              hide-spin-buttons
+              hide-details
               label="Align"
             ></v-checkbox>
           </v-row>
@@ -93,6 +95,8 @@
           <v-row dense no-gutters>
             <v-checkbox
               v-model="item.isAlign"
+              hide-spin-buttons
+              hide-details
               class="pa-n0 ma-0 mt-n6"
               label="Align"
             ></v-checkbox>
@@ -126,6 +130,8 @@
     <v-col cols="1" class="d-flex justify-end">
       <v-checkbox
         v-model="metaData.isRequired"
+        hide-spin-buttons
+        hide-details
         class="pa-0 ma-0"
         label="Require"
       ></v-checkbox>
@@ -133,6 +139,8 @@
     <v-col cols="8" class="d-flex justify-end">
       <v-checkbox
         v-model="metaData.isAlign"
+        hide-spin-buttons
+        hide-details
         class="pa-0 ma-0"
         label="ผู้ตอบแบบสอบถามต้องเลือกตัวเลือก Align ที่เลือกไว้ทั้งหมดถึงจะ Align"
       ></v-checkbox>

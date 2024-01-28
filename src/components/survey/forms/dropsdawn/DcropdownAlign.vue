@@ -64,10 +64,22 @@
             density="compact"
           ></v-text-field>
         </v-col>
+        <v-col cols="2">
+          <v-select
+            label="ทำข้อต่อไป"
+            :items="propsVar.items_selection"
+            density="compact"
+            variant="outlined"
+            v-model="item.nextQuestion"
+          >
+          </v-select>
+        </v-col>
       </v-row>
       <v-row dense no-gutters>
         <v-checkbox
           v-model="item.isAlign"
+          hide-spin-buttons
+          hide-details
           class="pa-n0 ma-0 mt-n6"
           label="Align"
         ></v-checkbox>
@@ -82,6 +94,8 @@
     <v-col cols="6" class="d-flex justify-start">
       <v-checkbox
         v-model="metaData.isRequired"
+        hide-spin-buttons
+        hide-details
         class="pa-0 ma-0"
         label="Require"
       ></v-checkbox>
@@ -120,7 +134,7 @@ const propsVar = defineProps({
 let metaData = ref(propsVar.metaDataDropdownAlign);
 
 const addChoice = () => {
-  metaData.value.answers.push({ score: "", isAlign: true, answer: "" });
+  metaData.value.answers.push({ score: "", isAlign: true, answer: "", nextQuestion:"" });
 };
 
 const onIconClick = (index) => {

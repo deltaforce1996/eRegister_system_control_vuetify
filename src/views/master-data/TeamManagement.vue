@@ -8,9 +8,12 @@
 <script setup>
 import CreateTeamForm from "@/components/forms/CreateTeamForm.vue";
 import EditTeamForm from "@/components/forms/EditTeamForm.vue";
-import { reactive } from "vue";
+
+import { ref } from "vue";
 import { onMounted } from "vue";
 import { computed } from "vue";
+
+import TeamService from "@/apis/TeamService";
 
 import { useRoute } from "vue-router";
 
@@ -18,34 +21,11 @@ const route = useRoute();
 
 const id = route.params.id;
 const hasId = computed(() => !!id);
-let itemTeam = reactive({});
-
-const data_api_get_all_team_mock = {
-  id: 1,
-  company_code: "1000",
-  name_th: "บริษัท แผ่นดินทอง พร็อพเพอร์ตี้ ดีเวลลอปเม้นท์ จำกัด (มหาชน)",
-  name_en: "Golden Land Property Development PLC.",
-  taxpayer_id_number: "0107537002273",
-  address_th:
-    "944 มิตรทาวน์ ออฟฟิศ ทาวเวอร์ ชั้นที่ 20 ถนนพระราม 4 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330",
-  address_en:
-    "20th Floor, Mitrtown Office Tower 944 Rama 4 Road, Wangmai, Pathumwan, Bangkok 10330",
-  business_unit: {
-    id: 1,
-    name_th: "Commercial",
-    name_en: "Commercial",
-    purchasing_organization: "GL00",
-    corporation: {
-      id: 1,
-      name_th: "เฟรเซอร์ส พร็อพเพอร์ตี้ (ประเทศไทย)",
-      name_en: "Frasers Property Thailand",
-    },
-  },
-};
+const itemTeam = ref({});
 
 const process_array = (item) => {
   return {
-    id: 1,
+    id: item?.id,
     business_unit: item?.company?.business_unit?.name_th,
     business_unit_id: item?.company?.business_unit?.id,
     company: item?.company?.name_en,
@@ -62,10 +42,20 @@ const process_array = (item) => {
   };
 };
 
-itemTeam = process_array(data_api_get_all_team_mock);
-onMounted(() => {
+onMounted(async () => {
   if (hasId.value) {
-    console.log("Call team by id");
+    await onLoadedTeamVyId(id);
   }
 });
+
+const onLoadedTeamVyId = async (teamId) => {
+  try {
+    const response = await TeamService.getTeamById(teamId);
+    if (response.data?.is_success) {
+      itemTeam.value = process_array(response.data.data);
+    }
+  } catch (error) {
+    //Failed
+  }
+};
 </script>

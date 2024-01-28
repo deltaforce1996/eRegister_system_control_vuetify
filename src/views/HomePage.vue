@@ -179,6 +179,7 @@
                 :id="element.id.toString()"
                 :index="Number(index)"
                 :data="element.data"
+                :count-question="cardsDragDrop.length"
                 @on-update="handleQuestionUpdate"
                 @on-remove="handleQuestionRemove"
               />
@@ -263,23 +264,7 @@ const cardsDragDrop = ref([
       metaData: {
         question: "ข้อใดถูกที่สุด",
         isRequired: true,
-        answers: [
-          {
-            title: "chioce",
-            isChecked: false,
-            answer: "ตัวเลือกที่ 1",
-          },
-          {
-            title: "chioce",
-            isChecked: false,
-            answer: "ตัวเลือกที่ 2",
-          },
-          {
-            title: "other",
-            isChecked: false,
-            answer: "ตัวเลือกอื่นๆ",
-          },
-        ],
+        answers: [],
       },
     },
   },
@@ -291,11 +276,7 @@ const cardsDragDrop = ref([
       metaData: {
         question: "ขอใดถูกต้องที่สุด ?",
         isRequired: false,
-        answers: [
-          { answer: "Option 1" },
-          { answer: "Option 2" },
-          { answer: "Option 3" },
-        ],
+        answers: [],
       },
     },
   },

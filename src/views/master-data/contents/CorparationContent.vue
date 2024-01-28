@@ -62,7 +62,10 @@ const handleFetchCorporations = async () => {
 const handle_item_clicked = (event) => {
   const action = event.split(",");
   if (action[1] && action[1] === "view") {
-    router.push({ name: "CorparationDetail", params: { id: items.value[0].id } });
+    router.push({
+      name: "CorparationDetail",
+      params: { id: items.value[action[0]].id },
+    });
   }
 };
 

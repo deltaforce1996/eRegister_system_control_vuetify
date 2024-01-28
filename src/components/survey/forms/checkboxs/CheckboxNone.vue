@@ -77,6 +77,8 @@
     <v-col cols="6" class="d-flex justify-start">
       <v-checkbox
         v-model="metaData.isRequired"
+        hide-spin-buttons
+        hide-details
         class="pa-0 ma-0"
         label="Require"
       ></v-checkbox>

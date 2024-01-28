@@ -37,11 +37,11 @@ const headers = reactive([
   { text: "", value: "history", width: 1 },
 ]);
 
-let items = ref([]);
+const items = ref([]);
 
 const process_array = (inputArray) => {
   return inputArray.map((item) => ({
-    id: 1,
+    id: item.id,
     business_unit: item?.company?.business_unit?.name_th,
     business_unit_id: item?.company?.business_unit?.id,
     company: item?.company?.name_en,
@@ -77,7 +77,8 @@ const on_go_to_create = () => {
 const handle_item_clicked = async (event) => {
   const result = event.split(",");
   if (result.length > 0 && result[1] === "edit") {
-    router.push({ name: "TeamManagement", params: { id: result[0] } });
+    const teamId = items.value[result[0]];
+    router.push({ name: "TeamManagement", params: { id: teamId?.id } });
   }
 
   if (result.length > 0 && result[1] === "delete") {

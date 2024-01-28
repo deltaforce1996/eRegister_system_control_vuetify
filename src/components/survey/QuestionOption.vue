@@ -159,6 +159,7 @@ import UploadScore from "@/components/survey/forms/uploads-control/UploadScore.v
 import MultiChoiceAlign from "@/components/survey/forms/multi-choice/MultiChoiceAlign.vue";
 import CheckboxAlign from "@/components/survey/forms/checkboxs/CheckboxAlign.vue";
 import DcropdownAlign from "@/components/survey/forms/dropsdawn/DcropdownAlign.vue";
+import { watch } from "vue";
 
 const propsVar = defineProps({
   id: {
@@ -182,9 +183,14 @@ const propsVar = defineProps({
       };
     },
   },
+  countQuestion: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const emit = defineEmits(["on-update", "on-remove"]);
+const dataForm = ref({ index: propsVar.index + 1, control: propsVar.data })
 
 const items = [
   { text: "Paragraph", icon: "mdi-format-paragraph" },
@@ -194,9 +200,18 @@ const items = [
   { text: "Uploads", icon: "mdi-cloud-upload" },
 ];
 
+watch(dataForm.value, (newValue) => {
+  // console.log(JSON.stringify(newValue));
+  dataForm.value = newValue
+  emit("on-update", newValue);
+})
+
+watch(propsVar, (newValue) => {
+  dataForm.value.index = newValue.index + 1
+})
+
 const handleFormUpdated = (item) => {
-  console.log(JSON.stringify(item));
-  emit("on-update", item);
+  dataForm.value.control = item
 };
 
 const handleQuestRemove = () => {

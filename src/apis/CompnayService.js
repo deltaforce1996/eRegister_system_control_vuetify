@@ -7,6 +7,16 @@ const  getCompanyAll = async (offset = 0,limit = 1000, sort_by= 'id:desc')=>{
     data: {}
   });
 }
+
+const getCompanyById = async (companyId) => {
+  return await axiosBase({
+    method: "get",
+    url: `/master/get-company/${companyId}`,
+    data: {},
+  });
+};
+
 export default {
-  getCompanyAll
+  getCompanyAll,
+  getCompanyById
 }
