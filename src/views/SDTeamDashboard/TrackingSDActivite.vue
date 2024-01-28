@@ -22,11 +22,11 @@
       <v-row dense class="mt-5 mb-5">
         <v-col cols="10">
           <v-row no-gutters>
-            <v-col cols="4">
+            <v-col cols="3">
               <v-select v-model="filter.search_key" density="compact" class="rounded-s-lg" variant="solo"
                 :items="selected_items.topics" item-title="name" item-value="id" />
             </v-col>
-            <v-col cols="8">
+            <v-col cols="9">
               <v-row no-gutters>
                 <v-divider vertical></v-divider>
                 <v-text-field v-model="filter.search_value" density="compact" variant="solo" class="rounded-e-lg"
@@ -80,89 +80,6 @@
           </v-menu>
         </v-col>
       </v-row>
-
-      <!-- <v-row dense class="mt-5 mb-5">
-        <v-col cols="10">
-          <v-text-field density="compact" variant="solo" placeholder="ค้นหา ชื่อบริษัท ,Contact owner"
-            append-inner-icon="mdi-magnify" single-line hide-details></v-text-field>
-        </v-col>
-        <v-col cols="2">
-          <v-menu v-model="menu" :close-on-content-click="false" location="bottom">
-            <template v-slot:activator="{ props }">
-              <v-btn color="grey-lighten-2" block height="40" v-bind="props">
-                Filter
-                <v-icon right>mdi-chevron-down</v-icon>
-              </v-btn>
-            </template>
-
-            <v-card min-width="1500" elevation="5">
-              <v-card-item class="pa-8">
-
-                <v-row align-center>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="User Type" item-title="name"
-                      item-value="id">
-                      <template v-slot:append-inner>
-                        <v-badge color="#5BB9DF" content="0" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Roles" item-title="name" item-value="id">
-                      <template v-slot:append-inner>
-                        <v-badge color="#FF7E40" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Status">
-                      <template v-slot:append-inner>
-                        <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Status">
-                      <template v-slot:append-inner>
-                        <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Status">
-                      <template v-slot:append-inner>
-                        <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Status">
-                      <template v-slot:append-inner>
-                        <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-chip closable variant="outlined" color="secondary" class="ma-1" size="small">
-                      Chip
-                    </v-chip>
-                    <v-chip closable variant="outlined" color="secondary" class="ma-1" size="small">
-                      Chip
-                    </v-chip>
-                    <v-chip closable variant="outlined" color="secondary" class="ma-1" size="small">
-                      Chip
-                    </v-chip>
-                  </v-col>
-                </v-row>
-              </v-card-item>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn variant="text"> Clear All</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-menu>
-        </v-col>
-      </v-row> -->
       <v-row justify="end" class="mt-2 mb-2" dense>
         <v-col cols="1">
           <v-btn variant="outlined" to="/SDTeamDashboard/FollowUp" block class="text-capitalize" color="black">

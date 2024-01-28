@@ -95,10 +95,21 @@
         </v-card-text>
       </v-card>
       <div class="text-center mt-5">
-        <v-btn rounded class="ma-2" color="black" style="width: 100px;" @click="handleDismissEvent">
+        <v-btn rounded
+                class="ma-2"
+                color="black"
+                style="width: 100px;"
+                :disabled="loading.submit"
+                @click="handleDismissEvent">
           <strong>ยกเลิก</strong>
         </v-btn>
-        <v-btn type="submit" rounded class="ma-2" color="secondary" style="width: 100px;">
+        <v-btn type="submit"
+                rounded
+                class="ma-2"
+                color="secondary"
+                :disabled="loading.submit"
+                :loading="loading.submit"
+                style="width: 100px;">
           <strong>ตกลง</strong>
         </v-btn>
       </div>
@@ -172,10 +183,6 @@ watch(() => item_input.companyId, (newValue) => {
 
   const fineTeam = selected_items.value.team.filter((s) => s.company.id === newValue);
   selected_items.value.teamComp = [...fineTeam]
-  //console.log(selected_items)
-  //item_input.teamId = null;
-
-  //item_input.teamId = null;
 
 });
 
@@ -183,12 +190,11 @@ onMounted(() => {
   if (props.index == -1) {
     emit('is-title', "Add User");
   } else {
-
-    item_input.email = props.item['email'];
-    item_input.memberTypeId= props.item['member_type'].id
-    item_input.companyId= props.item['team']['company'].id
-    item_input.roleId= props.item['role'].id
-    item_input.teamId= props.item['team'].name_th   //id
+    item_input.email = props.item?.email;
+    item_input.memberTypeId= props.item?.member_type?.id
+    item_input.companyId= props.item?.team?.company?.id
+    item_input.roleId= props.item?.role?.id
+    item_input.teamId= props.item?.team?.name_th
     emit('is-title', "Edit User");
   }
 
@@ -291,6 +297,7 @@ const handleCreatedTeam = async () => {
 }
 const  handleCreated = async ()=>{
   try {
+    loading.value.submit = true;
     const v_Email = item_input.email;
     const v_MemberTypeId = item_input.memberTypeId
     const v_RoleId = item_input.roleId
@@ -305,28 +312,33 @@ const  handleCreated = async ()=>{
       handlingErrorsMessage(val.message, val?.data.error);
       return;
     }
-    handlingErrorsMessage("unknown", e.message);
+      handlingErrorsMessage("unknown", e.message);
+    }finally{
+      loading.value.submit = false;
     }
 }
 
 const  handleUpdated = async () =>{
-
   try {
+    loading.value.submit = true;
     const v_Email = item_input.email;
     const v_MemberTypeId = item_input.memberTypeId
     const v_RoleId = item_input.roleId
     const v_TeamId = (selected_items.value.teamComp.length > 0) ? item_input.teamId : handleCreatedTeam()
     const response = await userService.updatedUser(v_Email, v_MemberTypeId, v_RoleId, v_TeamId);
-    if (response) {
-      handleDismissEvent()
-    }
+      if (response) {
+        handleDismissEvent()
+      }
     } catch (e) {
-    if (e.response) {
-      const val = e.response.data
-      handlingErrorsMessage(val.message, val?.data.error);
-      return;
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
     }
-    handlingErrorsMessage("unknown", e.message);
+    finally{
+      loading.value.submit = false;
     }
 }
 

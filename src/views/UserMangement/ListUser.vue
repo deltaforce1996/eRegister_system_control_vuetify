@@ -5,7 +5,7 @@
         <v-row no-gutters>
           <v-col cols="4">
             <v-select v-model="filter.search_key" density="compact" class="rounded-s-lg" variant="solo"
-              :items="selected_items.search_partail" item-title="name" item-value="id" />
+              :items="selected_items.search_partail" />
           </v-col>
           <v-col cols="8">
             <v-row no-gutters>
@@ -13,7 +13,7 @@
               <v-text-field v-model="filter.search_value" density="compact" variant="solo" class="rounded-e-lg"
                 placeholder="ค้นหา ชื่อบริษัท ,Contact owner" single-line
                 hide-details></v-text-field>
-              <v-btn color="grey-lighten-2" height="40" rounded="0" class="rounded-e" @click="handleFetchUsers">
+              <v-btn color="grey-lighten-2" height="40" rounded="0" class="rounded-e" @click.prevent="handleFetchUsers">
                 <v-icon size="25">mdi-magnify</v-icon>
               </v-btn>
             </v-row>
@@ -61,7 +61,10 @@
       </v-col>
     </v-row>
     <UserTable class="mt-1" :items="content" :loading="loading.tables" @action-edit="handleEditUserEvent" />
-    <PaginationControl class="mt-3" :value="filter.offset" @value="handlePaginationEvent" />
+    <PaginationControl class="mt-3"
+    :value="filter.page"
+    :length="filter.pageSize"
+    @value="handlePaginationEvent" />
   </div>
 </template>
 <script setup>
@@ -72,6 +75,7 @@ import roleService from '@/apis/RoleService';
 import UserService from '@/apis/UserService';
 import PaginationControl from '@/components/controls/PaginationControl'
 import UserTable from '@/components/tables/UserTable.vue'
+import paginationUtils from '@/utils/paginationUtils'
 
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 const { handlingErrorsMessage } = useErrorHandlingDialog();
@@ -79,16 +83,7 @@ const { handlingErrorsMessage } = useErrorHandlingDialog();
 const emit = defineEmits(["is-title", 'is-view']);
 const dialogFilter = ref(false)
 const selected_items = ref({
-  search_partail :[{
-      id: 1,
-      name: 'Business Partner Name'
-    },{
-      id: 2,
-      name: 'Company Name'
-    },{
-      id: 3,
-      name: 'Contact Owner'
-    }],
+  search_partail :['Business Partner Name','Company Name','Contact Owner'],
   search_status: [
     {
       id: 0,
@@ -109,18 +104,23 @@ const loading = ref({
   tables: false
 });
 const filter = ref({
-  search_key: 'business_partner_name',
+  search_key: 'Business Partner Name',
   search_value: null,
   member_type_id: null,
   role_id: null,
   is_active: null,
-  offset: 1,
+  page: 1,
+  pageSize: 7,
+  offset: 0,
   limit: 10,
 });
 const content = ref([])
 
 onMounted(() => {
   emit('is-title', "");
+
+  //paginationUtils.pageSize(4,15)
+  //paginationUtils.pageIndex(0,4,15)
   handleLoadAllMemberType();
   handleLoadAllRole();
   handleFetchUsers();
@@ -132,6 +132,7 @@ const handleFilterClear = ()=>{
     filter.value.is_active= null;
     //filter.value.search_key= null;
 }
+// eslint-disable-next-line no-unused-vars
 const handleLoadAllMemberType = async () => {
   try {
     loading.value.memberType = true;
@@ -151,6 +152,7 @@ const handleLoadAllMemberType = async () => {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const handleLoadAllRole = async () => {
   try {
     loading.value.roles = true;
@@ -176,13 +178,15 @@ const handleFetchUsers = async () => {
     content.value.tables = [];
     const sort_by =  `id:desc&search_key=${filter.value.search_key}&search_value=${filter.value.search_value}&member_type_id=${filter.value.member_type_id}&role_id=${filter.value.role_id}&is_active=${filter.value.is_active}`
     const response = await UserService.getUserSearch(filter.value.offset, filter.value.limit, sort_by);
-    //const headers = response.headers;
-    // console.log(headers);
+    const headers = response.headers;
 
-    // console.log('Response Headers:', headers['Items-Limit']);
-    // console.log('Response Headers:', headers['Items-Total']);
-    // console.log('Response Headers:', headers['Items-Total']);
+    const itemsOffset = Number(headers['items-offset']);
+    const itemsLimit = Number(headers['items-limit']);
+    const itemsTotal = Number(headers['items-total']);
 
+    filter.value.offset = itemsOffset;
+    filter.value.limit = itemsLimit;
+    filter.value.pageSize = paginationUtils.pageSize(itemsLimit,itemsTotal)
     content.value= response.data?.data
   } catch (e) {
     if (e.response) {
@@ -195,8 +199,9 @@ const handleFetchUsers = async () => {
     loading.value.tables = false;
   }
 }
-const handlePaginationEvent = (offset) => {
-  filter.value.offset = offset;
+const handlePaginationEvent = (page) => {
+  filter.value.page = page;
+  filter.value.offset = paginationUtils.pageOffset(page,filter.value.limit);
   handleFetchUsers();
 }
 
