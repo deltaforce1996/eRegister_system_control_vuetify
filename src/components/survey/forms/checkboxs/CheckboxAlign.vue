@@ -184,6 +184,7 @@ const addChoice = () => {
     isChecked: false,
     score: "",
     answer: "",
+    isAlign: false,
   });
 };
 
@@ -193,6 +194,7 @@ const addOther = () => {
     isChecked: false,
     score: "",
     answer: "",
+    isAlign: false,
   });
 };
 

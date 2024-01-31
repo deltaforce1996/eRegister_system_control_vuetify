@@ -1,37 +1,42 @@
 <template>
-  <v-btn flat size="small" rounded :color="color" @click="handleItemClick(props.id)">
+  <v-btn
+    flat
+    size="small"
+    rounded
+    :color="color"
+    @click="handleItemClick(props.id)"
+  >
     <v-icon v-if="props.icon">{{ props.icon }}</v-icon>
     {{ props.text }}
   </v-btn>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps } from "vue";
 const props = defineProps({
   icon: {
     type: String,
-    default: null
+    default: null,
   },
   text: {
     type: String,
-    default: 'None'
+    default: "None",
   },
   id: {
     type: String,
-    default: null
+    default: null,
   },
-  color:{
+  color: {
     type: String,
-    default: 'secondary'
-  }
+    default: "secondary",
+  },
 });
 
-const emit = defineEmits(['button-clicked']);
+const emit = defineEmits(["button-clicked"]);
 
 const handleItemClick = (id) => {
-  emit('button-clicked', id);
+  emit("button-clicked", id);
 };
 </script>
-
 
 <!-- +mdi mdi-plus -->

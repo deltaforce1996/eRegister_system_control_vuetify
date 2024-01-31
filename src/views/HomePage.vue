@@ -189,6 +189,11 @@
       </template>
     </draggable>
     <v-btn @click="submitForm">Submit</v-btn>
+    <v-row>
+      <v-col cols="12">
+        <GroupQuestionOption />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -226,6 +231,8 @@ import DcropdownAlign from "@/components/survey/forms/dropsdawn/DcropdownAlign.v
 import UploadNone from "@/components/survey/forms/uploads-control/UploadNone.vue";
 import UploadScore from "@/components/survey/forms/uploads-control/UploadScore.vue";
 
+import GroupQuestionOption from "@/components/survey/GroupQuestionOption.vue";
+
 // import { SCORM } from "pipwerks-scorm-api-wrapper";
 
 // import Home1 from "@/views/Home1.vue";
@@ -250,9 +257,10 @@ const cardsDragDrop = ref([
     data: {
       controlType: "Paragraph",
       metaData: {
-        question: "ไข่กับไก่อะไรเกิดก่อน ?",
-        answer: "",
-        isRequire: true,
+        question: "FFF",
+        isRequired: false,
+        totalScore: 0,
+        answers: [],
       },
     },
   },
@@ -262,8 +270,9 @@ const cardsDragDrop = ref([
     data: {
       controlType: "Multichoice",
       metaData: {
-        question: "ข้อใดถูกที่สุด",
-        isRequired: true,
+        question: "",
+        isRequired: false,
+        totalScore: 0,
         answers: [],
       },
     },
@@ -274,8 +283,9 @@ const cardsDragDrop = ref([
     data: {
       controlType: "Dropdown",
       metaData: {
-        question: "ขอใดถูกต้องที่สุด ?",
+        question: "",
         isRequired: false,
+        totalScore: 0,
         answers: [],
       },
     },
