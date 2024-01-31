@@ -18,7 +18,7 @@
           <v-col cols="2" align-self="center" class="mt-n3">
             <strong>Training</strong>
           </v-col>
-          <v-col cols="2" align-self="center" class="mt-n3">
+          <v-col cols="3" align-self="center" class="mt-n3">
             <strong>Contact Owner</strong>
           </v-col>
         </v-row>
@@ -27,7 +27,7 @@
     <v-expansion-panels v-model="panel" class="mt-1">
       <v-progress-linear class="rounded-pill" :indeterminate="loading" bg-color="transparent"
         color="secondary"></v-progress-linear>
-      <v-expansion-panel v-for="(i, index) in 6" :key="index" class="mt-1"
+      <v-expansion-panel v-for="(i, index) in vendors" :key="index" class="mt-1"
         :style="index === panel ? 'border: 2px solid red;' : ''">
         <v-expansion-panel-title :color="index === panel ? '#FFF1F0' : ''">
           <template v-slot:actions="{ expanded }">
@@ -38,29 +38,29 @@
               <v-checkbox hide-details hide-spin-buttons class="pa-0 ma-0"></v-checkbox>
             </v-col>
             <v-col cols="2" align-self="center">
-              <strong>xxxx@gmail.com</strong>
+              <strong>{{i.name_th}}</strong>
             </v-col>
             <v-col cols="2" align-self="center">
+              <v-chip :color="onColor(i.rsp?.policy?.status)" label>
+                <strong>{{i.rsp?.policy?.status}}</strong>
+              </v-chip>
+            </v-col>
+            <v-col cols="2" align-self="center">
+              <v-chip :color="onColor(i.rsp?.survey?.status)" label>
+              <strong>{{i.rsp?.survey?.status}}  {{i.rsp?.survey?.progress_percentage}}%</strong>
+              </v-chip>
+            </v-col>
+            <v-col cols="2" align-self="center">
+              <v-chip :color="onColor(i.rsp?.training?.status)" label>
+                <strong>{{i.rsp?.training?.status}}  {{i.rsp?.training?.completed_amount}}/{{i.rsp?.training?.total_amount}}</strong>
+              </v-chip>
+            </v-col>
+            <v-col cols="3" align-self="center">
               <v-chip color="secondary" label>
-                Not completed
-              </v-chip>
-            </v-col>
-            <v-col cols="2" align-self="center">
-              <v-chip color="amber" label>
-                Progress 50%
-              </v-chip>
-            </v-col>
-            <v-col cols="2" align-self="center">
-              <v-chip color="amber" label>
-                Progress 1/4
-              </v-chip>
-            </v-col>
-            <v-col cols="2" align-self="center">
-              <v-chip color="secondary" label>
-                test10@gmail.com
+                <strong>{{i.contact_owner?.email}}</strong>
               </v-chip>
               <br />
-              <strong>Retail Marketing</strong>
+              <strong>{{i.contact_owner?.business_unit}}</strong>
               /<span class="text-grey">While convenient, the color pack</span>/
               <span class="text-grey">Commentail</span>
             </v-col>
@@ -130,11 +130,9 @@
                     <v-col cols="12">
                       <v-row>
                         <v-col cols="4">
-                          <v-select density="compact" variant="outlined" placeholder="Roles" item-title="name"
-                            item-value="id">
-                            <template v-slot:append-inner>
-                              <v-badge color="#FF7E40" content="6" inline text-color="#FFFFFF"></v-badge>
-                            </template>
+                          <v-select density="compact" variant="outlined" placeholder="Roles"
+                           :items="business.branch"
+                           item-title="branch_description">
                           </v-select>
                         </v-col>
                       </v-row>
@@ -187,12 +185,12 @@
                     </v-col>
                     <v-col cols="12">
                       <v-list lines="two" width="340" dense>
-                        <v-list-item dense v-for="file in files" :key="file.title">
-                          <v-list-item-title class="font-weight-black">{{ file.title }}</v-list-item-title>
-                          <v-list-item-subtitle class="font-weight-medium ">{{ file.subtitle }}</v-list-item-subtitle>
+                        <v-list-item dense v-for="(item,index) in data.survey_result.section" :key="index">
+                          <v-list-item-title class="font-weight-black">{{ item.name }}</v-list-item-title>
+                          <v-list-item-subtitle class="font-weight-medium ">{{ item.score }}/{{item.total_score}}</v-list-item-subtitle>
                           <template v-slot:append>
                             <v-avatar color="secondary">
-                              <span class="text-h5">B</span>
+                              <span style=" font-size: 13px;">{{item.score_percentage}}</span>
                             </v-avatar>
                             <!-- <span class="text-h5">B</span> -->
                           </template>
@@ -255,24 +253,188 @@ const props = defineProps({
 });
 const panel = ref([]);
 
-const files = ref([
-  {
-    subtitle: 'update 27/12/2553 10:00 น.',
-    title: 'Action',
-    value: 'B'
-  },
-  {
-    subtitle: 'update 27/12/2553 10:00 น.',
-    title: 'Recipes',
-    value: '60'
-  },
-  {
-    subtitle: 'update 27/12/2553 10:00 น.',
-    title: 'Work',
-    value: '70'
-  },
+const vendors = ref([
+      {
+        "bp_number": "01234567890000",
+        "name_th": "บริษัท ABC จำกัด",
+        "name_en": "Company ABC Co., Ltd.",
+        "contact_owner": {
+          "email": "contact@companyabc.com",
+          "team": "Team XYZ",
+          "company": "Company ABC Co., Ltd.",
+          "business_unit": "Sales"
+        },
+        "rsp": {
+          "policy": {
+            "status": "Completed",
+            "completed_at": "2023-11-10T14:20:12"
+          },
+          "survey": {
+            "status": "In Progress",
+            "progress_percentage": 70,
+            "completed_at": null
+          },
+          "training": {
+            "status": "Completed",
+            "completed_amount": 5,
+            "total_amount": 5,
+            "completed_at": "2023-11-15T19:20:33"
+          }
+        }
+      },
+      {
+        "bp_number": "01234567890001",
+        "name_th": "บริษัท XYZ จำกัด",
+        "name_en": "Company XYZ Co., Ltd.",
+        "contact_owner": {
+          "email": "contact@companyxyz.com",
+          "team": "Team ABC",
+          "company": "Company XYZ Co., Ltd.",
+          "business_unit": "Marketing"
+        },
+        "rsp": {
+          "policy": {
+            "status": "In Progress",
+            "completed_at": null
+          },
+          "survey": {
+            "status": "Not Started",
+            "progress_percentage": 0,
+            "completed_at": null
+          },
+          "training": {
+            "status": "Not Started",
+            "completed_amount": 0,
+            "total_amount": 10,
+            "completed_at": null
+          }
+        }
+      }
 ]);
+const business = ref({
+  "bp_number": "BP123456",
+  "name_th": "บริษัท อยู่ดี จำกัด",
+  "name_en": "Good Living Company Limited",
+  "contact_owner_user": {
+    "id": 1,
+    "email": "contact.owner@example.com",
+    "firstname": "John",
+    "lastname": "Doe",
+    "is_register": 1,
+    "is_active": 1,
+    "member_type": {
+      "id": 1,
+      "name": "employee"
+    },
+    "team": {
+      "id": 1,
+      "name_th": "ทีมตรวจสอบ",
+      "name_en": "Audit Team"
+    },
+    "role": {
+      "id": 1,
+      "name": "Admin",
+      "description": "Admin",
+      "is_active": 1
+    },
+    "created_at": "2023-11-10T14:20:12",
+    "created_user_id": 1,
+    "updated_at": "2023-11-11T09:30:45",
+    "updated_user_id": 1
+  },
+  "created_at": "2023-11-10T14:20:12",
+  "created_user_email": "created.user@example.com",
+  "company_information": {
+    "business_partner_number": "BP123456",
+    "is_fpt_affiliate": 1,
+    "account_business_partner_type": "VIP",
+    "business_register_type": "Limited",
+    "company_category": "Tech",
+    "vendor_number": "VN789012",
+    "company_code_of_vendor": "1000,1200,1300",
+    "customer_number": "CU123456",
+    "company_code_of_customer": "1000,2000,3000,"
+  },
+  "do_rsp_activity": 1,
+  "branch": [
+    {
+      "branch_code": "00001",
+      "branch_description": "Main Office",
+      "business_partner_role": "Head Office",
+      "company_code": "1000,2000",
+      "branch_address": "123 Main Street, Cityville",
+      "contact_person": [
+        {
+          "name": "Jane Doe",
+          "mobile": "123-456-7890",
+          "email": "jane.doe@example.com"
+        }
+      ]
+    },
+    {
+      "branch_code": "00002",
+      "branch_description": "Branch A",
+      "business_partner_role": "Branch",
+      "company_code": "3000,4000",
+      "branch_address": "456 Branch Street, Cityville",
+      "contact_person": [
+        {
+          "name": "Bob Smith",
+          "mobile": "987-654-3210",
+          "email": null
+        },
+        {
+          "name": null,
+          "mobile": null,
+          "email": "bob.smith@example.com"
+        }
+      ]
+    }
+  ]
+});
+const data = ref({
+    "bp_number": "BP12345",
+    "status": {
+      "id": 1,
+      "name": "Completed"
+    },
+    "progress_percentage": 100,
+    "survey_result": {
+      "is_aligned": 1,
+      "score": 85,
+      "total_score": 100,
+      "section": [
+        {
+          "name": "Section A",
+          "score": 20,
+          "total_score": 25,
+          "score_percentage": 80
+        },
+        {
+          "name": "Section B",
+          "score": 25,
+          "total_score": 30,
+          "score_percentage": 83.33
+        },
+        {
+          "name": "Section C",
+          "score": 15,
+          "total_score": 20,
+          "score_percentage": 75
+        }
+      ]
+    }
+  });
 
+const onColor = (type)=>{
+    switch(type){
+         case 'Completed' : return 'teal-accent-4'
+         case 'Not Completed' : return 'red'
+         case 'In Progress' : return 'amber'
+         case 'Not Started' : return 'cyan'
+         default : return ''
+    }
+}
 // eslint-disable-next-line no-unused-vars
 const handleEditEvent = (item) => {
   emit("action-edit", item)

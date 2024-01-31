@@ -8,7 +8,7 @@
     <component
         :is="currentComponent"
         :index="1"
-        :item="{}"
+        :item="isItem"
         @is-title="toggleTitle"
         @is-view="toggleView" />
   </v-container>
@@ -24,6 +24,7 @@ import UserForm from '@/components/forms/UserForm';
 
 const currentComponent = ref(null);
 const isTitle = ref(null);
+const isIndex = ref(-1);
 const isItem = ref({});
 
 onBeforeMount(() => {
@@ -39,11 +40,13 @@ const toggleView =(view, payload = {})=> {
         currentComponent.value = ListUser;
       break;
     case "user-add":{
+        isIndex.value = -1;
         currentComponent.value = TabsUser;
     }
     break;
     case "user-edit":{
         currentComponent.value = UserForm;
+        isIndex.value = 0;
         isItem.value =  {... payload}
     }
     break;

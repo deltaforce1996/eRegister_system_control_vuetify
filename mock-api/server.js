@@ -1,10 +1,14 @@
 /* eslint-disable no-undef */
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const app = express();
-app.use(express.static("downloads"));
-app.use(cors());
+const express = require('express')
+const bodyParser  = require("body-parser");
+const cors = require('cors');
+const app = express()
+app.use(express.static('downloads'));
+
+const corsOptions = {
+  exposedHeaders: ['Authorization', 'Items-Offset','Items-Limit','Items-Total'],
+};
+app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

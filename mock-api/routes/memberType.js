@@ -5,7 +5,7 @@ const { delay } = require('../utils');
 module.exports = (app) => {
   const memberType = require('../data/memberType.json')
 
-app.get('/getAllMemberType', async (req, res) => {
+app.get('/master/get-member-types', async (req, res) => {
   await delay(2000);
   res.json(memberType);
 });

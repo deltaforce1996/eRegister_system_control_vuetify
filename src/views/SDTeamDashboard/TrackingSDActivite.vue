@@ -2,188 +2,80 @@
   <v-container>
     <h2>Tracking SD Activite</h2>
     <div class="mt-5">
-      <v-row>
+      <v-row dense>
         <v-col cols="3">
-          <v-card class="mx-auto rounded-lg" elevation="5" height="135">
-            <v-card-text>
-              <v-card-title class="font-weight-black">
-                Registered Vendors
-              </v-card-title>
-              <v-card-actions>
-                <h1 class="text-secondary font-weight-black pl-2" style="font-size: 55px;">
-                  30
-                </h1>
-                &nbsp;
-                &nbsp;
-                <span class="text-secondary font-weight-black">vendors</span>
-              </v-card-actions>
-            </v-card-text>
-          </v-card>
+          <RegisteredVendorsItem :value="content.registered_vendors?.value" />
         </v-col>
         <v-col cols="3">
-          <v-card class="mx-auto rounded-lg" elevation="5" height="135">
-            <v-card-text>
-              <v-card-title class="font-weight-black">
-                RSP Policy
-              </v-card-title>
-              <v-card-actions>
-                <h1 class="pl-2 text-teal-darken-3" style="font-size: 55px;">
-                  25
-                </h1>
-                &nbsp;
-                &nbsp;
-                <span class="font-weight-black text-teal-darken-3">vendors</span>
-                <v-spacer></v-spacer>
-                <v-chip color="teal-darken-3" label>
-                  <span class="font-weight-black">80%</span>
-                </v-chip>
-              </v-card-actions>
-
-            </v-card-text>
-          </v-card>
+          <RspPolicyItem :value="content.rsp_policy_vendors?.value" :percent="content.rsp_policy_vendors?.percent" />
         </v-col>
         <v-col cols="3">
-          <v-card class="mx-auto rounded-lg" elevation="5" height="135">
-            <v-card-text>
-              <v-card-title class="font-weight-black">
-                RSP Policy
-              </v-card-title>
-              <v-card-actions>
-                <h1 class="text-teal-accent-4 pl-2" style="font-size: 55px;">25</h1>
-                &nbsp;
-                &nbsp;
-                <div>
-                  <v-chip color="teal-accent-4" label size="small">
-                    <span class="font-weight-black">80%</span>
-                  </v-chip>
-                  <br />
-                  <span class="font-weight-black text-teal-accent-4">vendors</span>
-                </div>
-                <v-spacer></v-spacer>
-                <h1 class="text-teal-accent-4 pl-2" style="font-size: 55px;">25</h1>
-                &nbsp;
-                &nbsp;
-                <div>
-                  <v-chip color="teal-accent-4" label size="small">
-                    <span class="font-weight-black">60%</span>
-                  </v-chip>
-                  <br />
-                  <span class="font-weight-black text-teal-accent-4">vendors</span>
-                </div>
-              </v-card-actions>
-
-            </v-card-text>
-          </v-card>
+          <SurveyAlignItem :survey_value="content.survey_align_vendors?.survey_value"
+            :survey_percent="content.survey_align_vendors?.survey_percent"
+            :align_value="content.survey_align_vendors?.align_value"
+            :align_percent="content.survey_align_vendors?.align_percent" />
         </v-col>
         <v-col cols="3">
-          <v-card class="mx-auto rounded-lg" elevation="5" height="135">
-            <v-card-text>
-              <v-card-title class="font-weight-black">
-                Training
-              </v-card-title>
-              <v-card-actions>
-                <h1 class="text-cyan-accent-4 pl-2" style="font-size: 55px;">25</h1>
-                &nbsp;
-                &nbsp;
-                <span class="font-weight-black text-cyan-accent-4">vendors</span>
-                <v-spacer></v-spacer>
-                <v-chip color="cyan-accent-4" label>
-                  <span class="font-weight-black">60%</span>
-                </v-chip>
-              </v-card-actions>
-
-            </v-card-text>
-          </v-card>
+          <TrainingItem :value="content.training_vendors?.value" :percent="content.training_vendors?.percent" />
         </v-col>
       </v-row>
       <v-row dense class="mt-5 mb-5">
         <v-col cols="10">
-          <!-- <v-text-field density="compact" variant="solo" rounded
-              bg-color="white" placeholder="ค้นหา ชื่อบริษัท ,Contact owner"
-              prepend-inner-icon="mdi-magnify"
-              single-line hide-details></v-text-field> -->
-
-          <v-text-field density="compact" variant="solo" placeholder="ค้นหา ชื่อบริษัท ,Contact owner"
-            append-inner-icon="mdi-magnify" single-line hide-details></v-text-field>
+          <v-row no-gutters>
+            <v-col cols="3">
+              <v-select v-model="filter.search_key" density="compact" class="rounded-s-lg" variant="solo"
+                :items="selected_items.topics" item-title="name" item-value="id" />
+            </v-col>
+            <v-col cols="9">
+              <v-row no-gutters>
+                <v-divider vertical></v-divider>
+                <v-text-field v-model="filter.search_value" density="compact" variant="solo" class="rounded-e-lg"
+                  placeholder="ค้นหา  Business Partner Name หรือ Company Name" single-line hide-details></v-text-field>
+                <v-btn color="grey-lighten-2" height="40" rounded="0" class="rounded-e" @click="handleFetchUsers">
+                  <v-icon size="25">mdi-magnify</v-icon>
+                </v-btn>
+              </v-row>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="2">
-          <!-- <v-btn class="me-2 text-none" color="secondary" prepend-icon="mdi-magnify" variant="flat" height="40" rounded
-           block>
-              ค้นหา
-            </v-btn> -->
-
-          <v-menu v-model="menu" :close-on-content-click="false" location="bottom">
+          <v-menu v-model="dialogFilters" :close-on-content-click="false" location="bottom">
             <template v-slot:activator="{ props }">
-              <v-btn color="grey-lighten-2" block height="40" v-bind="props">
+              <v-btn class="text-capitalize" color="grey-lighten-2" block height="40" v-bind="props">
                 Filter
                 <v-icon right>mdi-chevron-down</v-icon>
               </v-btn>
             </template>
-
-            <v-card min-width="1500" elevation="5">
+            <v-card min-width="1400" elevation="5">
               <v-card-item class="pa-8">
-
-                <v-row align-center>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="User Type" item-title="name"
-                      item-value="id">
-                      <template v-slot:append-inner>
-                        <v-badge color="#5BB9DF" content="0" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Roles" item-title="name" item-value="id">
-                      <template v-slot:append-inner>
-                        <v-badge color="#FF7E40" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Status">
-                      <template v-slot:append-inner>
-                        <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Status">
-                      <template v-slot:append-inner>
-                        <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Status">
-                      <template v-slot:append-inner>
-                        <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="2">
-                    <v-select density="compact" variant="outlined" placeholder="Status">
-                      <template v-slot:append-inner>
-                        <v-badge color="#99235F" content="6" inline text-color="#FFFFFF"></v-badge>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-chip closable variant="outlined" color="secondary" class="ma-1" size="small">
-                      Chip
-                    </v-chip>
-                    <v-chip closable variant="outlined" color="secondary" class="ma-1" size="small">
-                      Chip
-                    </v-chip>
-                    <v-chip closable variant="outlined" color="secondary" class="ma-1" size="small">
-                      Chip
-                    </v-chip>
-                  </v-col>
-                </v-row>
+                <v-row align-center dense>
+                <v-col cols="2">
+                  <v-select  density="compact" variant="outlined" placeholder="Company Code"
+                    item-title="name" :items="selected_items.companies" item-value="id" />
+                </v-col>
+                <v-col cols="2">
+                  <v-select density="compact" variant="outlined" placeholder="BU Owner"
+                    item-title="name" item-value="id" :items="selected_items.bu_owners" />
+                </v-col>
+                <v-col cols="2">
+                  <v-select  density="compact" variant="outlined" placeholder="Activities"
+                    :items="selected_items.activities" item-title="name" item-value="id" />
+                </v-col>
+                <v-col cols="2">
+                  <v-select  density="compact" variant="outlined" placeholder="Status"
+                    :items="selected_items.status" item-title="name" item-value="id" />
+                </v-col>
+                <v-col cols="2">
+                  <v-select  density="compact" variant="outlined" placeholder="Company Category"
+                    :items="selected_items.companies_cate" item-title="name" item-value="id" />
+                </v-col>
+                <v-col cols="2">
+                  <v-select  density="compact" variant="outlined" placeholder="Company Category"
+                    :items="selected_items.companies_cate" item-title="name" item-value="id" />
+                  <!-- <v-btn variant="text" class="text-capitalize" @click="handleFilterClear"> Clear All</v-btn> -->
+                </v-col>
+              </v-row>
               </v-card-item>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn variant="text"> Clear All</v-btn>
-              </v-card-actions>
             </v-card>
           </v-menu>
         </v-col>
@@ -210,13 +102,88 @@
 <script setup>
 /*eslint-disable no-unused-vars  */
 import { ref, onBeforeMount } from 'vue';
+import RegisteredVendorsItem from "@/components/items/RegisteredVendorsItem.vue";
+import RspPolicyItem from "@/components/items/RspPolicyItem.vue";
+import SurveyAlignItem from "@/components/items/SurveyAlignItem.vue";
+import TrainingItem from "@/components/items/TrainingItem.vue";
 import TrackingSDActiviteTable from "@/components/tables/TrackingSDActiviteTable.vue";
 import PaginationControl from '@/components/controls/PaginationControl'
 
-const fav = ref(true)
-const menu = ref(false)
-const message = ref(false)
-const hints = ref(true)
+
+const dialogFilters = ref(false);
+const selected_items = ref({
+  topics: [
+    {
+      id: 'business_partner_name',
+      name: 'Business Partner Name'
+    }, {
+      id: 'vendor Number',
+      name: 'vendor Number'
+    }, {
+      id: 'tax_ID',
+      name: 'Tax ID'
+    }, {
+      id: 'contact_owner',
+      name: 'Contact Owner'
+    }, {
+      id: 'Team_owner',
+      name: 'Team Owner'
+    }, {
+      id: 'credit_score',
+      name: 'Credit Score'
+    }
+  ],
+  companies: [],
+  bu_owners: [],
+  activities: [],
+  status: [
+    {
+      id: 0,
+      name: 'Inactive'
+    },
+    {
+      id: 1,
+      name: 'Active'
+    }
+  ],
+  companies_cate: []
+});
+
+const filter = ref({
+  search_key: 'business_partner_name',
+  search_value: null,
+  company_code: null,
+  bu_owner: null,
+  activities: null,
+  status: null,
+  company_category: null,
+  date_from: null,
+  date_to: null,
+  offset: 1,
+  limit: 10,
+});
+
+const content = ref({
+  registered_vendors: {
+    value: 0
+  },
+  rsp_policy_vendors: {
+    value: 0,
+    percent: 0
+  },
+  survey_align_vendors: {
+    survey_value: 0,
+    survey_percent: 0,
+    align_value: 0,
+    align_percent: 0
+  },
+  training_vendors: {
+    value: 0,
+    percent: 0
+  },
+  items: []
+})
+
 onBeforeMount(() => {
 
 
