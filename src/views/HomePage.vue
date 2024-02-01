@@ -41,19 +41,19 @@
           @button-clicked="on_open_alert"
         /> </v-col
     ></v-row>
+    <v-row
+      ><v-col cols="auto"
+        ><ButtonControl
+          color="black"
+          text="Open Faild Alert"
+          @button-clicked="on_open_faild_alert"
+        /> </v-col
+    ></v-row>
     <v-row>
       <v-col cols="12">
         <CreditOption />
       </v-col>
     </v-row>
-    <v-row
-      ><v-col cols="auto">
-        <ButtonControl
-          color="black"
-          text="Open Dialog"
-          @button-clicked="on_open_log"
-        /> </v-col
-    ></v-row>
 
     <!-- <h3 style="margin-bottom: 15px">Drag drop compoenent</h3>
     <v-row>
@@ -244,6 +244,10 @@ const { showDialog } = useConfirmationDialog();
 
 import { useAlertDialogDialog } from "@/components/dialogs/AlertSuccessDialogService";
 const { showAlert } = useAlertDialogDialog();
+
+import { useFaildDialogDialog } from "@/components/dialogs/FailedDialogService";
+const { showFaildAlert } = useFaildDialogDialog();
+
 // const dragDrop = ref([
 //   { title: "Home1", content: Home1 },
 //   { title: "Home2", content: Home2 },
@@ -320,6 +324,16 @@ const on_open_alert = async () => {
   const confirmed = await showAlert(
     "เผยแพร่สำเร็จแล้ว",
     "คุณสามารถตรวจสอบรายการได้"
+  );
+  if (confirmed) {
+    window.alert("Accept");
+  }
+};
+
+const on_open_faild_alert = async () => {
+  const confirmed = await showFaildAlert(
+    "Fetch ข้อมูลล้มเหลว",
+    "กรุณาลองใหม่อีกครั้ง"
   );
   if (confirmed) {
     window.alert("Accept");
