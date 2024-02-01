@@ -66,7 +66,7 @@ onMounted(async () => {
 const handle_item_clicked = (event) => {
   const action = event.split(",");
   if (action[1] && action[1] === "view") {
-    const business = items.value[action[0]]
+    const business = items.value[action[0]];
     router.push({
       name: "BusinessUnitDetail",
       params: { id: business?.id },
@@ -76,6 +76,11 @@ const handle_item_clicked = (event) => {
 
 const handle_history = (index) => {
   console.log("history: ", index);
-  router.push({ name: "HistoryTeamPage" });
+  router.push({
+    name: "HistoryBusinessPage",
+    query: {
+      business_id: business_units.value[0]?.id,
+    },
+  });
 };
 </script>

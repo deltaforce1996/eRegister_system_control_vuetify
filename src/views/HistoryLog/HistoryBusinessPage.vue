@@ -1,9 +1,14 @@
 <template>
   <v-container fluid>
-    <h3>History Log {{ roleId }}</h3>
+    <h3>History Log {{ bussinessId }}</h3>
     <history-table-view
-      :headers="['Date And Time', 'Role', 'Change Action', 'Change By']"
-      :desserts="items_roles_history"
+      :headers="[
+        'Date And Time',
+        'Business Unit',
+        'Change Action',
+        'Change By',
+      ]"
+      :desserts="items_bussiness_history"
       @on-sort="handleSort"
     />
     <v-footer color="transparent" style="margin-top: 120px">
@@ -31,26 +36,28 @@ import ButtonControl from "../../components/controls/ButtonControl.vue";
 import HistoryLogService from "@/apis/HistoryLogService";
 import HistoryTableView from "@/components/tables/HistoryTableView.vue";
 import { ref, onMounted } from "vue";
-import RoleService from "@/apis/RoleService";
+import BusinessUnitService from "@/apis/BusinessUnitService";
 
 const route = useRoute();
 const router = useRouter();
-const sortby = ref("desc");
 
-const roleId = ref(route.query.role_id);
-const item_role_by_id = ref({});
-const items_roles_history = ref([]);
+const sortby = ref("desc");
+const bussinessId = ref(route.query.bussiness_id);
+const item_bussiness_by_id = ref({});
+let items_bussiness_history = ref([]);
 
 onMounted(async () => {
-  await handleLoadRoleById();
-  await handleLoadRoleHistory();
+  await handleLoadBusinessUnityId();
+  await handleLoadBusinessUnitHistory();
 });
 
-const handleLoadRoleById = async () => {
+const handleLoadBusinessUnityId = async () => {
   try {
-    const result_ = await RoleService.getRoleById(roleId.value);
+    const result_ = await BusinessUnitService.getBusinessById(
+      bussinessId.value
+    );
     if (result_.data.is_success) {
-      item_role_by_id.value = result_.data.data;
+      item_bussiness_by_id.value = result_.data.data;
     } else {
       // Failed
     }
@@ -59,19 +66,20 @@ const handleLoadRoleById = async () => {
   }
 };
 
-const handleLoadRoleHistory = async () => {
+const handleLoadBusinessUnitHistory = async () => {
   try {
     const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value);
     if (result_.data.is_success) {
-      items_roles_history.value = [];
+      const items = [];
       result_.data.data.forEach((el) => {
-        items_roles_history.value.push({
+        items.push({
           created_at: el.created_at,
-          type: item_role_by_id.value.name,
+          type: item_bussiness_by_id.value.name_en || 'None',
           changed_field: el.changed_field,
           changed_value: el.changed_value,
           user_email: el.user.email,
         });
+        items_bussiness_history.value = items;
       });
     } else {
       // Failed
@@ -87,6 +95,6 @@ const on_clicked_go_back = () => {
 
 const handleSort = async (tagSort) => {
   sortby.value = tagSort;
-  await handleLoadRoleHistory();
+  await handleLoadBusinessUnitHistory();
 };
 </script>

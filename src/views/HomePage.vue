@@ -79,12 +79,12 @@
        height="500"
        frameborder="0"></iframe> -->
     <!-- <ScormPlayer :path="`${courseURL}`"></ScormPlayer> -->
-    <!-- <iframe
-        ref="scormFrame"
-        :src="courseURL"
-        width="85%"
-        height="700"
-      ></iframe> -->
+    <iframe
+      ref="scormFrame"
+      src="https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal"
+      width="85%"
+      height="700"
+    ></iframe>
     <!-- </v-row> -->
 
     <v-row>
@@ -256,12 +256,7 @@ const cardsDragDrop = ref([
     typeQuestionCard: "None",
     data: {
       controlType: "Paragraph",
-      metaData: {
-        question: "FFF",
-        isRequired: false,
-        totalScore: 0,
-        answers: [],
-      },
+      metaData: undefined,
     },
   },
   {
@@ -269,12 +264,7 @@ const cardsDragDrop = ref([
     typeQuestionCard: "None",
     data: {
       controlType: "Multichoice",
-      metaData: {
-        question: "",
-        isRequired: false,
-        totalScore: 0,
-        answers: [],
-      },
+      metaData: undefined,
     },
   },
   {
@@ -282,17 +272,10 @@ const cardsDragDrop = ref([
     typeQuestionCard: "None",
     data: {
       controlType: "Dropdown",
-      metaData: {
-        question: "",
-        isRequired: false,
-        totalScore: 0,
-        answers: [],
-      },
+      metaData: undefined,
     },
   },
 ]);
-
-// const typeQuestionCard = ref("None");
 
 const herders_table = [
   { title: "Permission Module", key: "permission" },
@@ -321,11 +304,6 @@ const submitForm = () => {
   }
 };
 
-onMounted(() => {
-  //   SCORM.init();
-  //   courseURL.value =
-  //     "https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal";
-});
 const on_open_log = async () => {
   const confirmed = await showDialog(
     "ยืนยันการบันทึก",

@@ -45,7 +45,7 @@ const routes = [
       {
         path: "/HistoryRolePage",
         name: "HistoryRolePage",
-        component: () => import("@/views/historyLog/HistoryRolePage.vue"),
+        component: () => import("@/views/HistoryLog/HistoryRolePage.vue"),
       },
       {
         path: "/MasterDataManagement",
@@ -73,14 +73,12 @@ const routes = [
       {
         path: "/MasterDataManagement/TeamManagement/:id?",
         name: "TeamManagement",
-        component: () =>
-          import("@/views/master-data/TeamManagement.vue"),
+        component: () => import("@/views/master-data/TeamManagement.vue"),
       },
       {
         path: "/HistoryTeamPage",
         name: "HistoryTeamPage",
-        component: () =>
-          import("@/views/historyLog/HistoryTeamPage.vue"),
+        component: () => import("@/views/HistoryLog/HistoryTeamPage.vue"),
       },
       {
         path: "/CreditScorePage",
@@ -89,59 +87,82 @@ const routes = [
           import("@/views/sd-team-credit-score/CreditScorePage.vue"),
       },
       {
-        path: '/SDTeamMangement/SDActiveMangement',
-        name: 'SDActiveMangementPage',
-        component: () => import('@/views/SDTeamMangement/SDActiveMangement.vue'),
+        path: "/SDTeamMangement/SDActiveMangement",
+        name: "SDActiveMangementPage",
+        component: () =>
+          import("@/views/SDTeamMangement/SDActiveMangement.vue"),
       },
       {
-        path: '/SDTeamMangement/RspPolicy',
-        name: 'RspPolicyPage',
-        component: () => import('@/views/SDTeamMangement/RspPolicy.vue'),
+        path: "/SDTeamMangement/RspPolicy",
+        name: "RspPolicyPage",
+        component: () => import("@/views/SDTeamMangement/RspPolicy.vue"),
       },
       {
-        path: '/SDTeamMangement/RspPolicyUploaded',
-        name: 'RspPolicyUploadedPage',
-        component: () => import('@/views/SDTeamMangement/RspPolicyUploaded.vue'),
+        path: "/SDTeamMangement/RspPolicyUploaded",
+        name: "RspPolicyUploadedPage",
+        component: () =>
+          import("@/views/SDTeamMangement/RspPolicyUploaded.vue"),
       },
       {
-        path: '/SDTeamMangement/Survey',
-        name: 'SurveyPage',
-        component: () => import('@/views/SDTeamMangement/Survey.vue'),
+        path: "/SDTeamMangement/Survey",
+        name: "SurveyPage",
+        component: () => import("@/views/SDTeamMangement/Survey.vue"),
       },
       {
-        path: '/SDTeamMangement/Survey/Created',
-        name: 'SurveyCreatePage',
-        component: () => import('@/views/SDTeamMangement/SurveyCreate.vue'),
+        path: "/SDTeamMangement/Survey/Created",
+        name: "SurveyCreatePage",
+        component: () => import("@/views/SDTeamMangement/SurveyCreate.vue"),
       },
       {
-        path: '/SDTeamMangement/Traning',
-        name: 'TraningPage',
-        component: () => import('@/views/SDTeamMangement/Traning.vue'),
+        path: "/SDTeamMangement/Traning",
+        name: "TraningPage",
+        component: () => import("@/views/SDTeamMangement/Traning.vue"),
       },
       {
-        path: '/SDTeamMangement/TraningCreated',
-        name: 'TraningCreatedPage',
-        component: () => import('@/views/SDTeamMangement/TraningCreated.vue'),
+        path: "/SDTeamMangement/TraningCreated",
+        name: "TraningCreatedPage",
+        component: () => import("@/views/SDTeamMangement/TraningCreated.vue"),
       },
       {
-        path: '/SDTeamDashboard/TrackingSDActivite',
-        name: 'TrackingSDActivitePage',
-        component: () => import('@/views/SDTeamDashboard/TrackingSDActivite.vue'),
+        path: "/SDTeamDashboard/TrackingSDActivite",
+        name: "TrackingSDActivitePage",
+        component: () =>
+          import("@/views/SDTeamDashboard/TrackingSDActivite.vue"),
       },
       {
-        path: '/SDTeamDashboard/FollowUp/:owner?/:vendor?',
-        name: 'FollowUpPage',
-        component: () => import('@/views/SDTeamDashboard/FollowUp.vue'),
+        path: "/SDTeamDashboard/FollowUp/:owner?/:vendor?",
+        name: "FollowUpPage",
+        component: () => import("@/views/SDTeamDashboard/FollowUp.vue"),
       },
       {
-        path: '/SDTeamDashboard/Documents',
-        name: 'DocumentsPage',
-        component: () => import('@/views/SDTeamDashboard/Documents.vue'),
+        path: "/SDTeamDashboard/Documents",
+        name: "DocumentsPage",
+        component: () => import("@/views/SDTeamDashboard/Documents.vue"),
       },
       {
-        path: '/SDTeamDashboard/AttachFileSurvey',
-        name: 'AttachFileSurveyPage',
-        component: () => import('@/views/SDTeamDashboard/AttachFileSurvey.vue'),
+        path: "/SDTeamDashboard/AttachFileSurvey",
+        name: "AttachFileSurveyPage",
+        component: () => import("@/views/SDTeamDashboard/AttachFileSurvey.vue"),
+      },
+      {
+        path: "/HistoryRolePage",
+        name: "HistoryRolePage",
+        component: () => import("@/views/HistoryLog/HistoryRolePage.vue"),
+      },
+      {
+        path: "/HistoryCoparationPage",
+        name: "HistoryCoparationPage",
+        component: () => import("@/views/HistoryLog/HistoryCoparationPage.vue"),
+      },
+      {
+        path: "/HistoryCompanyPage",
+        name: "HistoryCompanyPage",
+        component: () => import("@/views/HistoryLog/HistoryCompanyPage.vue"),
+      },
+      {
+        path: "/HistoryBusinessPage",
+        name: "HistoryBusinessPage",
+        component: () => import("@/views/HistoryLog/HistoryBusinessPage.vue"),
       },
     ],
   },

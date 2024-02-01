@@ -88,46 +88,7 @@ const handleFetchActions = async () => {
 const handleFetchListPermission = async () => {
   try {
     const result_permissions = await permissionService.getPermissionAll();
-    // const result_permissions = { data: { is_success: true } };
     if (result_permissions.data.is_success) {
-      // permission_module_mock.value = [
-      //   {
-      //     role_id: 1,
-      //     module: [
-      //       {
-      //         id: 6,
-      //         name_th: "รายการพาร์ทเนอร์",
-      //         name_en: "Business partner list",
-      //         description: null,
-      //         action: [
-      //           {
-      //             id: 2,
-      //             name: "add",
-      //             description: null,
-      //           },
-      //           {
-      //             id: 1,
-      //             name: "get",
-      //             description: null,
-      //           },
-      //         ],
-      //       },
-      //       {
-      //         id: 2,
-      //         name_th: "สร้างใบสมัครใหม่",
-      //         name_en: "Create new register form",
-      //         description: null,
-      //         action: [
-      //           {
-      //             id: 3,
-      //             name: "add",
-      //             description: null,
-      //           },
-      //         ],
-      //       },
-      //     ],
-      //   },
-      // ];
       permission_module_mock.value = result_permissions.data.data;
     } else {
       //Failed
