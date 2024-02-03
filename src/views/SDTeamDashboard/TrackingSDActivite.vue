@@ -101,14 +101,17 @@
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */
-import { ref, onBeforeMount } from 'vue';
+import { ref, onMounted } from 'vue';
 import RegisteredVendorsItem from "@/components/items/RegisteredVendorsItem.vue";
 import RspPolicyItem from "@/components/items/RspPolicyItem.vue";
 import SurveyAlignItem from "@/components/items/SurveyAlignItem.vue";
 import TrainingItem from "@/components/items/TrainingItem.vue";
 import TrackingSDActiviteTable from "@/components/tables/TrackingSDActiviteTable.vue";
 import PaginationControl from '@/components/controls/PaginationControl'
+import RspService from '@/apis/RspService';
 
+import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
+const { handlingErrorsMessage } = useErrorHandlingDialog();
 
 const dialogFilters = ref(false);
 const selected_items = ref({
@@ -162,6 +165,10 @@ const filter = ref({
   offset: 1,
   limit: 10,
 });
+const loading = ref({
+  registered : false,
+  report: false
+})
 
 const content = ref({
   registered_vendors: {
@@ -184,10 +191,62 @@ const content = ref({
   items: []
 })
 
-onBeforeMount(() => {
-
-
+onMounted(() => {
+  onLoadRegisteredVendorAmount();
+  onLoadRspReportData();
 });
+
+const onLoadRegisteredVendorAmount = async () => {
+  try {
+    loading.value.registered = true;
+    const response = await RspService.getRegisteredVendorAmount();
+    if(response){
+      content.value.registered_vendors.value =  response.data?.data?.registered_vendor_amount
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    loading.value.registered = false;
+  }
+}
+
+const onLoadRspReportData= async () => {
+  try {
+    loading.value.report = true;
+    const response = await RspService.getRspReportData();
+
+     if(response){
+      // policy
+      content.value.rsp_policy_vendors.value  = response.data.data.policy.completed_amount;
+      content.value.rsp_policy_vendors.percent  = response.data.data.policy.completed_percentage;
+
+      // survey
+      content.value.survey_align_vendors.align_value  = response.data.data.survey.aligned_amount;
+      content.value.survey_align_vendors.align_percent  = response.data.data.survey.aligned_percentage;
+
+      content.value.survey_align_vendors.survey_value = response.data.data.survey.completed_amount;
+      content.value.survey_align_vendors.survey_percent = response.data.data.survey.completed_percentage;
+
+      // training
+      content.value.training_vendors.value = response.data.data.training.completed_amount;
+      content.value.training_vendors.percent = response.data.data.training.completed_percentage;
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    loading.value.report = false;
+  }
+}
 
 </script>
 

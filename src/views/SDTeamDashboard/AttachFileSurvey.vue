@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <h2>AttachFileSurvey</h2>
+    <h2>Attach file survey</h2>
     <v-card elevation="2" rounded="0" class="rounded-lg mt-3 pa-2">
-        <v-row no-gutters dense justify="space-around"  v-for="i in 5" :key="i">
+        <v-row no-gutters dense justify="space-around"  v-for="(i,index) in 5" :key="index">
           <v-col cols="1" align-self="center" class="pa-1">
             <v-chip color="secondary">
               PDF

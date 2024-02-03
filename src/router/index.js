@@ -134,7 +134,7 @@ const routes = [
         component: () => import('@/views/SDTeamDashboard/FollowUp.vue'),
       },
       {
-        path: '/SDTeamDashboard/Documents',
+        path: '/SDTeamDashboard/Documents/:bp_number?',
         name: 'DocumentsPage',
         component: () => import('@/views/SDTeamDashboard/Documents.vue'),
       },

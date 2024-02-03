@@ -32,6 +32,18 @@
         <v-textarea variant="solo-filled"></v-textarea>
       </v-card-item>
     </v-card>
+    <div class="text-center mt-10">
+      <v-btn rounded class="ma-2"
+            color="black"
+            style="width: 100px;">
+        <strong>ยกเลิก</strong>
+      </v-btn>
+      <v-btn rounded class="ma-2"
+            color="secondary"
+            style="width: 100px;">
+        <strong>ส่ง</strong>
+      </v-btn>
+    </div>
   </v-container>
 </template>
 <script setup>

@@ -79,47 +79,67 @@
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Business Partner Number</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">{{business.company_information.business_partner_number}}</span>
                     </v-col>
-                    <v-col cols="3">
+                    <!-- <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Vendor Number</label>
                       <br />
-                      <span class="font-weight-black">value</span>
-                    </v-col>
-                    <v-col cols="3">
+                      <span class="font-weight-black">{{business.company_information.vendor_number}}</span>
+                    </v-col> -->
+                    <!-- <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Customer Number</label>
                       <br />
-                      <span class="font-weight-black">value</span>
-                    </v-col>
+                      <span class="font-weight-black">{{business.company_information.customer_number}}</span>
+                    </v-col> -->
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">FPT Affillate</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">{{business.company_information?.is_fpt_affiliate}}</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Organization Type</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">?</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Juristic Type</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">?</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Company Category</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">{{business.company_information?.company_category}}</span>
                     </v-col>
-                    <v-col cols="3">
+                    <v-col cols="6">
                       <label class="font-weight-medium  text-grey-lighten-1">Product / Service Category</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">?</span>
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Tax ID</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">?</span>
+                    </v-col>
+                    <v-col cols="12">
+                      <label class="font-weight-medium  text-grey-lighten-1">Vendor Number</label>
+                      <br />
+                      <span class="font-weight-black">{{business.company_information?.vendor_number}}</span>
+                    </v-col>
+                    <v-col cols="12">
+                      <label class="font-weight-medium  text-grey-lighten-1">Company code of vender</label>
+                      <br />
+                      <span class="font-weight-black">{{business.company_information?.company_code_of_vendor}}</span>
+                    </v-col>
+                    <v-col cols="12">
+                      <label class="font-weight-medium  text-grey-lighten-1">Customer Number</label>
+                      <br />
+                      <span class="font-weight-black">{{business.company_information?.customer_number}}</span>
+                    </v-col>
+                    <v-col cols="12">
+                      <label class="font-weight-medium  text-grey-lighten-1">Company code of customer</label>
+                      <br />
+                      <span class="font-weight-black">{{business.company_information?.company_code_of_customer}}</span>
                     </v-col>
                   </v-row>
                   <v-divider class="mt-5 mb-5"></v-divider>

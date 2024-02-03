@@ -28,6 +28,9 @@ app.use(function(req,res,next){
  require('./routes/memberType')(app);
  require('./routes/role')(app);
  require('./routes/teams')(app);
+ require('./routes/rsp')(app);
+ require('./routes/partner')(app);
+ require('./routes/dowload_mock')(app);
 
 
 app.listen(4000, () => {
