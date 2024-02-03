@@ -4,6 +4,7 @@
     <exception-handle-dialog/>
     <template-dialog />
     <alert-success-dialog />
+    <failed-dialog />
     <default-bar />
     <default-drawer />
     <default-content />
@@ -18,6 +19,7 @@ import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue';
 import TemplateDialog from '@/components/dialogs/TemplateDialog.vue';
 import ExceptionHandleDialog from '@/components/dialogs/ExceptionHandleDialog.vue';
 import AlertSuccessDialog from '@/components/dialogs/AlertSuccessDialog.vue'
+import FailedDialog from '@/components/dialogs/FailedDialog.vue';
 
 
 </script>

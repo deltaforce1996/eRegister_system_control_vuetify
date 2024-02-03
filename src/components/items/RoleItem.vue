@@ -12,7 +12,7 @@
           <h4>{{ computedPermission }}</h4>
         </v-col>
         <v-col cols="5" align-self="center">
-          <p>{{ computedDescription }}</p>
+          <strong>{{ computedDescription }}</strong>
         </v-col>
         <v-col cols="2" align-self="center">
           <v-chip :color="props.isActive ? 'green' : 'gray'" label>
@@ -21,7 +21,7 @@
               inline
               :color="props.isActive ? 'green' : 'gray'"
             ></v-badge>
-            <p>{{ props.isActive ? "Active" : "Inactive" }}</p>
+            <strong>{{ props.isActive ? "Active" : "Inactive" }}</strong>
           </v-chip>
         </v-col>
         <v-col cols="1" align-self="center">

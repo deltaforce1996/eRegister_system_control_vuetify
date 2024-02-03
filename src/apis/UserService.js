@@ -12,6 +12,14 @@ const  getUserSearch = async (offset = 0,limit = 1000, sort_by= 'id:desc')=>{
     }
   });
 }
+
+const getUserById = async (userId) => {
+  return await axiosBase({
+    method: 'get',
+    url: '/user/get-user/' + userId,
+  });
+}
+
 const  createdUser = async (p_email , p_memberTypeId , p_roleId , p_teamId)=>{
   return await axiosBase({
      method: 'post',
@@ -103,5 +111,6 @@ export default {
   createdUser,
   updatedUser,
   createMultipleUser,
-  deactivateUser
+  deactivateUser,
+  getUserById
  }

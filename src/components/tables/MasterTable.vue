@@ -98,7 +98,7 @@
         >
           <div
             v-if="Array.isArray(item[header.value])"
-            style="display: flex; justify-content: start; align-items: center;"
+            style="display: flex; justify-content: start; align-items: center"
           >
             <ButtonControl
               v-for="(action, actionIndex) in item[header.value]"
@@ -108,10 +108,11 @@
               :color="action.color"
               :id="index.toString() + ',' + action.action"
               @button-clicked="handle_item_clicked"
-              style="flex: 1; margin: 0 1px;"
+              style="flex: 1; margin: 0 1px"
             />
           </div>
-          <p
+          <strong
+            class="truncate-text"
             v-if="
               Array.isArray(item[header.value]) === false &&
               header.value !== 'history' &&
@@ -119,7 +120,7 @@
             "
           >
             {{ item[header.value] }}
-          </p>
+          </strong>
           <history-control
             v-if="
               Array.isArray(item[header.value]) === false &&
@@ -127,8 +128,11 @@
             "
             :id="index.toString()"
             @link-clicked="handle_go_to_history"
-          /> 
-          <Active :value="item[header.value]" v-if="header.value === 'status'" />
+          />
+          <Active
+            :value="item[header.value]"
+            v-if="header.value === 'status'"
+          />
         </v-col>
       </v-row>
     </v-col>
@@ -204,11 +208,11 @@ const props = defineProps({
 const emit = defineEmits(["handle-item-clicked", "handle-go-to-history"]);
 
 const handle_item_clicked = (index) => {
-  emit('handle-item-clicked', index)
+  emit("handle-item-clicked", index);
 };
 
 const handle_go_to_history = (index) => {
-  emit('handle-go-to-history', index)
+  emit("handle-go-to-history", index);
 };
 </script>
 
@@ -234,5 +238,13 @@ const handle_go_to_history = (index) => {
 
 .data-col p {
   margin: 0; /* Removes default paragraph margins */
+}
+
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
 }
 </style>

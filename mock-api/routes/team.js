@@ -1,16 +1,18 @@
 /* eslint-disable no-undef */
 
-const { delay } = require('../utils');
 module.exports = (app) => {
-  const teams_all = require('../data/teams.json')
+  const team = require("../data/master-data/team.json");
+  const team_by_id = require("../data/master-data/team_by_id.json");
 
+  app.get("/master/get-teams", async (req, res) => {
+    res.setHeader('Items-Offset', 0);
+    res.setHeader('Items-Limit', 10);
+    res.setHeader('Items-Total', 24);
+    res.json(team);
+  });
 
-  app.get('/master/get-teams', async (req, res) => {
-      await delay(2000);
-      res.setHeader('Items-Offset', 0);
-      res.setHeader('Items-Limit', 10);
-      res.setHeader('Items-Total', 24);
-      res.json(teams_all);
+  app.get("/master/get-team/:id", async (req, res) => {
+    res.json(team_by_id);
   });
   app.post('/master/create-team', async (req, res) => {
     await delay(2000);
@@ -50,6 +52,4 @@ module.exports = (app) => {
       }
   });
 });
-
-}
-
+};

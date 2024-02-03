@@ -41,19 +41,19 @@
           @button-clicked="on_open_alert"
         /> </v-col
     ></v-row>
+    <v-row
+      ><v-col cols="auto"
+        ><ButtonControl
+          color="black"
+          text="Open Faild Alert"
+          @button-clicked="on_open_faild_alert"
+        /> </v-col
+    ></v-row>
     <v-row>
       <v-col cols="12">
         <CreditOption />
       </v-col>
     </v-row>
-    <v-row
-      ><v-col cols="auto">
-        <ButtonControl
-          color="black"
-          text="Open Dialog"
-          @button-clicked="on_open_log"
-        /> </v-col
-    ></v-row>
 
     <!-- <h3 style="margin-bottom: 15px">Drag drop compoenent</h3>
     <v-row>
@@ -79,12 +79,12 @@
        height="500"
        frameborder="0"></iframe> -->
     <!-- <ScormPlayer :path="`${courseURL}`"></ScormPlayer> -->
-    <!-- <iframe
-        ref="scormFrame"
-        :src="courseURL"
-        width="85%"
-        height="700"
-      ></iframe> -->
+    <iframe
+      ref="scormFrame"
+      src="https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal"
+      width="85%"
+      height="700"
+    ></iframe>
     <!-- </v-row> -->
 
     <v-row>
@@ -189,6 +189,11 @@
       </template>
     </draggable>
     <v-btn @click="submitForm">Submit</v-btn>
+    <v-row>
+      <v-col cols="12">
+        <GroupQuestionOption />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -226,6 +231,8 @@ import DcropdownAlign from "@/components/survey/forms/dropsdawn/DcropdownAlign.v
 import UploadNone from "@/components/survey/forms/uploads-control/UploadNone.vue";
 import UploadScore from "@/components/survey/forms/uploads-control/UploadScore.vue";
 
+import GroupQuestionOption from "@/components/survey/GroupQuestionOption.vue";
+
 // import { SCORM } from "pipwerks-scorm-api-wrapper";
 
 // import Home1 from "@/views/Home1.vue";
@@ -237,6 +244,10 @@ const { showDialog } = useConfirmationDialog();
 
 import { useAlertDialogDialog } from "@/components/dialogs/AlertSuccessDialogService";
 const { showAlert } = useAlertDialogDialog();
+
+import { useFaildDialogDialog } from "@/components/dialogs/FailedDialogService";
+const { showFaildAlert } = useFaildDialogDialog();
+
 // const dragDrop = ref([
 //   { title: "Home1", content: Home1 },
 //   { title: "Home2", content: Home2 },
@@ -249,11 +260,7 @@ const cardsDragDrop = ref([
     typeQuestionCard: "None",
     data: {
       controlType: "Paragraph",
-      metaData: {
-        question: "ไข่กับไก่อะไรเกิดก่อน ?",
-        answer: "",
-        isRequire: true,
-      },
+      metaData: undefined,
     },
   },
   {
@@ -261,11 +268,7 @@ const cardsDragDrop = ref([
     typeQuestionCard: "None",
     data: {
       controlType: "Multichoice",
-      metaData: {
-        question: "ข้อใดถูกที่สุด",
-        isRequired: true,
-        answers: [],
-      },
+      metaData: undefined,
     },
   },
   {
@@ -273,16 +276,10 @@ const cardsDragDrop = ref([
     typeQuestionCard: "None",
     data: {
       controlType: "Dropdown",
-      metaData: {
-        question: "ขอใดถูกต้องที่สุด ?",
-        isRequired: false,
-        answers: [],
-      },
+      metaData: undefined,
     },
   },
 ]);
-
-// const typeQuestionCard = ref("None");
 
 const herders_table = [
   { title: "Permission Module", key: "permission" },
@@ -311,11 +308,6 @@ const submitForm = () => {
   }
 };
 
-onMounted(() => {
-  //   SCORM.init();
-  //   courseURL.value =
-  //     "https://8e07-1-46-134-176.ngrok-free.app//mod/scorm/player.php?a=5&currentorg=Frasers_property_-_ESG_Made_Simple_ORG&scoid=10&sesskey=miFNTCFFQs&display=popup&mode=normal";
-});
 const on_open_log = async () => {
   const confirmed = await showDialog(
     "ยืนยันการบันทึก",
@@ -332,6 +324,16 @@ const on_open_alert = async () => {
   const confirmed = await showAlert(
     "เผยแพร่สำเร็จแล้ว",
     "คุณสามารถตรวจสอบรายการได้"
+  );
+  if (confirmed) {
+    window.alert("Accept");
+  }
+};
+
+const on_open_faild_alert = async () => {
+  const confirmed = await showFaildAlert(
+    "Fetch ข้อมูลล้มเหลว",
+    "กรุณาลองใหม่อีกครั้ง"
   );
   if (confirmed) {
     window.alert("Accept");

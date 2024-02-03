@@ -28,7 +28,7 @@
           </v-col>
           <v-col cols="3">
             <v-select
-              v-model="select"
+              v-model="dataForm.controlType"
               variant="outlined"
               density="compact"
               :items="items"
@@ -52,85 +52,124 @@
           </v-col>
           <v-col cols="12" class="mt-n5">
             <div>
+              <!-- <p>{{ dataForm.controlType }}</p> -->
               <ParagrahpNone
-                :meta-data-paragrahp-none="propsVar.data.metaData"
+                :meta-data-paragrahp-none="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Paragraph' && propsVar.type === 'None'"
+                v-if="
+                  dataForm.controlType === 'Paragraph' &&
+                  propsVar.type === 'None'
+                "
               />
               <MultiChoiceNone
-                :meta-data-multi-choice-none="propsVar.data.metaData"
+                :meta-data-multi-choice-none="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Multichoice' && propsVar.type === 'None'"
+                v-if="
+                  dataForm.controlType === 'Multichoice' &&
+                  propsVar.type === 'None'
+                "
               />
               <CheckboxNone
-                :meta-data-checkbox-none="propsVar.data.metaData"
+                :meta-data-checkbox-none="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Checkbox' && propsVar.type === 'None'"
+                v-if="
+                  dataForm.controlType === 'Checkbox' &&
+                  propsVar.type === 'None'
+                "
               />
               <DropdownNone
-                :meta-data-dropdown-none="propsVar.data.metaData"
+                :meta-data-dropdown-none="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Dropdown' && propsVar.type === 'None'"
+                v-if="
+                  dataForm.controlType === 'Dropdown' &&
+                  propsVar.type === 'None'
+                "
               />
               <UploadNone
-                :meta-data-upload-none="propsVar.data.metaData"
+                :meta-data-upload-none="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Uploads' && propsVar.type === 'None'"
+                v-if="
+                  dataForm.controlType === 'Uploads' && propsVar.type === 'None'
+                "
               />
 
               <ParagrahpScore
-                :meta-data-paragrahp-score="propsVar.data.metaData"
+                :meta-data-paragrahp-score="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Paragraph' && propsVar.type === 'Score'"
+                v-if="
+                  dataForm.controlType === 'Paragraph' &&
+                  propsVar.type === 'Score'
+                "
               />
               <MultiChoiceScore
-                :meta-data-multi-choice-score="propsVar.data.metaData"
+                :meta-data-multi-choice-score="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Multichoice' && propsVar.type === 'Score'"
+                v-if="
+                  dataForm.controlType === 'Multichoice' &&
+                  propsVar.type === 'Score'
+                "
               />
               <CheckboxScore
-                :meta-data-checkbox-score="propsVar.data.metaData"
+                :meta-data-checkbox-score="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Checkbox' && propsVar.type === 'Score'"
+                v-if="
+                  dataForm.controlType === 'Checkbox' &&
+                  propsVar.type === 'Score'
+                "
               />
               <DropdownScore
-                :meta-data-dropdown-score="propsVar.data.metaData"
+                :meta-data-dropdown-score="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Dropdown' && propsVar.type === 'Score'"
+                v-if="
+                  dataForm.controlType === 'Dropdown' &&
+                  propsVar.type === 'Score'
+                "
               />
               <UploadScore
-                :meta-data-upload-score="propsVar.data.metaData"
+                :meta-data-upload-score="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Uploads' && propsVar.type === 'Score'"
+                v-if="
+                  dataForm.controlType === 'Uploads' &&
+                  propsVar.type === 'Score'
+                "
               />
 
               <MultiChoiceAlign
-                :meta-data-multi-choice-align="propsVar.data.metaData"
+                :meta-data-multi-choice-align="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Multichoice' && propsVar.type === 'Align'"
+                v-if="
+                  dataForm.controlType === 'Multichoice' &&
+                  propsVar.type === 'Align'
+                "
               />
               <CheckboxAlign
-                :meta-data-checkbox-align="propsVar.data.metaData"
+                :meta-data-checkbox-align="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Checkbox' && propsVar.type === 'Align'"
+                v-if="
+                  dataForm.controlType === 'Checkbox' &&
+                  propsVar.type === 'Align'
+                "
               />
               <DcropdownAlign
-                :meta-data-dropdown-align="propsVar.data.metaData"
+                :meta-data-dropdown-align="dataForm.control"
                 @on-update="handleFormUpdated"
                 @on-remove="handleQuestRemove"
-                v-if="select === 'Dropdown' && propsVar.type === 'Align'"
+                v-if="
+                  dataForm.controlType === 'Dropdown' &&
+                  propsVar.type === 'Align'
+                "
               />
             </div>
           </v-col>
@@ -179,7 +218,7 @@ const propsVar = defineProps({
     default: () => {
       return {
         controlType: "Paragraph", //Paragraph, Multichoice, Checkbox, Dropdown, Uploads
-        metaData: () => {},
+        metaData: () => undefined,
       };
     },
   },
@@ -190,7 +229,14 @@ const propsVar = defineProps({
 });
 
 const emit = defineEmits(["on-update", "on-remove"]);
-const dataForm = ref({ index: propsVar.index + 1, control: propsVar.data })
+const dataForm = ref({
+  id: propsVar.id,
+  index: propsVar.index + 1,
+  control: propsVar.data.metaData,
+  controlType: propsVar.data.controlType,
+});
+
+let tempControlType = dataForm.value.controlType;
 
 const items = [
   { text: "Paragraph", icon: "mdi-format-paragraph" },
@@ -201,22 +247,23 @@ const items = [
 ];
 
 watch(dataForm.value, (newValue) => {
-  // console.log(JSON.stringify(newValue));
-  dataForm.value = newValue
-  emit("on-update", newValue);
-})
+  if (newValue.controlType !== tempControlType) {
+    dataForm.value.control = undefined;
+  }
+  tempControlType = newValue.controlType;
+  emit("on-update", dataForm.value);
+});
 
 watch(propsVar, (newValue) => {
-  dataForm.value.index = newValue.index + 1
-})
+  dataForm.value.index = newValue.index + 1;
+});
 
 const handleFormUpdated = (item) => {
-  dataForm.value.control = item
+  dataForm.value.control = item;
 };
 
 const handleQuestRemove = () => {
   console.log("Remove quest at : ", propsVar.id);
   emit("on-remove", propsVar.id);
 };
-const select = ref(propsVar.data.controlType);
 </script>
