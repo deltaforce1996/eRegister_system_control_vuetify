@@ -70,6 +70,19 @@ const handleFetchTeams = async () => {
   }
 };
 
+const handleDeleteItemById = async (team_id) => {
+  try {
+    const result_teams = await TeamService.deleteTeamById(team_id);
+    if (result_teams.data.is_success) {
+      await handleFetchTeams();
+    } else {
+      // Failed
+    }
+  } catch (error) {
+    // Failed
+  }
+};
+
 const on_go_to_create = () => {
   router.push({ name: "TeamManagement" });
 };
@@ -88,6 +101,7 @@ const handle_item_clicked = async (event) => {
     );
     if (is_ok) {
       console.log("Call api delete: ", result[0]);
+      await handleDeleteItemById(result[0])
     }
   }
 };
@@ -97,7 +111,7 @@ const handle_history = (index) => {
   router.push({
     name: "HistoryTeamPage",
     query: {
-      team_id:  items.value[0]?.id,
+      team_id: items.value[0]?.id,
     },
   });
 };

@@ -15,7 +15,7 @@ const routes = [
       {
         path: "/ListRolesPage",
         name: "ListRolesPage",
-        component: () => import("@/views/rules/ListRolesPage.vue"),
+        component: () => import("@/views/roles/ListRolesPage.vue"),
       },
       {
         path: "/UserManagement",
@@ -30,7 +30,7 @@ const routes = [
       {
         path: "/CreateRolePage/:role_id?",
         name: "CreateRolePage",
-        component: () => import("@/views/rules/CreateRolePage.vue"),
+        component: () => import("@/views/roles/CreateRolePage.vue"),
       },
       {
         path: "/HistoryTable",
