@@ -158,6 +158,27 @@ const handleFetchActions = async () => {
   }
 };
 
+const handleUpdatePermissionById = async () => {
+  try {
+    const result_actions = await PermissionService.updatedPermissionById(
+      role_permission_update.role_id,
+      role_permission_update.modules
+    );
+    if (result_actions.data.is_success) {
+      router.push({ path: "/ListRolesPage" });
+    } else {
+      // Failed
+    }
+  } catch (error) {
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
+  }
+};
+
 onMounted(async () => {
   await handleFetchActions();
   if (role_id) {
@@ -204,7 +225,6 @@ const submit_from_new_role = async () => {
     );
     if (confirmed) {
       console.log("เพิ่มข้อมูล");
-      // router.push({ path: "/ListRolesPage" });
     } else {
       console.log("cancelled.");
     }
@@ -215,7 +235,7 @@ const submit_from_new_role = async () => {
     );
     if (confirmed) {
       console.log("บันทึกการเปลี่ยนแปลง");
-      // router.push({ path: "/ListRolesPage" });
+      await handleUpdatePermissionById();
     } else {
       console.log("cancelled.");
     }
