@@ -15,6 +15,9 @@ import { useRouter } from "vue-router";
 import BusinessUnitService from "@/apis/BusinessUnitService";
 import { onMounted, reactive, ref } from "vue";
 
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+
 const router = useRouter();
 
 const headers = reactive([
@@ -55,7 +58,12 @@ const handleFetchBusinessUnit = async () => {
       // Failed
     }
   } catch (error) {
-    // Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 

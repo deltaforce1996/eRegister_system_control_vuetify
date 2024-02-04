@@ -63,6 +63,9 @@ import ActionService from "@/apis/ActionService";
 import RoleService from "@/apis/RoleService";
 import PermissionService from "@/apis/PermissionService";
 
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+
 import { onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -102,7 +105,12 @@ const handleFetchRoleById = async (role_id) => {
       // Failed
     }
   } catch (error) {
-    // Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 
@@ -117,7 +125,12 @@ const handleFetchPermissionByRoleId = async (role_id) => {
       // Failed
     }
   } catch (error) {
-    // Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 
@@ -136,7 +149,12 @@ const handleFetchActions = async () => {
       // Failed
     }
   } catch (error) {
-    // Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 
@@ -186,7 +204,7 @@ const submit_from_new_role = async () => {
     );
     if (confirmed) {
       console.log("เพิ่มข้อมูล");
-      router.push({ path: "/ListRolesPage" });
+      // router.push({ path: "/ListRolesPage" });
     } else {
       console.log("cancelled.");
     }
@@ -197,7 +215,7 @@ const submit_from_new_role = async () => {
     );
     if (confirmed) {
       console.log("บันทึกการเปลี่ยนแปลง");
-      router.push({ path: "/ListRolesPage" });
+      // router.push({ path: "/ListRolesPage" });
     } else {
       console.log("cancelled.");
     }

@@ -37,6 +37,9 @@ import CreateTeamForm from "@/components/forms/CreateTeamForm.vue";
 import EditTeamForm from "@/components/forms/EditTeamForm.vue";
 import ButtonControl from "@/components/controls/ButtonControl.vue";
 
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+
 import { ref } from "vue";
 import { onMounted } from "vue";
 import { computed } from "vue";
@@ -86,7 +89,12 @@ const onLoadedTeamVyId = async (teamId) => {
       itemTeam.value = process_array(response.data.data);
     }
   } catch (error) {
-    //Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 
@@ -102,7 +110,12 @@ const onCreateTeam = async () => {
       router.push({ path: "/MasterDataManagement" });
     }
   } catch (error) {
-    //Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 
@@ -119,7 +132,12 @@ const onUpdateTeam = async () => {
       router.push({ path: "/MasterDataManagement" });
     }
   } catch (error) {
-    //Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 

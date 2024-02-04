@@ -55,6 +55,9 @@ import permissionService from "@/apis/PermissionService";
 import actionService from "@/apis/ActionService";
 import RoleItem from "../../components/items/RoleItem.vue";
 
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+
 const router = useRouter();
 
 let roles_mock = ref([]);
@@ -72,16 +75,25 @@ const handleFetchListRoles = async () => {
 };
 
 const handleFetchActions = async () => {
-  const result_actions = await actionService.getActionAll();
-  if (result_actions.data.is_success) {
-    action_all_mock.value = result_actions.data.data;
-    headers.value = action_all_mock.value.map((action) => ({
-      title: action.name,
-      key: action.name,
-    }));
-    headers.value.unshift({ title: "Permission Module", key: "permission" });
-  } else {
-    // Failed
+  try {
+    const result_actions = await actionService.getActionAll();
+    if (result_actions.data.is_success) {
+      action_all_mock.value = result_actions.data.data;
+      headers.value = action_all_mock.value.map((action) => ({
+        title: action.name,
+        key: action.name,
+      }));
+      headers.value.unshift({ title: "Permission Module", key: "permission" });
+    } else {
+      // Failed
+    }
+  } catch (error) {
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 
@@ -94,7 +106,12 @@ const handleFetchListPermission = async () => {
       //Failed
     }
   } catch (error) {
-    //Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 
