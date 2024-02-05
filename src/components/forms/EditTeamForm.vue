@@ -7,7 +7,7 @@
           <v-col cols="12"><h4>Business Unit</h4></v-col>
           <v-col cols="12">
             <v-select
-              v-model="business_unit"
+              v-model="dataInput.business_unit"
               density="compact"
               :items="item_business_unit"
               item-title="name_en"
@@ -19,7 +19,7 @@
           <v-col cols="12"><h4>Company</h4></v-col>
           <v-col cols="12">
             <v-select
-              v-model="company"
+              v-model="dataInput.company"
               density="compact"
               :items="item_companies"
               item-title="name_en"
@@ -32,7 +32,7 @@
           <v-col cols="12">
             <v-text-field
               variant="outlined"
-              v-model="name_th"
+              v-model="dataInput.name_th"
               placeholder="กรอกชื่อภาษาไทย"
               :rules="[(v) => !!v || 'Name TH is required']"
               density="compact"
@@ -42,49 +42,29 @@
           <v-col cols="12">
             <v-text-field
               variant="outlined"
-              v-model="name_en"
+              v-model="dataInput.name_en"
               placeholder="กรอกชื่อภาษาอังกฤษ"
               :rules="[(v) => !!v || 'Name EN is required']"
               density="compact"
             ></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-checkbox v-model="is_status" label="Status" />
+            <v-checkbox v-model="dataInput.is_status" label="Status" />
           </v-col>
         </v-row>
       </v-card-text>
     </v-card>
-    <v-footer color="transparent" style="margin-top: 120px">
-      <v-row justify="center">
-        <v-col cols="auto">
-          <button-control
-            color="black"
-            text="ย้อนกลับ"
-            width="100"
-            @button-clicked="on_go_to_back"
-          />
-        </v-col>
-        <v-col cols="auto">
-          <button-control
-            type="submit"
-            @button-clicked="submit_from_update_team"
-            color="secondary"
-            text="ตกลง"
-            width="100"
-          />
-        </v-col>
-      </v-row>
-    </v-footer>
   </v-container>
 </template>
 
 <script setup>
 import { ref, onMounted, defineProps, watch } from "vue";
-import ButtonControl from "../controls/ButtonControl.vue";
-import { useRouter } from "vue-router";
+// import ButtonControl from "../controls/ButtonControl.vue";
+// import { useRouter } from "vue-router";
 
 import BusinessUnitService from "@/apis/BusinessUnitService";
 import CompnayService from "@/apis/CompnayService";
+import { reactive } from "vue";
 
 const props = defineProps({
   item: {
@@ -93,16 +73,23 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
+const emit = defineEmits(["on-change"]);
+// const router = useRouter();
 
 const item_business_unit = ref([]);
 const item_companies = ref([]);
 
-const business_unit = ref(props.item.business_unit_id);
-const company = ref(props.item.company_id);
-const name_en = ref(props.item.name_en);
-const name_th = ref(props.item.name_th);
-const is_status = ref(props.item.status);
+const dataInput = reactive({
+  business_unit: props.item.business_unit_id,
+  company: props.item.company_id,
+  name_en: props.item.name_en,
+  name_th: props.item.name_th,
+  is_status: props.item.is_active,
+});
+
+watch(dataInput, (newValues) => {
+  emit("on-change", newValues);
+});
 
 onMounted(async () => {
   await onLoadedBusinessUnitAll();
@@ -111,12 +98,12 @@ onMounted(async () => {
 
 watch(
   () => props.item,
-  (newItem) => {
-    business_unit.value = newItem.business_unit_id;
-    company.value = newItem.company_id;
-    name_en.value = newItem.name_en;
-    name_th.value = newItem.name_th;
-    is_status.value = newItem.status;
+  (newVal) => {
+    dataInput.business_unit = newVal.business_unit_id;
+    dataInput.company = newVal.company_id;
+    dataInput.name_en = newVal.name_en;
+    dataInput.name_th = newVal.name_th;
+    dataInput.is_status = newVal.is_active === 0 ? false : true;
   },
   { deep: true }
 );
@@ -143,9 +130,9 @@ const onLoadedCompanyAll = async () => {
   }
 };
 
-const on_go_to_back = () => {
-  router.go(-1);
-};
+// const on_go_to_back = () => {
+//   router.go(-1);
+// };
 
-const submit_from_update_team = () => {};
+// const submit_from_update_team = () => {};
 </script>

@@ -25,6 +25,9 @@ import TeamService from "@/apis/TeamService";
 import { onMounted, ref, reactive } from "vue";
 const { showDialog } = useConfirmationDialog();
 
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+
 const router = useRouter();
 
 const headers = reactive([
@@ -66,7 +69,30 @@ const handleFetchTeams = async () => {
       // Failed
     }
   } catch (error) {
-    // Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
+  }
+};
+
+const handleDeleteItemById = async (team_id) => {
+  try {
+    const result_teams = await TeamService.deleteTeamById(team_id);
+    if (result_teams.data.is_success) {
+      await handleFetchTeams();
+    } else {
+      // Failed
+    }
+  } catch (error) {
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 
@@ -88,6 +114,7 @@ const handle_item_clicked = async (event) => {
     );
     if (is_ok) {
       console.log("Call api delete: ", result[0]);
+      await handleDeleteItemById(result[0])
     }
   }
 };
@@ -97,7 +124,7 @@ const handle_history = (index) => {
   router.push({
     name: "HistoryTeamPage",
     query: {
-      team_id:  items.value[0]?.id,
+      team_id: items.value[0]?.id,
     },
   });
 };

@@ -15,6 +15,9 @@ import MasterTable from "@/components/tables/MasterTable.vue";
 import { ref, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+
 const router = useRouter();
 
 const headers = reactive([
@@ -57,7 +60,12 @@ const handleFetchCompanies = async () => {
       // Failed
     }
   } catch (error) {
-    // Failed
+    if (error.response) {
+      const val = error.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("Other Error", error.message);
   }
 };
 

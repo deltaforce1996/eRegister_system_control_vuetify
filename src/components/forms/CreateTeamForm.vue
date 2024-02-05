@@ -7,22 +7,24 @@
           <v-col cols="12"><h4>Business Unit</h4></v-col>
           <v-col cols="12">
             <v-select
-              v-model="business_unit"
+              v-model="dataInput.business_unit"
               density="compact"
               :items="item_business_unit"
               item-title="name_en"
               item-value="id"
               variant="outlined"
+              :rules="[(v) => !!v || 'Business Unit is required']"
               placeholder="เลือก Business Unit"
             ></v-select>
           </v-col>
           <v-col cols="12"><h4>Company</h4></v-col>
           <v-col cols="12">
             <v-select
-              v-model="company"
+              v-model="dataInput.company"
               density="compact"
               :items="item_companies"
               item-title="name_en"
+              :rules="[(v) => !!v || 'Company is required']"
               item-value="id"
               variant="outlined"
               placeholder="เลือก Company"
@@ -32,7 +34,7 @@
           <v-col cols="12">
             <v-text-field
               variant="outlined"
-              v-model="name_th"
+              v-model="dataInput.name_th"
               placeholder="กรอกชื่อภาษาไทย"
               :rules="[(v) => !!v || 'Name TH is required']"
               density="compact"
@@ -42,7 +44,7 @@
           <v-col cols="12">
             <v-text-field
               variant="outlined"
-              v-model="name_en"
+              v-model="dataInput.name_en"
               placeholder="กรอกชื่อภาษาอังกฤษ"
               :rules="[(v) => !!v || 'Name EN is required']"
               density="compact"
@@ -51,48 +53,33 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <v-footer color="transparent" style="margin-top: 120px">
-      <v-row justify="center">
-        <v-col cols="auto">
-          <button-control
-            color="black"
-            text="ย้อนกลับ"
-            width="100"
-            @button-clicked="on_go_to_back"
-          />
-        </v-col>
-        <v-col cols="auto">
-          <button-control
-            type="submit"
-            @button-clicked="submit_from_new_team"
-            color="secondary"
-            text="ตกลง"
-            width="100"
-          />
-        </v-col>
-      </v-row>
-    </v-footer>
   </v-container>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import { reactive } from "vue";
-import ButtonControl from "../controls/ButtonControl.vue";
-import { useRouter } from "vue-router";
 
 import BusinessUnitService from "@/apis/BusinessUnitService";
-import CompnayService from "@/apis/CompnayService"
+import CompnayService from "@/apis/CompnayService";
+import { watch } from "vue";
 
-const router = useRouter();
+const emit = defineEmits(["on-change"]);
 
 const item_business_unit = ref([]);
-const item_companies = reactive([]);
+const item_companies = ref([]);
 
-const business_unit = ref(null);
-const company = ref(null);
-const name_en = ref(null);
-const name_th = ref(null);
+const dataInput = reactive({
+  business_unit: null,
+  company: null,
+  name_en: null,
+  name_th: null,
+  is_status: true,
+});
+
+watch(dataInput, (newValue) => {
+  emit("on-change", newValue);
+});
 
 onMounted(() => {
   onLoadedBusinessUnitAll();
@@ -120,10 +107,4 @@ const onLoadedCompanyAll = async () => {
     // Failed
   }
 };
-
-const on_go_to_back = () => {
-  router.go(-1);
-};
-
-const submit_from_new_team = () => {};
 </script>
