@@ -34,11 +34,22 @@ const sendFollowUpVendor = async (bp_number,is_sent,email,additional_msg) => {
      },
   });
 };
-const getRspPolicyResults = async () => {
+const getRspPolicyResults = async (_bp_number) => {
   return await axiosBase({
     method: "get",
     url: `/rsp/get-rsp-policy-results`,
-    data: {},
+    params: {
+      bp_number : _bp_number
+    },
+  });
+};
+const getRspSurveyResults = async (_bp_number) => {
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/get-rsp-survey-results`,
+    params: {
+      bp_number : _bp_number
+    },
   });
 };
 const getRspSurveyResultDetail = async () => {
@@ -49,11 +60,14 @@ const getRspSurveyResultDetail = async () => {
   });
 
 };
-const getRspSurveyResultDocument = async () => {
+const getRspSurveyResultDocument = async (_bp_number, _rsp_suvery_id) => {
   return await axiosBase({
     method: "get",
-    url: `/get-rsp-survey-result-documents`,
-    data: {},
+    url: `/rsp/get-rsp-survey-result-documents`,
+    params: {
+      bp_number :_bp_number,
+      rsp_suvery_id : _rsp_suvery_id
+    },
   });
 };
 const exportRspActivityReport = async () => {
@@ -63,10 +77,17 @@ const exportRspActivityReport = async () => {
     data: {},
   });
 };
-const exportRspSurveyByVendor = async () => {
+const getExportRspPolicyByVendor = async (rsp_policy_id) => {
   return await axiosBase({
     method: "get",
-    url: `/export-rsp-activity-report`,
+    url: `/rsp/export-rsp-policy-by-vendor/${rsp_policy_id}`,
+    data: {},
+  });
+};
+const getExportRspSurveyByVendor = async (rsp_survey_id) => {
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/export-rsp-survey-by-vendor/${rsp_survey_id}`,
     data: {},
   });
 };
@@ -76,8 +97,10 @@ export default {
   getRegisteredVendorAmount,
   getRspReportData,
   getRspPolicyResults,
+  getRspSurveyResults,
   getRspSurveyResultDetail,
   getRspSurveyResultDocument,
   exportRspActivityReport,
-  exportRspSurveyByVendor
+  getExportRspSurveyByVendor,
+  getExportRspPolicyByVendor
 };
