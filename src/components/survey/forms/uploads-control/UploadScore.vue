@@ -50,7 +50,7 @@
         prepend-icon="mdi mdi-delete-outline"
         variant="outlined"
         rounded
-        @click="$emit('on-remove')"
+        @click="$emit('on-remove', propsVar.index)"
       >
         Delete
       </v-btn>
@@ -75,6 +75,9 @@ const propsVar = defineProps({
       };
     },
   },
+  index: {
+    type: Number,
+  },
 });
 
 let metaData = ref(propsVar.metaDataUploadScore);
@@ -84,8 +87,7 @@ const on_recieved_file = ref(null);
 const emit = defineEmits(["on-update", "on-remove"]);
 
 watch(metaData.value, (newValue) => {
-  emit("on-update", { upload_file_score: newValue });
-  // console.log(JSON.stringify({ upload_file_score: newValue }));
+  emit("on-update", { upload_file_score: newValue, index: propsVar.index });
 });
 
 watch(on_recieved_file, (newValue) => {
