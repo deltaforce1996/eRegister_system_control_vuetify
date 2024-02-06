@@ -141,6 +141,6 @@ const next = () => {
 };
 
 const back = () => {
-  if (stepper.value > 0) stepper.value--;
+  if (stepper.value > 1) stepper.value--;
 };
 </script>
