@@ -49,8 +49,18 @@
         ]"
       />
     </v-col>
-    <v-col cols="1">
-      <v-btn color="secondary" block class="text-capitalize" rounded>
+    <v-col cols="12" class="d-flex justify-end">
+      <v-btn
+        color="secondary"
+        variant="outlined"
+        width="140"
+        class="text-capitalize mr-2"
+        rounded
+      >
+        <v-icon left>mdi-tag</v-icon>
+        Preview
+      </v-btn>
+      <v-btn color="secondary" width="140" class="text-capitalize" rounded>
         <v-icon left>mdi-tag</v-icon>
         Save Darft
       </v-btn>
