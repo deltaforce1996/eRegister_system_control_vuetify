@@ -57,7 +57,7 @@
         />
         </v-col>
       </v-row>
-      <v-row justify="end" class="mt-2 mb-2" dense>
+      <v-row justify="end" dense>
         <v-col cols="1">
           <v-btn variant="outlined" to="/SDTeamDashboard/FollowUp" block class="text-capitalize" color="black">
             <v-icon left>mdi-email</v-icon>

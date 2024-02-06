@@ -22,6 +22,9 @@
           Export report
         </v-btn>
       </v-col>
+      <v-col cols="12">
+        <v-progress-linear class="rounded-pill" :indeterminate="loading" bg-color="transparent"  color="secondary" />
+      </v-col>
     </v-row>
     <v-tabs-items>
       <v-tab-item>
@@ -32,8 +35,12 @@
                 <v-icon color="secondary" size="40" class="ml-3 mr-3">mdi-text-box-check</v-icon>
               </v-col>
               <v-col cols="4" align-self="center" class="pa-1">
-                <strong>นโยบายการจัดซื้อจัดจ้างอย่างรับผิดชอบ</strong>
-                <strong class="text-grey">(V.4)</strong>
+                <strong>
+                   {{tab === 1 ? i.rsp_suvery?.name : i.rsp_policy?.name }}
+                </strong>
+                <strong class="text-grey">
+                  ({{tab === 1 ? i.rsp_suvery?.version : i.rsp_policy?.version }})
+                </strong>
               </v-col>
               <v-divider vertical class="ma-2"></v-divider>
               <v-col :cols="tab === 1 ? 3 : 6" align-self="center" class="pa-1">
