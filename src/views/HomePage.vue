@@ -1,5 +1,11 @@
 <template>
   <v-container fluid>
+    <h3 style="margin-bottom: 15px">Example Store Vuex</h3>
+      <div>
+      <p>Count: {{ count }}</p>
+      <button @click="increment">Increment</button>
+      <button @click="decrement">Decrement</button>
+    </div>
     <h3 style="margin-bottom: 15px">Example Component</h3>
     <v-row>
       <v-col cols="auto">
@@ -198,6 +204,8 @@
 </template>
 
 <script setup>
+import { useStore } from 'vuex';
+import { toRefs } from 'vue';
 // eslint-disable-next-line no-unused-vars
 import { ref, watch, onMounted, onBeforeMount, onBeforeUnmount } from "vue";
 // import  scormplayer from 'vue-scorm-player'
@@ -253,6 +261,17 @@ const { showFaildAlert } = useFaildDialogDialog();
 //   { title: "Home2", content: Home2 },
 //   { title: "Home3", content: Home3 },
 // ]);
+
+const store = useStore();
+const { count } = toRefs(store.state);
+
+const increment = () => {
+  store.commit('increment');
+};
+
+const decrement = () => {
+  store.commit('decrement');
+};
 
 const cardsDragDrop = ref([
   {
