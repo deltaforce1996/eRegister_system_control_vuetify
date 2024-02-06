@@ -95,9 +95,9 @@ const handleQuestionRemove = (id) => {
 };
 
 const handleAddQuestionAlignment = () => {
-  let id = "0";
-  if (items_question.value.length > 0)
-    id = items_question.value.length.toString();
+  // let id = "0";
+  // if (items_question.value.length > 0)
+  const id = items_question.value.length.toString();
   items_question.value.push({
     id,
     index: items_question.value.length,
@@ -110,9 +110,9 @@ const handleAddQuestionAlignment = () => {
 };
 
 const handleAddQuestion = () => {
-  let id = "0";
-  if (items_question.value.length > 0)
-    id = items_question.value.length.toString();
+  // let id = "0";
+  // if (items_question.value.length > 0)
+  const id = items_question.value.length.toString();
   items_question.value.push({
     id,
     index: items_question.value.length,
