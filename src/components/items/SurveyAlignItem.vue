@@ -6,7 +6,9 @@
           <v-card-title class="font-weight-black">
             Survey
           </v-card-title>
-          <v-card-actions>
+          <v-skeleton-loader v-if="props.loading" class="mx-auto" width="100%"
+            type="list-item-two-line"></v-skeleton-loader>
+          <v-card-actions v-else>
             <h1 class="text-teal-accent-4 pl-2" style="font-size: 55px;">{{ survey_value }}</h1>
             &nbsp;
             &nbsp;
@@ -23,7 +25,9 @@
           <v-card-title class="font-weight-black">
             Align
           </v-card-title>
-          <v-card-actions>
+          <v-skeleton-loader v-if="props.loading" class="mx-auto" width="100%"
+            type="list-item-two-line"></v-skeleton-loader>
+          <v-card-actions v-else>
             <h1 class="text-teal-accent-4 pl-2" style="font-size: 55px;">{{ align_value }}</h1>
             &nbsp;
             &nbsp;
@@ -44,6 +48,10 @@
 /*eslint-disable no-unused-vars  */
 import { defineProps } from 'vue';
 const props = defineProps({
+  loading: {
+    type: Boolean,
+    default: false,
+  },
   survey_value: {
     type: Number,
     default: 0,

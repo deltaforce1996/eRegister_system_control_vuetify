@@ -1,11 +1,24 @@
 import axiosBase from "./AxiosConfig";
-const getBusinessPartnerDetail = async (offset = 0, limit = 1000, search_field,search_value,company_id,bu_id,company_category_id,activity_id,activity_status,completed_from,completed_to) => {
+const getBusinessPartnerDetail = async (_bp_number) => {
   return await axiosBase({
-    method: "get",
-    url: `/partner/get-business-partner-detail?offset=${offset}&limit=${limit}&search_field=${search_field}&search_value=${search_value}&company_id=${company_id}&bu_id=${bu_id}&company_category_id=${company_category_id}&activity_id=${activity_id}&activity_status=${activity_status}&completed_from=${completed_from}&completed_to=${completed_to}`,
-    data: {},
+    method: "post",
+    url: `/partner/get-business-partner-detail`,
+    data: {
+      bp_number : _bp_number
+    },
+  });
+};
+const getBusinessPartnerDetailBranchCode = async (_bp_number,_branch_code) => {
+  return await axiosBase({
+    method: "post",
+    url: `/partner/get-business-partner-detail`,
+    data: {
+      bp_number : _bp_number,
+      branch_code:_branch_code
+    },
   });
 };
 export default {
   getBusinessPartnerDetail,
+  getBusinessPartnerDetailBranchCode
 };

@@ -4,19 +4,29 @@
     <div class="mt-5">
       <v-row dense>
         <v-col cols="3">
-          <RegisteredVendorsItem :value="content.registered_vendors?.value" />
+          <RegisteredVendorsItem
+          :loading ="loading.registered"
+          :value="content.registered_vendors?.value" />
         </v-col>
         <v-col cols="3">
-          <RspPolicyItem :value="content.rsp_policy_vendors?.value" :percent="content.rsp_policy_vendors?.percent" />
+          <RspPolicyItem
+          :loading ="loading.report"
+          :value="content.rsp_policy_vendors?.value"
+          :percent="content.rsp_policy_vendors?.percent" />
         </v-col>
         <v-col cols="3">
-          <SurveyAlignItem :survey_value="content.survey_align_vendors?.survey_value"
+          <SurveyAlignItem
+            :loading ="loading.report"
+            :survey_value="content.survey_align_vendors?.survey_value"
             :survey_percent="content.survey_align_vendors?.survey_percent"
             :align_value="content.survey_align_vendors?.align_value"
             :align_percent="content.survey_align_vendors?.align_percent" />
         </v-col>
         <v-col cols="3">
-          <TrainingItem :value="content.training_vendors?.value" :percent="content.training_vendors?.percent" />
+          <TrainingItem
+          :loading ="loading.report"
+          :value="content.training_vendors?.value"
+          :percent="content.training_vendors?.percent" />
         </v-col>
       </v-row>
       <v-row dense class="mt-5 mb-5">
@@ -31,7 +41,7 @@
                 <v-divider vertical></v-divider>
                 <v-text-field v-model="filter.search_value" density="compact" variant="solo" class="rounded-e-lg"
                   placeholder="ค้นหา  Business Partner Name หรือ Company Name" single-line hide-details></v-text-field>
-                <v-btn color="grey-lighten-2" height="40" rounded="0" class="rounded-e" @click="handleFetchUsers">
+                <v-btn color="grey-lighten-2" height="40" rounded="0" class="rounded-e" @click="getVendorRspStatus">
                   <v-icon size="25">mdi-magnify</v-icon>
                 </v-btn>
               </v-row>
@@ -65,13 +75,20 @@
           </v-btn>
         </v-col>
         <v-col cols="1">
-          <v-btn block class="text-capitalize" color="black">
+          <v-btn block class="text-capitalize" color="black" @click="handleExport">
             <v-icon left>mdi-microsoft-excel</v-icon>
             Export (0)
           </v-btn>
         </v-col>
       </v-row>
-      <TrackingSDActiviteTable class="mt-5" />
+      <!-- {{selected_checked[0-1]}} -->
+      <!-- {{selected_checked}} -->
+      <TrackingSDActiviteTable class="mt-5"
+         :items ="content.items"
+         :loading ="loading.items"
+         :selected="selected_checked[`${filter.page -1}`]"
+         @selected="selected_checked[`${filter.page -1}`] =$event"
+       />
       <PaginationControl class="mt-3"
         :value="filter.page"
        :length="filter.pageSize"
@@ -82,6 +99,7 @@
 <script setup>
 /*eslint-disable no-unused-vars  */
 import { ref, onMounted } from 'vue';
+import exportService from '@/apis/ExportService';
 import RegisteredVendorsItem from "@/components/items/RegisteredVendorsItem.vue";
 import RspPolicyItem from "@/components/items/RspPolicyItem.vue";
 import SurveyAlignItem from "@/components/items/SurveyAlignItem.vue";
@@ -90,13 +108,14 @@ import TrackingSDActiviteTable from "@/components/tables/TrackingSDActiviteTable
 import FilterTrackingSDActivite from "@/components/dialogs/FilterTrackingSDActivite.vue";
 import PaginationControl from '@/components/controls/PaginationControl'
 import RspService from '@/apis/RspService';
-import PartnerServive from '@/apis/PartnerServive';
 import paginationUtils from '@/utils/paginationUtils'
-
+import { useStore } from 'vuex';
+import { toRefs } from 'vue';
 
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 
+const selected_checked = ref([]);
 const selected_items = ref({
   topics: [
     {
@@ -147,12 +166,13 @@ const filter = ref({
   date_to: null,
   offset: 1,
   limit: 1,
-  page : 0,
+  page : 1,
   pageSize: 1,
 });
 const loading = ref({
   registered : false,
-  report: false
+  report: false,
+  items :false
 })
 
 const content = ref({
@@ -177,12 +197,14 @@ const content = ref({
 })
 
 onMounted(() => {
+  //sessionStorage.setItem('key', 'value');
   getRegisteredVendorAmount();
   getRspReportData();
-  getBusinessPartnerDetail();
+  getVendorRspStatus();
 });
-const handleFetchUsers = () =>{
- console.log(filter.value);
+const handleExport = () =>{
+  const bp_numbers = ["01234567890000","01234567890001"];
+  exportRspActivityReport(bp_numbers);
 
 }
 const getRegisteredVendorAmount = async () => {
@@ -237,10 +259,11 @@ const getRspReportData= async () => {
   }
 }
 
-const getBusinessPartnerDetail = async () => {
+const getVendorRspStatus = async () => {
   try {
-    loading.value.registered = true;
-    const response = await PartnerServive.getBusinessPartnerDetail(
+    loading.value.items = true;
+    content.value.items  = [];
+    const response = await RspService.getVendorRspStatus(
       filter.value.offset,
       filter.value.limit,
       filter.value.search_key,
@@ -272,13 +295,27 @@ const getBusinessPartnerDetail = async () => {
     }
     handlingErrorsMessage("unknown", e.message);
   } finally {
-    loading.value.registered = false;
+    loading.value.items = false;
+  }
+}
+const exportRspActivityReport = async (bp_numbers) => {
+  try {
+    const response = await RspService.exportRspActivityReport(bp_numbers)
+    const file_url = response.data?.data?.file_url
+    await exportService.exportBase64(`RspActivityReport`, 'PDF', file_url);
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
   }
 }
 const handlePaginationEvent = (page) => {
   filter.value.page = page;
   filter.value.offset = paginationUtils.pageOffset(page,filter.value.limit);
-  getBusinessPartnerDetail();
+  getVendorRspStatus();
 }
 </script>
 

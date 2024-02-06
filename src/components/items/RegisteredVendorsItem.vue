@@ -4,7 +4,8 @@
       <v-card-title class="font-weight-black">
         Registered Vendors
       </v-card-title>
-      <v-card-actions>
+      <v-skeleton-loader v-if="props.loading" class="mx-auto" width="100%"  type="list-item-two-line"></v-skeleton-loader>
+      <v-card-actions v-else>
         <h1 class="text-secondary font-weight-black pl-2" style="font-size: 55px;">
           {{ value }}
         </h1>
@@ -19,6 +20,10 @@
 /*eslint-disable no-unused-vars  */
 import { defineProps } from 'vue';
 const props = defineProps({
+  loading: {
+    type: Boolean,
+    default: false,
+  },
   value: {
     type: Number,
     default: 0,

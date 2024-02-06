@@ -7,6 +7,7 @@ module.exports = (app) => {
   const survey_results = require("../data/rsp-survey-results.json");
   const survey_results_doc = require("../data/rsp-survey-result-documents.json");
   const survey_results_detail = require("../data/rsp-survey-result-detail.json");
+  const vendor_rsp_status_results = require("../data/rsp-vendor-rsp-status.json");
 
   app.post("/rsp/follow-up-vendor", async (req, res) => {
     await delay(2000);
@@ -62,6 +63,13 @@ module.exports = (app) => {
       }
     );
   });
+  app.get("/rsp/get-vendor-rsp-status", async (req, res) => {
+    await delay(2000);
+    res.setHeader('Items-Offset', 0);
+    res.setHeader('Items-Limit', 10);
+    res.setHeader('Items-Total', 24);
+    res.json(vendor_rsp_status_results);
+  });
   app.get("/rsp/get-rsp-policy-results", async (req, res) => {
     await delay(2000);
     res.json(policy_results);
@@ -91,7 +99,7 @@ module.exports = (app) => {
     }
     );
   });
-  app.get("/rsp/export-rsp-activity-report", async (req, res) => {
+  app.post("/rsp/export-rsp-activity-report", async (req, res) => {
     await delay(2000);
     res.json({
       "is_success": true,

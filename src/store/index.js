@@ -3,16 +3,42 @@ import { createStore } from 'vuex';
 
 const store = createStore({
   state: {
-    // Your state variables here
+    count: 0,
+    vendor_rsp : []
   },
   mutations: {
-    // Your mutations here
+    increment(state) {
+      state.count++;
+    },
+    decrement(state) {
+      state.count--;
+    },
+    add_vendor_rsp(state, todo) {
+      state.vendor_rsp.push(todo);
+    },
+    remove_vendor_rsp(state, todo) {
+      state.vendor_rsp.push(todo);
+    }
   },
   actions: {
-    // Your actions here
+    incrementAsync({ commit }) {
+      setTimeout(() => {
+        commit('increment');
+      }, 1000);
+    },
+    decrementAsync({ commit }) {
+      setTimeout(() => {
+        commit('decrement');
+      }, 1000);
+    },
   },
   getters: {
-    // Your getters here
+    getCount: state => {
+      return state.count;
+    },
+    GET_VENDOR_RSP: state => {
+      return state.vendor_rsp;
+    },
   }
 });
 

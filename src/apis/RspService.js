@@ -1,5 +1,11 @@
 import axiosBase from "./AxiosConfig";
-
+const getVendorRspStatus = async (offset = 0, limit = 1000, search_field,search_value,company_id,bu_id,company_category_id,activity_id,activity_status,completed_from,completed_to) => {
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/get-vendor-rsp-status?offset=${offset}&limit=${limit}&search_field=${search_field}&search_value=${search_value}&company_id=${company_id}&bu_id=${bu_id}&company_category_id=${company_category_id}&activity_id=${activity_id}&activity_status=${activity_status}&completed_from=${completed_from}&completed_to=${completed_to}`,
+    data: {},
+  });
+};
 const getRegisteredVendorAmount = async () => {
   return await axiosBase({
     method: "get",
@@ -52,11 +58,13 @@ const getRspSurveyResults = async (_bp_number) => {
     },
   });
 };
-const getRspSurveyResultDetail = async () => {
+const getRspSurveyResultDetail = async (_bp_number) => {
   return await axiosBase({
     method: "get",
     url: `/rsp/get-rsp-survey-result-detail`,
-    data: {},
+    params: {
+      bp_number : _bp_number
+    },
   });
 
 };
@@ -70,11 +78,15 @@ const getRspSurveyResultDocument = async (_bp_number, _rsp_suvery_id) => {
     },
   });
 };
-const exportRspActivityReport = async () => {
+const exportRspActivityReport = async (bp_number = []) => {
   return await axiosBase({
-    method: "get",
-    url: `/export-rsp-activity-report`,
-    data: {},
+    method: "post",
+    url: `/rsp/export-rsp-activity-report`,
+    data: {
+      business_partner : Array.from(bp_number,i =>{ return {
+        bp_number: i
+      }})
+    },
   });
 };
 const getExportRspPolicyByVendor = async (rsp_policy_id) => {
@@ -92,6 +104,7 @@ const getExportRspSurveyByVendor = async (rsp_survey_id) => {
   });
 };
 export default {
+  getVendorRspStatus,
   sendFollowUpVendor,
   sendFollowUpVendors,
   getRegisteredVendorAmount,
