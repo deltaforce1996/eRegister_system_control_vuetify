@@ -39,48 +39,25 @@
           </v-row>
         </v-col>
         <v-col cols="2">
-          <v-menu v-model="dialogFilters" :close-on-content-click="false" location="bottom">
-            <template v-slot:activator="{ props }">
-              <v-btn class="text-capitalize" color="grey-lighten-2" block height="40" v-bind="props">
-                Filter
-                <v-icon right>mdi-chevron-down</v-icon>
-              </v-btn>
-            </template>
-            <v-card min-width="1400" elevation="5">
-              <v-card-item class="pa-8">
-                <v-row align-center dense>
-                <v-col cols="2">
-                  <v-select  density="compact" variant="outlined" placeholder="Company Code"
-                    item-title="name" :items="selected_items.companies" item-value="id" />
-                </v-col>
-                <v-col cols="2">
-                  <v-select density="compact" variant="outlined" placeholder="BU Owner"
-                    item-title="name" item-value="id" :items="selected_items.bu_owners" />
-                </v-col>
-                <v-col cols="2">
-                  <v-select  density="compact" variant="outlined" placeholder="Activities"
-                    :items="selected_items.activities" item-title="name" item-value="id" />
-                </v-col>
-                <v-col cols="2">
-                  <v-select  density="compact" variant="outlined" placeholder="Status"
-                    :items="selected_items.status" item-title="name" item-value="id" />
-                </v-col>
-                <v-col cols="2">
-                  <v-select  density="compact" variant="outlined" placeholder="Company Category"
-                    :items="selected_items.companies_cate" item-title="name" item-value="id" />
-                </v-col>
-                <v-col cols="2">
-                  <v-select  density="compact" variant="outlined" placeholder="Company Category"
-                    :items="selected_items.companies_cate" item-title="name" item-value="id" />
-                  <!-- <v-btn variant="text" class="text-capitalize" @click="handleFilterClear"> Clear All</v-btn> -->
-                </v-col>
-              </v-row>
-              </v-card-item>
-            </v-card>
-          </v-menu>
+        <FilterTrackingSDActivite
+          :companies_id="filter.companies_id"
+          :bu_owners_id="filter.bu_owners_id"
+          :activities_id="filter.activities_id"
+          :status="filter.status"
+          :comp_categories_id="filter.comp_categories_id"
+          :date_from="filter.date_from"
+          :date_to="filter.date_to"
+          @companies_id="filter.companies_id = $event"
+          @bu_owners_id="filter.bu_owners_id = $event"
+          @activities_id="filter.activities_id = $event"
+          @status="filter.status = $event"
+          @comp_categories_id="filter.comp_categories_id = $event"
+          @date_from="filter.date_from = $event"
+          @date_to="filter.date_to = $event"
+        />
         </v-col>
       </v-row>
-      <v-row justify="end" class="mt-2 mb-2" dense>
+      <v-row justify="end" dense>
         <v-col cols="1">
           <v-btn variant="outlined" to="/SDTeamDashboard/FollowUp" block class="text-capitalize" color="black">
             <v-icon left>mdi-email</v-icon>
@@ -95,7 +72,10 @@
         </v-col>
       </v-row>
       <TrackingSDActiviteTable class="mt-5" />
-      <PaginationControl class="mt-3" />
+      <PaginationControl class="mt-3"
+        :value="filter.page"
+       :length="filter.pageSize"
+        @value="handlePaginationEvent" />
     </div>
   </v-container>
 </template>
@@ -107,13 +87,16 @@ import RspPolicyItem from "@/components/items/RspPolicyItem.vue";
 import SurveyAlignItem from "@/components/items/SurveyAlignItem.vue";
 import TrainingItem from "@/components/items/TrainingItem.vue";
 import TrackingSDActiviteTable from "@/components/tables/TrackingSDActiviteTable.vue";
+import FilterTrackingSDActivite from "@/components/dialogs/FilterTrackingSDActivite.vue";
 import PaginationControl from '@/components/controls/PaginationControl'
 import RspService from '@/apis/RspService';
+import PartnerServive from '@/apis/PartnerServive';
+import paginationUtils from '@/utils/paginationUtils'
+
 
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 
-const dialogFilters = ref(false);
 const selected_items = ref({
   topics: [
     {
@@ -155,15 +138,17 @@ const selected_items = ref({
 const filter = ref({
   search_key: 'business_partner_name',
   search_value: null,
-  company_code: null,
-  bu_owner: null,
-  activities: null,
+  companies_id: null,
+  bu_owners_id: null,
+  activities_id: null,
   status: null,
-  company_category: null,
+  comp_categories_id: null,
   date_from: null,
   date_to: null,
   offset: 1,
-  limit: 10,
+  limit: 1,
+  page : 0,
+  pageSize: 1,
 });
 const loading = ref({
   registered : false,
@@ -192,11 +177,15 @@ const content = ref({
 })
 
 onMounted(() => {
-  onLoadRegisteredVendorAmount();
-  onLoadRspReportData();
+  getRegisteredVendorAmount();
+  getRspReportData();
+  getBusinessPartnerDetail();
 });
+const handleFetchUsers = () =>{
+ console.log(filter.value);
 
-const onLoadRegisteredVendorAmount = async () => {
+}
+const getRegisteredVendorAmount = async () => {
   try {
     loading.value.registered = true;
     const response = await RspService.getRegisteredVendorAmount();
@@ -215,7 +204,7 @@ const onLoadRegisteredVendorAmount = async () => {
   }
 }
 
-const onLoadRspReportData= async () => {
+const getRspReportData= async () => {
   try {
     loading.value.report = true;
     const response = await RspService.getRspReportData();
@@ -248,5 +237,48 @@ const onLoadRspReportData= async () => {
   }
 }
 
+const getBusinessPartnerDetail = async () => {
+  try {
+    loading.value.registered = true;
+    const response = await PartnerServive.getBusinessPartnerDetail(
+      filter.value.offset,
+      filter.value.limit,
+      filter.value.search_key,
+      filter.value.search_value,
+      filter.value.companies_id,
+      filter.value.bu_owners_id,
+      filter.value.comp_categories_id,
+      filter.value.activities_id,
+      filter.value.status,
+      filter.value.date_from,
+      filter.value.date_to,
+    );
+    const headers = response.headers;
+    const itemsOffset = Number(headers['items-offset']);
+    const itemsLimit = Number(headers['items-limit']);
+    const itemsTotal = Number(headers['items-total']);
+
+    filter.value.offset = itemsOffset;
+    filter.value.limit = itemsLimit;
+    filter.value.pageSize = paginationUtils.pageSize(itemsLimit,itemsTotal)
+    if (response.data?.is_success) {
+      content.value.items =  response.data?.data
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    loading.value.registered = false;
+  }
+}
+const handlePaginationEvent = (page) => {
+  filter.value.page = page;
+  filter.value.offset = paginationUtils.pageOffset(page,filter.value.limit);
+  getBusinessPartnerDetail();
+}
 </script>
 

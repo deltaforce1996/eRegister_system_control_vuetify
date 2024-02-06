@@ -15,8 +15,16 @@ const getCompanyById = async (companyId) => {
     data: {},
   });
 };
+const getCompanyCategoriesAll = async () => {
+  return await axiosBase({
+    method: "get",
+    url: `/master/get-company-categories`,
+    data: {},
+  });
+};
 
 export default {
   getCompanyAll,
-  getCompanyById
+  getCompanyById,
+  getCompanyCategoriesAll
 }

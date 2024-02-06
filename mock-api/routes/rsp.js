@@ -102,7 +102,19 @@ module.exports = (app) => {
         }
     });
   });
-  app.get("/rsp/export-rsp-survey-by-vendor", async (req, res) => {
+  app.get("/rsp/export-rsp-policy-by-vendor/:id", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok",
+      "data": {
+          "bp_number": "12345678901000",
+          "file_url": "http://localhost:4000/dowload/test-pdf"
+        }
+    });
+  });
+  app.get("/rsp/export-rsp-survey-by-vendor/:id", async (req, res) => {
     await delay(2000);
     res.json({
       "is_success": true,

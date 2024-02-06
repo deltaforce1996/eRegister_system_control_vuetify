@@ -1,6 +1,6 @@
 import axios from 'axios';
 const _axios = axios.create();
-_axios.defaults.baseURL = 'http://localhost:4000/';
+_axios.defaults.baseURL = 'http://localhost:4000';
 
 
 _axios.defaults.headers.common['Authorization'] = 'Bearer tXZFVTbtqM1hYqM5RFQb2Pl5NPN7uE9hAedkI/z2kJHDsdUD9DkN1hkqBOdB0v7XxCBQn1hfAkpWxpUa0duO+w==';

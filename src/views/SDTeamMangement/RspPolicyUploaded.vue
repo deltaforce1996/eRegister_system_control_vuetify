@@ -31,7 +31,7 @@
                 <strong class="text-black">Active วันที่ </strong>
               </v-col>
               <v-col cols="9" align-self="center">
-                <MenuDatePickerControl :value="date" @value="date = $event" />
+                <!-- <MenuDatePickerControl :value="date" @value="date = $event" /> -->
               </v-col>
               </v-row>
               </div>
@@ -56,7 +56,7 @@
 // eslint-disable-next-line no-unused-vars
 import { ref, computed } from "vue";
 import Choosefile from '@/components/forms/Choosefile'
-import MenuDatePickerControl from '@/components/controls/MenuDatePickerControl.vue'
+// import MenuDatePickerControl from '@/components/controls/MenuDatePickerControl.vue'
 // const emit = defineEmits(["visible"]);
 // const props = defineProps({
 //   visible: {
@@ -64,7 +64,7 @@ import MenuDatePickerControl from '@/components/controls/MenuDatePickerControl.v
 //     default: false,
 //   },
 // });
-const date = ref(null);
+//const date = ref(null);
 const file = ref(null);
 // const dialog = computed({
 //   get() { return props.visible },

@@ -4,7 +4,7 @@
       <v-card-item dense>
         <v-row no-gutters dense justify="space-around">
           <v-col cols="1">
-            <v-checkbox hide-details class="pa-0 mt-n3"></v-checkbox>
+            <v-checkbox hide-details class="pl-2 mt-n3"></v-checkbox>
           </v-col>
           <v-col cols="2" align-self="center" class="mt-n3">
             <strong>Name</strong>
@@ -41,28 +41,28 @@
               <strong>{{i.name_th}}</strong>
             </v-col>
             <v-col cols="2" align-self="center">
-              <v-chip :color="onColor(i.rsp?.policy?.status)" label>
+              <v-chip :color="onColor(i.rsp?.policy?.status)" label size="small">
                 <strong>{{i.rsp?.policy?.status}}</strong>
               </v-chip>
             </v-col>
             <v-col cols="2" align-self="center">
-              <v-chip :color="onColor(i.rsp?.survey?.status)" label>
+              <v-chip :color="onColor(i.rsp?.survey?.status)" label size="small">
               <strong>{{i.rsp?.survey?.status}}  {{i.rsp?.survey?.progress_percentage}}%</strong>
               </v-chip>
             </v-col>
             <v-col cols="2" align-self="center">
-              <v-chip :color="onColor(i.rsp?.training?.status)" label>
+              <v-chip :color="onColor(i.rsp?.training?.status)" label size="small">
                 <strong>{{i.rsp?.training?.status}}  {{i.rsp?.training?.completed_amount}}/{{i.rsp?.training?.total_amount}}</strong>
               </v-chip>
             </v-col>
             <v-col cols="3" align-self="center">
-              <v-chip color="secondary" label>
+              <v-chip color="secondary" label size="small">
                 <strong>{{i.contact_owner?.email}}</strong>
               </v-chip>
               <br />
               <strong>{{i.contact_owner?.business_unit}}</strong>
-              /<span class="text-grey">While convenient, the color pack</span>/
-              <span class="text-grey">Commentail</span>
+              &nbsp;/&nbsp;<span class="text-grey">{{i.contact_owner?.team}}</span>
+              &nbsp;/&nbsp;<span class="text-grey">{{i.contact_owner?.company}}</span>
             </v-col>
           </v-row>
 
@@ -94,33 +94,33 @@
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">FPT Affillate</label>
                       <br />
-                      <span class="font-weight-black">{{business.company_information?.is_fpt_affiliate}}</span>
+                      <span class="font-weight-black">{{business.company_information?.is_fpt_affiliate === 1 ? 'Yes' : 'No'}}</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Organization Type</label>
                       <br />
-                      <span class="font-weight-black">?</span>
+                      <span class="font-weight-black">{{business.company_information?.business_register_type}}</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Juristic Type</label>
                       <br />
-                      <span class="font-weight-black">?</span>
+                      <span class="font-weight-black">{{business.company_information?.account_business_partner_type}}</span>
                     </v-col>
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Company Category</label>
                       <br />
                       <span class="font-weight-black">{{business.company_information?.company_category}}</span>
                     </v-col>
-                    <v-col cols="6">
+                    <v-col cols="9">
                       <label class="font-weight-medium  text-grey-lighten-1">Product / Service Category</label>
                       <br />
-                      <span class="font-weight-black">?</span>
+                      <span class="font-weight-black">{{business.company_information?.product_category}}</span>
                     </v-col>
-                    <v-col cols="3">
+                    <!-- <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Tax ID</label>
                       <br />
                       <span class="font-weight-black">?</span>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12">
                       <label class="font-weight-medium  text-grey-lighten-1">Vendor Number</label>
                       <br />
@@ -150,8 +150,9 @@
                     <v-col cols="12">
                       <v-row>
                         <v-col cols="4">
-                          <v-select density="compact" variant="outlined" placeholder="Roles"
+                          <v-select v-model="business_branch" density="compact" variant="outlined" placeholder="Roles"
                            :items="business.branch"
+                           return-object
                            item-title="branch_description">
                           </v-select>
                         </v-col>
@@ -161,41 +162,42 @@
                     <v-col cols="3">
                       <label class="font-weight-medium  text-grey-lighten-1">Business Partner Role</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">{{business_branch?.business_partner_role}}</span>
                     </v-col>
                     <v-col cols="9">
                       <label class="font-weight-medium  text-grey-lighten-1">Branch Code </label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">{{business_branch?.branch_code}}</span>
                     </v-col>
                     <v-col cols="12">
                       <label class="font-weight-medium  text-grey-lighten-1">Company Code</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">{{business_branch?.company_code}}</span>
                     </v-col>
                     <v-col cols="12">
                       <label class="font-weight-medium  text-grey-lighten-1">Branch Address</label>
                       <br />
-                      <span class="font-weight-black">value</span>
+                      <span class="font-weight-black">{{business_branch?.branch_address}}</span>
                     </v-col>
                     <v-col cols="12">
                       <label class="font-weight-medium  text-grey-lighten-1">Contact Person</label>
                       <br />
-                      <v-row v-for="(item, index) in 3" :key="index" dense>
+                      <v-row v-for="(item, index) in business_branch?.contact_person" :key="index" dense>
                         <v-col cols="4">
-                          <span class="font-weight-black"> name surname-{{ index }}</span>
+                          <span class="font-weight-black"> {{item.name}}</span>
                         </v-col>
                         <v-col cols="4">
-                          <span class="font-weight-black"> 08465466</span>
+                          <span class="font-weight-black"> {{item.mobile}}</span>
                         </v-col>
                         <v-col cols="4">
-                          <span class="font-weight-black"> test@gamil.com</span>
+                          <span class="font-weight-black"> {{item.email}}</span>
                         </v-col>
                       </v-row>
                     </v-col>
                   </v-row>
                   <v-divider class="mt-5 mb-5"></v-divider>
-                  <v-row dense>
+
+                  <v-row dense v-if="survey_result_details?.progress_percentage === 100">
                     <v-col cols="12">
                       <div>
                         <span class="text-h6 text-secondary font-weight-black">Sustainability Activites</span>
@@ -205,17 +207,26 @@
                     </v-col>
                     <v-col cols="12">
                       <v-list lines="two" width="340" dense>
-                        <v-list-item dense v-for="(item,index) in data.survey_result.section" :key="index">
+                        <v-list-item dense v-for="(item,index) in survey_result_details?.survey_result.section" :key="index">
                           <v-list-item-title class="font-weight-black">{{ item.name }}</v-list-item-title>
                           <v-list-item-subtitle class="font-weight-medium ">{{ item.score }}/{{item.total_score}}</v-list-item-subtitle>
                           <template v-slot:append>
                             <v-avatar color="secondary">
                               <span style=" font-size: 13px;">{{item.score_percentage}}</span>
                             </v-avatar>
-                            <!-- <span class="text-h5">B</span> -->
                           </template>
                         </v-list-item>
                       </v-list>
+                    </v-col>
+                  </v-row>
+                  <v-row v-else dense>
+                    <v-col cols="12">
+                      <div>
+                        <span class="text-h6 text-secondary font-weight-black">Sustainability Activites</span>
+                      </div>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-list-item-subtitle class="font-weight-medium ">Progress {{survey_result_details?.progress_percentage}} %</v-list-item-subtitle>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -224,7 +235,7 @@
                   <v-row dense class="pa-10">
                     <v-col cols="12">
                       <v-btn variant="outlined"
-                      :to="`/SDTeamDashboard/FollowUp?owner=_owner&vendor=_vendor`"
+                      :to="`/SDTeamDashboard/FollowUp?bp_number=${business.company_information.business_partner_number}`"
                       block
                       class="text-capitalize rounded-pill"
                         color="black">
@@ -232,7 +243,7 @@
                       </v-btn>
                     </v-col>
                     <v-col cols="12">
-                      <v-btn block to="/SDTeamDashboard/Documents" class="text-capitalize rounded-pill"
+                      <v-btn block :to="`/SDTeamDashboard/Documents?bp_number=${business.company_information.business_partner_number}`" class="text-capitalize rounded-pill"
                         color="teal-accent-4">
                         Documents
                       </v-btn>
@@ -272,6 +283,20 @@ const props = defineProps({
   }
 });
 const panel = ref([]);
+const business_branch= ref( {
+      "branch_code": "00001",
+      "branch_description": "Main Office",
+      "business_partner_role": "Head Office",
+      "company_code": "1000,2000",
+      "branch_address": "123 Main Street, Cityville",
+      "contact_person": [
+        {
+          "name": "Jane Doe",
+          "mobile": "123-456-7890",
+          "email": "jane.doe@example.com"
+        }
+      ]
+    });
 
 const vendors = ref([
       {
@@ -370,6 +395,7 @@ const business = ref({
     "account_business_partner_type": "VIP",
     "business_register_type": "Limited",
     "company_category": "Tech",
+    "product_category":"software",
     "vendor_number": "VN789012",
     "company_code_of_vendor": "1000,1200,1300",
     "customer_number": "CU123456",
@@ -412,7 +438,8 @@ const business = ref({
     }
   ]
 });
-const data = ref({
+// eslint-disable-next-line no-unused-vars
+const survey_result_details = ref({
     "bp_number": "BP12345",
     "status": {
       "id": 1,
