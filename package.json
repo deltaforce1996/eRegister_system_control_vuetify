@@ -28,7 +28,8 @@
     "vue-scorm-player": "^0.1.40",
     "vuedraggable": "^4.1.0",
     "vuetify": "^3.0.0",
-    "vuetify-daterange-picker": "^3.2.0"
+    "vuetify-daterange-picker": "^3.2.0",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

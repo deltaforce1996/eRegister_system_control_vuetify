@@ -20,7 +20,7 @@
                     item-title="name" item-value="id" :items="items.roles" />
                 </v-col>
                 <v-col cols="4">
-                  <MenuDatePickerControl :value="filter.created_date" @value="filter.created_date = $event" />
+                  <!-- <MenuDatePickerControl :value="filter.created_date" @value="filter.created_date = $event" /> -->
                 </v-col>
                 <v-col cols="4">
                   <v-btn variant="text" class="text-capitalize"  size="small">
@@ -179,7 +179,7 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue';
 import roleService from '@/apis/RoleService';
-import MenuDatePickerControl from '@/components/controls/MenuDatePickerControl.vue'
+// import MenuDatePickerControl from '@/components/controls/MenuDatePickerControl.vue'
 import PaginationControl from '@/components/controls/PaginationControl'
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'

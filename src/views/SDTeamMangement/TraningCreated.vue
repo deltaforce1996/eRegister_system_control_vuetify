@@ -43,12 +43,12 @@
                 <strong class="text-black">Active วันที่ </strong>
               </v-col>
               <v-col cols="9" align-self="center">
-                <MenuDatePickerControl
+                <!-- <MenuDatePickerControl
                 width="500"
                 :value="date"
                 @value="date = $event"
                 placeholder="Active Date"
-                 />
+                 /> -->
               </v-col>
               </v-row>
               </div>
@@ -73,7 +73,7 @@
 // eslint-disable-next-line no-unused-vars
 import { ref, computed } from "vue";
 //import Choosefile from '@/components/forms/Choosefile'
-import MenuDatePickerControl from '@/components/controls/MenuDatePickerControl.vue'
+// import MenuDatePickerControl from '@/components/controls/MenuDatePickerControl.vue'
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
 const { showDialog } = useConfirmationDialog();
 // const emit = defineEmits(["visible"]);
@@ -83,7 +83,7 @@ const { showDialog } = useConfirmationDialog();
 //     default: false,
 //   },
 // });
-const date = ref(null);
+// const date = ref(null);
 // const file = ref(null);
 // const dialog = computed({
 //   get() { return props.visible },
