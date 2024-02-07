@@ -69,15 +69,15 @@
       </v-row>
       <v-row justify="end" dense>
         <v-col cols="1">
-          <v-btn variant="outlined" to="/SDTeamDashboard/FollowUp" block class="text-capitalize" color="black">
+          <v-btn variant="outlined" :disabled="SelectedDisabled" @click="handleFollowUp" block class="text-capitalize" color="black">
             <v-icon left>mdi-email</v-icon>
-            Follow up (0)
+            Follow up ({{SelectedCount}})
           </v-btn>
         </v-col>
         <v-col cols="1">
-          <v-btn block class="text-capitalize" color="black" @click="handleExport">
+          <v-btn :disabled="SelectedDisabled" block class="text-capitalize" color="black" @click="handleExport">
             <v-icon left>mdi-microsoft-excel</v-icon>
-            Export (0)
+            Export ({{SelectedCount}})
           </v-btn>
         </v-col>
       </v-row>
@@ -98,7 +98,7 @@
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,computed } from 'vue';
 import exportService from '@/apis/ExportService';
 import RegisteredVendorsItem from "@/components/items/RegisteredVendorsItem.vue";
 import RspPolicyItem from "@/components/items/RspPolicyItem.vue";
@@ -109,12 +109,11 @@ import FilterTrackingSDActivite from "@/components/dialogs/FilterTrackingSDActiv
 import PaginationControl from '@/components/controls/PaginationControl'
 import RspService from '@/apis/RspService';
 import paginationUtils from '@/utils/paginationUtils'
-import { useStore } from 'vuex';
-import { toRefs } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 const { handlingErrorsMessage } = useErrorHandlingDialog();
-
+const router = useRouter();
 const selected_checked = ref([]);
 const selected_items = ref({
   topics: [
@@ -196,16 +195,35 @@ const content = ref({
   items: []
 })
 
+const SelectedDisabled = computed({
+  get() {
+    const checkedCount = selected_checked.value.flat();
+    return checkedCount.length === 0;
+  },
+});
+const SelectedCount = computed({
+  get() {
+    const checkedCount = selected_checked.value.flat();
+    return checkedCount.length;
+  },
+});
+
 onMounted(() => {
-  //sessionStorage.setItem('key', 'value');
+  sessionStorage.setItem("bp_numbers", JSON.stringify([]));
   getRegisteredVendorAmount();
   getRspReportData();
   getVendorRspStatus();
 });
-const handleExport = () =>{
-  const bp_numbers = ["01234567890000","01234567890001"];
-  exportRspActivityReport(bp_numbers);
+const handleFollowUp=()=>{
+  const bp_numbers =  selected_checked.value.flat();
+  const jsonArray = JSON.stringify(bp_numbers);
+  sessionStorage.setItem("bp_numbers", jsonArray);
+  router.push('/SDTeamDashboard/FollowUp');
 
+}
+const handleExport = () =>{
+  const bp_numbers =  selected_checked.value.flat();
+  exportRspActivityReport(bp_numbers);
 }
 const getRegisteredVendorAmount = async () => {
   try {

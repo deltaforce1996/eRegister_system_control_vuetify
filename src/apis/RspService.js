@@ -21,11 +21,19 @@ const getRspReportData = async () => {
     data: {},
   });
 };
-const sendFollowUpVendors = async () => {
+const sendFollowUpVendors = async (bp_numbers,is_sent,additional_msg) => {
   return await axiosBase({
     method: "post",
     url: `/rsp/follow-up-vendors`,
-    data: {},
+    data: {
+      business_partners : Array.from(bp_numbers,email=>{
+         return {
+          bp_number : email
+         }
+      }),
+      is_sent_to_contact_owner: is_sent,
+      additional_message : additional_msg
+    },
   });
 };
 const sendFollowUpVendor = async (bp_number,is_sent,email,additional_msg) => {

@@ -256,7 +256,7 @@
                       <v-btn variant="outlined"
                         :disabled="loader.bp_detail"
                         :loading="loader.bp_detail"
-                        :to="`/SDTeamDashboard/FollowUp?bp_number=${businessPartnerDetail.company_information?.business_partner_number}&email=${businessPartnerDetail.contact_owner_user?.contact_owner}`"
+                        :to="`/SDTeamDashboard/FollowUp?bp_number=${businessPartnerDetail.company_information?.business_partner_number}&email=${businessPartnerDetail?.contact_owner?.email}`"
                         block class="text-capitalize rounded-pill" color="black">
                         Follow up
                       </v-btn>
