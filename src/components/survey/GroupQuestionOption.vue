@@ -73,9 +73,23 @@
 </template>
 
 <script setup>
+
+const propsVar = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+  index: {
+    type: Number,
+    required: true,
+  },
+});
+
 import draggable from "vuedraggable";
 import QuestionOption from "@/components/survey/QuestionOption.vue";
 import { ref, computed, watch } from "vue";
+
+const emit = defineEmits(["on-group-update"])
 
 const items_menu = [{ title: "Option" }, { title: "Preview" }];
 const items_question = ref([]);
@@ -125,7 +139,7 @@ const handleAddQuestion = () => {
 };
 
 watch(items_question.value, (newValue) => {
-  console.log(JSON.stringify(newValue));
+  emit("on-group-update", { index: propsVar.index, question: newValue })
 });
 
 const totalScoreSum = computed(() => {
