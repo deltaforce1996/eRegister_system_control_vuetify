@@ -24,7 +24,7 @@
               <v-select v-model="item_input.memberTypeId"
                   variant="outlined"
                   density="compact"
-                  :disabled="loading.memberType"
+                  disabled
                   :loading="loading.memberType"
                   :items="selected_items.memberType"
                   :rules="rules_valid.memberType"
@@ -90,6 +90,21 @@
                 :rules="rules_valid.team"
                 required
                 density="compact"></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row no-gutters dense v-if="props.index > -1">
+            <v-col>
+              <h4>Status</h4>
+            </v-col>
+            <v-col cols="12">
+              <v-select
+                variant="outlined"
+                density="compact"
+                placeholder="Team"
+                :items="selected_items.status"
+                v-model="item_input.status"
+                item-title="name"
+                item-value="id"></v-select>
             </v-col>
           </v-row>
         </v-card-text>
@@ -167,27 +182,29 @@ const selected_items = ref({
   comapanies: [],
   memberType: [],
   team: [],
-  teamComp: []
+  teamComp: [],
+  status: [
+    {  id: 0, name: 'Inactive' },
+    {  id: 1,  name: 'Active' }
+  ],
 })
 const validateForm = ref(null);
 const item_input = reactive({
   email: "",
-  memberTypeId: null,
+  memberTypeId: 1,
   companyId: null,
   roleId: null,
   teamId: null,
-  status: false,
+  status: 0,
 });
 
 watch(() => item_input.companyId, (newValue) => {
-
   const fineTeam = selected_items.value.team.filter((s) => s.company.id === newValue);
   selected_items.value.teamComp = [...fineTeam]
-
 });
 
 onMounted(() => {
-  if (props.index == -1) {
+  if (props.index === -1) {
     emit('is-title', "Add User");
   } else {
     item_input.email = props.item?.email;
@@ -195,6 +212,7 @@ onMounted(() => {
     item_input.companyId= props.item?.team?.company?.id
     item_input.roleId= props.item?.role?.id
     item_input.teamId= props.item?.team?.name_th
+    item_input.status = props.item?.is_active ? 1 : 0
     emit('is-title', "Edit User");
   }
 
@@ -324,8 +342,9 @@ const  handleUpdated = async () =>{
     const v_Email = item_input.email;
     const v_MemberTypeId = item_input.memberTypeId
     const v_RoleId = item_input.roleId
+    const v_Status = item_input.status
     const v_TeamId = (selected_items.value.teamComp.length > 0) ? item_input.teamId : handleCreatedTeam()
-    const response = await userService.updatedUser(v_Email, v_MemberTypeId, v_RoleId, v_TeamId);
+    const response = await userService.updatedUser(v_Email, v_MemberTypeId, v_RoleId, v_TeamId,v_Status);
       if (response) {
         handleDismissEvent()
       }

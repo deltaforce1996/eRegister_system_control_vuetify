@@ -24,6 +24,7 @@
     "read-excel-file": "^5.7.1",
     "roboto-fontface": "*",
     "vue": "^3.2.0",
+    "vue-pdf": "^4.3.0",
     "vue-router": "^4.0.0",
     "vue-scorm-player": "^0.1.40",
     "vuedraggable": "^4.1.0",

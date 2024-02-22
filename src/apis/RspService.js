@@ -111,6 +111,81 @@ const getExportRspSurveyByVendor = async (rsp_survey_id) => {
     data: {},
   });
 };
+
+// rsp-policy
+const getRspPolicyState = async (_state) => {
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/get-rsp-policies`,
+    params: {
+      state : _state
+    },
+  });
+};
+const getRspPolicyPagination = async (_state,_offset,_limit) => {
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/get-rsp-policies`,
+    params: {
+      state:_state,
+      offset:_offset,
+      limit : _limit
+    },
+  });
+};
+const createRspPolicy = async (_name,_file,_start_at) => {
+  return await axiosBase({
+    method: "post",
+    url: `/rsp/create-rsp-policy`,
+    data: {
+      name : _name,
+      file : _file,
+      start_at : _start_at,
+      updated_user_id : 1
+    },
+  });
+};
+const updateRspPolicy = async ( _rsp_policy_id,_name,_file,_start_at) => {
+  return await axiosBase({
+    method: "post",
+    url: `/rsp/update-rsp-policy`,
+    data: {
+      rsp_policy_id : _rsp_policy_id,
+      name : _name,
+      file : _file,
+      start_at : _start_at,
+      updated_user_id : 1
+    },
+  });
+};
+const deleteRspPolicy = async (_rsp_policy_id) => {
+  return await axiosBase({
+    method: "post",
+    url: `/rsp/delete-rsp-policy/${_rsp_policy_id}`,
+    data: {},
+  });
+};
+const exportRspPolicyResult = async (_rsp_policy_id) => {
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/export-rsp-policy-result/${_rsp_policy_id}`,
+    data: {},
+  });
+};
+const UndeleteRspPolicy = async (_rsp_policy_id) => {
+  return await axiosBase({
+    method: "post",
+    url: `/rsp/undelete-rsp-policy/${_rsp_policy_id}`,
+    data: {},
+  });
+};
+const PermanentlyDeleteRspRolicy = async (_rsp_policy_id) => {
+  return await axiosBase({
+    method: "post",
+    url: `/rsp/permanently-delete-rsp-policy/${_rsp_policy_id}`,
+    data: {},
+  });
+};
 export default {
   getVendorRspStatus,
   sendFollowUpVendor,
@@ -123,5 +198,15 @@ export default {
   getRspSurveyResultDocument,
   exportRspActivityReport,
   getExportRspSurveyByVendor,
-  getExportRspPolicyByVendor
+  getExportRspPolicyByVendor,
+
+  // rsp-policy
+  getRspPolicyPagination,
+  getRspPolicyState,
+  createRspPolicy,
+  updateRspPolicy,
+  deleteRspPolicy,
+  exportRspPolicyResult,
+  UndeleteRspPolicy,
+  PermanentlyDeleteRspRolicy
 };

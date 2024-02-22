@@ -1,10 +1,30 @@
 
+const parseDdMmYyyy =(dateString)=>{
+  const originalDate = new Date(dateString);
+  // const day = originalDate.getDate();
+  // const month = originalDate.getMonth() + 1;
+  // const year = originalDate.getFullYear() % 100;
+  var year = originalDate.getFullYear();
+  var month = (originalDate.getMonth() + 1).toString().padStart(2, '0');
+  var day = originalDate.getDate().toString().padStart(2, '0');
+  return `${day}/${month}/${year}`;
+}
 const parseDdMmYy =(dateString)=>{
   const originalDate = new Date(dateString);
   const day = originalDate.getDate();
   const month = originalDate.getMonth() + 1;
   const year = originalDate.getFullYear() % 100;
   return `${day}/${month}/${year}`;
+}
+const formattedYearMonthDay = (_date) => {
+  if (_date === null || _date === undefined || _date === '') {
+    return null;
+  }
+  var originalDate = new Date(_date);
+  var year = originalDate.getFullYear();
+  var month = (originalDate.getMonth() + 1).toString().padStart(2, '0');
+  var day = originalDate.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 const parseDdMmYyWithTimeAndSeconds = (dateString) => {
@@ -28,4 +48,4 @@ const parseDdMmYyWithTimeAndSeconds = (dateString) => {
 
 
 
-export default { parseDdMmYy, parseDdMmYyWithTimeAndSeconds }
+export default { parseDdMmYyyy,parseDdMmYy, parseDdMmYyWithTimeAndSeconds,formattedYearMonthDay }

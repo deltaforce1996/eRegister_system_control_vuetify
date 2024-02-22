@@ -1,14 +1,16 @@
 <template>
   <v-container>
     <h2>SD Active Mangement</h2>
-    <div class="mt-5">
-      <v-list-item v-for="(i, index) in item" :key="index" class="elevation-5 pa-5 mt-2" :to="i.path">
-        <template v-slot:prepend>
-          <v-icon :icon="i.icon" color="secondary" size="40"></v-icon>
-        </template>
-        <v-list-item-title class="font-weight-medium">{{ i.title }}</v-list-item-title>
-      </v-list-item>
-    </div>
+    <v-card elevation="2" rounded="0" class="rounded-lg mt-3" v-for="(i, index) in item" :key="index" :to="i.path">
+        <v-card-item class="ma-0">
+          <v-row no-gutters dense justify="space-around">
+            <v-col cols="12" align-self="center" class="pa-1">
+              <v-icon color="secondary" size="40" class="ml-3 mr-5">{{ i.icon}}</v-icon>
+              <strong>{{ i.title }}</strong>
+            </v-col>
+          </v-row>
+        </v-card-item>
+    </v-card>
   </v-container>
 </template>
 <script setup>
@@ -23,7 +25,7 @@ onBeforeMount(() => {
     {
       icon: "mdi-shield-check",
       title: "RSP Policy",
-      path: "/SDTeamMangement/RspPolicy"
+      path: "/SDTeamMangement/RspPolicies"
     },
     {
       icon: "mdi-list-box",

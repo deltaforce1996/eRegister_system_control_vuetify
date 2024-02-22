@@ -9,6 +9,11 @@ module.exports = (app) => {
   const survey_results_detail = require("../data/rsp-survey-result-detail.json");
   const vendor_rsp_status_results = require("../data/rsp-vendor-rsp-status.json");
 
+  const rsp_training = require("../data/rsp-traning/rsp-training.json");
+
+  const rsp_policies = require("../data/rsp-policies/rsp-policies.json");
+  const rsp_policies_activated = require("../data/rsp-policies/rsp-policies_activated.json");
+
   app.post("/rsp/follow-up-vendor", async (req, res) => {
     await delay(2000);
     res.json({
@@ -135,4 +140,145 @@ module.exports = (app) => {
        }
     );
   });
+
+  // traning ***
+  app.get("/rsp/get-rsp-training", async (req, res) => {
+    await delay(2000);
+    res.json(rsp_training);
+  });
+  app.get("/rsp/export-rsp-training-result/:id", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok",
+      "data": {
+        "rsp_training_id": "33123",
+        "file_url": "https://example.com/downloads/exported_file.xlsx"
+      }
+    });
+  });
+
+  app.post("/rsp/deactivate-rsp-training", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok"
+    });
+  });
+
+  app.post("/rsp/activate-rsp-training", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok"
+    });
+  });
+  app.post("/rsp/deactivate-rsp-training", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok"
+    });
+  });
+  app.post("/rsp/undelete-rsp-training", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok"
+    });
+  });
+  app.post("/rsp/permanently-delete-rsp-policy", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok"
+    });
+  });
+  app.post("/rsp/create-rsp-training", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok"
+    });
+  });
+  app.post("/rsp/update-rsp-training", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok"
+    });
+  });
+
+ // policies
+ app.get("/rsp/get-rsp-policies", async (req, res) => {
+  const { state } = req.query;
+  await delay(2000);
+  res.setHeader('Items-Offset', 0);
+  res.setHeader('Items-Limit', 10);
+  res.setHeader('Items-Total', 24);
+  if(state === 'activated'){
+    res.json(rsp_policies_activated);
+  }else{
+    res.json(rsp_policies);
+  }
+ });
+ app.get("/rsp/export-rsp-policy-result/:rsp_policy_id", async (req, res) => {
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok",
+      "data": {
+        "rsp_policy_id": "12345",
+        "file_url": "http://localhost:4000/dowload/test-xlsx"
+      }
+    });
+ });
+ app.post("/rsp/create-rsp-policy", async (req, res) => {
+
+ // API create RSP Policy POST /v1/rsp/create-rsp-policy { "name": "Example RSP Policy", "data": "base64_encoded_file_content", "published_at": "2023-11-10T14:20:12", "created_user_id": 123 }
+
+  res.json({
+    "is_success": true,
+    "code": 200,
+    "message": "Ok",
+    "data": {}
+  });
+});
+
+app.post("/rsp/update-rsp-policy", async (req, res) => {
+
+  // API create RSP Policy POST /v1/rsp/create-rsp-policy { "name": "Example RSP Policy", "data": "base64_encoded_file_content", "published_at": "2023-11-10T14:20:12", "created_user_id": 123 }
+
+   res.json({
+     "is_success": true,
+     "code": 200,
+     "message": "Ok",
+     "data": {}
+   });
+ });
+
+ app.post("/rsp/undelete-rsp-policy/:id", async (req, res) => {
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok",
+      "data": {}
+    });
+ });
+ app.post("/rsp/permanently-delete-rsp-policy/:id", async (req, res) => {
+  res.json({
+    "is_success": true,
+    "code": 200,
+    "message": "Ok",
+    "data": {}
+  });
+ });
 };

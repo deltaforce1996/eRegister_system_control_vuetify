@@ -93,13 +93,13 @@ const routes = [
           import("@/views/SDTeamMangement/SDActiveMangement.vue"),
       },
       {
-        path: "/SDTeamMangement/RspPolicy",
-        name: "RspPolicyPage",
-        component: () => import("@/views/SDTeamMangement/RspPolicy.vue"),
+        path: "/SDTeamMangement/RspPolicies",
+        name: "RspPoliciesPage",
+        component: () => import("@/views/SDTeamMangement/RspPolicies.vue"),
       },
       {
         path: "/SDTeamMangement/RspPolicyUploaded",
-        name: "RspPolicyUploadedPage",
+        name: "RspPoliciesUploadedPage",
         component: () =>
           import("@/views/SDTeamMangement/RspPolicyUploaded.vue"),
       },

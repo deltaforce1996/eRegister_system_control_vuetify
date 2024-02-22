@@ -3,7 +3,9 @@ const express = require('express')
 const bodyParser  = require("body-parser");
 const cors = require('cors');
 const app = express()
-app.use(express.static('downloads'));
+//app.use(express.static('/file'));
+var path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
 const corsOptions = {
   exposedHeaders: ['Authorization', 'Items-Offset','Items-Limit','Items-Total'],
@@ -23,9 +25,15 @@ app.use(function (req, res, next) {
   next();
 });
 
- require('./routes/rsp')(app);
- require('./routes/partner')(app);
- require('./routes/dowload_mock')(app);
+
+
+
+// app.use('/api', routes)
+
+
+require('./routes/rsp')(app);
+require('./routes/partner')(app);
+require('./routes/dowload_mock')(app);
 
 require("./routes/users")(app);
 require("./routes/company")(app);

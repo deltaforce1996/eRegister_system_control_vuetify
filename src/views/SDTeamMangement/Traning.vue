@@ -5,7 +5,8 @@
     <div class="mt-5">
       <v-row justify="end">
       <v-col cols="2">
-        <v-menu v-model="onFilter" :close-on-content-click="false" location="bottom">
+      <FilterTraning />
+        <!-- <v-menu v-model="onFilter" :close-on-content-click="false" location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn class="text-capitalize" color="grey-lighten-2" block variant="flat" v-bind="props">
               Filter
@@ -20,7 +21,6 @@
                     item-title="name" item-value="id" :items="items.roles" />
                 </v-col>
                 <v-col cols="4">
-                  <!-- <MenuDatePickerControl :value="filter.created_date" @value="filter.created_date = $event" /> -->
                 </v-col>
                 <v-col cols="4">
                   <v-btn variant="text" class="text-capitalize"  size="small">
@@ -30,7 +30,7 @@
               </v-row>
             </v-card-item>
           </v-card>
-        </v-menu>
+        </v-menu> -->
       </v-col>
     </v-row>
       <v-row>
@@ -179,7 +179,7 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue';
 import roleService from '@/apis/RoleService';
-// import MenuDatePickerControl from '@/components/controls/MenuDatePickerControl.vue'
+import FilterTraning from '@/components/dialogs/FilterTraning.vue'
 import PaginationControl from '@/components/controls/PaginationControl'
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
@@ -187,7 +187,7 @@ import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDial
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 const { showDialog } = useConfirmationDialog();
 
-const onFilter = ref(false);
+// const onFilter = ref(false);
 const tab = ref(null);
 
 const items = ref({

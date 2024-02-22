@@ -35,7 +35,7 @@ const  createdUser = async (p_email , p_memberTypeId , p_roleId , p_teamId)=>{
      }
    });
 }
-const  updatedUser = async (p_email , p_memberTypeId , p_roleId , p_teamId)=>{
+const  updatedUser = async (p_email , p_memberTypeId , p_roleId , p_teamId,_p_status)=>{
   return await axiosBase({
      method: 'post',
      url: '/users/create-user',
@@ -44,7 +44,7 @@ const  updatedUser = async (p_email , p_memberTypeId , p_roleId , p_teamId)=>{
       firstname: null,
       lastname: null,
       is_register:true,
-      is_active:true,
+      is_active:_p_status,
       member_type_id: p_memberTypeId,
       role_id: p_roleId,
       team_id: p_teamId,
