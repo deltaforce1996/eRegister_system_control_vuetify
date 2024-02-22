@@ -1,7 +1,10 @@
 <template>
   <v-row dense>
-    <v-col cols="12">
-      <GroupQuestionOption />
+    <v-col cols="12" v-for="(i, index) in itemQuestionUpdate" :key="index">
+      <GroupQuestionOption
+        :index="index"
+        @on-group-update="handleGroupQuestionUpdate"
+      />
     </v-col>
     <v-col cols="12" class="d-flex justify-center">
       <v-btn
@@ -18,5 +21,18 @@
 
 <script setup>
 import GroupQuestionOption from "@/components/survey/GroupQuestionOption.vue";
-const handleAddQuestion = () => {};
+import { ref } from "vue";
+
+const itemQuestionUpdate = ref([]);
+
+const handleGroupQuestionUpdate = ({ index, question }) => {
+  itemQuestionUpdate.value[index].data = question;
+};
+
+const handleAddQuestion = () => {
+  itemQuestionUpdate.value.push({
+    id: itemQuestionUpdate.value.length,
+    data: [],
+  });
+};
 </script>
