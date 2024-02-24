@@ -36,7 +36,7 @@
                               is-action="ACTIVE"
                               @action-menus="handleActionDropdown"
                               />
-        <PaginationControl class="mt-3" :value="infoActive.page" :length="infoActive.pageSize"
+        <PaginationControl v-if="infoActive.pageSize > 1" class="mt-3" :value="infoActive.page" :length="infoActive.pageSize"
           @value="handlePaginationActiveEvent" />
       </div>
       <v-divider class="mt-3 mb-3"></v-divider>
@@ -57,7 +57,8 @@
                   :is-action="menus[menus_index].dropdown"
                   @action-menus="handleActionDropdown"
                   />
-                  <PaginationControl class="mt-3"
+                  <PaginationControl v-if="infoMenus.pageSize > 1"
+                   class="mt-3"
                   :value="infoMenus.page"
                   :length="infoMenus.pageSize"
                   @value="handlePaginationInfoMenusEvent" />
