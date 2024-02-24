@@ -1,7 +1,7 @@
 <template>
   <v-menu v-model="menu" :close-on-content-click="false" location="end">
     <template v-slot:activator="{ props }">
-      <v-text-field :value="`${prop.from} - ${prop.to}`" readonly density="compact" variant="outlined" :placeholder="prop.placeholder"
+      <v-text-field :value="Value" readonly density="compact" variant="outlined" :placeholder="prop.placeholder"
         append-inner-icon="mdi-calendar-month" v-bind="props">
       </v-text-field>
     </template>
@@ -23,8 +23,8 @@
 <script setup>
 
 // eslint-disable-next-line no-unused-vars
-import { ref, defineProps, watch } from 'vue';
-
+import { ref, defineProps, watch,computed } from 'vue';
+import dateUtils from "@/utils/dateUtils";
 const emit = defineEmits(["from","to"]);
 const menu = ref(false);
 const date_from = ref(null)
@@ -40,8 +40,16 @@ const prop = defineProps({
   },
   placeholder: {
     type: String,
-    default: 'Active Date'
+    default: 'Created Date'
   }
+});
+const Value = computed({
+    get() {
+      if(!prop.from && !prop.to){
+        return null
+      }
+      return `${prop.from} - ${prop.to}`;
+   },
 });
 watch(date_from, (newValue) => {
   if (newValue) {
@@ -63,15 +71,11 @@ watch(date_to, (newValue) => {
     }
   }
 });
-const formatted = (date) => {
-  if (date === null || date === undefined || date === '') {
+const formatted = (_date) => {
+  if (_date === null || _date === undefined || _date === '') {
     return null;
   }
-  var originalDate = new Date(date);
-  var year = originalDate.getFullYear();
-  var month = (originalDate.getMonth() + 1).toString().padStart(2, '0');
-  var day = originalDate.getDate().toString().padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return dateUtils.parseDdMmYyyy(_date);
 }
 const differenceDays = () => {
   const date1 = new Date(date_from.value);

@@ -144,6 +144,9 @@ module.exports = (app) => {
   // traning ***
   app.get("/rsp/get-rsp-training", async (req, res) => {
     await delay(2000);
+    res.setHeader('Items-Offset', 0);
+    res.setHeader('Items-Limit', 10);
+    res.setHeader('Items-Total', 24);
     res.json(rsp_training);
   });
   app.get("/rsp/export-rsp-training-result/:id", async (req, res) => {
@@ -154,17 +157,8 @@ module.exports = (app) => {
       "message": "Ok",
       "data": {
         "rsp_training_id": "33123",
-        "file_url": "https://example.com/downloads/exported_file.xlsx"
+        "file_url": "http://localhost:4000/dowload/test-xlsx"
       }
-    });
-  });
-
-  app.post("/rsp/deactivate-rsp-training", async (req, res) => {
-    await delay(2000);
-    res.json({
-      "is_success": true,
-      "code": 200,
-      "message": "Ok"
     });
   });
 
@@ -184,6 +178,14 @@ module.exports = (app) => {
       "message": "Ok"
     });
   });
+  app.post("/rsp/delete-rsp-training", async (req, res) => {
+    await delay(2000);
+    res.json({
+      "is_success": true,
+      "code": 200,
+      "message": "Ok"
+    });
+  });
   app.post("/rsp/undelete-rsp-training", async (req, res) => {
     await delay(2000);
     res.json({
@@ -192,7 +194,7 @@ module.exports = (app) => {
       "message": "Ok"
     });
   });
-  app.post("/rsp/permanently-delete-rsp-policy", async (req, res) => {
+  app.post("/rsp/permanently-delete-rsp-training", async (req, res) => {
     await delay(2000);
     res.json({
       "is_success": true,

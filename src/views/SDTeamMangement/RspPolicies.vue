@@ -8,7 +8,7 @@
         </v-col>
         <v-col cols="2">
           <v-btn class="me-2 text-none" color="secondary" prepend-icon="mdi-plus" variant="flat" height="40" rounded
-            to="/SDTeamMangement/RspPolicyUploaded" block>
+            to="/SDTeamMangement/RspPolicyUpsert" block>
             Create new
           </v-btn>
         </v-col>
@@ -16,6 +16,7 @@
       <div class="mt-5">
         <v-skeleton-loader v-if="activated_laoding" type="list-item-two-line" color="transparent" />
         <RspPoliciesItem v-else  v-for="(item,index) in activated_items" :key="index"
+          class="mt-3"
           :item="item"
           :action-visible ="false"
           :actionId="0"

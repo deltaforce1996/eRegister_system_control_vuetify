@@ -6,7 +6,7 @@
       {
         "id": 1,
         "name": "กฎระเบียบ",
-        "file_url": "https://example.com/scorm/กฎระเบียบ",
+        "file_url": "https://www.youtube.com/watch?v=tYPIR8XWXFE&list=RDtYPIR8XWXFE&start_radio=1",
         "roles": [{
           "id": 5,
           "name": "vendor",
@@ -28,7 +28,7 @@
       {
         "id": 2,
         "name": "ฝึกอบรม",
-        "file_url": "https://example.com/scorm/ฝึกอบรม",
+        "file_url": "https://www.youtube.com/watch?v=tYPIR8XWXFE&list=RDtYPIR8XWXFE&start_radio=1",
         "roles": [
           {
             "id": 1,

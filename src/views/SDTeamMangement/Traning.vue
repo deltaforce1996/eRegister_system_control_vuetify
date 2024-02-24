@@ -4,172 +4,63 @@
     <h2>Mangement > Traning</h2>
     <div class="mt-5">
       <v-row justify="end">
-      <v-col cols="2">
-      <FilterTraning />
-        <!-- <v-menu v-model="onFilter" :close-on-content-click="false" location="bottom">
-          <template v-slot:activator="{ props }">
-            <v-btn class="text-capitalize" color="grey-lighten-2" block variant="flat" v-bind="props">
-              Filter
-              <v-icon right>mdi-chevron-down</v-icon>
-            </v-btn>
-          </template>
-          <v-card min-width="800" elevation="5">
-            <v-card-item class="pa-8">
-              <v-row align-center>
-                <v-col cols="4">
-                  <v-select v-model="filter.role_id" density="compact" variant="outlined" placeholder="Roles"
-                    item-title="name" item-value="id" :items="items.roles" />
-                </v-col>
-                <v-col cols="4">
-                </v-col>
-                <v-col cols="4">
-                  <v-btn variant="text" class="text-capitalize"  size="small">
-                  <span class="text-decoration-underline">Clear All</span>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-card-item>
-          </v-card>
-        </v-menu> -->
-      </v-col>
-    </v-row>
+        <v-col cols="2">
+          <FilterTraning :roles_id="filter.roleId" :date_from="filter.dateFrom" :date_to="filter.dateTo"
+            @roles_id="filter.roleId = $event" @date_from="filter.dateFrom = $event" @date_to="filter.dateTo = $event" />
+        </v-col>
+      </v-row>
       <v-row>
         <v-col cols="10" align-self="center">
           <h3> Activate Traning</h3>
         </v-col>
         <v-col cols="2">
           <v-btn class="me-2 text-none"
-                  color="secondary"
-                  prepend-icon="mdi-plus"
-                  variant="flat"
-                  rounded
-                  to="/SDTeamMangement/TraningCreated"
-                  block>
+                 color="secondary"
+                 prepend-icon="mdi-plus"
+                 variant="flat"
+                 rounded
+                 block
+                 @click="handleTraningCreated"
+                 >
             Create new
           </v-btn>
         </v-col>
       </v-row>
-      <v-card elevation="2" rounded="0" class="rounded-lg mt-3" v-for="i in 2" :key="i">
-        <v-card-item class="ma-0">
-          <v-row no-gutters dense justify="space-around">
-            <v-col cols="1" align-self="center" class="pa-1">
-              <strong>01/05/66</strong>
-              <v-icon color="secondary" size="40" class="ml-3 mr-3">mdi-laptop-account</v-icon>
-            </v-col>
-            <v-col cols="3" align-self="center" class="pa-1">
-              <strong>นโยบายการจัดซื้อจัดจ้างอย่างรับผิดชอบ</strong>
-              <strong class="text-grey">(V.4)</strong>
-            </v-col>
-            <v-divider vertical class="ma-2"></v-divider>
-            <v-col cols="2" align-self="center" class="pa-1">
-              <strong>Created by</strong>
-              <br />
-              <strong class="text-secondary">sss@gmail.com</strong>
-            </v-col>
-            <v-divider vertical class="ma-2"></v-divider>
-            <v-col cols="2" align-self="center" class="pa-1">
-              <strong>Role</strong>
-              <br />
-              <strong class="text-secondary">Admin , Vendor</strong>
-            </v-col>
-            <v-col cols="2" align-self="center" class="pa-1">
-              <v-btn class="me-2 text-none" color="secondary" variant="outlined" size="small"  rounded>
-                Link วีดีโอ
-              </v-btn>
-              <v-btn class="me-2 text-none" color="secondary" variant="flat" size="small" rounded>
-                Export Results
-              </v-btn>
-            </v-col>
-            <v-col cols="1" align-self="center" class="pa-1">
-              <v-menu transition="scale-transition">
-                <template v-slot:activator="{ props }">
-                  <v-btn text v-bind="props" variant="text">
-                    <v-icon icon=" mdi-dots-horizontal"></v-icon>
-                  </v-btn>
-                </template>
-
-                <v-list dense>
-                  <v-list-item>
-                    <template v-slot:prepend>
-                      <v-icon icon="mdi-circle-medium"></v-icon>
-                    </template>
-                    <v-list-item-title>Deactiveted</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </v-col>
-          </v-row>
-        </v-card-item>
-      </v-card>
-      <PaginationControl class="mt-3" :value="filter.offset" />
+      <div class="mt-5">
+        <v-skeleton-loader v-if="infoActive.loading" type="list-item-two-line" color="transparent" />
+        <RspTraningActiveItem v-else v-for="(item, index) in infoActive.items" :key="index"
+                              class="mt-3"
+                              :item="item"
+                              :is-draft="false"
+                              :action-visible="true"
+                              is-action="ACTIVE"
+                              @action-menus="handleActionDropdown"
+                              />
+        <PaginationControl class="mt-3" :value="infoActive.page" :length="infoActive.pageSize"
+          @value="handlePaginationActiveEvent" />
+      </div>
       <v-divider class="mt-3 mb-3"></v-divider>
       <div>
-        <v-tabs v-model="tab" color="secondary">
-          <v-tab v-for="(tabs, index) in items" :key="index" class="text-capitalize">
-           <h3>{{ tabs.title }}</h3>
+        <v-tabs v-model="menus_index" color="secondary">
+          <v-tab v-for="(tabs, index) in menus" :key="index" class="text-capitalize">
+            <h3>{{ tabs.title }}</h3>
           </v-tab>
         </v-tabs>
         <v-tabs-items>
           <v-tab-item>
-            <v-card elevation="2" rounded="0" class="rounded-lg mt-3" v-for="i in 5" :key="i">
-              <v-card-item class="ma-0">
-                <v-row no-gutters dense justify="space-around">
-                  <v-col cols="1" align-self="center" class="pa-1">
-                    <strong>01/05/66</strong>
-                    <v-icon color="secondary" size="40" class="ml-3 mr-3">mdi-laptop-account</v-icon>
-                  </v-col>
-                  <v-col cols="3" align-self="center" class="pa-1">
-                    <strong>นโยบายการจัดซื้อจัดจ้างอย่างรับผิดชอบ</strong>
-                    <strong class="text-grey">(V.4)</strong>
-                  </v-col>
-                  <v-divider vertical class="ma-2"></v-divider>
-                  <v-col cols="2" align-self="center" class="pa-1">
-                    <strong>Created by</strong>
-                    <br />
-                    <strong class="text-secondary">sss@gmail.com</strong>
-                  </v-col>
-                  <v-divider vertical class="ma-2"></v-divider>
-                  <v-col cols="2" align-self="center" class="pa-1">
-                    <strong>Role</strong>
-                    <br />
-                    <strong class="text-secondary">Admin , Vendor</strong>
-                  </v-col>
-                  <v-col cols="2" align-self="center" class="pa-1">
-                    <v-btn class="me-2 text-none" color="secondary" variant="outlined" size="small" rounded>
-                      Link วีดีโอ
-                    </v-btn>
-                    <v-btn class="me-2 text-none" color="secondary" variant="flat" size="small" rounded>
-                     Continue
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="1" align-self="center" class="pa-1">
-                    <v-menu transition="scale-transition">
-                        <template v-slot:activator="{ props }">
-                          <v-btn text v-bind="props" variant="text">
-                            <v-icon icon=" mdi-dots-horizontal"></v-icon>
-                          </v-btn>
-                        </template>
-
-                        <v-list dense>
-                          <v-list-item>
-                            <template v-slot:prepend>
-                              <v-icon icon="mdi-circle-medium"></v-icon>
-                            </template>
-                            <v-list-item-title>Activated</v-list-item-title>
-                          </v-list-item>
-                          <v-list-item @click="handleDelete(i)">
-                            <template v-slot:prepend>
-                              <v-icon icon="mdi-delete"></v-icon>
-                            </template>
-                            <v-list-item-title>Delete</v-list-item-title>
-                          </v-list-item>
-                        </v-list>
-                      </v-menu>
-                  </v-col>
-                </v-row>
-              </v-card-item>
-            </v-card>
-            <PaginationControl class="mt-3" :value="filter.offset" />
+            <v-skeleton-loader v-if="infoMenus.loading" type="list-item-two-line" color="transparent" />
+            <RspTraningActiveItem v-else v-for="(item, index) in infoMenus.items" :key="index"
+                   class="mt-3"
+                  :item="item"
+                  :is-draft="menus[menus_index].continue"
+                  :action-visible="true"
+                  :is-action="menus[menus_index].dropdown"
+                  @action-menus="handleActionDropdown"
+                  />
+                  <PaginationControl class="mt-3"
+                  :value="infoMenus.page"
+                  :length="infoMenus.pageSize"
+                  @value="handlePaginationInfoMenusEvent" />
           </v-tab-item>
         </v-tabs-items>
       </div>
@@ -177,51 +68,142 @@
   </v-container>
 </template>
 <script setup>
-import { ref, onBeforeMount } from 'vue';
-import roleService from '@/apis/RoleService';
+import { ref, onBeforeMount , watch } from 'vue';
+// eslint-disable-next-line no-unused-vars
+import RspService from '@/apis/RspService';
+import RspTraningActiveItem from '@/components/items/RspTraningActiveItem.vue'
 import FilterTraning from '@/components/dialogs/FilterTraning.vue'
 import PaginationControl from '@/components/controls/PaginationControl'
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
-
+import paginationUtils from '@/utils/paginationUtils'
+// eslint-disable-next-line no-unused-vars
 const { handlingErrorsMessage } = useErrorHandlingDialog();
+// eslint-disable-next-line no-unused-vars
 const { showDialog } = useConfirmationDialog();
 
-// const onFilter = ref(false);
-const tab = ref(null);
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
-const items = ref({
-  active_traning :[],
-  type_traning :[],
-});
-const loading = ref({
-  roles: false,
-  active: false,
-  tab: false
-});
+const menus = ref([]);
+const menus_index = ref(0);
 const filter = ref({
-  created_date: null,
-  role_id: null,
+  roleId: null,
+  dateFrom: null,
+  dateTo: null,
+});
+const infoActive = ref({
+  loading: false,
+  items: [],
+  state: 'active',
   offset: 1,
-  limit: 10,
+  limit: 1,
+  page: 1,
+  pageSize: 1,
 });
-
+const infoMenus = ref({
+  loading: false,
+  items: [],
+  state: 'inactive',
+  offset: 1,
+  limit: 1,
+  page: 1,
+  pageSize: 1,
+});
 onBeforeMount(() => {
-  items.value = [
-    { title: 'Inactive Traning', icon: 'mdi-account-outline' },
-    { title: 'Draft', icon: 'mdi-link-variant' },
-    { title: 'Recently Delete', icon: 'mdi-link-variant' },
+  menus.value = [
+    {
+      title: 'Inactive Traning',
+      icon: 'mdi-account-outline',
+      continue: false,
+      dropdown: 'INACTIVE_TRANING'
+    },
+    {
+      title: 'Draft',
+      icon: 'mdi-link-variant',
+      continue: true,
+      dropdown: 'INACTIVE_DRAFT'
+    },
+    {
+      title: 'Recently Delete',
+      icon: 'mdi-link-variant',
+      continue: false,
+      dropdown: 'INACTIVE_RECENTLY'
+    },
   ]
-  handleLoadRoleAll()
+  handleGetRspTrainingActive();
+  handleGetRspTrainingInfoMenus();
+});
+watch(menus_index, (newValue) => {
+    switch(newValue){
+
+      case 0 :
+      infoMenus.value.state = 'inactive';
+      infoMenus.value.offset= 1;
+      infoMenus.value.limit= 1;
+      infoMenus.value.page= 1;
+      infoMenus.value.pageSize= 1;
+
+      break;
+      case 1 :
+      infoMenus.value.state = 'draft';
+      infoMenus.value.offset= 1;
+      infoMenus.value.limit= 1;
+      infoMenus.value.page= 1;
+      infoMenus.value.pageSize= 1;
+
+      break;
+      case 2 :
+
+      infoMenus.value.state = 'deleted';
+      infoMenus.value.offset= 1;
+      infoMenus.value.limit= 1;
+      infoMenus.value.page= 1;
+      infoMenus.value.pageSize= 1;
+      break;
+
+    }
+    handleGetRspTrainingInfoMenus();
 });
 
-const handleLoadRoleAll = async () => {
+const handleTraningCreated = () =>{
+  sessionStorage.setItem("traning_modifiy", []);
+  router.push('/SDTeamMangement/TraningUpsert');
+}
+const handlePaginationActiveEvent = (page) => {
+  infoActive.value.page = page;
+  infoActive.value.offset = paginationUtils.pageOffset(page, infoActive.value.limit);
+  handleGetRspTrainingActive();
+}
+const handlePaginationInfoMenusEvent = (page) => {
+  infoMenus.value.page = page;
+  infoMenus.value.offset = paginationUtils.pageOffset(page, infoActive.value.limit);
+  handleGetRspTrainingInfoMenus();
+}
+const handleGetRspTrainingActive = async () => {
   try {
-    loading.value.roles = true;
-    const response = await roleService.getRoleAll();
+    infoActive.value.loading = true;
+    infoActive.value.items = [];
+    const response = await RspService.getRspTraining(
+                            infoActive.value.state,
+                            infoActive.value.offset,
+                            infoActive.value.limit,
+                            filter.value.roleId,
+                            filter.value.dateFrom,
+                            filter.value.dateTo);
+    const headers = response.headers;
+    const itemsOffset = Number(headers['items-offset']);
+    const itemsLimit = Number(headers['items-limit']);
+    const itemsTotal = Number(headers['items-total']);
+
+    infoActive.value.offset = itemsOffset;
+    infoActive.value.limit = itemsLimit;
+    infoActive.value.pageSize = paginationUtils.pageSize(itemsLimit, itemsTotal)
+
     if (response.data?.is_success) {
-      items.value.roles = response.data.data
+      infoActive.value.items = response.data.data
     }
+    return []
   } catch (e) {
     if (e.response) {
       const val = e.response.data
@@ -230,20 +212,160 @@ const handleLoadRoleAll = async () => {
     }
     handlingErrorsMessage("unknown", e.message);
   } finally {
-    loading.value.roles = false;
+    infoActive.value.loading = false;
+  }
+}
+const handleGetRspTrainingInfoMenus = async () => {
+  try {
+    infoMenus.value.loading = true;
+    infoMenus.value.items = [];
+    const response = await RspService.getRspTraining(
+                          infoMenus.value.state,
+                          infoMenus.value.offset,
+                          infoMenus.value.limit,
+                          filter.value.roleId,
+                          filter.value.dateFrom,
+                          filter.value.dateTo);
+    const headers = response.headers;
+    const itemsOffset = Number(headers['items-offset']);
+    const itemsLimit = Number(headers['items-limit']);
+    const itemsTotal = Number(headers['items-total']);
+    infoMenus.value.offset = itemsOffset;
+    infoMenus.value.limit = itemsLimit;
+    infoMenus.value.pageSize = paginationUtils.pageSize(itemsLimit, itemsTotal)
+
+    if (response.data?.is_success) {
+      infoMenus.value.items = response.data.data
+    }
+    return []
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    infoMenus.value.loading = false;
   }
 }
 
+const handleActionDropdown = (rspTraningId,action)=>{
+  console.log(action)
+   switch(action){
+    case 'DEACTIVATED':
+      handleDeactived(rspTraningId);
+      break;
+    case 'DELETE':
+      handleDeleted(rspTraningId);
+      break;
+    case 'ACTIVATED':
+      handleActivated(rspTraningId);
+      break;
+    case 'DEACTIVATED_TRANING':
+      handleDeactivatedTraning(rspTraningId);
+      break;
+    case 'PERMANENTLY_DELETE':
+      handlePermanentlyDeleted(rspTraningId);
+      break;
 
-const handleDelete = async () => {
-  //e.preventDefault()
-  const confirmed = await showDialog('ยืนยันลบแบบฟอร์ม','กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
-      if (confirmed) {
-        console.log('Action confirmed!');
-      } else {
-        console.log('Action cancelled.');
+    }
+}
+const handleDeactived = async (rspTraningId) => {
+  try {
+    const confirmed = await showDialog('ยืนยันการ Deactived', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+    if (confirmed) {
+        const response = await RspService.deactivateRspTraining(rspTraningId);
+        if (response) {
+          handleGetRspTrainingActive()
+        }
+    }
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
       }
+      handlingErrorsMessage("unknown", e.message);
+    }
+};
 
+const handleActivated = async (rspTraningId) => {
+  try {
+    const confirmed = await showDialog('ยืนยันการ Adctivated', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+    if (confirmed) {
+        const response = await RspService.activateRspTraining(rspTraningId);
+        if (response) {
+          handleGetRspTrainingInfoMenus()
+        }
+    }
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
+};
+const handleDeleted = async (rspTraningId) => {
+  try {
+    const confirmed = await showDialog('ยืนยันการลบ', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+    if (confirmed) {
+        const response = await RspService.deleteRspTraining(rspTraningId);
+        if (response) {
+          handleGetRspTrainingInfoMenus()
+        }
+    }
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
+};
+const handlePermanentlyDeleted = async (rspTraningId) => {
+  try {
+    const confirmed = await showDialog('ยืนยันการ Permanently delete', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+    if (confirmed) {
+        const response = await RspService.permanentlyDeleteRspTraining(rspTraningId);
+        if (response) {
+          handleGetRspTrainingInfoMenus()
+        }
+    }
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
+};
+const handleDeactivatedTraning = async (rspTraningId) => {
+  try {
+    const confirmed = await showDialog('ยืนยัน Deactivated policy', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+    if (confirmed) {
+        const response = await RspService.undeleteRspTraining(rspTraningId);
+        if (response) {
+          handleGetRspTrainingInfoMenus()
+        }
+    }
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
 };
 
 </script>

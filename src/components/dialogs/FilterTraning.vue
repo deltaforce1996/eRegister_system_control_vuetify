@@ -9,13 +9,13 @@
     <v-card min-width="1000" elevation="5">
       <v-card-item class="pa-2 mt-2">
         <v-row align-center dense>
-          <v-col cols="11">
+          <v-col cols="8">
             <v-row align-center dense>
-              <v-col cols="4">
+              <v-col cols="6">
                 <v-select v-model="RoleId" :loading="loading" density="compact" variant="outlined" placeholder="Role" item-title="name"
                   :items="selected_items.roles" item-value="id" />
               </v-col>
-              <v-col cols="4">
+              <v-col cols="6">
                 <datePickerRangeControl :from="DateFrom" :to="DateTo" @from="DateFrom = $event"
                   @to="DateTo = $event" />
               </v-col>
@@ -39,7 +39,7 @@ import roleService from '@/apis/RoleService';
 import datePickerRangeControl from '@/components/controls/DatePickerRangeControl.vue'
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 const { handlingErrorsMessage } = useErrorHandlingDialog();
-const emit = defineEmits(["companies_id","bu_owners_id","activities_id","status","comp_categories_id","date_from","date_to"]);
+const emit = defineEmits(["roles_id","date_from","date_to"]);
 const props = defineProps({
   roles_id: {
     type: String,
@@ -56,8 +56,8 @@ const props = defineProps({
 });
 
 const RoleId = computed({
-    get() {   return props.companies_id; },
-    set(value) {  emit("companies_id", value) }
+    get() {   return props.roles_id; },
+    set(value) {  emit("roles_id", value) }
 });
 const DateFrom = computed({
     get() {  return props.date_from; },

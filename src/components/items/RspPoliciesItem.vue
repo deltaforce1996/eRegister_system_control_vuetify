@@ -25,11 +25,11 @@
                 color="secondary"
                 variant="flat"
                 rounded
-                :to="`/SDTeamMangement/RspPolicyUploaded?id=${item?.id}&name=${item?.name}`">
+                :to="`/SDTeamMangement/RspPolicyUpsert?id=${item?.id}&name=${item?.name}`">
                 Continue
               </v-btn>
 
-              <v-btn v-else class="me-2 text-none" color="secondary" variant="flat" rounded @click="handleExportResult(item?.id)">
+              <v-btn v-else class="me-2 text-none" color="secondary" variant="flat" rounded @click="handleExportResult(item?.id,item?.name)">
                 Export Results
               </v-btn>
             </v-col>
@@ -93,17 +93,15 @@ const ActionMenus = computed({
 });
 const handleAction=(rsp_policy_id,action)=>{
   emit('action-menus',rsp_policy_id,action)
-  //  console.log(rsp_policy_id)
-  //  console.log(action)
 }
 const handlePreview =(url)=>{
   window.open(url, '_blank');
 }
-const handleExportResult = async (rsp_policy_id) => {
+const handleExportResult = async (rsp_policy_id,rsp_policy_name) => {
   try {
     const response = await RspService.exportRspPolicyResult(rsp_policy_id)
     const file_url = response.data?.data?.file_url
-    await exportService.exportBase64(`ExportResult-${rsp_policy_id}`, 'xlsx', file_url);
+    await exportService.exportBase64(`${rsp_policy_name}`, 'xlsx', file_url);
   } catch (e) {
     if (e.response) {
       const val = e.response.data
