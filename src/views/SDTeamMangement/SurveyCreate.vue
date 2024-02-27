@@ -56,6 +56,7 @@
         width="140"
         class="text-capitalize mr-2"
         rounded
+        @click="preview"
       >
         <v-icon left>mdi-tag</v-icon>
         Preview
@@ -140,11 +141,15 @@ import SuveyOtherQuestion from "@/views/SDTeamMangement/Survey/SuveyOtherQuestio
 import SuveyScoreManament from "@/views/SDTeamMangement/Survey/SuveyScoreManament.vue";
 import { ref } from "vue";
 
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
 const stepper = ref(1);
 
 const suveyOtherQuestion = ref();
 const suveyQuestion = ref();
 const suveyScoreMgmt = ref();
+
 
 const next = () => {
   if (stepper.value < 4) stepper.value++;
@@ -153,4 +158,128 @@ const next = () => {
 const back = () => {
   if (stepper.value > 1) stepper.value--;
 };
+const  preview = () =>{
+
+  const mockdata = [
+  {
+    "id": "0",
+    "index": 1,
+    "typeQuestionCard": "None",
+    "data": {
+      "controlType": "Paragraph",
+      "metaData": {
+        "paragraph_none": {
+          "question": "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
+          "answer": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
+          "isRequired": true
+        }
+      }
+    }
+  },
+  {
+    "id": "1",
+    "index": 2,
+    "typeQuestionCard": "None",
+    "data": {
+      "controlType": "Multichoice",
+      "metaData": {
+        "multi_chioce_none": {
+          "question": "Multichoice",
+          "isRequired": true,
+          "answers": [
+            {
+              "title": "chioce",
+              "isChecked": false,
+              "answer": "ตอบ-1",
+              "nextQuestion": 1
+            },
+            {
+              "title": "chioce",
+              "isChecked": false,
+              "answer": "ตอบ-2",
+              "nextQuestion": 3
+            },
+            {
+              "title": "other",
+              "isChecked": false,
+              "answer": "ตอบ-3",
+              "nextQuestion": ""
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "2",
+    "index": 3,
+    "typeQuestionCard": "None",
+    "data": {
+      "controlType": "Checkbox",
+      "metaData": {
+        "check_box_none": {
+          "question": "Radiobox",
+          "isRequired": true,
+          "answers": [
+            {
+              "title": "chioce",
+              "isChecked": false,
+              "answer": "ตอบ-1"
+            },
+            {
+              "title": "other",
+              "isChecked": false,
+              "answer": "ตอบ-2"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "3",
+    "index": 4,
+    "typeQuestionCard": "None",
+    "data": {
+      "controlType": "Dropdown",
+      "metaData": {
+        "dropdown_none": {
+          "question": "Dropdown",
+          "isRequired": true,
+          "answers": [
+            {
+              "answer": "item-1",
+              "nextQuestion": 2
+            },
+            {
+              "answer": "item-2",
+              "nextQuestion": 2
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "4",
+    "index": 5,
+    "typeQuestionCard": "None",
+    "data": {
+      "controlType": "Uploads",
+      "metaData": {
+        "upload_file_none": {
+          "question": "Uploads files",
+          "isRequired": true,
+          "files": [
+
+          ]
+        }
+      }
+    }
+  }
+  ];
+  const jsonArray = JSON.stringify(mockdata);
+  sessionStorage.setItem("survey_preview", jsonArray);
+  router.push('/SDTeamMangement/Survey/Preview');
+}
 </script>

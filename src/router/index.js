@@ -109,6 +109,11 @@ const routes = [
         component: () => import("@/views/SDTeamMangement/Survey.vue"),
       },
       {
+        path: "/SDTeamMangement/Survey/Preview",
+        name: "SurveyPreviewPage",
+        component: () => import("@/views/SDTeamMangement/SurveyPreview.vue"),
+      },
+      {
         path: "/SDTeamMangement/Survey/Created",
         name: "SurveyCreatePage",
         component: () => import("@/views/SDTeamMangement/SurveyCreate.vue"),
