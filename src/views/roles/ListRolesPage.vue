@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <h3>Role & Permission</h3>
     <v-row dense>
       <v-col cols="12">
@@ -24,6 +24,12 @@
     </v-row>
     <v-row dense>
       <v-expansion-panels v-model="is_item_expan">
+        <v-progress-linear
+          class="rounded-pill"
+          :indeterminate="isLoading"
+          bg-color="transparent"
+          color="secondary"
+        ></v-progress-linear>
         <role-item
           v-for="(role, index) in roles_mock"
           :style="
@@ -60,10 +66,11 @@ const { handlingErrorsMessage } = useErrorHandlingDialog();
 
 const router = useRouter();
 
-let roles_mock = ref([]);
-let action_all_mock = ref([]);
-let permission_module_mock = ref([]);
-let headers = ref([]);
+const roles_mock = ref([]);
+const action_all_mock = ref([]);
+const permission_module_mock = ref([]);
+const headers = ref([]);
+const isLoading = ref(true);
 
 const handleFetchListRoles = async () => {
   const result_roles = await roleService.getRoleAll();
@@ -121,6 +128,7 @@ onMounted(async () => {
   await handleFetchActions();
   await handleFetchListRoles();
   await handleFetchListPermission();
+  isLoading.value = false;
 });
 
 watch(is_item_expan, (newValue, oldValue) => {
