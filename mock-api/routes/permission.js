@@ -1,18 +1,21 @@
 /* eslint-disable no-undef */
-
+const { delay } = require('../utils');
 module.exports = (app) => {
   const permission = require("../data/permission-data/permission.json");
   const permission_by_id = require("../data/permission-data/permission_by_id.json");
 
   app.get("/master/get-role-permissions", async (req, res) => {
+    await delay(500)
     res.json(permission);
   });
 
   app.get("/master/get-role-permissions/:id", async (req, res) => {
+    await delay(500)
     res.json(permission_by_id);
   });
 
   app.post("/master/update-role-permission", async (req, res) => {
+    await delay(500)
     res.json({
       is_success: true,
       code: "201",
