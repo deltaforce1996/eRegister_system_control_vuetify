@@ -15,7 +15,7 @@
       </v-row>
       <div class="mt-5">
         <v-skeleton-loader v-if="activated_laoding" type="list-item-two-line" color="transparent" />
-        <RspPoliciesItem v-else  v-for="(item,index) in activated_items" :key="index"
+        <ItemRspPolicies v-else  v-for="(item,index) in activated_items" :key="index"
           class="mt-3"
           :item="item"
           :action-visible ="false"
@@ -33,7 +33,7 @@
         <v-tabs-items>
           <v-tab-item>
             <v-skeleton-loader v-if="list_laoding" type="list-item-two-line" color="transparent" />
-            <RspPoliciesItem v-else  v-for="(item,index) in list_item" :key="index"
+            <ItemRspPolicies v-else  v-for="(item,index) in list_item" :key="index"
               class="mt-3"
               :item="item"
               :action-visible ="true"
@@ -54,7 +54,7 @@
 import { ref, onBeforeMount,onMounted ,watch} from 'vue';
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
-import RspPoliciesItem from '@/components/items/RspPoliciesItem.vue'
+import ItemRspPolicies from '@/components/items/ItemRspPolicies.vue'
 import RspService from '@/apis/RspService';
 import PaginationControl from '@/components/controls/PaginationControl'
 import paginationUtils from '@/utils/paginationUtils'

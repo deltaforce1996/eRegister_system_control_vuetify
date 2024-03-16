@@ -28,7 +28,7 @@
       </v-row>
       <div class="mt-5">
         <v-skeleton-loader v-if="infoActive.loading" type="list-item-two-line" color="transparent" />
-        <RspTraningActiveItem v-else v-for="(item, index) in infoActive.items" :key="index"
+        <ItemRspTraning v-else v-for="(item, index) in infoActive.items" :key="index"
                               class="mt-3"
                               :item="item"
                               :is-draft="false"
@@ -49,7 +49,7 @@
         <v-tabs-items>
           <v-tab-item>
             <v-skeleton-loader v-if="infoMenus.loading" type="list-item-two-line" color="transparent" />
-            <RspTraningActiveItem v-else v-for="(item, index) in infoMenus.items" :key="index"
+            <ItemRspTraning v-else v-for="(item, index) in infoMenus.items" :key="index"
                    class="mt-3"
                   :item="item"
                   :is-draft="menus[menus_index].continue"
@@ -72,7 +72,7 @@
 import { ref, onBeforeMount , watch } from 'vue';
 // eslint-disable-next-line no-unused-vars
 import RspService from '@/apis/RspService';
-import RspTraningActiveItem from '@/components/items/RspTraningActiveItem.vue'
+import ItemRspTraning from '@/components/items/ItemRspTraning.vue'
 import FilterTraning from '@/components/dialogs/FilterTraning.vue'
 import PaginationControl from '@/components/controls/PaginationControl'
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
