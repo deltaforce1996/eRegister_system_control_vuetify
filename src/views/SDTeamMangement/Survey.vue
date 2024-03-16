@@ -5,7 +5,7 @@
     <div class="mt-5">
       <v-row>
         <v-col cols="10" align-self="center">
-          <h3> Activate Policy</h3>
+          <h3> Activate Survey</h3>
         </v-col>
         <v-col cols="2">
           <v-btn class="me-2 text-none" color="secondary" prepend-icon="mdi-plus" variant="flat" height="40" rounded
@@ -14,111 +14,33 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-card elevation="2" rounded="0" class="rounded-lg mt-5">
-        <v-card-item class="ma-0">
-          <v-row no-gutters dense justify="space-around">
-            <v-col cols="1" align-self="center" class="pa-1">
-              <span>01/05/66</span>
-              <v-icon color="secondary" size="40" class="ml-3 mr-3">mdi-equal-box</v-icon>
-            </v-col>
-            <v-col cols="4" align-self="center" class="pa-1">
-              <strong>นโยบายการจัดซื้อจัดจ้างอย่างรับผิดชอบ</strong>
-              <strong class="text-grey">(V.4)</strong>
-            </v-col>
-            <v-divider vertical class="ma-2"></v-divider>
-            <v-col cols="3" align-self="center" class="pa-1">
-              <strong>Created by</strong>
-              <br />
-              <strong class="text-secondary">sss@gmail.com</strong>
-            </v-col>
-            <v-col cols="2" align-self="center" class="pa-1">
-              <v-btn class="me-2 text-none" color="secondary" variant="outlined" rounded>
-                Preview
-              </v-btn>
-              <v-btn class="me-2 text-none" color="secondary" variant="flat" rounded>
-                Export Results
-              </v-btn>
-            </v-col>
-            <v-col cols="1" align-self="center" class="pa-1">
-              <!-- <v-menu transition="scale-transition">
-                <template v-slot:activator="{ props }">
-                  <v-btn text v-bind="props" variant="text">
-                    <v-icon icon=" mdi-dots-horizontal"></v-icon>
-                  </v-btn>
-                </template>
-
-                <v-list dense>
-                  <v-list-item>
-                    <template v-slot:prepend>
-                      <v-icon icon="mdi-delete"></v-icon>
-                    </template>
-                    <v-list-item-title>Delete</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu> -->
-            </v-col>
-          </v-row>
-        </v-card-item>
-      </v-card>
+      <v-skeleton-loader v-if="actived_laoding" type="list-item-two-line" color="transparent" />
+      <ItemRspSurvey v-else  v-for="(item,index) in actived_items" :key="index" class="mt-3"
+              :item="item"
+              :action-visible ="false"
+              :actionId="0"
+            />
       <v-divider class="mt-3 mb-3"></v-divider>
       <div>
-        <v-tabs v-model="tab" color="secondary">
-          <v-tab v-for="(tabs, index) in items" :key="index" class="text-capitalize">
+        <v-tabs v-model="menus_index" color="secondary">
+          <v-tab v-for="(tabs, index) in menus" :key="index" class="text-capitalize">
             <h3>{{ tabs.title }}</h3>
           </v-tab>
         </v-tabs>
         <v-tabs-items>
           <v-tab-item>
-            <v-card elevation="2" rounded="0" class="rounded-lg mt-3" v-for="i in 5" :key="i">
-              <v-card-item class="ma-0">
-                <v-row no-gutters dense justify="space-around">
-                  <v-col cols="1" align-self="center" class="pa-1">
-                    <span>01/05/66</span>
-                    <v-icon color="secondary" size="40" class="ml-3 mr-3">mdi-equal-box</v-icon>
-                  </v-col>
-                  <v-col cols="4" align-self="center" class="pa-1">
-                    <strong>นโยบายการจัดซื้อจัดจ้างอย่างรับผิดชอบ</strong>
-                    <strong class="text-grey">(V.4)</strong>
-                  </v-col>
-                  <v-divider vertical class="ma-2"></v-divider>
-                  <v-col cols="3" align-self="center" class="pa-1">
-                    <strong>Created by</strong>
-                    <br />
-                    <strong class="text-secondary">sss@gmail.com</strong>
-                  </v-col>
-                  <v-col cols="2" align-self="center" class="pa-1">
-
-                    <v-btn v-if="tab == 1" class="me-2 text-none" color="secondary" variant="flat" rounded>
-                      Continue
-                    </v-btn>
-                    <v-btn v-if="tab != 1" class="me-2 text-none" color="secondary" variant="outlined" rounded>
-                      Preview
-                    </v-btn>
-                    <v-btn v-if="tab == 0" class="me-2 text-none" color="secondary" variant="flat" rounded>
-                      Export Results
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="1" align-self="center" class="pa-1">
-                    <v-menu transition="scale-transition">
-                      <template v-slot:activator="{ props }">
-                        <v-btn text v-bind="props" variant="text">
-                          <v-icon icon=" mdi-dots-horizontal"></v-icon>
-                        </v-btn>
-                      </template>
-
-                      <v-list dense>
-                        <v-list-item @click="handleDelete(i)">
-                          <template v-slot:prepend>
-                            <v-icon icon="mdi-delete"></v-icon>
-                          </template>
-                          <v-list-item-title>Delete</v-list-item-title>
-                        </v-list-item>
-                      </v-list>
-                    </v-menu>
-                  </v-col>
-                </v-row>
-              </v-card-item>
-            </v-card>
+            <v-skeleton-loader v-if="actived_laoding" type="list-item-two-line" color="transparent" />
+            <ItemRspSurvey v-else  v-for="(item,index) in list_item" :key="index" class="mt-3"
+              :item="item"
+              :action-visible ="true"
+              :actionId="menus_index"
+              @action-menus="actionMenus"
+            />
+            <PaginationControl v-if="list_filter.pageSize > 1"
+                   class="mt-3"
+                  :value="list_filter.page"
+                  :length="list_filter.pageSize"
+                  @value="handlePaginationInfoMenusEvent" />
           </v-tab-item>
         </v-tabs-items>
       </div>
@@ -127,34 +49,177 @@
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount,watch } from 'vue';
+import ItemRspSurvey from '@/components/items/ItemRspSurvey.vue'
+import PaginationControl from '@/components/controls/PaginationControl'
+import RspService from '@/apis/RspService';
+import paginationUtils from '@/utils/paginationUtils'
+import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
 const { showDialog } = useConfirmationDialog();
-const tab = ref(null);
-const items = ref([]);
+
+const menus_index = ref(0);
+const menus = ref([]);
 
 
+const actived_laoding = ref(false);
+const actived_items = ref([]);
+
+const list_laoding = ref(false);
+const list_item = ref([]);
+const list_filter = ref({
+  state :'inactive',
+  offset: 1,
+  limit: 1,
+  page : 1,
+  pageSize: 1,
+});
+
+
+watch(menus_index, (newValue) => {
+  list_filter.value.state = menus.value[newValue].state
+  list_filter.value.offset= 1;
+  list_filter.value.limit= 1;
+  list_filter.value.page= 1;
+  list_filter.value.pageSize= 1;
+  getRspSurveyPagination();
+});
 onBeforeMount(() => {
-  items.value = [
-    { title: 'Deactivede Survey', icon: 'mdi-account-outline' },
-    { title: 'Draft', icon: 'mdi-link-variant' },
-    { title: 'Recently Delete', icon: 'mdi-link-variant' },
+  menus.value = [
+    { title: 'Deactivede Survey', icon: 'mdi-account-outline',state :'inactive' },
+    { title: 'Draft', icon: 'mdi-link-variant' ,state :'draft'},
+    { title: 'Recently Delete', icon: 'mdi-link-variant',state :'deleted' },
   ]
+  //list_item.value = mockdata.value.data;
+  getRspSurveyStateActived();
+  getRspSurveyPagination();
 });
-onBeforeMount(() => {
+const handlePaginationInfoMenusEvent = (page) => {
+  list_filter.value.page = page;
+  list_filter.value.offset = paginationUtils.pageOffset(page, list_filter.value.limit);
+  getRspSurveyPagination();
+}
+const getRspSurveyStateActived = async () => {
+  try {
+    actived_laoding.value = true;
+    const response = await RspService.getRspSurveysActive('activated');
+    if (response.data?.is_success) {
+      actived_items.value = response.data?.data
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    actived_laoding.value = false;
+  }
+}
+const getRspSurveyPagination = async () => {
+  try {
+    list_laoding.value = true;
+    list_item.value = [];
+    const response = await RspService.getRspSurveys(
+    list_filter.value.state,
+    list_filter.value.offset,
+    list_filter.value.limit
+    );
+    const headers = response.headers;
+    const itemsOffset = Number(headers['items-offset']);
+    const itemsLimit = Number(headers['items-limit']);
+    const itemsTotal = Number(headers['items-total']);
+
+    list_filter.value.offset = itemsOffset;
+    list_filter.value.limit = itemsLimit;
+    list_filter.value.pageSize = paginationUtils.pageSize(itemsLimit,itemsTotal)
+
+    if (response.data?.is_success) {
+      list_item.value = response.data?.data
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    list_laoding.value = false;
+  }
+}
 
 
-});
-const handleDelete = async (item) => {
+const actionMenus = (surveyId,action)=>{
+   switch(action){
+    case 'DELETE':
+        handleDelete(surveyId);
+      break;
+    case 'PERMANENTLY_DELETE':
+        handlePremanentlyDelete(surveyId);
+      break;
+    case 'DEACTIVATED_SURVEY':
+        handleUndeleteSurvey(surveyId);
+      break;
+    }
+}
+
+const handleDelete = async (rspSurveyId) => {
   //e.preventDefault()
-  const confirmed = await showDialog('ยืนยันลบแบบฟอร์ม', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+  const confirmed = await showDialog('ยืนยันลบ', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
   if (confirmed) {
-    console.log('Action confirmed!');
+    try {
+    const response = await RspService.deleteRspSurvey(rspSurveyId)
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  }
   } else {
     console.log('Action cancelled.');
   }
-
 };
 
+const handlePremanentlyDelete = async (rspSurveyId) => {
+  //e.preventDefault()
+  const confirmed = await showDialog('ยืนยัน Premanently', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+  if (confirmed) {
+    try {
+    const response = await RspService.permanentlyDeleteRspSurvey(rspSurveyId)
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  }
+  } else {
+    console.log('Action cancelled.');
+  }
+};
+const handleUndeleteSurvey = async (rspSurveyId) => {
+  //e.preventDefault()
+  const confirmed = await showDialog('ยืนยัน Undelete', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+  if (confirmed) {
+    try {
+    const response = await RspService.undeleteRspSurvey(rspSurveyId)
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  }
+  } else {
+    console.log('Action cancelled.');
+  }
+};
 </script>
-

@@ -1,0 +1,92 @@
+{
+    "is_success": true,
+    "code": 200,
+    "message": "Ok",
+    "data": {
+      "rsp_survey_id": 1,
+      "sections": [
+        {
+          "rsp_survey_section_id": 2,
+          "section_type": {
+            "id": 2,
+            "name": "main question"
+          },
+          "name": "การดำเนินการทางธุรกิจ และ จรรยาบรรณทางธุรกิจ",
+          "sequence": 1,
+          "score": 100,
+          "next_section_id": 2,
+          "questions": [
+            {
+              "rsp_survey_question_id": 1,
+              "is_alignment_question": 1,
+              "question_type": {
+                "id": 2,
+                "name": "Multiple choice"
+              },
+              "question": "บริษัทของท่านมีนโยบายด้านการดาเนินธุรกิจและจริยธรรมทางธุรกิจหรือไม่",
+              "sequence": 1,
+              "score": 0,
+              "is_required": 1,
+              "choices": [
+                {
+                  "rsp_survey_choice_id": 1,
+                  "answer": "มี",
+                  "is_aligned": 1,
+                  "sequence": 1,
+                  "score": 0,
+                  "next_question_id": 2
+                },
+                {
+                  "rsp_survey_choice_id": 2,
+                  "answer": "ไม่มี",
+                  "is_aligned": 0,
+                  "sequence": 2,
+                  "score": 0,
+                  "next_question_id": 3
+                }
+              ]
+            },
+            {
+              "rsp_survey_question_id": 2,
+              "is_alignment_question": 0,
+              "type_id": 3,
+              "question": "โปรดเลือกประเด็นที่ท่านจะนำมาปรับใช้ซึ่งถูกบรรจุในจริยธรรมในการดำเนินธุรกิจของท่าน",
+              "sequence": 2,
+              "score": 20,
+              "is_required": 1,
+              "choices": [
+                {
+                  "rsp_survey_choice_id": 3,
+                  "answer": "การติดสินบนและการคอร์รัปชั่น",
+                  "is_aligned": 0,
+                  "sequence": 1,
+                  "score": 10,
+                  "next_question_id": 0
+                },
+                {
+                  "rsp_survey_choice_id": 4,
+                  "answer": "ความลับทางธุรกิจ",
+                  "is_aligned": 0,
+                  "sequence": 2,
+                  "score": 10,
+                  "next_question_id": 0
+                }
+              ]
+            },
+            {
+              "rsp_survey_question_id": 3,
+              "is_alignment_question": 0,
+              "type_id": 5,
+              "question": "โปรดแนบนโยบาย เอกสารหรือเว็ปลิ้งค์ที่เกี่ยวข้อง",
+              "sequence": 3,
+              "score": 0,
+              "is_required": 0
+            }
+          ]
+        }
+      ],
+      "created_user_id": 1
+    }
+  }
+  
+  

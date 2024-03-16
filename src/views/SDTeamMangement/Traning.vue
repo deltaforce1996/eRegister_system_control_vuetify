@@ -117,18 +117,21 @@ onBeforeMount(() => {
       title: 'Inactive Traning',
       icon: 'mdi-account-outline',
       continue: false,
+      state:'inactive',
       dropdown: 'INACTIVE_TRANING'
     },
     {
       title: 'Draft',
       icon: 'mdi-link-variant',
       continue: true,
+      state:'draft',
       dropdown: 'INACTIVE_DRAFT'
     },
     {
       title: 'Recently Delete',
       icon: 'mdi-link-variant',
       continue: false,
+      state:'deleted',
       dropdown: 'INACTIVE_RECENTLY'
     },
   ]
@@ -136,34 +139,11 @@ onBeforeMount(() => {
   handleGetRspTrainingInfoMenus();
 });
 watch(menus_index, (newValue) => {
-    switch(newValue){
-
-      case 0 :
-      infoMenus.value.state = 'inactive';
-      infoMenus.value.offset= 1;
-      infoMenus.value.limit= 1;
-      infoMenus.value.page= 1;
-      infoMenus.value.pageSize= 1;
-
-      break;
-      case 1 :
-      infoMenus.value.state = 'draft';
-      infoMenus.value.offset= 1;
-      infoMenus.value.limit= 1;
-      infoMenus.value.page= 1;
-      infoMenus.value.pageSize= 1;
-
-      break;
-      case 2 :
-
-      infoMenus.value.state = 'deleted';
-      infoMenus.value.offset= 1;
-      infoMenus.value.limit= 1;
-      infoMenus.value.page= 1;
-      infoMenus.value.pageSize= 1;
-      break;
-
-    }
+    infoMenus.value.state = menus.value[newValue].state;
+    infoMenus.value.offset= 1;
+    infoMenus.value.limit= 1;
+    infoMenus.value.page= 1;
+    infoMenus.value.pageSize= 1;
     handleGetRspTrainingInfoMenus();
 });
 

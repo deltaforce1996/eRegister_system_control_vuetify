@@ -79,7 +79,11 @@ const list_filter = ref({
 });
 
 watch(menus_index, (newValue) => {
-    console.log(newValue);
+    list_filter.value.state = menus.value[newValue].state
+    list_filter.value.offset= 1;
+    list_filter.value.limit= 1;
+    list_filter.value.page= 1;
+    list_filter.value.pageSize= 1;
     getRspPolicyPagination();
 });
 onBeforeMount(() => {
@@ -87,17 +91,20 @@ onBeforeMount(() => {
     {
       id: 1,
       title: 'Inactive Policy',
-      icon: 'mdi-account-outline'
+      icon: 'mdi-account-outline',
+      state :'inactive'
     },
     {
       id: 2,
       title: 'Draft',
-      icon: 'mdi-link-variant'
+      icon: 'mdi-link-variant',
+      state :'draft'
     },
     {
       id: 3,
       title: 'Recently Delete',
-      icon: 'mdi-link-variant'
+      icon: 'mdi-link-variant',
+      state :'deleted'
     },
   ]
 });

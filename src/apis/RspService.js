@@ -292,6 +292,80 @@ const permanentlyDeleteRspTraining= async (_rsp_traning_id) => {
   });
 };
 
+// survey
+
+const getRspSurveysActive =async ()=>{
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/get-rsp-surveys`,
+    params: {
+      state: 'active',
+    }
+  });
+}
+const getRspSurveys = async (_state,_offset,_limit)=>{
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/get-rsp-surveys`,
+    params: {
+      state: _state,
+      offset : _offset,
+      limit : _limit
+    }
+  });
+}
+const getRspSurveyQuestionaire = async(survey_id)=>{
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/get-rsp-survey-questionaire/${survey_id}`,
+    data: {}
+  });
+}
+
+
+const deleteRspSurvey = async(survey_id)=>{
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/delete-rsp-survey`,
+    data: {
+      "rsp_survey_id": survey_id,
+       "updated_user_id": "1"
+    }
+  });
+}
+
+const undeleteRspSurvey = async(survey_id)=>{
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/undelete-rsp-survey`,
+    data: {
+      "rsp_survey_id": survey_id,
+       "updated_user_id": "1"
+    }
+  });
+}
+
+const permanentlyDeleteRspSurvey = async(survey_id)=>{
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/permanently-delete-rsp-survey`,
+    data: {
+      "rsp_survey_id": survey_id,
+       "updated_user_id": "1"
+    }
+  });
+}
+
+
+
+
+const exportRspSurveyResult= async (survey_id)=>{
+  return await axiosBase({
+    method: "get",
+    url: `/rsp/export-rsp-survey-result/${survey_id}`,
+    data: {}
+  });
+}
 
 export default {
   getVendorRspStatus,
@@ -326,5 +400,14 @@ export default {
   deactivateRspTraining,
   undeleteRspTraining,
   deleteRspTraining,
-  permanentlyDeleteRspTraining
+  permanentlyDeleteRspTraining,
+
+  // survey
+  getRspSurveysActive,
+  getRspSurveys,
+  getRspSurveyQuestionaire,
+  deleteRspSurvey,
+  undeleteRspSurvey,
+  permanentlyDeleteRspSurvey,
+  exportRspSurveyResult
 };
