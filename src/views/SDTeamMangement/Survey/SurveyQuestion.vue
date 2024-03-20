@@ -23,7 +23,9 @@
 
 <script setup>
 import GroupQuestionOption from "@/components/survey/GroupQuestionOption.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+
+const emit = defineEmits(["on-data-input"]);
 
 const itemQuestionUpdate = ref([]);
 
@@ -45,4 +47,8 @@ const handleAddQuestion = () => {
     data: [],
   });
 };
+
+watch(itemQuestionUpdate.value, () => {
+  emit("on-data-input", itemQuestionUpdate.value);
+});
 </script>

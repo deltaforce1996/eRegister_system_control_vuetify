@@ -46,6 +46,8 @@ import { ref, watch } from "vue";
 import draggable from "vuedraggable";
 import QuestionOption from "@/components/survey/QuestionOption.vue";
 
+const emit = defineEmits(["on-data-input"])
+
 const items_question = ref([]);
 
 const handleQuestionUpdate = (item) => {
@@ -79,5 +81,6 @@ const handleAddQuestion = () => {
 
 watch(items_question.value, (newValue) => {
   console.log(JSON.stringify(newValue));
+  emit("on-data-input", items_question.value)
 });
 </script>
