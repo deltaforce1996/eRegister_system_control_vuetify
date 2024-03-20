@@ -14,6 +14,11 @@ module.exports = (app) => {
   const rsp_policies = require("../data/rsp-policies/rsp-policies.json");
   const rsp_policies_activated = require("../data/rsp-policies/rsp-policies_activated.json");
 
+  const rsp_serveies = require("../data/rsp-survey/rsp-servey.json");
+  const rsp_serveies_activated = require("../data/rsp-survey/rsp-servey-active.json");
+  const rsp_serveies_questionaire = require("../data/rsp-survey/questionaire.json");
+
+
   app.post("/rsp/follow-up-vendor", async (req, res) => {
     await delay(2000);
     res.json({
@@ -283,4 +288,78 @@ app.post("/rsp/update-rsp-policy", async (req, res) => {
     "data": {}
   });
  });
+
+
+
+ // survey
+ app.get("/rsp/get-rsp-surveys", async (req, res) => {
+  const { state } = req.query;
+  await delay(2000);
+  res.setHeader('Items-Offset', 0);
+  res.setHeader('Items-Limit', 10);
+  res.setHeader('Items-Total', 24);
+  if(state === 'active'){
+    res.json(rsp_serveies_activated);
+  }else{
+    res.json(rsp_serveies);
+  }
+ });
+
+
+ app.get("/rsp/get-rsp-survey-questionaire/:rsp_survey_id", async (req, res) => {
+  //const { state } = req.query;
+   await delay(2000);
+   res.json(rsp_serveies_questionaire);
+
+ });
+
+ app.post("/rsp/delete-rsp-survey", async (req, res) => {
+  await delay(2000);
+  res.json({
+    "is_success": true,
+    "code": 200,
+    "message": "Ok",
+    "data": {}
+  });
+
+ });
+ app.post("/rsp/permanently-delete-rsp-survey", async (req, res) => {
+  await delay(2000);
+  res.json({
+    "is_success": true,
+    "code": 200,
+    "message": "Ok",
+    "data": {}
+  });
+
+ });
+ app.post("/rsp/undelete-rsp-survey", async (req, res) => {
+  await delay(2000);
+  res.json({
+    "is_success": true,
+    "code": 200,
+    "message": "Ok",
+    "data": {}
+  });
+
+ });
+
+
+
+ app.get("/rsp/export-rsp-survey-result/:rsp_survey_id", async (req, res) => {
+  //const { state } = req.query;
+   await delay(2000);
+   res.json({
+    "is_success": true,
+    "code": 200,
+    "message": "Ok",
+    "data": {
+        "rsp_survey_id": "Integer",
+        "file_url": "http://localhost:4000/dowload/test-xlsx"
+      }
+    }
+  );
+
+ });
+
 };

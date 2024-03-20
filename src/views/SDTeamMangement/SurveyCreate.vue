@@ -56,7 +56,7 @@
         width="140"
         class="text-capitalize mr-2"
         rounded
-        @click="preview"
+        @click="stepper === 2 ? previewSecond() : stepper === 3 ?  previewThird() : null"
       >
         <v-icon left>mdi-tag</v-icon>
         Preview
@@ -150,6 +150,245 @@ const suveyOtherQuestion = ref();
 const suveyQuestion = ref();
 const suveyScoreMgmt = ref();
 
+const mock_preview_second = [
+    {
+        "id": "0",
+        "index": 1,
+        "typeQuestionCard": "None",
+        "data": {
+            "controlType": "Paragraph",
+            "metaData": {
+                "question": "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
+                "answer": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
+                "isRequired": true
+            }
+        }
+    },
+    {
+        "id": "1",
+        "index": 2,
+        "typeQuestionCard": "None",
+        "data": {
+            "controlType": "Multichoice",
+            "metaData": {
+                "question": "Multichoice",
+                "isRequired": true,
+                "answers": [
+                    {
+                        "title": "chioce",
+                        "isChecked": false,
+                        "answer": "ตอบ-1",
+                        "nextQuestion": 1
+                    },
+                    {
+                        "title": "chioce",
+                        "isChecked": false,
+                        "answer": "ตอบ-2",
+                        "nextQuestion": 3
+                    },
+                    {
+                        "title": "other",
+                        "isChecked": false,
+                        "answer": "ตอบ-3",
+                        "nextQuestion": ""
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "id": "2",
+        "index": 3,
+        "typeQuestionCard": "None",
+        "data": {
+            "controlType": "Checkbox",
+            "metaData": {
+                "question": "Radiobox",
+                "isRequired": true,
+                "answers": [
+                    {
+                        "title": "chioce",
+                        "isChecked": false,
+                        "answer": "ตอบ-1"
+                    },
+                    {
+                        "title": "other",
+                        "isChecked": false,
+                        "answer": "ตอบ-2"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "id": "3",
+        "index": 4,
+        "typeQuestionCard": "None",
+        "data": {
+            "controlType": "Dropdown",
+            "metaData": {
+                "question": "Dropdown",
+                "isRequired": true,
+                "answers": [
+                    {
+                        "answer": "item-1",
+                        "nextQuestion": 2
+                    },
+                    {
+                        "answer": "item-2",
+                        "nextQuestion": 2
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "id": "4",
+        "index": 5,
+        "typeQuestionCard": "None",
+        "data": {
+            "controlType": "Uploads",
+            "metaData": {
+                "question": "Uploads files",
+                "isRequired": true,
+                "files": []
+            }
+        }
+    }
+];
+const mock_preview_third = ref([
+    {
+        "id": "0",
+        "title": "header",
+        "data": [
+            {
+                "id": "0",
+                "index": 1,
+                "typeQuestionCard": "Align",
+                "data": {
+                    "controlType": "Multichoice",
+                    "metaData": {
+                        "question": "testefe",
+                        "isRequired": true,
+                        "totalScore": 15,
+                        "answers": [
+                            {
+                                "title": "chioce",
+                                "isChecked": false,
+                                "isAlign": true,
+                                "score": "10",
+                                "answer": "fefegege",
+                                "nextQuestion": 2
+                            },
+                            {
+                                "title": "chioce",
+                                "isChecked": false,
+                                "isAlign": false,
+                                "score": "15",
+                                "answer": "fefeaglfwaf",
+                                "nextQuestion": 2
+                            },
+                            {
+                                "title": "other",
+                                "isChecked": false,
+                                "isAlign": true,
+                                "score": "fefefe",
+                                "answer": "afawafwfawifawpi",
+                                "nextQuestion": 2
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "1",
+                "index": 2,
+                "typeQuestionCard": "None",
+                "data": {
+                    "controlType": "Paragraph",
+                    "metaData": {
+                        "question": "wafawfwafwafwadw",
+                        "answer": "addwadwad",
+                        "isRequire": true
+                    }
+                }
+            },
+            {
+                "id": "2",
+                "index": 3,
+                "typeQuestionCard": "Align",
+                "data": {
+                    "controlType": "Checkbox",
+                    "metaData": {
+                        "question": "ggseesfesfefe",
+                        "isRequired": true,
+                        "isAlign": true,
+                        "totalScore": 25,
+                        "answers": [
+                            {
+                                "title": "chioce",
+                                "isChecked": false,
+                                "score": "10",
+                                "answer": "feafeagaeg",
+                                "isAlign": true
+                            },
+                            {
+                                "title": "chioce",
+                                "isChecked": false,
+                                "score": "15",
+                                "answer": "esesgesgesf",
+                                "isAlign": false
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "3",
+                "index": 4,
+                "typeQuestionCard": "None",
+                "data": {
+                    "controlType": "Uploads",
+                    "metaData": {
+                        "question": "fefwegwegwegwegewfwfef",
+                        "isRequire": false,
+                        "files": []
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": "1",
+        "title": "header",
+        "data": [
+            {
+                "id": "0",
+                "index": 1,
+                "typeQuestionCard": "Align",
+                "data": {
+                    "controlType": "Multichoice",
+                    "metaData": {
+                        "question": "ggawagawgwagawfafwaf",
+                        "isRequired": false,
+                        "totalScore": 15,
+                        "answers": [
+                            {
+                                "title": "chioce",
+                                "isChecked": false,
+                                "isAlign": true,
+                                "score": "15",
+                                "answer": "fawfwadawdawd",
+                                "nextQuestion": 2
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+]);
+
 
 const next = () => {
   if (stepper.value < 4) stepper.value++;
@@ -158,128 +397,15 @@ const next = () => {
 const back = () => {
   if (stepper.value > 1) stepper.value--;
 };
-const  preview = () =>{
+const  previewSecond = () =>{
 
-  const mockdata = [
-  {
-    "id": "0",
-    "index": 1,
-    "typeQuestionCard": "None",
-    "data": {
-      "controlType": "Paragraph",
-      "metaData": {
-        "paragraph_none": {
-          "question": "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
-          "answer": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
-          "isRequired": true
-        }
-      }
-    }
-  },
-  {
-    "id": "1",
-    "index": 2,
-    "typeQuestionCard": "None",
-    "data": {
-      "controlType": "Multichoice",
-      "metaData": {
-        "multi_chioce_none": {
-          "question": "Multichoice",
-          "isRequired": true,
-          "answers": [
-            {
-              "title": "chioce",
-              "isChecked": false,
-              "answer": "ตอบ-1",
-              "nextQuestion": 1
-            },
-            {
-              "title": "chioce",
-              "isChecked": false,
-              "answer": "ตอบ-2",
-              "nextQuestion": 3
-            },
-            {
-              "title": "other",
-              "isChecked": false,
-              "answer": "ตอบ-3",
-              "nextQuestion": ""
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "id": "2",
-    "index": 3,
-    "typeQuestionCard": "None",
-    "data": {
-      "controlType": "Checkbox",
-      "metaData": {
-        "check_box_none": {
-          "question": "Radiobox",
-          "isRequired": true,
-          "answers": [
-            {
-              "title": "chioce",
-              "isChecked": false,
-              "answer": "ตอบ-1"
-            },
-            {
-              "title": "other",
-              "isChecked": false,
-              "answer": "ตอบ-2"
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "id": "3",
-    "index": 4,
-    "typeQuestionCard": "None",
-    "data": {
-      "controlType": "Dropdown",
-      "metaData": {
-        "dropdown_none": {
-          "question": "Dropdown",
-          "isRequired": true,
-          "answers": [
-            {
-              "answer": "item-1",
-              "nextQuestion": 2
-            },
-            {
-              "answer": "item-2",
-              "nextQuestion": 2
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "id": "4",
-    "index": 5,
-    "typeQuestionCard": "None",
-    "data": {
-      "controlType": "Uploads",
-      "metaData": {
-        "upload_file_none": {
-          "question": "Uploads files",
-          "isRequired": true,
-          "files": [
-
-          ]
-        }
-      }
-    }
-  }
-  ];
-  const jsonArray = JSON.stringify(mockdata);
+  const jsonArray = JSON.stringify(mock_preview_second.value);
   sessionStorage.setItem("survey_preview", jsonArray);
-  router.push('/SDTeamMangement/Survey/Preview');
+  router.push('/SDTeamMangement/Survey/Preview/Second');
+}
+const previewThird = () =>{
+  const jsonArray = JSON.stringify(mock_preview_third.value);
+  sessionStorage.setItem("survey_preview_third", jsonArray);
+  router.push('/SDTeamMangement/Survey/Preview/Third');
 }
 </script>
