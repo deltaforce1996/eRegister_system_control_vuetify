@@ -143,7 +143,8 @@ watch(metaData.value, (newValue) => {
     return score > max ? score : max;
   }, 0);
 
-  emit("on-update", { dropdown_score: newValue });
+  // emit("on-update", { dropdown_score: newValue });
+  emit("on-update", newValue);
   // console.log(JSON.stringify({ dropdown_score: newValue }));
 });
 </script>

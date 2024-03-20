@@ -1,7 +1,7 @@
 <template>
   <v-card color="#FCD1D1" class="pa-5">
     <div class="d-flex justify-space-between">
-      <h3 class="align-self-center">หัวข้อที่ 1</h3>
+      <h3 class="align-self-center">หัวข้อที่ {{ propsVar.index + 1 }}</h3>
       <div class="text-center">
         <v-menu open-on-hover>
           <template v-slot:activator="{ props }">
@@ -22,7 +22,11 @@
     </div>
     <v-row dense>
       <v-col cols="10">
-        <v-text-field variant="solo" density="compact"></v-text-field>
+        <v-text-field
+          v-model="item_title"
+          variant="solo"
+          density="compact"
+        ></v-text-field>
       </v-col>
       <v-col cols="2">
         <v-text-field variant="solo" density="compact">{{
@@ -73,7 +77,6 @@
 </template>
 
 <script setup>
-
 const propsVar = defineProps({
   id: {
     type: String,
@@ -87,12 +90,13 @@ const propsVar = defineProps({
 
 import draggable from "vuedraggable";
 import QuestionOption from "@/components/survey/QuestionOption.vue";
-import { ref, computed, watch } from "vue";
+import { ref, watch, computed } from "vue";
 
-const emit = defineEmits(["on-group-update"])
+const emit = defineEmits(["on-group-update", "on-group-title-update"]);
 
 const items_menu = [{ title: "Option" }, { title: "Preview" }];
 const items_question = ref([]);
+const item_title = ref("");
 
 const handleQuestionUpdate = (item) => {
   const indexUpdate = items_question.value.findIndex((el) => el.id === item.id);
@@ -124,8 +128,6 @@ const handleAddQuestionAlignment = () => {
 };
 
 const handleAddQuestion = () => {
-  // let id = "0";
-  // if (items_question.value.length > 0)
   const id = items_question.value.length.toString();
   items_question.value.push({
     id,
@@ -138,8 +140,15 @@ const handleAddQuestion = () => {
   });
 };
 
+watch(
+  () => item_title.value,
+  (newValue) => {
+    emit("on-group-title-update", { index: propsVar.index, title: newValue });
+  }
+);
+
 watch(items_question.value, (newValue) => {
-  emit("on-group-update", { index: propsVar.index, question: newValue })
+  emit("on-group-update", { index: propsVar.index, question: newValue });
 });
 
 const totalScoreSum = computed(() => {

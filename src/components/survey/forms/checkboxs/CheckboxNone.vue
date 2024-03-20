@@ -136,7 +136,8 @@ const onIconClick = (index) => {
 
 const emit = defineEmits(["on-update", "on-remove"]);
 watch(metaData.value, (newValue) => {
-  emit("on-update", { check_box_none: newValue });
+  // emit("on-update", { check_box_none: newValue });
+  emit("on-update", newValue);
   // console.log(JSON.stringify({ check_box_none: newValue }));
 });
 </script>

@@ -67,7 +67,8 @@ let metaData = ref(propsVar.metaDataParagrahpNone);
 const emit = defineEmits(["on-update", "on-remove"]);
 
 watch(metaData.value, (newValue) => {
-  emit("on-update", { paragraph_none: newValue });
+  // emit("on-update", { paragraph_none: newValue });
+  emit("on-update", newValue);
   // console.log(JSON.stringify({ paragraph_none: newValue }));
 });
 </script>

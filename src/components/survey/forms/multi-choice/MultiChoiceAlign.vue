@@ -224,7 +224,8 @@ watch(metaData.value, (newValue) => {
     const score = Number(answer.score);
     return score > max ? score : max;
   }, 0);
-  emit("on-update", { multi_chioce_align: newValue });
+  // emit("on-update", { multi_chioce_align: newValue });
+  emit("on-update", newValue);
   // console.log(JSON.stringify({ multi_chioce_align: newValue }));
 });
 </script>

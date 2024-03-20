@@ -105,7 +105,7 @@ const propsVar = defineProps({
 let metaData = ref(propsVar.metaDataDropdownNone);
 
 const addChoice = () => {
-  metaData.value.answers.push({ answer: "", nextQuestion: '' });
+  metaData.value.answers.push({ answer: "", nextQuestion: "" });
 };
 
 const onIconClick = (index) => {
@@ -115,7 +115,8 @@ const onIconClick = (index) => {
 const emit = defineEmits(["on-update", "on-remove"]);
 
 watch(metaData.value, (newValue) => {
-  emit("on-update", { dropdown_none: newValue });
+  // emit("on-update", { dropdown_none: newValue });
+  emit("on-update", newValue);
   // console.log(JSON.stringify({ dropdown_none: newValue }));
 });
 </script>

@@ -80,7 +80,7 @@ let metaData = ref(propsVar.metaDataParagrahpScore);
 const emit = defineEmits(["on-update", "on-remove"]);
 
 watch(metaData.value, (newValue) => {
-  emit("on-update", { paragraph_score: newValue });
+  emit("on-update", newValue);
   // console.log(JSON.stringify({ paragraph_score: newValue }));
 });
 </script>

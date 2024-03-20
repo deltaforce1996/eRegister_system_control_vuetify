@@ -134,7 +134,12 @@ const propsVar = defineProps({
 let metaData = ref(propsVar.metaDataDropdownAlign);
 
 const addChoice = () => {
-  metaData.value.answers.push({ score: "", isAlign: true, answer: "", nextQuestion:"" });
+  metaData.value.answers.push({
+    score: "",
+    isAlign: true,
+    answer: "",
+    nextQuestion: "",
+  });
 };
 
 const onIconClick = (index) => {
@@ -148,7 +153,8 @@ watch(metaData.value, (newValue) => {
     const score = Number(answer.score);
     return score > max ? score : max;
   }, 0);
-  emit("on-update", { dropdown_align: newValue });
+  // emit("on-update", { dropdown_align: newValue });
+  emit("on-update", newValue);
   // console.log(JSON.stringify({ dropdown_align: newValue }));
 });
 </script>

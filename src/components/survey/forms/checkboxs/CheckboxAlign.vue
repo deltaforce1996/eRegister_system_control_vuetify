@@ -209,7 +209,8 @@ watch(metaData.value, (newValue) => {
     (sum, answer) => sum + Number(answer.score),
     0
   );
-  emit("on-update", { check_box_align: newValue });
+  // emit("on-update", { check_box_align: newValue });
+  emit("on-update", newValue );
   // console.log(JSON.stringify({ check_box_align: newValue }));
 });
 </script>

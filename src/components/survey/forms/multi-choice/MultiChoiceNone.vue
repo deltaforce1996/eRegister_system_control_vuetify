@@ -162,7 +162,8 @@ const onIconClick = (index) => {
 const emit = defineEmits(["on-update", "on-remove"]);
 
 watch(metaData.value, (newValue) => {
-  emit("on-update", { multi_chioce_none: newValue });
+  // emit("on-update", { multi_chioce_none: newValue });
+  emit("on-update", newValue);
   // console.log(JSON.stringify({ multi_chioce_none: newValue }));
 });
 </script>

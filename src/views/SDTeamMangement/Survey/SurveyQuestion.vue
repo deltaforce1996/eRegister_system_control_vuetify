@@ -3,6 +3,8 @@
     <v-col cols="12" v-for="(i, index) in itemQuestionUpdate" :key="index">
       <GroupQuestionOption
         :index="index"
+        :id="i.id"
+        @on-group-title-update="handleGroupTitleUpdate"
         @on-group-update="handleGroupQuestionUpdate"
       />
     </v-col>
@@ -25,13 +27,21 @@ import { ref } from "vue";
 
 const itemQuestionUpdate = ref([]);
 
+const handleGroupTitleUpdate = ({ index, title }) => {
+  itemQuestionUpdate.value[index].title = title;
+  console.log(JSON.stringify(itemQuestionUpdate.value));
+};
+
 const handleGroupQuestionUpdate = ({ index, question }) => {
   itemQuestionUpdate.value[index].data = question;
+  console.log(JSON.stringify(itemQuestionUpdate.value));
 };
 
 const handleAddQuestion = () => {
   itemQuestionUpdate.value.push({
-    id: itemQuestionUpdate.value.length,
+    id: itemQuestionUpdate.value.length.toString(),
+    title: "",
+    sumScore: 0,
     data: [],
   });
 };
