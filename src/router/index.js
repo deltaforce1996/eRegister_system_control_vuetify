@@ -108,16 +108,39 @@ const routes = [
         name: "SurveyPage",
         component: () => import("@/views/SDTeamMangement/Survey.vue"),
       },
+      //Preview
       {
         path: "/SDTeamMangement/Survey/Preview/Second",
         name: "SurveyPreviewSecondPage",
-        component: () => import("@/views/SDTeamMangement/SurveyPreviewSecond.vue"),
+        component: () => import("@/views/SDTeamMangement/SurveyPreview/SurveySecond.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Preview/Third",
         name: "SurveyPreviewThirdPage",
-        component: () => import("@/views/SDTeamMangement/SurveyPreviewThird.vue"),
+        component: () => import("@/views/SDTeamMangement/SurveyPreview/SurveyThird.vue"),
       },
+      //Question
+      {
+        path: "/SDTeamMangement/Survey/question/Second",
+        name: "SurveyQuestionSecondPage",
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurveySecond.vue"),
+      },
+      {
+        path: "/SDTeamMangement/Survey/question/Third",
+        name: "SurveyQuestionThirdPage",
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurveyThird.vue"),
+      },
+
+      // {
+      //   path: "/SDTeamMangement/Survey/Preview/Second",
+      //   name: "SurveyPreviewSecondPage",
+      //   component: () => import("@/views/SDTeamMangement/SurveyPreviewSecond.vue"),
+      // },
+      // {
+      //   path: "/SDTeamMangement/Survey/Preview/Third",
+      //   name: "SurveyPreviewThirdPage",
+      //   component: () => import("@/views/SDTeamMangement/SurveyPreviewThird.vue"),
+      // },
       {
         path: "/SDTeamMangement/Survey/Created",
         name: "SurveyCreatePage",
