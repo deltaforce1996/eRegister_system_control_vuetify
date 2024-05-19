@@ -5,12 +5,12 @@
       <ToolbarSurvey :step="4" />
     </v-card-text>
     <v-card-title class="text-center">
-          <b>{{header.title}}</b>
+          <b>{{sectionsHeader.title}}</b>
     </v-card-title>
     <div class="text-center mt-5">
       <v-row>
         <v-col cols="8" class="d-flex">
-          <h3>{{ convertNo(itemQuestionnaire?.id) }}.{{ itemQuestionnaire?.title }}</h3>
+          <h3>{{ convertNo(sections?.id) }}.{{ sections?.title }}</h3>
         </v-col>
         <v-col cols="4" class="d-flex justify-end">
           <v-btn color="secondary" variant="outlined" width="140" class="text-capitalize mr-2" rounded>
@@ -26,7 +26,7 @@
 
     </div>
 
-    <div v-for="(item, index) in itemQuestionnaire.data" :key="index">
+    <div v-for="(item, index) in sections.data" :key="index">
         <div v-if="item?.data?.controlType === 'Paragraph'" class="mt-2">
           <v-card elevation="1">
             <v-card-title>
@@ -149,13 +149,13 @@
     </div>
     <v-row dense class="mt-5">
       <v-col cols="12" class="d-flex justify-center">
-        <v-btn color="secondary" width="140" variant="outlined" class="text-capitalize ma-1" rounded @click="handleProv">
+        <v-btn color="secondary" width="140" variant="outlined" class="text-capitalize ma-1" rounded @click="handleSectionsProv">
           ย้อนกลับ
         </v-btn>
-        <v-btn v-if="convertNo(item_index) === items.length" color="secondary" width="140" class="text-capitalize ma-1" rounded @click="handleSendQuestion">
+        <v-btn v-if="convertNo(sectionsIndex) ===   sectionsItems.length" color="secondary" width="140" class="text-capitalize ma-1" rounded @click="handleSendQuestion">
           ส่งแบบสอบถาม
         </v-btn>
-        <v-btn v-else color="secondary" width="140" class="text-capitalize ma-1" rounded @click="handleNext">
+        <v-btn v-else color="secondary" width="140" class="text-capitalize ma-1" rounded @click="handleNextConfirmCreated">
           ต่อไป
         </v-btn>
       </v-col>
@@ -167,35 +167,49 @@ import Choosefile from '@/components/forms/Choosefile'
 import ToolbarSurvey from '@/components/items/ToolbarSurvey.vue'
 import { ref, onBeforeMount } from 'vue';
 
+import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
+const { handlingErrorsMessage } = useErrorHandlingDialog();
+
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
 const { showDialog } = useConfirmationDialog();
 
 import { useAlertDialogDialog } from "@/components/dialogs/AlertSuccessDialogService";
 const { showAlert } = useAlertDialogDialog();
 
-const header = ref({
+const sectionsHeader = ref({
     title:"",
     description:"",
 });
-const item_count = ref(0);
-const item_index = ref(0)
-const itemQuestionnaire = ref([]);
-const items = ref([]);
+const sectionsCount = ref(0);
+const sectionsIndex = ref(0)
+const sections = ref([]);
+const sectionsItems = ref([]);
+
+const state = ref(null);
+const bp_number = ref(null);
+const rsp_survey_id = ref(null);
+
 onBeforeMount(() => {
   const survey_preview_third = sessionStorage.getItem("survey_preview_third");
   const parse = JSON.parse(survey_preview_third)
   console.log(parse)
-  header.value = parse.nameQuestionnaire;
-  items.value = parse.createQuestionnaire;
-  item_count.value = items.value.length;
-  item_index.value = 0;
-  itemQuestionnaire.value = items.value[item_index.value]
+  sectionsHeader.value = parse.nameQuestionnaire;
+  sectionsItems.value = parse.createQuestionnaire;
+  sectionsCount.value =   sectionsItems.value.length;
+  sectionsIndex.value = 0;
+  sections.value =   sectionsItems.value[sectionsIndex.value]
+  console.log(sections.value.data)
+
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  state.value = urlParams.get('state')
+  bp_number.value = urlParams.get('bp_number')
+  rsp_survey_id.value = urlParams.get('rsp_survey_id')
 });
 const convertNo = (index) => {
   return Number(index) + 1
 }
-
-// eslint-disable-next-line no-unused-vars
 const onCheckboxOther = (choices,answer,value) =>{
   if(answer.length === 0){
     answer[0] = value;
@@ -212,9 +226,8 @@ const onCheckboxOther = (choices,answer,value) =>{
   answer.push(value) ;
 }
 
-// eslint-disable-next-line no-unused-vars
 const formatAnswers = async () =>{
-      const question =items.value.createQuestionnaire;
+      const question =  sections.value.data;
       const  answers = []
       for (let i = 0; i < question.length; i++) {
         switch(question[i].data.controlType){
@@ -275,16 +288,90 @@ const getBase64 = (file) => {
     });
 };
 
-const handleProv =()=>{
-  if(item_index.value  > 0){
-   item_index.value = item_index.value  - 1 ;
-   itemQuestionnaire.value = items.value[item_index.value]
+const handleNextConfirmCreated = async () => {
+    const confirmed = await showDialog('ยืนยันการการส่งแบบสอบถาม', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+    if (confirmed) {
+        const answersFormat = await formatAnswers();
+        switch(state.value){
+          case  "created" :
+          handleCreatedSurveyAnswer(answersFormat)
+          break;
+          case  "updated" :
+          handleUpdatedSurveyAnswer(answersFormat)
+          break;
+    }
   }
 }
-const handleNext =()=>{
-  if(item_index.value < items.value.length){
-   item_index.value = item_index.value  + 1 ;
-   itemQuestionnaire.value = items.value[item_index.value]
+
+// eslint-disable-next-line no-unused-vars
+const handleCreatedSurveyAnswer = async (answers) => {
+  try {
+    console.log("created")
+    handleUpdatedSurveyResult()
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
+};
+// eslint-disable-next-line no-unused-vars
+const handleUpdatedSurveyAnswer = async (answers) => {
+  try {
+    console.log("updated")
+    handleUpdatedSurveyResult();
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
+};
+
+// eslint-disable-next-line no-unused-vars
+const handleUpdatedSurveyResult = async () => {
+  const payload = {
+      bp_number: bp_number.value,
+      rsp_survey_id: rsp_survey_id.value,
+      rsp_activity_status_id: 1,
+      inprogress_section_id: 1,
+    }
+    console.log(payload)
+    handleSectionsNext()
+
+  // try {
+  //   // eslint-disable-next-line no-unused-vars
+  //   const response = await RspService.updateRspSurveyResult();
+  // }
+  // catch (e) {
+  //     if (e.response) {
+  //       const val = e.response.data
+  //       handlingErrorsMessage(val.message, val?.data.error);
+  //       return;
+  //     }
+  //     handlingErrorsMessage("unknown", e.message);
+  //   }
+};
+
+
+
+const handleSectionsProv =()=>{
+  if(sectionsIndex.value  > 0){
+   sectionsIndex.value = sectionsIndex.value  - 1 ;
+   sections.value =   sectionsItems.value[sectionsIndex.value]
+  }
+}
+// eslint-disable-next-line no-unused-vars
+const handleSectionsNext =()=>{
+  if(sectionsIndex.value <   sectionsItems.value.length){
+   sectionsIndex.value = sectionsIndex.value  + 1 ;
+   sections.value =   sectionsItems.value[sectionsIndex.value]
   }
 }
 const handleSendQuestion = async () =>{

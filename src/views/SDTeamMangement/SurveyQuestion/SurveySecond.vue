@@ -260,7 +260,6 @@ const getBase64 = (file) => {
 };
 
 const handleConfirmCreated = async () => {
-  try {
     const confirmed = await showDialog('ยืนยันการการส่งแบบสอบถาม', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
     if (confirmed) {
         // eslint-disable-next-line no-unused-vars
@@ -272,18 +271,9 @@ const handleConfirmCreated = async () => {
           case  "updated" :
           handleUpdatedSurveyAnswer(answersFormat)
           break;
-        }
+    }
 
-    }
   }
-  catch (e) {
-      if (e.response) {
-        const val = e.response.data
-        handlingErrorsMessage(val.message, val?.data.error);
-        return;
-      }
-      handlingErrorsMessage("unknown", e.message);
-    }
 };
 
 // eslint-disable-next-line no-unused-vars
