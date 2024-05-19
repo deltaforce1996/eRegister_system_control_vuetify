@@ -7,14 +7,14 @@
      <div class="mt-2">
         <v-card elevation="1" color="#FFF1F0">
           <v-card-title class="text-center text-secondary">
-            {{items.nameQuestionnaire.title}}
+            {{sections.nameQuestionnaire.title}}
           </v-card-title>
           <v-card-text class="text-secondary">
-            {{ items.nameQuestionnaire.description }}
+            {{ sections.nameQuestionnaire.description }}
           </v-card-text>
         </v-card>
       </div>
-    <div v-for="(item, index) in items.createQuestionnaire" :key="index">
+    <div v-for="(item, index) in sections.createQuestionnaire" :key="index">
         <div v-if="item?.data?.controlType === 'Paragraph'" class="mt-2">
           <v-card elevation="1">
             <v-card-title>
@@ -158,10 +158,24 @@ import { ref, onBeforeMount } from 'vue';
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 const { showDialog } = useConfirmationDialog();
 
-const items = ref([]);
+const sections = ref([]);
+const state = ref(null);
+const bp_number = ref(null);
+const rsp_survey_id = ref(null);
+
+
 onBeforeMount(() => {
-  const step2_surveys = sessionStorage.getItem("survey_preview");
-  items.value = JSON.parse(step2_surveys);
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  state.value = urlParams.get('state')
+  bp_number.value = urlParams.get('bp_number')
+  rsp_survey_id.value = urlParams.get('rsp_survey_id')
+
+
+
+  const formQuestion = sessionStorage.getItem("survey_preview");
+  sections.value = JSON.parse(formQuestion);
+
 });
 const convertNo =(index) =>{
   return index +1
@@ -184,7 +198,7 @@ const onCheckboxOther = (choices,answer,value) =>{
 }
 
 const formatAnswers = async () =>{
-      const question =items.value.createQuestionnaire;
+      const question =sections.value.createQuestionnaire;
       const  answers = []
       for (let i = 0; i < question.length; i++) {
         switch(question[i].data.controlType){
@@ -249,9 +263,16 @@ const handleConfirmCreated = async () => {
   try {
     const confirmed = await showDialog('ยืนยันการการส่งแบบสอบถาม', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
     if (confirmed) {
+        // eslint-disable-next-line no-unused-vars
         const answersFormat = await formatAnswers();
-        console.log(answersFormat)
-        //handleCreatedSurveyAnswer(answersFormat)
+        switch(state.value){
+          case  "created" :
+          handleCreatedSurveyAnswer(answersFormat)
+          break;
+          case  "updated" :
+          handleUpdatedSurveyAnswer(answersFormat)
+          break;
+        }
 
     }
   }
@@ -266,26 +287,46 @@ const handleConfirmCreated = async () => {
 };
 
 // eslint-disable-next-line no-unused-vars
-// const handleCreatedSurveyAnswer = async (answers) => {
-//   try {
-
-//     //eslint-disable-next-line no-unused-vars
-//     const response = await RspService.createRspSurveyAnswer(3,answers);
-//     console.log(response)
-//   }
-//   catch (e) {
-//       if (e.response) {
-//         const val = e.response.data
-//         handlingErrorsMessage(val.message, val?.data.error);
-//         return;
-//       }
-//       handlingErrorsMessage("unknown", e.message);
-//     }
-// };
-
+const handleCreatedSurveyAnswer = async (answers) => {
+  try {
+    console.log("created")
+    handleUpdatedSurveyResult()
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
+};
+// eslint-disable-next-line no-unused-vars
+const handleUpdatedSurveyAnswer = async (answers) => {
+  try {
+    console.log("updated")
+    handleUpdatedSurveyResult();
+  }
+  catch (e) {
+      if (e.response) {
+        const val = e.response.data
+        handlingErrorsMessage(val.message, val?.data.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
+};
 
 // eslint-disable-next-line no-unused-vars
 const handleUpdatedSurveyResult = async () => {
+  const payload = {
+      bp_number: bp_number.value,
+      rsp_survey_id: rsp_survey_id.value,
+      rsp_activity_status_id: 1,
+      inprogress_section_id: 1,
+    }
+    console.log(payload)
+
   // try {
   //   // eslint-disable-next-line no-unused-vars
   //   const response = await RspService.updateRspSurveyResult();
