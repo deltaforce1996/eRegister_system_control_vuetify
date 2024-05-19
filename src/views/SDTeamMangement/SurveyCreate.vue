@@ -165,13 +165,13 @@ const itemQuestion = ref([]);
 const itemOtherQuest = ref([]);
 
 const mock_step2 = {
-    questionnaire_name : {
+   nameQuestionnaire : {
         title: "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
         description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
     },
-    questionnaire_form :[
+    createQuestionnaire :[
         {
-          id: "0",
+          id: 3,
           index: 1,
           typeQuestionCard: "None",
           data: {
@@ -184,7 +184,7 @@ const mock_step2 = {
           },
         },
         {
-          id: "1",
+          id: 3,
           index: 2,
           typeQuestionCard: "None",
           data: {
@@ -192,23 +192,22 @@ const mock_step2 = {
             metaData: {
               question: "Multichoice",
               isRequired: true,
-              answers: [
+              answer :null,
+              choices: [
                 {
                   title: "chioce",
-                  isChecked: false,
                   answer: "ตอบ-1",
                   nextQuestion: 1,
                 },
                 {
                   title: "chioce",
-                  isChecked: false,
                   answer: "ตอบ-2",
                   nextQuestion: 3,
                 },
                 {
                   title: "other",
-                  isChecked: false,
-                  answer: "ตอบ-3",
+                  answer: "เพิมเติม",
+                  specify :"",
                   nextQuestion: "",
                 },
               ],
@@ -216,32 +215,35 @@ const mock_step2 = {
           },
         },
         {
-          id: "2",
+          id: 3,
           index: 3,
           typeQuestionCard: "None",
           data: {
             controlType: "Checkbox",
             metaData: {
-              question: "Radiobox",
+              question: "Checkbox",
               isRequired: true,
-              selected: null,
-              answers: [
+              answer :[],
+              choices: [
                 {
                   title: "chioce",
-                  isChecked: false,
                   answer: "ตอบ-1",
                 },
                 {
-                  title: "other",
-                  isChecked: false,
+                  title: "chioce",
                   answer: "ตอบ-2",
+                },
+                {
+                  title: "other",
+                  answer: "เพิมเติม",
+                  specify :""
                 },
               ],
             },
           },
         },
         {
-          id: "3",
+          id: 3,
           index: 4,
           typeQuestionCard: "None",
           data: {
@@ -249,8 +251,8 @@ const mock_step2 = {
             metaData: {
               question: "Dropdown",
               isRequired: true,
-              selected: null,
-              answers: [
+              answer :null,
+              choices: [
                 {
                   answer: "item-1",
                   nextQuestion: 2,
@@ -264,7 +266,7 @@ const mock_step2 = {
           },
         },
         {
-          id: "4",
+          id: 3,
           index: 5,
           typeQuestionCard: "None",
           data: {
@@ -272,7 +274,7 @@ const mock_step2 = {
             metaData: {
               question: "Uploads files",
               isRequired: true,
-              files: [],
+              files: null,
             },
           },
         },
@@ -280,11 +282,11 @@ const mock_step2 = {
 }
 
 const mock_preview_third = {
-    questionnaire_name : {
+  nameQuestionnaire : {
         title: "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
         description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
     },
-    questionnaire_form :[
+  createQuestionnaire :[
           {
             id: "0",
             title: "header",
@@ -296,32 +298,31 @@ const mock_preview_third = {
                 data: {
                   controlType: "Multichoice",
                   metaData: {
-                    question: "testefe",
+                    question: "Radio",
                     isRequired: true,
                     totalScore: 15,
-                    answers: [
+                    answer: null,
+                    choices: [
                       {
                         title: "chioce",
-                        isChecked: false,
                         isAlign: true,
                         score: "10",
-                        answer: "fefegege",
+                        answer: "chioce-1",
                         nextQuestion: 2,
                       },
                       {
                         title: "chioce",
-                        isChecked: false,
                         isAlign: false,
                         score: "15",
-                        answer: "fefeaglfwaf",
+                        answer: "chioce-2",
                         nextQuestion: 2,
                       },
                       {
                         title: "other",
-                        isChecked: false,
                         isAlign: true,
-                        score: "fefefe",
-                        answer: "afawafwfawifawpi",
+                        score: "10",
+                        answer: "ระบุ",
+                        specify :"",
                         nextQuestion: 2,
                       },
                     ],
@@ -335,8 +336,8 @@ const mock_preview_third = {
                 data: {
                   controlType: "Paragraph",
                   metaData: {
-                    question: "wafawfwafwafwadw",
-                    answer: "addwadwad",
+                    question: "Paragraph",
+                    answer: "",
                     isRequire: true,
                   },
                 },
@@ -348,24 +349,29 @@ const mock_preview_third = {
                 data: {
                   controlType: "Checkbox",
                   metaData: {
-                    question: "ggseesfesfefe",
+                    question: "Checkbox",
                     isRequired: true,
                     isAlign: true,
                     totalScore: 25,
-                    selected :null,
-                    answers: [
+                    answer :[],
+                    choices: [
                       {
                         title: "chioce",
-                        isChecked: false,
                         score: "10",
-                        answer: "feafeagaeg",
+                        answer: "chioce-1",
                         isAlign: true,
                       },
                       {
                         title: "chioce",
-                        isChecked: false,
                         score: "15",
-                        answer: "esesgesgesf",
+                        answer: "chioce-2",
+                        isAlign: false,
+                      },
+                      {
+                        title: "other",
+                        score: "15",
+                        answer: "เพิมเติม",
+                        specify :"",
                         isAlign: false,
                       },
                     ],
@@ -379,9 +385,9 @@ const mock_preview_third = {
                 data: {
                   controlType: "Uploads",
                   metaData: {
-                    question: "fefwegwegwegwegewfwfef",
+                    question: "File",
                     isRequire: false,
-                    files: [],
+                    files: null
                   },
                 },
               },
@@ -389,7 +395,7 @@ const mock_preview_third = {
           },
           {
             id: "1",
-            title: "header",
+            title: "header+",
             data: [
               {
                 id: "0",
@@ -398,17 +404,24 @@ const mock_preview_third = {
                 data: {
                   controlType: "Multichoice",
                   metaData: {
-                    question: "ggawagawgwagawfafwaf",
+                    question: "Multichoice",
                     isRequired: false,
                     totalScore: 15,
-                    answers: [
+                    answer : null,
+                    choices: [
                       {
                         title: "chioce",
-                        isChecked: false,
                         isAlign: true,
                         score: "15",
-                        answer: "fawfwadawdawd",
+                        answer: "Multichoice",
                         nextQuestion: 2,
+                      },
+                      {
+                        title: "other",
+                        isAlign: false,
+                        answer: "เพิมเติม",
+                        specify :"",
+                        nextQuestion: "",
                       },
                     ],
                   },
