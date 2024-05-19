@@ -2,31 +2,19 @@
 <template>
   <v-container>
    <v-card-text>
-      <ToolbarPreview />
+      <ToolbarSurvey :step="3" />
     </v-card-text>
-    <div class="text-center mt-5">
-      <v-col cols="12" class="d-flex justify-end">
-        <v-btn color="secondary" variant="outlined" width="140" class="text-capitalize mr-2" rounded @click="handleSendNext">
-          <v-icon left>mdi-share</v-icon>
-          ส่งต่อ
-        </v-btn>
-        <v-btn color="secondary" width="140" class="text-capitalize" rounded @click="handleSaveDarft">
-          <v-icon left>mdi-tag</v-icon>
-          Save Darft
-        </v-btn>
-      </v-col>
-    </div>
      <div class="mt-2">
         <v-card elevation="1" color="#FFF1F0">
           <v-card-title class="text-center text-secondary">
-            {{items.questionnaire_name.title}}
+            {{items.nameQuestionnaire.title}}
           </v-card-title>
           <v-card-text class="text-secondary">
-            {{ items.questionnaire_name.description }}
+            {{ items.nameQuestionnaire.description }}
           </v-card-text>
         </v-card>
       </div>
-    <div v-for="(item, index) in items.questionnaire_form" :key="index">
+    <div v-for="(item, index) in items.createQuestionnaire" :key="index">
       <div v-if="item?.data?.controlType === 'Paragraph'" class="mt-2">
         <v-card elevation="1">
           <v-card-title>
@@ -48,8 +36,24 @@
             <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
           </v-card-title>
           <v-card-text class="pt-8">
-            <v-checkbox v-for="(answer, i) in item?.data?.metaData?.answers" :key="i" class="mt-n11"
-              :label="answer.answer" :value="answer.answer"></v-checkbox>
+            <v-radio-group>
+                <v-radio  v-for="(choice, i) in item?.data?.metaData?.choices"  :key="i" :value="choice.answer" class="mt-n2">
+                  <template v-slot:label>
+                    <div v-if="choice.title === 'other'" class="pa-1" >
+                      <div class="d-flex flex-row  align-center">
+                       <span> {{choice.answer}}</span>
+                        <v-text-field
+                            style="max-width: 500px; min-width: 300px;"
+                            class="mt-5 ml-5"
+                            density="compact"
+                            variant="outlined">
+                          </v-text-field>
+                      </div>
+                    </div>
+                    <div v-else class="pa-1">{{choice.answer}}</div>
+                  </template>
+                </v-radio>
+            </v-radio-group>
           </v-card-text>
         </v-card>
       </div>
@@ -60,10 +64,28 @@
             <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
           </v-card-title>
           <v-card-text class="pt-8">
-            <v-radio-group>
-              <v-radio v-for="(answer, i) in item?.data?.metaData?.answers" :key="i" :label="answer.answer"
-                :value="answer.answer"></v-radio>
-            </v-radio-group>
+          <div  v-for="(choice, i) in item?.data?.metaData?.choices"  :key="i">
+            <v-checkbox  v-if="choice.title === 'other'" class="mt-n10">
+                 <template v-slot:label>
+                        <div class="d-flex flex-row  align-center">
+                        <span> {{choice.answer}}</span>
+                          <v-text-field
+                              style="max-width: 500px; min-width: 300px;"
+                              class="mt-5 ml-5"
+                              density="compact"
+                              variant="outlined">
+                            </v-text-field>
+                        </div>
+                </template>
+              </v-checkbox>
+             <v-checkbox
+              v-if="choice.title === 'chioce'"
+              class="mt-n10"
+              :label="choice.answer"
+              :value="choice.answer"
+            ></v-checkbox>
+          </div>
+
           </v-card-text>
         </v-card>
       </div>
@@ -74,7 +96,7 @@
             <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
           </v-card-title>
           <v-card-text class="pt-8">
-            <v-select variant="outlined" :items="item.data.metaData.answers" item-title="answer"
+            <v-select variant="outlined" :items="item.data.metaData.choices" item-title="answer"
               item-value=""></v-select>
           </v-card-text>
         </v-card>
@@ -105,7 +127,7 @@
 </template>
 <script setup>
 import Choosefile from '@/components/forms/Choosefile'
-import ToolbarPreview from '@/components/items/ToolbarPreview.vue'
+import ToolbarSurvey from '@/components/items/ToolbarSurvey.vue'
 import { ref, onBeforeMount } from 'vue';
 
 const items = ref([]);
@@ -117,12 +139,12 @@ const convertNo =(index) =>{
   return index +1
 }
 
-const handleSaveDarft = () =>{
+// const handleSaveDarft = () =>{
 
-}
-const handleSendNext = () =>{
+// }
+// const handleSendNext = () =>{
 
-}
+// }
 
 const handleStarted = () =>{
 
