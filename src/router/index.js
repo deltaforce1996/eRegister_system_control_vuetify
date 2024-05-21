@@ -121,6 +121,11 @@ const routes = [
       },
       //Question
       {
+        path: "/SDTeamMangement/Survey/question/Pdf",
+        name: "SurveyQuestionPdfPage",
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurverRsp.vue"),
+      },
+      {
         path: "/SDTeamMangement/Survey/question/Second",
         name: "SurveyQuestionSecondPage",
         component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurveySecond.vue"),
