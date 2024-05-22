@@ -2,7 +2,11 @@
 <template>
   <v-container>
    <v-card-text>
-      <ToolbarSurvey :step="3" />
+      <ToolbarSurvey
+      :step="stepper.index"
+      :is-done="stepper.prevCompleted"
+      @prev="stepperPrev"
+      @next="stepperNext" />
     </v-card-text>
      <div class="mt-2">
         <v-card elevation="1" color="#FFF1F0">
@@ -148,7 +152,7 @@
 </template>
 <script setup>
 import Choosefile from '@/components/forms/Choosefile'
-// import RspService from '@/apis/RspService';
+import RspService from '@/apis/RspService';
 import ToolbarSurvey from '@/components/items/ToolbarSurvey.vue'
 import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
 import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
@@ -157,6 +161,14 @@ import { ref, onBeforeMount } from 'vue';
 
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 const { showDialog } = useConfirmationDialog();
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const stepper = ref({
+  index : 3,
+  prevCompleted : true
+});
 
 const sections = ref([]);
 const state = ref(null);
@@ -173,7 +185,7 @@ onBeforeMount(() => {
 
 
 
-  const formQuestion = sessionStorage.getItem("survey_preview");
+  const formQuestion = sessionStorage.getItem("questionnaire2");
   sections.value = JSON.parse(formQuestion);
 
 });
@@ -280,7 +292,8 @@ const handleConfirmCreated = async () => {
 const handleCreatedSurveyAnswer = async (answers) => {
   try {
     console.log("created")
-    handleUpdatedSurveyResult()
+    const response =  await RspService.createRspSurveyAnswer(3,answers)
+    console.log(response)
   }
   catch (e) {
       if (e.response) {
@@ -330,5 +343,12 @@ const handleUpdatedSurveyResult = async () => {
   //     handlingErrorsMessage("unknown", e.message);
   //   }
 };
+const  stepperPrev = () => {
+  console.log('prev')
+  router.push("/SDTeamMangement/Survey/Document?prev_completed=completed&state=created&bp_number=11&&rsp_survey_id=11");
+}
+const  stepperNext = ()=>  {
+  console.log("next")
+}
 </script>
 

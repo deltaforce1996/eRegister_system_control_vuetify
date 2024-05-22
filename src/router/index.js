@@ -119,20 +119,26 @@ const routes = [
         name: "SurveyPreviewThirdPage",
         component: () => import("@/views/SDTeamMangement/SurveyPreview/SurveyThird.vue"),
       },
-      //Question
+
+      // Question
       {
-        path: "/SDTeamMangement/Survey/question/Pdf",
-        name: "SurveyQuestionPdfPage",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurverRsp.vue"),
+        path: "/SDTeamMangement/Survey/Document",
+        name: "SurveyDocumentPage",
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/Document.vue"),
       },
       {
-        path: "/SDTeamMangement/Survey/question/Second",
-        name: "SurveyQuestionSecondPage",
+        path: "/SDTeamMangement/Survey/Questionnaire/1",
+        name: "SurveyQuestionnaire1Page",
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurverFirst.vue"),
+      },
+      {
+        path: "/SDTeamMangement/Survey/Questionnaire/2",
+        name: "SurveyQuestionnaire2Page",
         component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurveySecond.vue"),
       },
       {
-        path: "/SDTeamMangement/Survey/question/Third",
-        name: "SurveyQuestionThirdPage",
+        path: "/SDTeamMangement/Survey/Questionnaire/4",
+        name: "SurveyQuestionnaire3Page",
         component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurveyThird.vue"),
       },
 

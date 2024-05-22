@@ -1,0 +1,116 @@
+{
+  "nameQuestionnaire": {
+    "title": "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!"
+  },
+  "createQuestionnaire": [
+    {
+      "id": 3,
+      "index": 1,
+      "typeQuestionCard": "None",
+      "data": {
+        "controlType": "Paragraph",
+        "metaData": {
+          "question": "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
+          "answer": "",
+          "isRequired": true
+        }
+      }
+    },
+    {
+      "id": 3,
+      "index": 2,
+      "typeQuestionCard": "None",
+      "data": {
+        "controlType": "Multichoice",
+        "metaData": {
+          "question": "Multichoice",
+          "isRequired": true,
+          "answer": null,
+          "choices": [
+            {
+              "title": "chioce",
+              "answer": "ตอบ-1",
+              "nextQuestion": 1
+            },
+            {
+              "title": "chioce",
+              "answer": "ตอบ-2",
+              "nextQuestion": 3
+            },
+            {
+              "title": "other",
+              "answer": "เพิมเติม",
+              "specify": "",
+              "nextQuestion": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "index": 3,
+      "typeQuestionCard": "None",
+      "data": {
+        "controlType": "Checkbox",
+        "metaData": {
+          "question": "Checkbox",
+          "isRequired": true,
+          "answer": [],
+          "choices": [
+            {
+              "title": "chioce",
+              "answer": "ตอบ-1"
+            },
+            {
+              "title": "chioce",
+              "answer": "ตอบ-2"
+            },
+            {
+              "title": "other",
+              "answer": "เพิมเติม",
+              "specify": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "index": 4,
+      "typeQuestionCard": "None",
+      "data": {
+        "controlType": "Dropdown",
+        "metaData": {
+          "question": "Dropdown",
+          "isRequired": true,
+          "answer": null,
+          "choices": [
+            {
+              "answer": "item-1",
+              "nextQuestion": 2
+            },
+            {
+              "answer": "item-2",
+              "nextQuestion": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "index": 5,
+      "typeQuestionCard": "None",
+      "data": {
+        "controlType": "Uploads",
+        "metaData": {
+          "question": "Uploads files",
+          "isRequired": true,
+          "files": null
+        }
+      }
+    }
+  ]
+}
