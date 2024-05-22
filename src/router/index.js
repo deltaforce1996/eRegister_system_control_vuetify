@@ -110,36 +110,41 @@ const routes = [
       },
       //Preview
       {
-        path: "/SDTeamMangement/Survey/Preview/Second",
+        path: "/SDTeamMangement/Survey/Preview/QuestionSecond",
         name: "SurveyPreviewSecondPage",
-        component: () => import("@/views/SDTeamMangement/SurveyPreview/SurveySecond.vue"),
+        component: () => import("@/views/SDTeamMangement/SurveyPreview/QuestionSecond.vue"),
       },
       {
-        path: "/SDTeamMangement/Survey/Preview/Third",
+        path: "/SDTeamMangement/Survey/Preview/QuestionThird",
         name: "SurveyPreviewThirdPage",
-        component: () => import("@/views/SDTeamMangement/SurveyPreview/SurveyThird.vue"),
+        component: () => import("@/views/SDTeamMangement/SurveyPreview/QuestionThird.vue"),
       },
 
       // Question
       {
-        path: "/SDTeamMangement/Survey/Document",
-        name: "SurveyDocumentPage",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/Document.vue"),
+        path: "/SDTeamMangement/Survey/Document/1",
+        name: "SurveyDocumentFirstPage",
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/DocumentFirst.vue"),
+      },
+      {
+        path: "/SDTeamMangement/Survey/Document/2",
+        name: "SurveyDocumentSecondPage",
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/DocumentSecond.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Questionnaire/1",
         name: "SurveyQuestionnaire1Page",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurverFirst.vue"),
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/QuestionFirst.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Questionnaire/2",
         name: "SurveyQuestionnaire2Page",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurveySecond.vue"),
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/QuestionSecond.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Questionnaire/4",
         name: "SurveyQuestionnaire3Page",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/SurveyThird.vue"),
+        component: () => import("@/views/SDTeamMangement/SurveyQuestion/QuestionThird.vue"),
       },
 
       // {

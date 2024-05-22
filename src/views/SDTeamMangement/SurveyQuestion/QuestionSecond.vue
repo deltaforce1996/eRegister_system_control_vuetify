@@ -345,7 +345,7 @@ const handleUpdatedSurveyResult = async () => {
 };
 const  stepperPrev = () => {
   console.log('prev')
-  router.push("/SDTeamMangement/Survey/Document?prev_completed=completed&state=created&bp_number=11&&rsp_survey_id=11");
+  router.push("/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=created&bp_number=11&&rsp_survey_id=11");
 }
 const  stepperNext = ()=>  {
   console.log("next")

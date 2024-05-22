@@ -143,7 +143,7 @@ const handleConfirm= async () => {
     const confirmed = await showDialog('ยืนยันรับทราบเอกสาร?', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
     if (confirmed) {
         console.log("Confirm")
-        router.push("/SDTeamMangement/Survey/Document?prev_completed=completed&state=created&bp_number=11&&rsp_survey_id=11");
+        router.push("/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=11&&rsp_survey_id=11");
     }
 
 };

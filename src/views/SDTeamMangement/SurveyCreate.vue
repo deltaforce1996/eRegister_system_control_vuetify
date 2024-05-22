@@ -451,12 +451,12 @@ const back = () => {
 };
 const previewSecond = () => {
   const jsonArray = JSON.stringify(mock_step2);
-  sessionStorage.setItem("survey_preview", jsonArray);
-  router.push("/SDTeamMangement/Survey/Preview/Second");
+  sessionStorage.setItem("preview_question_second", jsonArray);
+  router.push("/SDTeamMangement/Survey/Preview/QuestionSecond");
 };
 const previewThird = () => {
   const jsonArray = JSON.stringify(mock_preview_third);
-  sessionStorage.setItem("survey_preview_third", jsonArray);
-  router.push("/SDTeamMangement/Survey/Preview/Third");
+  sessionStorage.setItem("preview_question_third", jsonArray);
+  router.push("/SDTeamMangement/Survey/Preview/QuestionThird");
 };
 </script>
