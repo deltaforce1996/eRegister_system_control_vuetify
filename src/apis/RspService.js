@@ -324,15 +324,21 @@ const permanentlyDeleteRspTraining = async (_rsp_traning_id) => {
 };
 
 // survey
+// eslint-disable-next-line no-unused-vars
 const completeRspSurvey = async (bp_number, rsp_survey_id) => {
   return await axiosBase({
     method: "post",
     url: `/rsp/complete-rsp-survey`,
-    data: {
-      bp_number,
-      rsp_survey_id,
-      created_user_id: 1,
-    },
+    // data: {
+    //   bp_number,
+    //   rsp_survey_id,
+    //   created_user_id: 1,
+    // },
+    data:{
+      "bp_number": "01707129375000",
+      "rsp_survey_id": 6,
+      "created_user_id": 157
+    }
   });
 };
 
@@ -371,10 +377,14 @@ const updateRspSurveyAnswer = async (rsp_survey_result_id, answers) => {
 };
 
 const updateRspSurveyResult = async (
-  // bp_number,
-  // rsp_survey_id,
-  // rsp_activity_status_id,
-  // inprogress_section_id
+  // eslint-disable-next-line no-unused-vars
+  bp_number,
+  // eslint-disable-next-line no-unused-vars
+  rsp_survey_id,
+  // eslint-disable-next-line no-unused-vars
+  rsp_activity_status_id,
+  // eslint-disable-next-line no-unused-vars
+  inprogress_section_id
 ) => {
   return await axiosBase({
     method: "post",
