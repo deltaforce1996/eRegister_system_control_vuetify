@@ -9,6 +9,7 @@
         class="mx-auto ma-1"
         variant="outlined"
         style="border: 1px dashed #000000"
+        :disabled="disabled"
         @dragover="dragover"
         @dragleave="dragleave"
         @drop="drop"
@@ -33,6 +34,7 @@
                 class="text-capitalize"
                 color="secondary"
                 rounded
+                :disabled="disabled"
                 @click="handlePickFile"
               >
                 Browser Files
@@ -73,6 +75,10 @@
 import convertSize from "convert-size";
 export default {
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     icon: {
       type: String,
       default: "mdi-microsoft-excel",

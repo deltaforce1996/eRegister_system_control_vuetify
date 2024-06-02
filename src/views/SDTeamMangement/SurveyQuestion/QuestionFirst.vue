@@ -35,6 +35,7 @@
 // import RspService from '@/apis/RspService';
 import ToolbarSurvey from '@/components/items/ToolbarSurvey.vue'
 import TestQuestion2 from "@/assets/form2.json";
+import TestQuestion3 from "@/assets/form3.json";
 // eslint-disable-next-line no-unused-vars
 import { ref, onBeforeMount } from 'vue';
 
@@ -80,7 +81,9 @@ const later = ()=>{
 }
 const  setInfo = ()=>{
   const jsonArray = JSON.stringify(TestQuestion2);
+  const jsonArray3 = JSON.stringify(TestQuestion3);
   sessionStorage.setItem("questionnaire2", jsonArray);
+  sessionStorage.setItem("questionnaire3", jsonArray3);
 }
 
 </script>

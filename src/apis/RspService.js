@@ -336,12 +336,24 @@ const completeRspSurvey = async (bp_number, rsp_survey_id) => {
   });
 };
 
+// eslint-disable-next-line no-unused-vars
 const createRspSurveyAnswer = async (rsp_survey_result_id, answers) => {
   // answers = [{question_id, answer}]
   return await axiosBase({
     method: "post",
     url: `/rsp/create-rsp-survey-answer`,
-    data: { rsp_survey_result_id, answers, created_user_id: 1 },
+    //data: { rsp_survey_result_id, answers, created_user_id: 1 },
+    data:{
+      "rsp_survey_result_id": 3,
+      "answers": [
+        {"question_id": 14, "answer": "27"},
+        {"question_id": 11, "answer": "www.abc.com"},
+        {"question_id": 12, "answer": "25"},
+        {"question_id": 12, "answer": "26"},
+        {"question_id": 13, "answer": ""}
+      ],
+      "created_user_id": 1
+    }
   });
 };
 
@@ -359,21 +371,28 @@ const updateRspSurveyAnswer = async (rsp_survey_result_id, answers) => {
 };
 
 const updateRspSurveyResult = async (
-  bp_number,
-  rsp_survey_id,
-  rsp_activity_status_id,
-  inprogress_section_id
+  // bp_number,
+  // rsp_survey_id,
+  // rsp_activity_status_id,
+  // inprogress_section_id
 ) => {
   return await axiosBase({
     method: "post",
     url: `/rsp/update-rsp-survey-result`,
-    data: {
-      bp_number,
-      rsp_survey_id,
-      rsp_activity_status_id,
-      inprogress_section_id,
-      updated_user_id: 1,
-    },
+    // data: {
+    //   bp_number,
+    //   rsp_survey_id,
+    //   rsp_activity_status_id,
+    //   inprogress_section_id,
+    //   updated_user_id: 1,
+    // },
+    data:{
+      "bp_number": "01707129375000",
+      "rsp_survey_id": 4,
+      "rsp_activity_status_id": 1,
+      "inprogress_section_id": 1,
+      "updated_user_id": 1
+    }
   });
 };
 
