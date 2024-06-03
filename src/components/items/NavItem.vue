@@ -1,10 +1,12 @@
 <template>
   <v-list-item
     :class="{ 'active-item': props.isActive }"
-    @click="handleItemClick(props.id, props.goTo)"
+    @click="handleItemClick(props.index, props.goTo)"
   >
     <template v-slot:prepend>
-      <v-icon :color="props.isActive ? 'secondary' : ''">{{ props.icon }}</v-icon>
+      <v-icon :color="props.isActive ? 'secondary' : ''">{{
+        props.icon
+      }}</v-icon>
     </template>
   </v-list-item>
 </template>
@@ -13,9 +15,10 @@
 import { defineEmits } from "vue";
 import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 
 const props = defineProps({
+  index: Number,
   isActive: {
     type: Boolean,
     default: false,
@@ -37,7 +40,7 @@ const props = defineProps({
 const emit = defineEmits(["activate-item"]);
 
 const handleItemClick = (item, route) => {
-  router.push(route)
+  router.push(route);
   if (!props.isActive) {
     emit("activate-item", item);
   }
@@ -49,5 +52,4 @@ const handleItemClick = (item, route) => {
   border-left: 3px solid rgb(var(--v-theme-secondary));
   background-color: rgb(var(--v-theme-secondary), 0.2);
 }
-
 </style>

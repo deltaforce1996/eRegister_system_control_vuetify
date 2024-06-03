@@ -14,7 +14,7 @@
                 "name": "คำถามเพิ่มเติม",
                 "sequence": 0,
                 "score": 0,
-                "next_section_id": 0, 
+                "next_section_id": 0,
                 "questions": [
                     {
                         "rsp_survey_question_id": 1,
@@ -27,7 +27,7 @@
                         "sequence": 1,
                         "score": 0,
                         "is_required": true,
-                        "choices": null
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 2,
@@ -40,7 +40,7 @@
                         "sequence": 2,
                         "score": 0,
                         "is_required": true,
-                        "choices": null
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 3,
@@ -53,7 +53,7 @@
                         "sequence": 3,
                         "score": 0,
                         "is_required": true,
-                        "choices": null
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 4,
@@ -66,7 +66,7 @@
                         "sequence": 4,
                         "score": 0,
                         "is_required": true,
-                        "choices": null
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 5,
@@ -79,7 +79,7 @@
                         "sequence": 5,
                         "score": 0,
                         "is_required": true,
-                        "choices": null
+                        "choices": []
                     }
                 ]
             },
@@ -241,89 +241,7 @@
                         "sequence": 3,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 4,
-                                "answer": "การติดสินบนและการคอร์รัปชั่น",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 5,
-                                "answer": "ความลับทางธุรกิจ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 6,
-                                "answer": "การขัดแย้งทางผลประโยชน์",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 7,
-                                "answer": "การแข่งขันทางธุรกิจที่ยุติธรรมและการต่อต้านการผูกขาด",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 8,
-                                "answer": "การฉ้อโกง",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 9,
-                                "answer": "ความปลอดภัยด้าน IT",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 6,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 10,
-                                "answer": "การฟอกเงินและการจัดหาเงินทุนเพื่อการก่อการร้าย",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 7,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 11,
-                                "answer": "การป้องกันข้อมูลส่วนบุคคล",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 8,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 12,
-                                "answer": "อื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 9,
-                                "score": 0,
-                                "next_question_id": 8
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 9,
@@ -336,89 +254,7 @@
                         "sequence": 4,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 4,
-                                "answer": "การติดสินบนและการคอร์รัปชั่น",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 5,
-                                "answer": "ความลับทางธุรกิจ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 6,
-                                "answer": "การขัดแย้งทางผลประโยชน์",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 7,
-                                "answer": "การแข่งขันทางธุรกิจที่ยุติธรรมและการต่อต้านการผูกขาด",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 8,
-                                "answer": "การฉ้อโกง",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 9,
-                                "answer": "ความปลอดภัยด้าน IT",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 6,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 10,
-                                "answer": "การฟอกเงินและการจัดหาเงินทุนเพื่อการก่อการร้าย",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 7,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 11,
-                                "answer": "การป้องกันข้อมูลส่วนบุคคล",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 8,
-                                "score": 1,
-                                "next_question_id": 8
-                            },
-                            {
-                                "rsp_survey_choice_id": 12,
-                                "answer": "อื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 9,
-                                "score": 0,
-                                "next_question_id": 8
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 10,
@@ -581,26 +417,7 @@
                         "sequence": 8,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 23,
-                                "answer": "มีการจัดการฝึกอบรมเป็นประจำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 13
-                            },
-                            {
-                                "rsp_survey_choice_id": 24,
-                                "answer": "เมื่อมีพนักงานใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 13
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 14,
@@ -613,26 +430,7 @@
                         "sequence": 9,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 23,
-                                "answer": "มีการจัดการฝึกอบรมเป็นประจำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 13
-                            },
-                            {
-                                "rsp_survey_choice_id": 24,
-                                "answer": "เมื่อมีพนักงานใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 13
-                            }
-                        ]
+                        "choices": []
                     }
                 ]
             },
@@ -803,98 +601,7 @@
                         "sequence": 3,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 28,
-                                "answer": "ความหลากหลายทางชีวภาพ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 29,
-                                "answer": "เศรษฐกิจหมุนเวียน (Circular Economy) เช่น การรีไซเคิล และการนำวัสดุกลับมาใช้ใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 30,
-                                "answer": "การเพิ่มประสิทธิภาพการใช้พลังงาน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 31,
-                                "answer": "การปล่อยก๊าซเรือนกระจก (Greenhouse Gas)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 32,
-                                "answer": "การใช้พลังงานทดแทน (Renewable Energy)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 33,
-                                "answer": "การใช้น้ำอย่างมีประสิทธิภาพ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 6,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 34,
-                                "answer": "การบริหารจัดการขยะ (Waste Management)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 7,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 35,
-                                "answer": "การป้องกันมลพิษ (Pollution Prevention)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 8,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 36,
-                                "answer": "การจัดซื้อจัดจ้างหรือการหาวัสดุแบบยั่งยืน (Sustainable Procurement / Sustainable Material Sourcing)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 9,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 37,
-                                "answer": "อื่นๆ (โปรดระบุ): ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 10,
-                                "score": 0,
-                                "next_question_id": 17
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 18,
@@ -907,98 +614,7 @@
                         "sequence": 4,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 28,
-                                "answer": "ความหลากหลายทางชีวภาพ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 29,
-                                "answer": "เศรษฐกิจหมุนเวียน (Circular Economy) เช่น การรีไซเคิล และการนำวัสดุกลับมาใช้ใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 30,
-                                "answer": "การเพิ่มประสิทธิภาพการใช้พลังงาน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 31,
-                                "answer": "การปล่อยก๊าซเรือนกระจก (Greenhouse Gas)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 32,
-                                "answer": "การใช้พลังงานทดแทน (Renewable Energy)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 33,
-                                "answer": "การใช้น้ำอย่างมีประสิทธิภาพ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 6,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 34,
-                                "answer": "การบริหารจัดการขยะ (Waste Management)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 7,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 35,
-                                "answer": "การป้องกันมลพิษ (Pollution Prevention)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 8,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 36,
-                                "answer": "การจัดซื้อจัดจ้างหรือการหาวัสดุแบบยั่งยืน (Sustainable Procurement / Sustainable Material Sourcing)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 9,
-                                "score": 1,
-                                "next_question_id": 17
-                            },
-                            {
-                                "rsp_survey_choice_id": 37,
-                                "answer": "อื่นๆ (โปรดระบุ): ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 10,
-                                "score": 0,
-                                "next_question_id": 17
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 19,
@@ -1102,44 +718,7 @@
                         "sequence": 7,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 41,
-                                "answer": "ISO 14001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 21
-                            },
-                            {
-                                "rsp_survey_choice_id": 42,
-                                "answer": "ISO 50001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 21
-                            },
-                            {
-                                "rsp_survey_choice_id": 43,
-                                "answer": "EMAS (EU Eco-Management and Audit Scheme)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 21
-                            },
-                            {
-                                "rsp_survey_choice_id": 44,
-                                "answer": "มาตรฐานอื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 0,
-                                "next_question_id": 21
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 22,
@@ -1152,44 +731,7 @@
                         "sequence": 8,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 41,
-                                "answer": "ISO 14001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 21
-                            },
-                            {
-                                "rsp_survey_choice_id": 42,
-                                "answer": "ISO 50001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 21
-                            },
-                            {
-                                "rsp_survey_choice_id": 43,
-                                "answer": "EMAS (EU Eco-Management and Audit Scheme)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 21
-                            },
-                            {
-                                "rsp_survey_choice_id": 44,
-                                "answer": "มาตรฐานอื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 0,
-                                "next_question_id": 21
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 23,
@@ -1325,26 +867,7 @@
                         "sequence": 12,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 52,
-                                "answer": "การจัดการอบรมเป็นประจำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 26
-                            },
-                            {
-                                "rsp_survey_choice_id": 53,
-                                "answer": "จัดอบรมกับพนักงานใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 26
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 27,
@@ -1357,26 +880,7 @@
                         "sequence": 13,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 52,
-                                "answer": "การจัดการอบรมเป็นประจำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 26
-                            },
-                            {
-                                "rsp_survey_choice_id": 53,
-                                "answer": "จัดอบรมกับพนักงานใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 26
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 28,
@@ -1489,53 +993,7 @@
                         "sequence": 16,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 57,
-                                "answer": "การตรวจสอบสถานที่ทำงานของบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 30
-                            },
-                            {
-                                "rsp_survey_choice_id": 58,
-                                "answer": "การเก็บรวบรวมข้อมูลจากบริษัทคู่ค้าของท่าน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 30
-                            },
-                            {
-                                "rsp_survey_choice_id": 59,
-                                "answer": "จัดการศึกษาและฝึกอบรมให้บริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 30
-                            },
-                            {
-                                "rsp_survey_choice_id": 60,
-                                "answer": "การตั้งเป้าหมายร่วมกับบริษัทคู่ค้าของท่าน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 30
-                            },
-                            {
-                                "rsp_survey_choice_id": 61,
-                                "answer": "อื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 0,
-                                "next_question_id": 30
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 31,
@@ -1548,53 +1006,7 @@
                         "sequence": 17,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 57,
-                                "answer": "การตรวจสอบสถานที่ทำงานของบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 30
-                            },
-                            {
-                                "rsp_survey_choice_id": 58,
-                                "answer": "การเก็บรวบรวมข้อมูลจากบริษัทคู่ค้าของท่าน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 30
-                            },
-                            {
-                                "rsp_survey_choice_id": 59,
-                                "answer": "จัดการศึกษาและฝึกอบรมให้บริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 30
-                            },
-                            {
-                                "rsp_survey_choice_id": 60,
-                                "answer": "การตั้งเป้าหมายร่วมกับบริษัทคู่ค้าของท่าน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 30
-                            },
-                            {
-                                "rsp_survey_choice_id": 61,
-                                "answer": "อื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 0,
-                                "next_question_id": 30
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 32,
@@ -1707,53 +1119,7 @@
                         "sequence": 20,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 65,
-                                "answer": "ผลิตภัณฑ์หรือระบบประหยัดพลังงาน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 34
-                            },
-                            {
-                                "rsp_survey_choice_id": 66,
-                                "answer": "ผลิตภัณฑ์หรือระบบที่ได้ฉลากสิ่งแวดล้อม (ECO)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 34
-                            },
-                            {
-                                "rsp_survey_choice_id": 67,
-                                "answer": "ผลิตภัณฑ์ที่สามารถรีไซเคิลได้หรือทำจากวัสดุธรรมชาติ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 34
-                            },
-                            {
-                                "rsp_survey_choice_id": 68,
-                                "answer": "ผลิตภัณฑ์ที่มี Carbon Footprint ต่ำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 34
-                            },
-                            {
-                                "rsp_survey_choice_id": 69,
-                                "answer": "อื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 0,
-                                "next_question_id": 34
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 35,
@@ -1766,53 +1132,7 @@
                         "sequence": 21,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 65,
-                                "answer": "ผลิตภัณฑ์หรือระบบประหยัดพลังงาน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 34
-                            },
-                            {
-                                "rsp_survey_choice_id": 66,
-                                "answer": "ผลิตภัณฑ์หรือระบบที่ได้ฉลากสิ่งแวดล้อม (ECO)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 34
-                            },
-                            {
-                                "rsp_survey_choice_id": 67,
-                                "answer": "ผลิตภัณฑ์ที่สามารถรีไซเคิลได้หรือทำจากวัสดุธรรมชาติ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 34
-                            },
-                            {
-                                "rsp_survey_choice_id": 68,
-                                "answer": "ผลิตภัณฑ์ที่มี Carbon Footprint ต่ำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 34
-                            },
-                            {
-                                "rsp_survey_choice_id": 69,
-                                "answer": "อื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 0,
-                                "next_question_id": 34
-                            }
-                        ]
+                        "choices": []
                     }
                 ]
             },
@@ -1938,53 +1258,7 @@
                         "sequence": 6,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 73,
-                                "answer": "การมีส่วนร่วมของพนักงาน (Employee Engagement)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 40
-                            },
-                            {
-                                "rsp_survey_choice_id": 74,
-                                "answer": "สุขภาพความปลอดภัยและความเป็นอยู่ที่ดีของพนักงาน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 40
-                            },
-                            {
-                                "rsp_survey_choice_id": 75,
-                                "answer": "สุขภาพความปลอดภัยและความเป็นอยู่ที่ดีของลูกค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 40
-                            },
-                            {
-                                "rsp_survey_choice_id": 76,
-                                "answer": "สุขภาพความปลอดภัยและความเป็นอยู่ที่ดีของบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 40
-                            },
-                            {
-                                "rsp_survey_choice_id": 77,
-                                "answer": "อื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 0,
-                                "next_question_id": 40
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 39,
@@ -1997,53 +1271,7 @@
                         "sequence": 7,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 73,
-                                "answer": "การมีส่วนร่วมของพนักงาน (Employee Engagement)",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 40
-                            },
-                            {
-                                "rsp_survey_choice_id": 74,
-                                "answer": "สุขภาพความปลอดภัยและความเป็นอยู่ที่ดีของพนักงาน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 40
-                            },
-                            {
-                                "rsp_survey_choice_id": 75,
-                                "answer": "สุขภาพความปลอดภัยและความเป็นอยู่ที่ดีของลูกค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 40
-                            },
-                            {
-                                "rsp_survey_choice_id": 76,
-                                "answer": "สุขภาพความปลอดภัยและความเป็นอยู่ที่ดีของบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 40
-                            },
-                            {
-                                "rsp_survey_choice_id": 77,
-                                "answer": "อื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 0,
-                                "next_question_id": 40
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 40,
@@ -2147,44 +1375,7 @@
                         "sequence": 5,
                         "score": 0,
                         "is_required": true,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 81,
-                                "answer": "ISO 45001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 43
-                            },
-                            {
-                                "rsp_survey_choice_id": 82,
-                                "answer": "OHSAS 18001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 43
-                            },
-                            {
-                                "rsp_survey_choice_id": 83,
-                                "answer": "Bizsafe",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 42
-                            },
-                            {
-                                "rsp_survey_choice_id": 84,
-                                "answer": "มาตรฐานอื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 0,
-                                "next_question_id": 43
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 43,
@@ -2197,44 +1388,7 @@
                         "sequence": 6,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 81,
-                                "answer": "ISO 45001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 43
-                            },
-                            {
-                                "rsp_survey_choice_id": 82,
-                                "answer": "OHSAS 18001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 43
-                            },
-                            {
-                                "rsp_survey_choice_id": 83,
-                                "answer": "Bizsafe",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 42
-                            },
-                            {
-                                "rsp_survey_choice_id": 84,
-                                "answer": "มาตรฐานอื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 0,
-                                "next_question_id": 43
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 44,
@@ -2247,44 +1401,7 @@
                         "sequence": 7,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 81,
-                                "answer": "ISO 45001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 43
-                            },
-                            {
-                                "rsp_survey_choice_id": 82,
-                                "answer": "OHSAS 18001",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 43
-                            },
-                            {
-                                "rsp_survey_choice_id": 83,
-                                "answer": "Bizsafe",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 42
-                            },
-                            {
-                                "rsp_survey_choice_id": 84,
-                                "answer": "มาตรฐานอื่นๆ (โปรดระบุ):",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 0,
-                                "next_question_id": 43
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 45,
@@ -2420,26 +1537,7 @@
                         "sequence": 11,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 92,
-                                "answer": "มีการจัดฝึกอบรมเป็นประจำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 48
-                            },
-                            {
-                                "rsp_survey_choice_id": 93,
-                                "answer": "ฝึกอบรมพนักงานใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 48
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 49,
@@ -2452,26 +1550,7 @@
                         "sequence": 12,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 92,
-                                "answer": "มีการจัดฝึกอบรมเป็นประจำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 48
-                            },
-                            {
-                                "rsp_survey_choice_id": 93,
-                                "answer": "ฝึกอบรมพนักงานใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 48
-                            }
-                        ]
+                        "choices": []
                     }
                 ]
             },
@@ -2624,80 +1703,7 @@
                         "sequence": 3,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 97,
-                                "answer": "การพัฒนาทรัพยากรบุคคล เช่น มีการกำหนดจำนวนชั่วโมงการฝึกอบรมขั้นต่ำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 98,
-                                "answer": "ความหลากหลายและการยอมรับ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 99,
-                                "answer": "มาตรฐานแรงงานและจำนวนชั่วโมงการทำงาน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 100,
-                                "answer": "การไม่เลือกปฏิบัติ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 101,
-                                "answer": "การจำกัดการใช้แรงงานเด็ก",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 102,
-                                "answer": "การจำกัดการใช้แรงงานภาคบังคับ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 6,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 103,
-                                "answer": "ค่าจ้างและสวัสดิการ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 7,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 104,
-                                "answer": "อื่นๆ โปรดระบุ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 8,
-                                "score": 0,
-                                "next_question_id": 52
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 53,
@@ -2710,80 +1716,7 @@
                         "sequence": 4,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 97,
-                                "answer": "การพัฒนาทรัพยากรบุคคล เช่น มีการกำหนดจำนวนชั่วโมงการฝึกอบรมขั้นต่ำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 98,
-                                "answer": "ความหลากหลายและการยอมรับ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 99,
-                                "answer": "มาตรฐานแรงงานและจำนวนชั่วโมงการทำงาน",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 100,
-                                "answer": "การไม่เลือกปฏิบัติ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 101,
-                                "answer": "การจำกัดการใช้แรงงานเด็ก",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 5,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 102,
-                                "answer": "การจำกัดการใช้แรงงานภาคบังคับ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 6,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 103,
-                                "answer": "ค่าจ้างและสวัสดิการ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 7,
-                                "score": 1,
-                                "next_question_id": 52
-                            },
-                            {
-                                "rsp_survey_choice_id": 104,
-                                "answer": "อื่นๆ โปรดระบุ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 8,
-                                "score": 0,
-                                "next_question_id": 52
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 54,
@@ -2919,26 +1852,7 @@
                         "sequence": 8,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 112,
-                                "answer": "มีการจัดการฝึกอบรมเป็นประจำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 57
-                            },
-                            {
-                                "rsp_survey_choice_id": 113,
-                                "answer": "จัดฝึกอบรมพนักงานใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 57
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 58,
@@ -2951,26 +1865,7 @@
                         "sequence": 9,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 112,
-                                "answer": "มีการจัดการฝึกอบรมเป็นประจำ",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 57
-                            },
-                            {
-                                "rsp_survey_choice_id": 113,
-                                "answer": "จัดฝึกอบรมพนักงานใหม่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 57
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 59,
@@ -3074,44 +1969,7 @@
                         "sequence": 12,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 117,
-                                "answer": "การตรวจสอบสถานที่ทำงานของบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 61
-                            },
-                            {
-                                "rsp_survey_choice_id": 118,
-                                "answer": "การแนะแนวและจัดฝึกอบรมสำหรับบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 61
-                            },
-                            {
-                                "rsp_survey_choice_id": 119,
-                                "answer": "การกำหนดเป้าหมายร่วมกับบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 61
-                            },
-                            {
-                                "rsp_survey_choice_id": 120,
-                                "answer": "อื่น โปรดระบุ:",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 0,
-                                "next_question_id": 61
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 62,
@@ -3124,44 +1982,7 @@
                         "sequence": 13,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 117,
-                                "answer": "การตรวจสอบสถานที่ทำงานของบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 1,
-                                "next_question_id": 61
-                            },
-                            {
-                                "rsp_survey_choice_id": 118,
-                                "answer": "การแนะแนวและจัดฝึกอบรมสำหรับบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 1,
-                                "next_question_id": 61
-                            },
-                            {
-                                "rsp_survey_choice_id": 119,
-                                "answer": "การกำหนดเป้าหมายร่วมกับบริษัทคู่ค้า",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 1,
-                                "next_question_id": 61
-                            },
-                            {
-                                "rsp_survey_choice_id": 120,
-                                "answer": "อื่น โปรดระบุ:",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 4,
-                                "score": 0,
-                                "next_question_id": 61
-                            }
-                        ]
+                        "choices": []
                     }
                 ]
             },
@@ -3228,35 +2049,7 @@
                         "sequence": 2,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 121,
-                                "answer": "มี",
-                                "is_aligned": true,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 64
-                            },
-                            {
-                                "rsp_survey_choice_id": 122,
-                                "answer": "ไม่มี",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 64
-                            },
-                            {
-                                "rsp_survey_choice_id": 123,
-                                "answer": "กำลังดำเนินการและคาดว่าจะแล้วเสร็จภายในวันที่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 0,
-                                "next_question_id": 64
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 65,
@@ -3269,35 +2062,7 @@
                         "sequence": 3,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 121,
-                                "answer": "มี",
-                                "is_aligned": true,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 64
-                            },
-                            {
-                                "rsp_survey_choice_id": 122,
-                                "answer": "ไม่มี",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 64
-                            },
-                            {
-                                "rsp_survey_choice_id": 123,
-                                "answer": "กำลังดำเนินการและคาดว่าจะแล้วเสร็จภายในวันที่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 0,
-                                "next_question_id": 64
-                            }
-                        ]
+                        "choices": []
                     }
                 ]
             },
@@ -3364,35 +2129,7 @@
                         "sequence": 2,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 124,
-                                "answer": "มี",
-                                "is_aligned": true,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 67
-                            },
-                            {
-                                "rsp_survey_choice_id": 125,
-                                "answer": "ไม่มี",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 67
-                            },
-                            {
-                                "rsp_survey_choice_id": 126,
-                                "answer": "กำลังดำเนินการและคาดว่าจะแล้วเสร็จภายในวันที่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 0,
-                                "next_question_id": 67
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 68,
@@ -3405,35 +2142,7 @@
                         "sequence": 3,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 124,
-                                "answer": "มี",
-                                "is_aligned": true,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 67
-                            },
-                            {
-                                "rsp_survey_choice_id": 125,
-                                "answer": "ไม่มี",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 67
-                            },
-                            {
-                                "rsp_survey_choice_id": 126,
-                                "answer": "กำลังดำเนินการและคาดว่าจะแล้วเสร็จภายในวันที่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 0,
-                                "next_question_id": 67
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 69,
@@ -3487,35 +2196,7 @@
                         "sequence": 5,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 127,
-                                "answer": "มี",
-                                "is_aligned": true,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 70
-                            },
-                            {
-                                "rsp_survey_choice_id": 128,
-                                "answer": "ไม่มี",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 70
-                            },
-                            {
-                                "rsp_survey_choice_id": 129,
-                                "answer": "กำลังดำเนินการและคาดว่าจะแล้วเสร็จภายในวันที่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 0,
-                                "next_question_id": 70
-                            }
-                        ]
+                        "choices": []
                     },
                     {
                         "rsp_survey_question_id": 71,
@@ -3528,35 +2209,7 @@
                         "sequence": 6,
                         "score": 0,
                         "is_required": false,
-                        "choices": [
-                            {
-                                "rsp_survey_choice_id": 127,
-                                "answer": "มี",
-                                "is_aligned": true,
-                                "is_other_choice": false,
-                                "sequence": 1,
-                                "score": 0,
-                                "next_question_id": 70
-                            },
-                            {
-                                "rsp_survey_choice_id": 128,
-                                "answer": "ไม่มี",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 2,
-                                "score": 0,
-                                "next_question_id": 70
-                            },
-                            {
-                                "rsp_survey_choice_id": 129,
-                                "answer": "กำลังดำเนินการและคาดว่าจะแล้วเสร็จภายในวันที่",
-                                "is_aligned": false,
-                                "is_other_choice": false,
-                                "sequence": 3,
-                                "score": 0,
-                                "next_question_id": 70
-                            }
-                        ]
+                        "choices": []
                     }
                 ]
             },
