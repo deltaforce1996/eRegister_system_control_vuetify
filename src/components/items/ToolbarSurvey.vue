@@ -12,7 +12,7 @@
       cols="3"
       align="center"
       class="pa-3"
-      @click="prev(prop.isDone)"
+      @click="prev(props.isDone)"
     >
       <div>
         <v-icon icon="mdi-check-circle" color="green"> </v-icon>
@@ -36,7 +36,7 @@
       cols="3"
       align="center"
       class="pa-3"
-      @click="next(prop.isDone)"
+      @click="next(props.isDone)"
     >
       <div>
         <v-icon :icon="step1.icon" color="grey"></v-icon>
@@ -50,7 +50,7 @@
       cols="3"
       align="center"
       class="pa-3"
-      @click="prev(prop.isDone)"
+      @click="prev(props.isDone)"
     >
       <div>
         <v-icon icon="mdi-check-circle" color="green"> </v-icon>
@@ -74,7 +74,7 @@
       cols="3"
       align="center"
       class="pa-3"
-      @click="next(prop.isDone)"
+      @click="next(props.isDone)"
     >
       <div>
         <v-icon :icon="step2.icon" color="grey"></v-icon>
@@ -88,7 +88,7 @@
       cols="3"
       align="center"
       class="pa-3"
-      @click="prev(prop.isDone)"
+      @click="prev(props.isDone)"
     >
       <div>
         <v-icon icon="mdi-check-circle" color="green"> </v-icon>
@@ -112,7 +112,7 @@
       cols="3"
       align="center"
       class="pa-3"
-      @click="next(prop.isDone)"
+      @click="next(props.isDone)"
     >
       <div>
         <v-icon :icon="step3.icon" color="grey"></v-icon>
@@ -126,7 +126,7 @@
       cols="3"
       align="center"
       class="pa-3"
-      @click="prev(prop.isDone)"
+      @click="prev(props.isDone)"
     >
       <div>
         <v-icon icon="mdi-check-circle" color="green"> </v-icon>
@@ -150,7 +150,7 @@
       cols="3"
       align="center"
       class="pa-3"
-      @click="next(prop.isDone)"
+      @click="next(props.isDone)"
     >
       <div>
         <v-icon :icon="step4.icon" color="grey"></v-icon>
