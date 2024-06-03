@@ -224,6 +224,7 @@ const mapperSurvayStepThree = (el) => {
   if (el?.section_type.id == 2) {
     const questionnaire = {
       id: el?.rsp_survey_section_id,
+      index: el.sequence,
       title: el?.name,
       score: el?.score,
       nextSectionId: el?.nextSectionId,
