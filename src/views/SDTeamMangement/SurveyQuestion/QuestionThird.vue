@@ -17,7 +17,7 @@
         <v-col cols="8" class="d-flex">
           <h3>{{ sectionId }}.{{ sectionsTitle }}</h3>
         </v-col>
-        <v-col cols="4" class="d-flex justify-end">
+        <!-- <v-col cols="4" class="d-flex justify-end">
           <v-btn
             color="secondary"
             variant="outlined"
@@ -32,7 +32,7 @@
             <v-icon left>mdi-tag</v-icon>
             Save Darft
           </v-btn>
-        </v-col>
+        </v-col> -->
       </v-row>
     </div>
     <div class="section">

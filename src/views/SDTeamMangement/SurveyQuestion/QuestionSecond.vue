@@ -11,7 +11,7 @@
     </v-card-text>
     <v-row class="mt-5">
       <v-col cols="8" class="d-flex" />
-      <v-col cols="4" class="d-flex justify-end">
+      <!-- <v-col cols="4" class="d-flex justify-end">
         <v-btn
           color="secondary"
           variant="outlined"
@@ -26,7 +26,7 @@
           <v-icon left>mdi-tag</v-icon>
           Save Darft
         </v-btn>
-      </v-col>
+      </v-col> -->
     </v-row>
     <div class="mt-2">
       <v-card elevation="1" color="#FFF1F0">
