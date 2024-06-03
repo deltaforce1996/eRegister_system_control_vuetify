@@ -16,7 +16,7 @@
             {{ props.value }} %
           </div>
         </v-col>
-        <v-col cols="9" class="text-end d-flex align-center justify-end">
+        <!-- <v-col cols="9" class="text-end d-flex align-center justify-end">
           <div class="text-caption">Average:</div>
           <div
             class="text-caption"
@@ -24,7 +24,7 @@
           >
             {{ props.description }}
           </div>
-        </v-col>
+        </v-col> -->
       </v-row>
       <v-progress-linear
         bg-color="grey"
@@ -61,6 +61,12 @@ const getProgressColor = (value) => {
     return "green";
   }
 };
+
+// const getProgressDesc = (value) =>{
+//   if(value <= 30) {
+
+//   }
+// }
 </script>
 
 <style>

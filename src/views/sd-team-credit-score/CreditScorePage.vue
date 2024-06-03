@@ -26,12 +26,14 @@
               style="width: 50%; margin-top: 5%"
             ></v-progress-linear>
           </v-col>
-          <v-col cols="12">
-            <!-- <v-img
-              height="60%"
-              width="1700"
-              src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
-            ></v-img> -->
+          <v-col cols="12" class="mt-8 d-flex justify-center">
+            <v-img
+              :height="500"
+              :width="1000"
+              aspect-ratio="16/9"
+              cover
+              src="https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU"
+            ></v-img>
           </v-col>
         </v-row>
       </v-card-item>
@@ -75,46 +77,131 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { reactive } from "vue";
+import { onMounted, ref } from "vue";
 
 import CraditItem from "@/components/items/CraditItem.vue";
 import ButtonControl from "@/components/controls/ButtonControl.vue";
+import RspService from "@/apis/RspService";
+
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
 
 const score = ref(50);
+const survey_result_details = ref({});
 const level = ref("A");
 
-const description =
-  ref(`Digital Equipment, Hewlett-Packard, AT&T, and ITT are getting started
-        with it. Ford and General Motors use it—at Ford alone there are more
-        than 50 applications. The “house of quality,” the basic design tool of
-        the management approach known as quality function deployment (QFD),
-        originated in 1972 at Mitsubishi’s Kobe shipyard site. Toyota and its
-        suppliers then developed it in numerous ways. The house of quality has
-        been used successfully by Japanese manufacturers of consumer
-        electronics, home appliances, clothing, integrated circuits, synthetic
-        rubber, construction equipment, and agricultural engines. Japanese
-        designers use it for services like swimming schools and retail outlets
-        and even for planning apartment layouts.`);
+onMounted(async () => {
+  await getRspSurveyResultDetail("01713284218000");
+});
 
-const items = reactive([
-  { title: "Management approach known", value: 90, description: "Great" },
-  { title: "Management approach known", value: 65, description: "Not bad" },
-  {
-    title: "Management approach known",
-    value: 30,
-    description: "Needs to improve",
-  },
-  { title: "Management approach known", value: 90, description: "Great" },
-  { title: "Management approach known", value: 65, description: "Not bad" },
-  {
-    title: "Management approach known",
-    value: 30,
-    description: "Needs to improve",
-  },
-  { title: "Management approach known", value: 90, description: "Great" },
-  { title: "Management approach known", value: 65, description: "Not bad" },
+const description = ref("");
+
+const items = ref([
+  // { title: "Management approach known", value: 90, description: "Great" },
+  // { title: "Management approach known", value: 65, description: "Not bad" },
+  // {
+  //   title: "Management approach known",
+  //   value: 30,
+  //   description: "Needs to improve",
+  // },
+  // { title: "Management approach known", value: 90, description: "Great" },
+  // { title: "Management approach known", value: 65, description: "Not bad" },
+  // {
+  //   title: "Management approach known",
+  //   value: 30,
+  //   description: "Needs to improve",
+  // },
+  // { title: "Management approach known", value: 90, description: "Great" },
+  // { title: "Management approach known", value: 65, description: "Not bad" },
 ]);
+
+const getRspSurveyResultDetail = async (bp_number) => {
+  try {
+    const response = await RspService.getRspSurveyResultDetail(bp_number);
+    if (response.data?.is_success) {
+      // survey_result_details.value = response.data?.data
+      survey_result_details.value = {
+        bp_number: "BP12345",
+        status: {
+          id: 1,
+          name: "Completed",
+        },
+        progress_percentage: 100,
+        survey_result: {
+          is_aligned: 1,
+          score: 85,
+          total_score: 100,
+          rsp_survey_evaluation_criteria: {
+            id: 1,
+            rsp_survey_id: 123,
+            name: "B",
+            minimum_score_criteria: 0,
+            description: "Description of the criteria",
+            image_url: "https://example.com/image.jpg",
+          },
+          section: [
+            {
+              name: "Section A",
+              score: 20,
+              total_score: 25,
+              score_percentage: 80,
+            },
+            {
+              name: "Section B",
+              score: 25,
+              total_score: 30,
+              score_percentage: 83.33,
+            },
+            {
+              name: "Section C",
+              score: 15,
+              total_score: 20,
+              score_percentage: 75,
+            },
+          ],
+        },
+      };
+
+      if (
+        survey_result_details.value?.survey_result
+          ?.rsp_survey_evaluation_criteria?.description
+      ) {
+        description.value =
+          survey_result_details.value?.survey_result?.rsp_survey_evaluation_criteria?.description;
+      }
+
+      if (survey_result_details.value?.survey_result?.score) {
+        score.value = survey_result_details.value?.survey_result?.score;
+      }
+
+      if (
+        survey_result_details.value?.survey_result
+          ?.rsp_survey_evaluation_criteria?.name
+      ) {
+        level.value =
+          survey_result_details.value?.survey_result?.rsp_survey_evaluation_criteria.name;
+      }
+
+      if (survey_result_details.value?.survey_result?.section) {
+        items.value = survey_result_details.value?.survey_result?.section.map(
+          (el) => {
+            return {
+              title: el.name,
+              value: el.score_percentage,
+            };
+          }
+        );
+      }
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  }
+};
 
 const on_go_to_back = () => {};
 const submit_cradit_score = () => {};

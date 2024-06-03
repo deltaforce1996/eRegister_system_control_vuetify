@@ -12,9 +12,20 @@ const getVendorRspStatus = async (
   completed_from,
   completed_to
 ) => {
+  let url = `/rsp/get-vendor-rsp-status?offset=${offset -= 1}&limit=${limit}`;
+  if (search_field) url += `&search_field=${search_field}`;
+  if (search_value) url += `&search_value=${search_value}`;
+  if (company_id) url += `&company_id=${company_id}`;
+  if (company_category_id) url += `&company_category_id=${company_category_id}`;
+  if (activity_id) url += `&activity_id=${activity_id}`;
+  if (activity_status) url += `&activity_status=${activity_status}`;
+  if (completed_from) url += `&completed_from=${completed_from}`;
+  if (completed_to) url += `&completed_from=${completed_from}`;
+
   return await axiosBase({
     method: "get",
-    url: `/rsp/get-vendor-rsp-status?offset=${offset}&limit=${limit}&search_field=${search_field}&search_value=${search_value}&company_id=${company_id}&bu_id=${bu_id}&company_category_id=${company_category_id}&activity_id=${activity_id}&activity_status=${activity_status}&completed_from=${completed_from}&completed_to=${completed_to}`,
+    // url: `/rsp/get-vendor-rsp-status?offset=${offset}&limit=${limit}&search_field=${search_field}&search_value=${search_value}&company_id=${company_id}&bu_id=${bu_id}&company_category_id=${company_category_id}&activity_id=${activity_id}&activity_status=${activity_status}&completed_from=${completed_from}&completed_to=${completed_to}`,
+    url,
     data: {},
   });
 };
@@ -86,9 +97,9 @@ const getRspSurveyResults = async (_bp_number) => {
 
 const getRspSurveyResultDetail = async (_bp_number) => {
   return await axiosBase({
-    method: "get",
+    method: "post",
     url: `/rsp/get-rsp-survey-result-detail`,
-    params: {
+    data: {
       bp_number: _bp_number,
     },
   });
@@ -537,5 +548,5 @@ export default {
   updateRspSurveyResult,
   createRspSurveyResult,
   updateRspSurveyAnswer,
-  getRspSurveyAnswers
+  getRspSurveyAnswers,
 };
