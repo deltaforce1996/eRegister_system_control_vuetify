@@ -6,105 +6,134 @@
   "createQuestionnaire": [
     {
       "id": "0",
+      "index":1,
       "title": "header",
+      "rspActivityStatusId" : 2,
+      "inprogressSectionId" :2,
       "data": [
         {
-          "id": "0",
+          "id": 1,
           "index": 1,
-          "typeQuestionCard": "Align",
+          "disabled" : false,
+          "typeQuestionCard": "None",
+          "data": {
+            "controlType": "Paragraph",
+            "metaData": {
+              "question": "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
+              "answer": "",
+              "isRequired": true,
+              "nextQuestionId": 3
+            }
+          }
+        },
+        {
+          "id": 2,
+          "index": 2,
+          "disabled" : false,
+          "typeQuestionCard": "None",
           "data": {
             "controlType": "Multichoice",
             "metaData": {
-              "question": "Radio",
+              "question": "Multichoice",
               "isRequired": true,
-              "totalScore": 15,
               "answer": null,
               "choices": [
                 {
+                  "id" :1,
                   "title": "chioce",
-                  "isAlign": true,
-                  "score": "10",
-                  "answer": "chioce-1",
-                  "nextQuestion": 2
+                  "answer": "next-3",
+                  "nextQuestionId": 3
                 },
                 {
+                  "id" :2,
                   "title": "chioce",
-                  "isAlign": false,
-                  "score": "15",
-                  "answer": "chioce-2",
-                  "nextQuestion": 2
+                  "answer": "next-4",
+                  "nextQuestionId": 4
                 },
                 {
+                  "id" :3,
                   "title": "other",
-                  "isAlign": true,
-                  "score": "10",
-                  "answer": "ระบุ",
+                  "answer": "เพิมเติม next-0",
                   "specify": "",
-                  "nextQuestion": 2
+                  "nextQuestionId": 0 
                 }
               ]
             }
           }
         },
         {
-          "id": "1",
-          "index": 2,
-          "typeQuestionCard": "None",
-          "data": {
-            "controlType": "Paragraph",
-            "metaData": {
-              "question": "Paragraph",
-              "answer": "",
-              "isRequire": true
-            }
-          }
-        },
-        {
-          "id": "2",
+          "id": 3,
           "index": 3,
-          "typeQuestionCard": "Align",
+          "disabled" : false,
+          "typeQuestionCard": "None",
           "data": {
             "controlType": "Checkbox",
             "metaData": {
               "question": "Checkbox",
               "isRequired": true,
-              "isAlign": true,
-              "totalScore": 25,
               "answer": [],
               "choices": [
                 {
+                  "id" :1,
                   "title": "chioce",
-                  "score": "10",
-                  "answer": "chioce-1",
-                  "isAlign": true
+                  "answer": "ตอบ-1",
+                  "nextQuestionId": 5
                 },
                 {
+                  "id" :2,
                   "title": "chioce",
-                  "score": "15",
-                  "answer": "chioce-2",
-                  "isAlign": false
+                  "answer": "ตอบ-2",
+                  "nextQuestionId": 4
                 },
                 {
+                  "id" :3,
                   "title": "other",
-                  "score": "15",
                   "answer": "เพิมเติม",
                   "specify": "",
-                  "isAlign": false
+                  "nextQuestionId": 0
                 }
               ]
             }
           }
         },
         {
-          "id": "3",
+          "id": 4,
           "index": 4,
+          "disabled" : false,
+          "typeQuestionCard": "None",
+          "data": {
+            "controlType": "Dropdown",
+            "metaData": {
+              "question": "Dropdown",
+              "isRequired": true,
+              "answer": null,
+              "choices": [
+                {
+                  "id" :1,
+                  "answer": "item-1",
+                  "nextQuestionId": 5
+                },
+                {
+                  "id" :2,
+                  "answer": "item-2",
+                  "nextQuestionId": 3
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 5,
+          "index": 5,
+          "disabled" : false,
           "typeQuestionCard": "None",
           "data": {
             "controlType": "Uploads",
             "metaData": {
-              "question": "File",
-              "isRequire": false,
-              "files": null
+              "question": "Uploads files",
+              "isRequired": true,
+              "files": null,
+              "nextQuestionId": 4 
             }
           }
         }
@@ -112,35 +141,134 @@
     },
     {
       "id": "1",
+      "index":2,
+      "rspActivityStatusId" : 2,
+      "inprogressSectionId" :3,
       "title": "header+",
       "data": [
         {
-          "id": "0",
+          "id": 1,
           "index": 1,
-          "typeQuestionCard": "Align",
+          "disabled" : false,
+          "typeQuestionCard": "None",
+          "data": {
+            "controlType": "Paragraph",
+            "metaData": {
+              "question": "แบบสำรวจด้านความยังยืนคู่ค้า 2023",
+              "answer": "",
+              "isRequired": true,
+              "nextQuestionId": 3
+            }
+          }
+        },
+        {
+          "id": 2,
+          "index": 2,
+          "disabled" : false,
+          "typeQuestionCard": "None",
           "data": {
             "controlType": "Multichoice",
             "metaData": {
               "question": "Multichoice",
-              "isRequired": false,
-              "totalScore": 15,
+              "isRequired": true,
               "answer": null,
               "choices": [
                 {
+                  "id" :1,
                   "title": "chioce",
-                  "isAlign": true,
-                  "score": "15",
-                  "answer": "Multichoice",
-                  "nextQuestion": 2
+                  "answer": "next-3",
+                  "nextQuestionId": 3
                 },
                 {
+                  "id" :2,
+                  "title": "chioce",
+                  "answer": "next-4",
+                  "nextQuestionId": 4
+                },
+                {
+                  "id" :3,
                   "title": "other",
-                  "isAlign": false,
-                  "answer": "เพิมเติม",
+                  "answer": "เพิมเติม next-0",
                   "specify": "",
-                  "nextQuestion": ""
+                  "nextQuestionId": 0 
                 }
               ]
+            }
+          }
+        },
+        {
+          "id": 3,
+          "index": 3,
+          "disabled" : false,
+          "typeQuestionCard": "None",
+          "data": {
+            "controlType": "Checkbox",
+            "metaData": {
+              "question": "Checkbox",
+              "isRequired": true,
+              "answer": [],
+              "choices": [
+                {
+                  "id" :1,
+                  "title": "chioce",
+                  "answer": "ตอบ-1",
+                  "nextQuestionId": 5
+                },
+                {
+                  "id" :2,
+                  "title": "chioce",
+                  "answer": "ตอบ-2",
+                  "nextQuestionId": 4
+                },
+                {
+                  "id" :3,
+                  "title": "other",
+                  "answer": "เพิมเติม",
+                  "specify": "",
+                  "nextQuestionId": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 4,
+          "index": 4,
+          "disabled" : false,
+          "typeQuestionCard": "None",
+          "data": {
+            "controlType": "Dropdown",
+            "metaData": {
+              "question": "Dropdown",
+              "isRequired": true,
+              "answer": null,
+              "choices": [
+                {
+                  "id" :1,
+                  "answer": "item-1",
+                  "nextQuestionId": 5
+                },
+                {
+                  "id" :2,
+                  "answer": "item-2",
+                  "nextQuestionId": 3
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 5,
+          "index": 5,
+          "disabled" : false,
+          "typeQuestionCard": "None",
+          "data": {
+            "controlType": "Uploads",
+            "metaData": {
+              "question": "Uploads files",
+              "isRequired": true,
+              "files": null,
+              "nextQuestionId": 4 
             }
           }
         }

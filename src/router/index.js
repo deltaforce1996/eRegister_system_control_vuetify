@@ -142,7 +142,7 @@ const routes = [
         component: () => import("@/views/SDTeamMangement/SurveyQuestion/QuestionSecond.vue"),
       },
       {
-        path: "/SDTeamMangement/Survey/Questionnaire/4",
+        path: "/SDTeamMangement/Survey/Questionnaire/3",
         name: "SurveyQuestionnaire3Page",
         component: () => import("@/views/SDTeamMangement/SurveyQuestion/QuestionThird.vue"),
       },

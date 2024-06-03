@@ -1,354 +1,219 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-container>
-   <v-card-text>
+    <v-card-text>
       <ToolbarSurvey
-      :step="stepper.index"
-      :is-done="stepper.prevCompleted"
-      @prev="stepperPrev"
-      @next="stepperNext" />
+        :step="stepper.index"
+        :is-done="stepper.prevCompleted"
+        @prev="stepperPrev"
+        @next="stepperNext"
+      />
     </v-card-text>
-     <div class="mt-2">
-        <v-card elevation="1" color="#FFF1F0">
-          <v-card-title class="text-center text-secondary">
-            {{sections.nameQuestionnaire.title}}
-          </v-card-title>
-          <v-card-text class="text-secondary">
-            {{ sections.nameQuestionnaire.description }}
-          </v-card-text>
-        </v-card>
-      </div>
-    <div v-for="(item, index) in sections.createQuestionnaire" :key="index">
-        <div v-if="item?.data?.controlType === 'Paragraph'" class="mt-2">
-          <v-card elevation="1">
-            <v-card-title>
-              {{index+1}}.{{ item?.data?.metaData?.question }}
-              <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
-            </v-card-title>
-            <v-card-text>
-              <v-text-field
-                  v-model ="item.data.metaData.answer"
-                  density="compact"
-                  variant="outlined">
-                </v-text-field>
-            </v-card-text>
-          </v-card>
-        </div>
-        <div v-else-if="item?.data?.controlType === 'Multichoice'" class="mt-2">
-          <v-card elevation="1">
-            <v-card-title>
-              {{convertNo(index)}}.{{ item?.data?.metaData?.question }}
-              <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
-            </v-card-title>
-            <v-card-text class="pt-8">
-              <v-radio-group v-model="item.data.metaData.answer">
-                  <div v-for="(choice, i) in item?.data?.metaData?.choices"  :key="i">
-                      <v-radio v-if="choice.title === 'other'" :value="choice.specify" class="mt-n2">
-                          <template v-slot:label>
-                            <div v-if="choice.title === 'other'" class="pa-1" >
-                              <div class="d-flex flex-row  align-center">
-                              <span> {{choice.answer}}</span>
-                                <v-text-field
-                                    v-model="choice.specify"
-                                    style="max-width: 500px; min-width: 300px;"
-                                    class="mt-5 ml-5"
-                                    density="compact"
-                                    @input="item.data.metaData.answer = choice.specify"
-                                    variant="outlined">
-                                  </v-text-field>
-                              </div>
-                            </div>
-                            <div v-else class="pa-1">{{choice.answer}}</div>
-                          </template>
-                    </v-radio>
-                    <v-radio v-else
-                        :label="choice.answer"
-                        :value="choice.answer">
-                    </v-radio>
-                  </div>
-
-              </v-radio-group>
-            </v-card-text>
-          </v-card>
-        </div>
-        <div v-else-if="item?.data?.controlType === 'Checkbox'" class="mt-2">
-          <v-card elevation="1">
-            <v-card-title>
-              {{convertNo(index)}}.{{ item?.data?.metaData?.question }}
-              <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
-            </v-card-title>
-            <v-card-text class="pt-8">
-              <div  v-for="(choice, i) in item?.data?.metaData?.choices"  :key="i">
-                <v-checkbox v-model="item.data.metaData.answer" :value="choice.specify"
-                    v-if="choice.title === 'other'" class="mt-n10">
-                    <template v-slot:label>
-                            <div class="d-flex flex-row  align-center">
-                            <span> {{choice.answer}}</span>
-                              <v-text-field
-                                  v-model="choice.specify"
-                                  style="max-width: 500px; min-width: 300px;"
-                                  class="mt-5 ml-5"
-                                  density="compact"
-                                  @input="onCheckboxOther(item.data.metaData.choices,item.data.metaData.answer,choice.specify)"
-                                  variant="outlined">
-                                </v-text-field>
-                            </div>
-                    </template>
-                  </v-checkbox>
-                <v-checkbox
-                  v-if="choice.title === 'chioce'"
-                  v-model="item.data.metaData.answer"
-                  class="mt-n10"
-                  :label="choice.answer"
-                  :value="choice.answer"
-                ></v-checkbox>
-              </div>
-            </v-card-text>
-          </v-card>
-        </div>
-        <div v-else-if="item?.data?.controlType === 'Dropdown'" class="mt-2">
-          <v-card elevation="1">
-            <v-card-title>
-              {{convertNo(index)}}.{{ item.data.metaData.question }}
-              <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
-            </v-card-title>
-            <v-card-text class="pt-8">
-              <v-select
-                  v-model="item.data.metaData.answer"
-                  variant="outlined"
-                  :items="item.data.metaData.choices"
-                  item-title="answer"
-                  item-value=""></v-select>
-            </v-card-text>
-          </v-card>
-        </div>
-        <div v-else-if="item?.data?.controlType === 'Uploads'" class="mt-2">
-          <v-card elevation="1">
-            <v-card-title>
-              {{convertNo(index)}}.{{ item.data.metaData.question }}
-              <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
-            </v-card-title>
-            <v-card-text class="pt-8">
-              <Choosefile
-                  descritption=""
-                  @input-file="item.data.metaData.files = $event"
-                  :is-file="item.data.metaData.files"
-              />
-            </v-card-text>
-          </v-card>
-        </div>
-        <div v-else>None</div>
-
+    <v-row class="mt-5">
+      <v-col cols="8" class="d-flex" />
+      <v-col cols="4" class="d-flex justify-end">
+        <v-btn
+          color="secondary"
+          variant="outlined"
+          width="140"
+          class="text-capitalize mr-2"
+          rounded
+        >
+          <v-icon left>mdi-share</v-icon>
+          ส่งต่อ
+        </v-btn>
+        <v-btn color="secondary" width="140" class="text-capitalize" rounded>
+          <v-icon left>mdi-tag</v-icon>
+          Save Darft
+        </v-btn>
+      </v-col>
+    </v-row>
+    <div class="mt-2">
+      <v-card elevation="1" color="#FFF1F0">
+        <v-card-title class="text-center text-secondary">
+          {{ questionTile?.title }}
+        </v-card-title>
+        <v-card-text class="text-secondary">
+          {{ questionTile?.description }}
+        </v-card-text>
+      </v-card>
+    </div>
+    <div class="section">
+      <QuestionMaster
+        :sections="questionSections"
+        @sections="questionSections = $event"
+      />
     </div>
     <v-row dense class="mt-5">
-    <v-col cols="12" class="d-flex justify-center">
-      <v-btn color="secondary" width="140" class="text-capitalize" rounded @click="handleConfirmCreated">
+      <v-col cols="12" class="d-flex justify-center">
+        <v-btn
+          color="secondary"
+          width="140"
+          class="text-capitalize"
+          rounded
+          :loading="loading"
+          @click="handleConfirmCreated"
+        >
           <v-icon left>mdi-tag</v-icon>
-           เริ่ม
+          เริ่ม
         </v-btn>
-    </v-col>
-  </v-row>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script setup>
-import Choosefile from '@/components/forms/Choosefile'
-import RspService from '@/apis/RspService';
-import ToolbarSurvey from '@/components/items/ToolbarSurvey.vue'
-import { useErrorHandlingDialog } from '@/components/dialogs/ExceptionHandleDialogService'
-import { useConfirmationDialog } from '@/components/dialogs/ConfirmationDialogService'
-import { ref, onBeforeMount } from 'vue';
-
+import RspService from "@/apis/RspService";
+import QuestionMaster from "@/components/forms/QuestionMaster.vue";
+import ConvertUtils from "@/utils/convertUtils";
+import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
+import { ref, onBeforeMount } from "vue";
 
 const { handlingErrorsMessage } = useErrorHandlingDialog();
+// eslint-disable-next-line no-unused-vars
 const { showDialog } = useConfirmationDialog();
 
 import { useRouter } from "vue-router";
 const router = useRouter();
 
 const stepper = ref({
-  index : 3,
-  prevCompleted : true
+  index: 3,
+  prevCompleted: false,
 });
+const loading = ref(false);
+const questionSections = ref([]);
+const questionTile = ref({});
 
-const sections = ref([]);
-const state = ref(null);
-const bp_number = ref(null);
-const rsp_survey_id = ref(null);
-
+const p_state = ref(null);
+const p_bpNumber = ref(null);
+const p_rspSurveyId = ref(null);
+const p_rspActivityStatusId = ref(null);
+const p_inprogressSectionId = ref(null);
 
 onBeforeMount(() => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  state.value = urlParams.get('state')
-  bp_number.value = urlParams.get('bp_number')
-  rsp_survey_id.value = urlParams.get('rsp_survey_id')
 
+  const before = urlParams.get("prev_completed");
 
+  stepper.value.completed = before === "completed" ? true : false;
+  p_state.value = urlParams.get("state");
+  p_bpNumber.value = urlParams.get("bp_number");
+  p_rspSurveyId.value = urlParams.get("rsp_survey_id");
+  console.log(p_bpNumber.value);
+  console.log(p_rspSurveyId.value);
 
-  const formQuestion = sessionStorage.getItem("questionnaire2");
-  sections.value = JSON.parse(formQuestion);
-
+  const info = sessionStorage.getItem("questionnaire2");
+  if (info !== null) {
+    const question = JSON.parse(info);
+    p_rspActivityStatusId.value = question.rspActivityStatusId;
+    p_inprogressSectionId.value = question.inprogressSectionId;
+    questionTile.value = question.nameQuestionnaire;
+    questionSections.value = ConvertUtils.questionnaireDisabled(
+      question.createQuestionnaire
+    );
+  }
 });
-const convertNo =(index) =>{
-  return index +1
-}
-
-const onCheckboxOther = (choices,answer,value) =>{
-  if(answer.length === 0){
-    answer[0] = value;
-   return;
-  }
-  const checked  =  Array.from(choices, (x) => x.title ==='other' ?   x.specify : x.answer)
-  for (let i = 0; i < answer.length; i++) {
-    const find = checked.find((element) => element === answer[i]);
-    if(!find) {
-      answer[i] = value;
-      return;
-    }
-  }
-  answer.push(value) ;
-}
-
-const formatAnswers = async () =>{
-      const question =sections.value.createQuestionnaire;
-      const  answers = []
-      for (let i = 0; i < question.length; i++) {
-        switch(question[i].data.controlType){
-          case 'Paragraph' :
-          answers.push({
-            question_id: question[i].id,
-            answer: question[i].data.metaData.answer
-          })
-          break;
-          case 'Multichoice' :
-          answers.push({
-            question_id: question[i].id,
-            answer: question[i].data.metaData.answer
-          })
-          break;
-          case 'Checkbox' : {
-              const checkboxs =   question[i].data.metaData.answer;
-              if(checkboxs.length === 0){
-                answers.push({
-                      question_id: question[i].id,
-                      answer: null
-                })
-              }else{
-                checkboxs.forEach(item => {
-                answers.push({
-                        question_id: question[i].id,
-                        answer: item
-                    })
-                });
-              }
-          }
-          break;
-          case 'Dropdown' :
-            answers.push({
-              question_id: question[i].id,
-              answer: question[i].data.metaData.answer
-            })
-          break;
-          case 'Uploads' :{
-            const file =  question[i].data.metaData.files;
-            answers.push({
-                question_id: question[i].id,
-                answer: (file) ? await getBase64(file) : null,
-            })
-          }
-          break;
-        }
-      }
-    return answers;
-
-}
-const getBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-    });
-};
 
 const handleConfirmCreated = async () => {
-    const confirmed = await showDialog('ยืนยันการการส่งแบบสอบถาม', 'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
-    if (confirmed) {
-        // eslint-disable-next-line no-unused-vars
-        const answersFormat = await formatAnswers();
-        switch(state.value){
-          case  "created" :
-          handleCreatedSurveyAnswer(answersFormat)
-          break;
-          case  "updated" :
-          handleUpdatedSurveyAnswer(answersFormat)
-          break;
+  const confirmed = await showDialog(
+    "ยืนยันการการส่งแบบสอบถาม",
+    'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ'
+  );
+  if (confirmed) {
+    const answersFormat = await ConvertUtils.questionnaireAnswer(
+      questionSections.value
+    );
+    switch (p_state.value) {
+      case "created":
+        handleCreatedSurveyAnswer(answersFormat);
+        break;
+      case "updated":
+        handleUpdatedSurveyAnswer(answersFormat);
+        break;
     }
-
   }
 };
 
-// eslint-disable-next-line no-unused-vars
 const handleCreatedSurveyAnswer = async (answers) => {
   try {
-    console.log("created")
-    const response =  await RspService.createRspSurveyAnswer(3,answers)
-    console.log(response)
-  }
-  catch (e) {
-      if (e.response) {
-        const val = e.response.data
-        handlingErrorsMessage(val.message, val?.data.error);
-        return;
+    loading.value = true;
+    const response = await RspService.createRspSurveyAnswer(
+      p_rspSurveyId.value,
+      answers
+    );
+    const { is_success } = response.data;
+    if (is_success) {
+      const updated = await handleUpdatedSurveyResult();
+      if (updated.is_success) {
+        stepperNext();
       }
-      handlingErrorsMessage("unknown", e.message);
     }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    loading.value = false;
+  }
 };
-// eslint-disable-next-line no-unused-vars
 const handleUpdatedSurveyAnswer = async (answers) => {
   try {
-    console.log("updated")
-    handleUpdatedSurveyResult();
-  }
-  catch (e) {
-      if (e.response) {
-        const val = e.response.data
-        handlingErrorsMessage(val.message, val?.data.error);
-        return;
+    const response = await RspService.updateRspSurveyAnswer(
+      p_rspSurveyId.value,
+      answers
+    );
+    const { is_success } = response.data;
+    if (is_success) {
+      const updated = await handleUpdatedSurveyResult();
+      if (updated.is_success) {
+        stepperNext();
       }
-      handlingErrorsMessage("unknown", e.message);
     }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    loading.value = false;
+  }
 };
 
-// eslint-disable-next-line no-unused-vars
 const handleUpdatedSurveyResult = async () => {
   const payload = {
-      bp_number: bp_number.value,
-      rsp_survey_id: rsp_survey_id.value,
-      rsp_activity_status_id: 1,
-      inprogress_section_id: 1,
+    bp_number: p_bpNumber.value,
+    rsp_survey_id: Number(p_rspSurveyId.value),
+    rsp_activity_status_id: p_rspActivityStatusId.value,
+    inprogress_section_id: p_inprogressSectionId.value,
+  };
+  try {
+    const response = await RspService.updateRspSurveyResult(payload);
+    return response.data;
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
     }
-    console.log(payload)
-
-  // try {
-  //   // eslint-disable-next-line no-unused-vars
-  //   const response = await RspService.updateRspSurveyResult();
-  // }
-  // catch (e) {
-  //     if (e.response) {
-  //       const val = e.response.data
-  //       handlingErrorsMessage(val.message, val?.data.error);
-  //       return;
-  //     }
-  //     handlingErrorsMessage("unknown", e.message);
-  //   }
+    console.log(e.message);
+    handlingErrorsMessage("unknown", e.message);
+  }
 };
-const  stepperPrev = () => {
-  console.log('prev')
-  router.push("/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=created&bp_number=11&&rsp_survey_id=11");
-}
-const  stepperNext = ()=>  {
-  console.log("next")
-}
+const stepperPrev = () => {
+  const prevCompleted = stepper.value.completed ? "completed" : "incompleted";
+  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}`;
+  router.push(url);
+};
+const stepperNext = () => {
+  const prevCompleted = stepper.value.completed ? "completed" : "incompleted";
+  const url = `/SDTeamMangement/Survey/Questionnaire/3?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}`;
+  router.push(url);
+};
 </script>
-

@@ -52,6 +52,7 @@
 // import RspService from '@/apis/RspService';
 import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
 // import TestQuestion2 from "@/assets/form2.json";
+import TestQuestion3 from "@/assets/form3.json";
 // eslint-disable-next-line no-unused-vars
 import { ref, onBeforeMount } from "vue";
 import ApiQuestionaire from "@/assets/question_api_data.json";
@@ -81,7 +82,7 @@ onBeforeMount(() => {
 const stepperPrev = () => {
   console.log("prev");
   router.push(
-    "/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=created&bp_number=11&&rsp_survey_id=11"
+    "/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=created&bp_number=01707129375000&&rsp_survey_id=4"
   );
 };
 const stepperNext = () => {
@@ -92,7 +93,7 @@ const next = () => {};
 const now = () => {
   setInfo();
   router.push(
-    "/SDTeamMangement/Survey/Questionnaire/2?prev_completed=completed&state=created&bp_number=11&&rsp_survey_id=11"
+    "/SDTeamMangement/Survey/Questionnaire/2?prev_completed=completed&state=created&bp_number=01707129375000&&rsp_survey_id=4"
   );
 };
 const later = () => {};
@@ -103,12 +104,10 @@ const setInfo = () => {
     "questionnaire2",
     JSON.stringify(mySurvayStructureTwo)
   );
-
+  // console.log(JSON.stringify(mySurvayStructureThree))
   sessionStorage.setItem(
     "questionnaire3",
     JSON.stringify(mySurvayStructureThree)
   );
-
-  console.log(JSON.stringify(mySurvayStructureThree))
 };
 </script>

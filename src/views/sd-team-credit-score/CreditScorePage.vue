@@ -23,7 +23,7 @@
               color="secondary"
               :model-value="score"
               :height="9"
-              style="width: 50%; margin-top: 5%"
+              style="width: 50%; margin-top: 15px"
             ></v-progress-linear>
           </v-col>
           <v-col cols="12" class="mt-8 d-flex justify-center">
@@ -78,7 +78,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-
+import { useRoute } from "vue-router";
 import CraditItem from "@/components/items/CraditItem.vue";
 import ButtonControl from "@/components/controls/ButtonControl.vue";
 import RspService from "@/apis/RspService";
@@ -86,12 +86,14 @@ import RspService from "@/apis/RspService";
 import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 
+const route = useRoute();
+
 const score = ref(50);
 const survey_result_details = ref({});
 const level = ref("A");
 
 onMounted(async () => {
-  await getRspSurveyResultDetail("01713284218000");
+  await getRspSurveyResultDetail(route.query.bp_number);
 });
 
 const description = ref("");

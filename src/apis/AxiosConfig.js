@@ -9,14 +9,14 @@ _axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 
 
-_axios.interceptors.request.use((request) => {
-  window.console.log('Request', JSON.stringify(request, null, 2))
-  return request
-})
+// _axios.interceptors.request.use((request) => {
+//   window.console.log('Request', JSON.stringify(request, null, 2))
+//   return request
+// })
 
-_axios.interceptors.response.use((response) => {
-  window.console.log('Response:', JSON.stringify(response, null, 2))
-  return response
-})
+// _axios.interceptors.response.use((response) => {
+//   window.console.log('Response:', JSON.stringify(response, null, 2))
+//   return response
+// })
 
 export default _axios;

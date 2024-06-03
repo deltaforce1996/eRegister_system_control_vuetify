@@ -12,7 +12,7 @@ const getVendorRspStatus = async (
   completed_from,
   completed_to
 ) => {
-  let url = `/rsp/get-vendor-rsp-status?offset=${offset -= 1}&limit=${limit}`;
+  let url = `/rsp/get-vendor-rsp-status?offset=${(offset -= 1)}&limit=${limit}`;
   if (search_field) url += `&search_field=${search_field}`;
   if (search_value) url += `&search_value=${search_value}`;
   if (company_id) url += `&company_id=${company_id}`;
@@ -335,24 +335,48 @@ const permanentlyDeleteRspTraining = async (_rsp_traning_id) => {
 };
 
 // survey
+// eslint-disable-next-line no-unused-vars
 const completeRspSurvey = async (bp_number, rsp_survey_id) => {
   return await axiosBase({
     method: "post",
     url: `/rsp/complete-rsp-survey`,
     data: {
       bp_number,
-      rsp_survey_id,
+      rsp_survey_id: Number(rsp_survey_id),
       created_user_id: 1,
     },
+    // data:{
+    //   "bp_number": "01707129375000",
+    //   "rsp_survey_id": 6,
+    //   "created_user_id": 157
+    // }
   });
 };
 
+// eslint-disable-next-line no-unused-vars
 const createRspSurveyAnswer = async (rsp_survey_result_id, answers) => {
   // answers = [{question_id, answer}]
   return await axiosBase({
     method: "post",
     url: `/rsp/create-rsp-survey-answer`,
-    data: { rsp_survey_result_id, answers, created_user_id: 1 },
+    data: {
+      rsp_survey_result_id: Number(rsp_survey_result_id),
+      answers: answers.map((el) => {
+        return { question_id: Number(el.question_id), answer: "" + el.answer };
+      }),
+      created_user_id: 1,
+    },
+    // data:{
+    //   "rsp_survey_result_id": 3,
+    //   "answers": [
+    //     {"question_id": 14, "answer": "27"},
+    //     {"question_id": 11, "answer": "www.abc.com"},
+    //     {"question_id": 12, "answer": "25"},
+    //     {"question_id": 12, "answer": "26"},
+    //     {"question_id": 13, "answer": ""}
+    //   ],
+    //   "created_user_id": 1
+    // }
   });
 };
 
@@ -363,28 +387,26 @@ const updateRspSurveyAnswer = async (rsp_survey_result_id, answers) => {
     url: `/rsp/update-rsp-survey-answer`,
     data: {
       rsp_survey_result_id,
-      answers,
+      answers: answers.map((el) => {
+        return { question_id: Number(el.question_id), answer: "" + el.answer };
+      }),
       updated_user_id: 1,
     },
   });
 };
 
-const updateRspSurveyResult = async (
-  bp_number,
-  rsp_survey_id,
-  rsp_activity_status_id,
-  inprogress_section_id
-) => {
+const updateRspSurveyResult = async (data) => {
   return await axiosBase({
     method: "post",
     url: `/rsp/update-rsp-survey-result`,
-    data: {
-      bp_number,
-      rsp_survey_id,
-      rsp_activity_status_id,
-      inprogress_section_id,
-      updated_user_id: 1,
-    },
+    data: { ...data, updated_user_id: 1 },
+    // data:{
+    //   "bp_number": "c",
+    //   "rsp_survey_id": 4,
+    //   "rsp_activity_status_id": 1,
+    //   "inprogress_section_id": 1,
+    //   "updated_user_id": 1
+    // }
   });
 };
 

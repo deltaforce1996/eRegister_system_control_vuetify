@@ -1,5 +1,7 @@
 const mySurvayStructureTwo = {
   id: "",
+  rspActivityStatusId: 1,
+  inprogressSectionId: 1,
   nameQuestionnaire: {
     title: "",
     description: "",
@@ -9,6 +11,8 @@ const mySurvayStructureTwo = {
 
 const mySurvayStructureThree = {
   id: "",
+  rspActivityStatusId: 1,
+  inprogressSectionId: 1,
   nameQuestionnaire: {
     title: "",
     description: "",
@@ -29,6 +33,7 @@ const mapperSurvayStepTwo = (el) => {
       const Paragraph = {
         id: 0,
         index: 0,
+        disabled: false,
         typeQuestionCard: "None",
         data: {
           controlType: "Paragraph",
@@ -38,7 +43,7 @@ const mapperSurvayStepTwo = (el) => {
             isRequired: true,
             index: 0,
             score: 0,
-            nextQuestion: 0,
+            nextQuestionId: 0,
           },
         },
       };
@@ -59,6 +64,7 @@ const mapperSurvayStepTwo = (el) => {
       const Multichoice = {
         id: 0,
         index: 0,
+        disabled: false,
         typeQuestionCard: "None",
         data: {
           controlType: "Multichoice",
@@ -89,7 +95,7 @@ const mapperSurvayStepTwo = (el) => {
             title: item.is_other_choice ? "other" : "chioce",
             answer: item.answer,
             isAligned: item.is_aligned,
-            nextQuestion: item.next_question_id,
+            nextQuestionId: item.next_question_id,
             index: item.sequence,
             score: item.score,
           };
@@ -101,6 +107,7 @@ const mapperSurvayStepTwo = (el) => {
       const Checkbox = {
         id: 0,
         index: 0,
+        disabled: false,
         typeQuestionCard: "None",
         data: {
           controlType: "Checkbox",
@@ -130,7 +137,7 @@ const mapperSurvayStepTwo = (el) => {
               answer: item.answer,
               index: item.sequence,
               score: item.score,
-              nextQuestion: item.next_question_id,
+              nextQuestionId: item.next_question_id,
             };
           }
 
@@ -141,7 +148,7 @@ const mapperSurvayStepTwo = (el) => {
             answer: item.answer,
             index: item.sequence,
             score: item.score,
-            nextQuestion: item.next_question_id,
+            nextQuestionId: item.next_question_id,
             specify: "",
           };
         });
@@ -152,6 +159,7 @@ const mapperSurvayStepTwo = (el) => {
       const UploadType = {
         id: 0,
         index: 0,
+        disabled: false,
         typeQuestionCard: "None",
         data: {
           controlType: "Uploads",
@@ -178,6 +186,7 @@ const mapperSurvayStepTwo = (el) => {
       const DropdawnType = {
         id: 0,
         index: 0,
+        disabled: false,
         typeQuestionCard: "None",
         data: {
           controlType: "Dropdown",
@@ -202,7 +211,7 @@ const mapperSurvayStepTwo = (el) => {
           return {
             id: item.rsp_survey_choice_id,
             answer: item.answer,
-            nextQuestion: item.next_question_id,
+            nextQuestionId: item.next_question_id,
           };
         });
         mySurvayStructureTwo.createQuestionnaire.push(DropdawnType);
@@ -227,6 +236,7 @@ const mapperSurvayStepThree = (el) => {
       const Paragraph = {
         id: "",
         index: 0,
+        disabled: false,
         typeQuestionCard: "None",
         data: {
           controlType: "Paragraph",
@@ -235,11 +245,10 @@ const mapperSurvayStepThree = (el) => {
             totalScore: 0,
             answer: "",
             isRequire: true,
+            nextQuestionId: 0,
           },
         },
       };
-
-      console.log()
 
       if (question?.question_type?.id == 1) {
         Paragraph.id = question?.rsp_survey_question_id;
@@ -258,6 +267,7 @@ const mapperSurvayStepThree = (el) => {
       const Checkbox = {
         id: "",
         index: 0,
+        disabled: false,
         typeQuestionCard: "Align",
         data: {
           controlType: "Checkbox",
@@ -286,23 +296,25 @@ const mapperSurvayStepThree = (el) => {
         Checkbox.data.metaData.choices = question?.choices.map((item) => {
           if (item.is_other_choice) {
             return {
+              id: item.rsp_survey_choice_id,
               title: "other",
               score: item.score,
               answer: item.answer,
               specify: "",
               isAlign: item.is_aligned,
               index: item.sequence,
-              nextQuestion: item.next_question_id,
+              nextQuestionId: item.next_question_id,
             };
           }
 
           return {
+            id: item.rsp_survey_choice_id,
             title: "chioce",
             score: item.score,
             answer: item.answer,
             isAlign: item.is_aligned,
             index: item.sequence,
-            nextQuestion: item.next_question_id,
+            nextQuestionId: item.next_question_id,
           };
         });
 
@@ -312,6 +324,7 @@ const mapperSurvayStepThree = (el) => {
       const Multichoice = {
         id: "0",
         index: 1,
+        disabled: false,
         typeQuestionCard: "Align",
         data: {
           controlType: "Multichoice",
@@ -337,22 +350,24 @@ const mapperSurvayStepThree = (el) => {
         Multichoice.data.metaData.choices = question?.choices.map((item) => {
           if (item?.is_other_choice) {
             return {
+              id: item.rsp_survey_choice_id,
               index: item.sequence,
               title: "other",
               isAlign: item.is_aligned,
               answer: item.answer,
               specify: "",
-              nextQuestion: item.next_question_id,
+              nextQuestionId: item.next_question_id,
               score: item.score,
             };
           }
 
           return {
+            id: item.rsp_survey_choice_id,
             index: item.sequence,
             title: "chioce",
             isAlign: item.is_aligned,
             answer: item.answer,
-            nextQuestion: item.next_question_id,
+            nextQuestionId: item.next_question_id,
             score: item.score,
           };
         });
@@ -363,6 +378,7 @@ const mapperSurvayStepThree = (el) => {
       const DropdawnType = {
         id: 0,
         index: 0,
+        disabled: false,
         typeQuestionCard: "None",
         data: {
           controlType: "Dropdown",
@@ -393,7 +409,7 @@ const mapperSurvayStepThree = (el) => {
               score: item.score,
               isAlign: item.is_aligned,
               answer: item.answer,
-              nextQuestion: item.next_question_id,
+              nextQuestionId: item.next_question_id,
             };
           }
 
@@ -403,7 +419,7 @@ const mapperSurvayStepThree = (el) => {
             score: item.score,
             isAlign: item.is_aligned,
             answer: item.answer,
-            nextQuestion: item.next_question_id,
+            nextQuestionId: item.next_question_id,
           };
         });
       }
