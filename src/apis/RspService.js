@@ -29,6 +29,7 @@ const getVendorRspStatus = async (
     data: {},
   });
 };
+
 const getRegisteredVendorAmount = async () => {
   return await axiosBase({
     method: "get",
@@ -70,7 +71,7 @@ const sendFollowUpVendor = async (
     url: `/rsp/follow-up-vendor`,
     data: {
       bp_number: bp_number,
-      is_sent_to_contact_owner: is_sent,
+      is_sent_to_contact_owner: Number(is_sent),
       email: email,
       additional_message: additional_msg,
     },
@@ -78,18 +79,18 @@ const sendFollowUpVendor = async (
 };
 const getRspPolicyResults = async (_bp_number) => {
   return await axiosBase({
-    method: "get",
+    method: "post",
     url: `/rsp/get-rsp-policy-results`,
-    params: {
+    data: {
       bp_number: _bp_number,
     },
   });
 };
 const getRspSurveyResults = async (_bp_number) => {
   return await axiosBase({
-    method: "get",
+    method: "post",
     url: `/rsp/get-rsp-survey-results`,
-    params: {
+    data: {
       bp_number: _bp_number,
     },
   });
