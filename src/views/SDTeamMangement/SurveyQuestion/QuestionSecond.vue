@@ -28,6 +28,7 @@
         </v-btn>
       </v-col> -->
     </v-row>
+    <v-form v-model="validateForm" @submit.prevent="handleSubmit">
     <div class="mt-2">
       <v-card elevation="1" color="#FFF1F0">
         <v-card-title class="text-center text-secondary">
@@ -50,15 +51,16 @@
           color="secondary"
           width="140"
           class="text-capitalize"
+          type="submit"
           rounded
           :loading="loading"
-          @click="handleConfirmCreated"
         >
           <v-icon left>mdi-tag</v-icon>
           เริ่ม
         </v-btn>
       </v-col>
     </v-row>
+  </v-form>
   </v-container>
 </template>
 <script setup>
@@ -81,6 +83,7 @@ const stepper = ref({
   index: 3,
   prevCompleted: false,
 });
+const validateForm = ref(null);
 const loading = ref(false);
 const questionSections = ref([]);
 const questionTile = ref({});
@@ -116,33 +119,20 @@ onBeforeMount(() => {
   }
 });
 
-const handleConfirmCreated = async () => {
-  const confirmed = await showDialog(
-    "ยืนยันการการส่งแบบสอบถาม",
-    'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ'
-  );
-  if (confirmed) {
-    const answersFormat = await ConvertUtils.questionnaireAnswer(
-      questionSections.value
-    );
-    switch (p_state.value) {
-      case "created":
-        handleCreatedSurveyAnswer(answersFormat);
-        break;
-      case "updated":
-        handleUpdatedSurveyAnswer(answersFormat);
-        break;
+const handleSubmit = async () => {
+  if (validateForm.value) {
+    const confirmed = await showDialog("ยืนยันการการส่งแบบสอบถาม",'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
+    if (confirmed) {
+        const answersFormat = await ConvertUtils.questionnaireAnswer(questionSections.value);
+        handleCreatedSurveyAnswer(answersFormat)
+      }
     }
-  }
 };
 
 const handleCreatedSurveyAnswer = async (answers) => {
   try {
     loading.value = true;
-    const response = await RspService.createRspSurveyAnswer(
-      p_rspSurveyId.value,
-      answers
-    );
+    const response = await RspService.createRspSurveyAnswer(p_rspSurveyId.value, answers);
     const { is_success } = response.data;
     if (is_success) {
       const updated = await handleUpdatedSurveyResult();
@@ -161,31 +151,6 @@ const handleCreatedSurveyAnswer = async (answers) => {
     loading.value = false;
   }
 };
-const handleUpdatedSurveyAnswer = async (answers) => {
-  try {
-    const response = await RspService.updateRspSurveyAnswer(
-      p_rspSurveyId.value,
-      answers
-    );
-    const { is_success } = response.data;
-    if (is_success) {
-      const updated = await handleUpdatedSurveyResult();
-      if (updated.is_success) {
-        stepperNext();
-      }
-    }
-  } catch (e) {
-    if (e.response) {
-      const val = e.response.data;
-      handlingErrorsMessage(val.message, val?.data.error);
-      return;
-    }
-    handlingErrorsMessage("unknown", e.message);
-  } finally {
-    loading.value = false;
-  }
-};
-
 const handleUpdatedSurveyResult = async () => {
   const payload = {
     bp_number: p_bpNumber.value,

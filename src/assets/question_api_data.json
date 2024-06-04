@@ -113,7 +113,7 @@
                                 "is_other_choice": false,
                                 "sequence": 1,
                                 "score": 10,
-                                "next_question_id": 7
+                                "next_question_id": 2
                             },
                             {
                                 "rsp_survey_choice_id": 2,
@@ -240,7 +240,7 @@
                         "question": "โปรดแนบนโยบาย เอกสารหรือเว็ปลิ้งค์ที่เกี่ยวข้อง",
                         "sequence": 3,
                         "score": 0,
-                        "is_required": false,
+                        "is_required": true,
                         "choices": []
                     },
                     {

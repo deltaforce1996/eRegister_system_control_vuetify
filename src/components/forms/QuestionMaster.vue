@@ -2,7 +2,7 @@
     <div v-for="(item, index) in questionSections" :key="index">
         <section v-if="item?.data?.controlType === types.paragraph" class="mt-2">
           <v-card elevation="1"
-                  color="item.disabled ? 'grey-lighten-1': ''"
+                  :color="item.disabled ? 'grey-lighten-1': ''"
                   :disabled="item.disabled"
                   :variant="item.disabled ? 'tonal':'elevated'">
             <v-card-title>
@@ -14,6 +14,7 @@
                   v-model ="item.data.metaData.answer"
                   @input="onParagraphChanged(item.index,item.data.metaData.nextQuestionId,item.data.metaData.answer)"
                   density="compact"
+                  :rules="item?.data?.metaData?.isRequired && !item.disabled ? rules.paragraph :''"
                   variant="outlined">
                 </v-text-field>
             </v-card-text>
@@ -29,7 +30,9 @@
               <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
             </v-card-title>
             <v-card-text class="pt-8">
-              <v-radio-group v-model="item.data.metaData.answer" @input="onRadioChanged(item.index,item?.data?.metaData?.choices,item.data.metaData.answer)">
+              <v-radio-group v-model="item.data.metaData.answer"
+                            :rules="item?.data?.metaData?.isRequired && !item.disabled ? rules.radio :''"
+                            @input="onRadioChanged(item.index,item?.data?.metaData?.choices,item.data.metaData.answer)">
                   <div v-for="(choice, i) in item.data.metaData.choices"  :key="i">
                       <v-radio :value="choice.id" class="mt-n2">
                           <template v-slot:label>
@@ -65,10 +68,11 @@
             </v-card-title>
             <v-card-text class="pt-8">
               <div  v-for="(choice, i) in item?.data?.metaData?.choices"  :key="i">
-                <v-checkbox  class="mt-n10"
+                <v-checkbox  class="mt-n1"
                             v-model="item.data.metaData.answer"
                             :label="choice.answer"
                             :value="choice.id"
+                            :rules="item?.data?.metaData?.isRequired && !item.disabled ? rules.checked :''"
                             @input="onCheckboxChanged(item.index,choice,item.data.metaData.answer)"
                         >
                     <template  v-if="choice.title === isOther" v-slot:label>
@@ -105,6 +109,7 @@
                   variant="outlined"
                   :items="item.data.metaData.choices"
                   item-title="answer"
+                  :rules="item?.data?.metaData?.isRequired && !item.disabled ? rules.selected :''"
                   @update:modelValue="onDropdownChanged(item.index,item.data.metaData.choices,item.data.metaData.answer)"
                   item-value="id"></v-select>
             </v-card-text>
@@ -152,6 +157,13 @@ const types =ref({
   dropdown : 'Dropdown',
   uploads : 'Uploads',
 });
+
+const rules = ref({
+  checked: [(v) =>   !!v && v.length > 0 || "กรุณากรอกข้อมูล"],
+  radio: [(v) => !!v || "กรุณากรอกข้อมูล"],
+  selected: [(v) => !!v || "กรุณากรอกข้อมูล"],
+  paragraph: [(v) => !!v || "กรุณากรอกข้อมูล"]
+})
 
 const questionSections = computed({
     get() {  return props.sections },
