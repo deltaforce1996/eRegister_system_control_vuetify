@@ -49,6 +49,7 @@
     </v-card-text>
     <v-bottom-navigation
       :active="!done"
+      v-show="!isHide"
       height="180"
       bg-color="rgba(0, 0, 0, 0.8)"
     >
@@ -143,6 +144,7 @@ const stepper = ref({
 const state = ref(null);
 const bp_number = ref(null);
 const rsp_survey_id = ref(null);
+const isHide = ref(false);
 onBeforeMount(() => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -152,6 +154,7 @@ onBeforeMount(() => {
   state.value = urlParams.get("state");
   bp_number.value = urlParams.get("bp_number");
   rsp_survey_id.value = urlParams.get("rsp_survey_id");
+  if (urlParams.get("isHide") == 1) isHide.value = true;
 });
 const stepperPrev = () => {
   console.log("prev");

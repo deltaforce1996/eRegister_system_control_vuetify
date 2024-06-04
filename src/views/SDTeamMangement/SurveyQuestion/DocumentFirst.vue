@@ -153,10 +153,10 @@ const getRspPolicyResults = async (bp_number, rsp_policy_id) => {
       rsp_policy_id
     );
     if (response.data?.is_success) {
-      if(response.data.data && response.data.data.length > 0) {
+      if (response.data.data && response.data.data.length > 0) {
         now();
-      }else{
-        now();
+      } else {
+        now(true);
       }
     }
   } catch (e) {
@@ -177,15 +177,21 @@ const stepperPrev = () => {
 const stepperNext = () => {
   console.log("next");
   router.push(
-    `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&&rsp_survey_id=${rsp_survey_id.value}`
+    `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
   );
 };
 
 const next = () => {};
-const now = () => {
-  router.push(
-    `/SDTeamMangement/Survey/Document/2?prev_completed=completed&state=created&bp_number=${bp_number.value}&&rsp_survey_id=${rsp_survey_id.value}`
-  );
+const now = (isHide) => {
+  if (isHide) {
+    router.push(
+      `/SDTeamMangement/Survey/Document/2?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}&isHide=1`
+    );
+  } else {
+    router.push(
+      `/SDTeamMangement/Survey/Document/2?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+    );
+  }
 };
 const later = () => {};
 </script>
