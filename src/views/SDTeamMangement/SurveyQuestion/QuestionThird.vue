@@ -35,6 +35,7 @@
         </v-col> -->
       </v-row>
     </div>
+    <v-form v-model="validateForm" @submit.prevent="handleSubmit">
     <div class="section">
       <QuestionMaster
         :sections="sectionsData"
@@ -49,6 +50,7 @@
           variant="outlined"
           class="text-capitalize ma-1"
           rounded
+          :disabled="sectionsIndex === 0"
           @click="sectionPrev"
         >
           ย้อนกลับ
@@ -59,12 +61,13 @@
           class="text-capitalize ma-1"
           rounded
           :loading="loading"
-          @click="submit()"
+          type="submit"
         >
           {{ sectionLast() ? "ส่งแบบสอบถาม" : "ต่อไป" }}
         </v-btn>
       </v-col>
     </v-row>
+  </v-form>
   </v-container>
 </template>
 <script setup>
@@ -99,6 +102,7 @@ const stepper = ref({
   prevCompleted: false,
 });
 
+const validateForm = ref(null);
 const loading = ref(false);
 const sectionId = ref(null);
 const sectionsTitle = ref(null);
@@ -138,16 +142,23 @@ onBeforeMount(() => {
   p_bpNumber.value = urlParams.get("bp_number");
   p_rspSurveyId.value = urlParams.get("rsp_survey_id");
 });
-const submit = () => {
-  switch (p_state.value) {
-    case "updated":
-      handleUpdatedSurveyAnswer();
-      break;
-    default:
-      handleCreatedSurveyAnswer();
-      break;
-  }
+const handleSubmit = () => {
+
+  if (validateForm.value) {
+    handleCreatedSurveyAnswer();
+    }
 };
+
+// const submit = () => {
+//   switch (p_state.value) {
+//     case "updated":
+//       handleUpdatedSurveyAnswer();
+//       break;
+//     default:
+//       handleCreatedSurveyAnswer();
+//       break;
+//   }
+// };
 const sectionLast = () => {
   const index = sectionsIndex.value + 1;
   const max = sectionsItems.value.length;
@@ -155,6 +166,7 @@ const sectionLast = () => {
 };
 // eslint-disable-next-line no-unused-vars
 const sectionNext = () => {
+  sectionsItems.value[sectionsIndex.value].data = sectionsData.value;
   if (sectionsIndex.value < sectionsItems.value.length) {
     sectionsIndex.value = sectionsIndex.value + 1;
     sectionId.value = sectionsItems.value[sectionsIndex.value].index;
@@ -179,6 +191,7 @@ const sectionPrev = () => {
   }
 };
 
+// eslint-disable-next-line no-unused-vars
 const handleCreatedSurveyAnswer = async () => {
   try {
     loading.value = true;
@@ -212,39 +225,40 @@ const handleCreatedSurveyAnswer = async () => {
     loading.value = false;
   }
 };
-const handleUpdatedSurveyAnswer = async () => {
-  try {
-    loading.value = true;
-    const answersFormat = await ConvertUtils.questionnaireAnswer(
-      sectionsData.value
-    );
-    const response = await RspService.createRspSurveyAnswer(
-      p_rspSurveyId.value,
-      answersFormat
-    );
-    const { is_success } = response.data;
-    if (is_success) {
-      const updated = await handleUpdatedSurveyResult();
-      if (updated.is_success) {
-        const section_last = sectionLast();
-        if (section_last) {
-          handleSendQuestion();
-        } else {
-          sectionNext();
-        }
-      }
-    }
-  } catch (e) {
-    if (e.response) {
-      const val = e.response.data;
-      handlingErrorsMessage(val.message, val?.data.error);
-      return;
-    }
-    handlingErrorsMessage("unknown", e.message);
-  } finally {
-    loading.value = false;
-  }
-};
+// eslint-disable-next-line no-unused-vars
+// const handleUpdatedSurveyAnswer = async () => {
+//   try {
+//     loading.value = true;
+//     const answersFormat = await ConvertUtils.questionnaireAnswer(
+//       sectionsData.value
+//     );
+//     const response = await RspService.createRspSurveyAnswer(
+//       p_rspSurveyId.value,
+//       answersFormat
+//     );
+//     const { is_success } = response.data;
+//     if (is_success) {
+//       const updated = await handleUpdatedSurveyResult();
+//       if (updated.is_success) {
+//         const section_last = sectionLast();
+//         if (section_last) {
+//           handleSendQuestion();
+//         } else {
+//           sectionNext();
+//         }
+//       }
+//     }
+//   } catch (e) {
+//     if (e.response) {
+//       const val = e.response.data;
+//       handlingErrorsMessage(val.message, val?.data.error);
+//       return;
+//     }
+//     handlingErrorsMessage("unknown", e.message);
+//   } finally {
+//     loading.value = false;
+//   }
+// };
 
 const handleUpdatedSurveyResult = async () => {
   try {
