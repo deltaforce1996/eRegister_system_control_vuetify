@@ -15,6 +15,8 @@ const getRoleById = async (roleId) => {
   });
 };
 
+
+
 export default {
   getRoleAll,
   getRoleById,

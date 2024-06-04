@@ -76,22 +76,23 @@ const sendFollowUpVendor = async (
     },
   });
 };
-const getRspPolicyResults = async (_bp_number) => {
+const getRspPolicyResults = async (_bp_number, rsp_policy_id) => {
+  const data = { bp_number: _bp_number };
+  if (rsp_policy_id) data.rsp_policy_id = Number(rsp_policy_id);
   return await axiosBase({
-    method: "get",
+    method: "post",
     url: `/rsp/get-rsp-policy-results`,
-    params: {
-      bp_number: _bp_number,
-    },
+    data,
   });
 };
-const getRspSurveyResults = async (_bp_number) => {
+
+const getRspSurveyResults = async (_bp_number, rsp_policy_id) => {
+  const data = { bp_number: _bp_number };
+  if (rsp_policy_id) data.rsp_policy_id = Number(rsp_policy_id);
   return await axiosBase({
-    method: "get",
+    method: "post",
     url: `/rsp/get-rsp-survey-results`,
-    params: {
-      bp_number: _bp_number,
-    },
+    data,
   });
 };
 

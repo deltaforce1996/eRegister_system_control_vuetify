@@ -90,8 +90,12 @@
 </template>
 <script setup>
 // import RspService from '@/apis/RspService';
+import RspService from "@/apis/RspService";
 import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
+
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
 
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -103,6 +107,7 @@ const stepper = ref({
 const state = ref(null);
 const bp_number = ref(null);
 const rsp_survey_id = ref(null);
+const activated_laoding = ref(true);
 
 onBeforeMount(() => {
   const queryString = window.location.search;
@@ -114,6 +119,57 @@ onBeforeMount(() => {
   bp_number.value = urlParams.get("bp_number");
   rsp_survey_id.value = urlParams.get("rsp_survey_id");
 });
+
+onMounted(async () => {
+  await getRspPolicyState();
+  await getRspPolicyResults(bp_number.value, rsp_survey_id.value);
+});
+
+const getRspPolicyState = async () => {
+  try {
+    activated_laoding.value = true;
+    const response = await RspService.getRspPolicyState("active");
+    if (response.data?.is_success) {
+      if (response.data?.data && response.data.data.length > 0)
+        sessionStorage.setItem("file_url", response.data.data[0]?.file_url);
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    activated_laoding.value = false;
+  }
+};
+
+const getRspPolicyResults = async (bp_number, rsp_policy_id) => {
+  try {
+    activated_laoding.value = true;
+    const response = await RspService.getRspPolicyResults(
+      bp_number,
+      rsp_policy_id
+    );
+    if (response.data?.is_success) {
+      if(response.data.data && response.data.data.length > 0) {
+        now();
+      }else{
+        now();
+      }
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    activated_laoding.value = false;
+  }
+};
 
 const stepperPrev = () => {
   console.log("prev");
