@@ -36,38 +36,38 @@
       </v-row>
     </div>
     <v-form v-model="validateForm" @submit.prevent="handleSubmit">
-    <div class="section">
-      <QuestionMaster
-        :sections="sectionsData"
-        @sections="sectionsData = $event"
-      />
-    </div>
-    <v-row dense class="mt-5">
-      <v-col cols="12" class="d-flex justify-center">
-        <v-btn
-          color="secondary"
-          width="140"
-          variant="outlined"
-          class="text-capitalize ma-1"
-          rounded
-          :disabled="sectionsIndex === 0"
-          @click="sectionPrev"
-        >
-          ย้อนกลับ
-        </v-btn>
-        <v-btn
-          color="secondary"
-          width="140"
-          class="text-capitalize ma-1"
-          rounded
-          :loading="loading"
-          type="submit"
-        >
-          {{ sectionLast() ? "ส่งแบบสอบถาม" : "ต่อไป" }}
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-form>
+      <div class="section">
+        <QuestionMaster
+          :sections="sectionsData"
+          @sections="sectionsData = $event"
+        />
+      </div>
+      <v-row dense class="mt-5">
+        <v-col cols="12" class="d-flex justify-center">
+          <v-btn
+            color="secondary"
+            width="140"
+            variant="outlined"
+            class="text-capitalize ma-1"
+            rounded
+            :disabled="sectionsIndex === 0"
+            @click="sectionPrev"
+          >
+            ย้อนกลับ
+          </v-btn>
+          <v-btn
+            color="secondary"
+            width="140"
+            class="text-capitalize ma-1"
+            rounded
+            :loading="loading"
+            type="submit"
+          >
+            {{ sectionLast() ? "ส่งแบบสอบถาม" : "ต่อไป" }}
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-form>
   </v-container>
 </template>
 <script setup>
@@ -143,10 +143,9 @@ onBeforeMount(() => {
   p_rspSurveyId.value = urlParams.get("rsp_survey_id");
 });
 const handleSubmit = () => {
-
   if (validateForm.value) {
     handleCreatedSurveyAnswer();
-    }
+  }
 };
 
 // const submit = () => {
@@ -311,12 +310,14 @@ const handleAlertSuccessfully = async () => {
     "ขอบคุณที่ให้ความร่วมมือในการทำแบบสอบถามคุณสามารถทราบคะแนนในหน้าถัดไป"
   );
   if (confirmed) {
-    router.push("/CreditScorePage?bp_number=" + p_bpNumber.value);
+    router.push(
+      `/CreditScorePage?prev_completed=completed&state=${p_state.value}&bp_number=${p_bpNumber.value}&&rsp_survey_id=${p_rspSurveyId.value}`
+    );
   }
 };
 const stepperPrev = () => {
   const prevCompleted = stepper.value.completed ? "completed" : "incompleted";
-  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=1${p_rspSurveyId.value}`;
+  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}`;
   router.push(url);
 };
 const stepperNext = () => {

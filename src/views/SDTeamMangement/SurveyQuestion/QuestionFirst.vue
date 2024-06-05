@@ -11,8 +11,8 @@
     <v-card>
       <v-card-item class="ml-15">
         <v-row dense class="mt-5">
-          <v-col cols="5">
-            <h2>Responsible sourcing policy</h2>
+          <v-col cols="6">
+            <h2>Vender sustainability assessment survey</h2>
             <h3>นโยบายการจัดซื้อจัดจ้างอย่างรับผิดชอบ</h3>
             <br />
             <h5>บริษัท เฟรเซฮร์ พร๊อพเพอร์ตี้ ขอสื่อสารนโยบายจัดซื้อจัดจ้าง</h5>
@@ -38,7 +38,7 @@
             <br />
             <br />
           </v-col>
-          <v-col cols="7" class="d-flex align-center">
+          <v-col cols="6" class="d-flex align-center">
             <img
               src="../../../assets/logo.png"
               aspect-ratio="16/9"
@@ -112,12 +112,12 @@ const stepper = ref({
 const state = ref(null);
 const bp_number = ref(null);
 const rsp_survey_id = ref(null);
-const activated_laoding = ref(true);
 
 const questionnaireData = ref(null);
 const rspSurvayActive = ref(null);
 const answerQuestionnaireData = ref(null);
 const rspActivityStatusId = ref(null);
+const inprogressSectionId = ref(null);
 
 onBeforeMount(() => {
   const queryString = window.location.search;
@@ -125,17 +125,15 @@ onBeforeMount(() => {
   state.value = urlParams.get("state");
   bp_number.value = urlParams.get("bp_number");
   rsp_survey_id.value = urlParams.get("rsp_survey_id");
-  // setInfo();
 });
 
 onMounted(async () => {
-  await getRspPolicyState();
+  await getRspSurveysActive();
   await getRspSurveyResults();
 });
 
-const getRspPolicyState = async () => {
+const getRspSurveysActive = async () => {
   try {
-    activated_laoding.value = true;
     const response = await RspService.getRspSurveysActive();
     if (response.data?.is_success) {
       if (response.data?.data && response.data.data.length > 0) {
@@ -149,14 +147,11 @@ const getRspPolicyState = async () => {
       return;
     }
     handlingErrorsMessage("unknown", e.message);
-  } finally {
-    activated_laoding.value = false;
   }
 };
 
 const getRspSurveyResults = async () => {
   try {
-    activated_laoding.value = true;
     const response = await RspService.getRspSurveyResults(
       bp_number.value,
       rsp_survey_id.value
@@ -165,8 +160,9 @@ const getRspSurveyResults = async () => {
       if (response.data?.data && response.data.data.length > 0) {
         rspActivityStatusId.value =
           response.data.data[0].rsp_activity_status.id;
+        inprogressSectionId.value = response.data.data[0].inprogress_section_id;
         if (response.data.data[0].rsp_activity_status.id != 3) {
-          //
+          // Got to Question
         }
       }
     }
@@ -177,14 +173,11 @@ const getRspSurveyResults = async () => {
       return;
     }
     handlingErrorsMessage("unknown", e.message);
-  } finally {
-    activated_laoding.value = false;
   }
 };
 
 const getRspQuestionnaire = async () => {
   try {
-    activated_laoding.value = true;
     const response = await RspService.getRspSurveyQuestionaire(
       rsp_survey_id.value
     );
@@ -198,22 +191,15 @@ const getRspQuestionnaire = async () => {
       return;
     }
     handlingErrorsMessage("unknown", e.message);
-  } finally {
-    activated_laoding.value = false;
   }
 };
 
-const createRspActivityLog = async () => {
+const createRspActivitySkippedLog = async () => {
   try {
-    activated_laoding.value = true;
-    const response = await RspService.createRspActivityLog(
-      bp_number.value,
-      2,
-      false
+    await RspService.createRspActivityLog(bp_number.value, 2, true);
+    router.push(
+      `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
     );
-    if (response.data?.is_success) {
-      questionnaireData.value = response.data.data;
-    }
   } catch (e) {
     if (e.response) {
       const val = e.response.data;
@@ -221,14 +207,24 @@ const createRspActivityLog = async () => {
       return;
     }
     handlingErrorsMessage("unknown", e.message);
-  } finally {
-    activated_laoding.value = false;
+  }
+};
+
+const createRspActivityLog = async () => {
+  try {
+    await RspService.createRspActivityLog(bp_number.value, 2, false);
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
   }
 };
 
 const createRspSurveyResult = async () => {
   try {
-    activated_laoding.value = true;
     const response = await RspService.createRspSurveyResult(
       bp_number.value,
       rsp_survey_id.value
@@ -243,14 +239,11 @@ const createRspSurveyResult = async () => {
       return;
     }
     handlingErrorsMessage("unknown", e.message);
-  } finally {
-    activated_laoding.value = false;
   }
 };
 
 const getRspSurveyAnswers = async () => {
   try {
-    activated_laoding.value = true;
     const response = await RspService.getRspSurveyAnswers(
       bp_number.value,
       rsp_survey_id.value
@@ -265,8 +258,6 @@ const getRspSurveyAnswers = async () => {
       return;
     }
     handlingErrorsMessage("unknown", e.message);
-  } finally {
-    activated_laoding.value = false;
   }
 };
 
@@ -276,11 +267,16 @@ const stepperPrev = () => {
     `/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
   );
 };
+
 const stepperNext = () => {
   console.log("next");
+  router.push(
+    `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+  );
 };
 
 const next = () => {};
+
 const now = async () => {
   await createRspActivityLog();
   if (rspSurvayActive.value != 2) {
@@ -290,17 +286,24 @@ const now = async () => {
     await getRspQuestionnaire();
     await getRspSurveyAnswers();
   }
-
   setInfo();
-
   router.push(
     `/SDTeamMangement/Survey/Questionnaire/2?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
   );
 };
-const later = () => {};
+
+const later = async () => {
+  await createRspActivitySkippedLog();
+};
+
 const setInfo = () => {
   const { mySurvayStructureTwo, mySurvayStructureThree } =
-    mapperSurvay.MapperSurvay(questionnaireData.value, rspSurvayActive.value,  rspActivityStatusId.value);
+    mapperSurvay.MapperSurvay(
+      questionnaireData.value,
+      rspSurvayActive.value,
+      rspActivityStatusId.value,
+      inprogressSectionId.value
+    );
   sessionStorage.setItem(
     "questionnaire2",
     JSON.stringify(mySurvayStructureTwo)
