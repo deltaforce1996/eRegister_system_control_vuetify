@@ -174,6 +174,7 @@ const getRspPolicyResults = async (bp_number, rsp_policy_id) => {
 const stepperPrev = () => {
   console.log("prev");
 };
+
 const stepperNext = () => {
   console.log("next");
   router.push(
@@ -182,6 +183,7 @@ const stepperNext = () => {
 };
 
 const next = () => {};
+
 const now = (isHide) => {
   if (isHide) {
     router.push(

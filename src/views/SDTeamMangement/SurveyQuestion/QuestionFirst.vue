@@ -93,11 +93,15 @@
 import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
 // import TestQuestion2 from "@/assets/form2.json";
 // import TestQuestion3 from "@/assets/form3.json";
-import { ref, onBeforeMount } from "vue";
-import ApiQuestionaire from "@/assets/question_api_data.json";
+import { ref, onBeforeMount, onMounted } from "vue";
+// import ApiQuestionaire from "@/assets/question_api_data.json";
+
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+const { handlingErrorsMessage } = useErrorHandlingDialog();
 
 import { useRouter } from "vue-router";
 import mapperSurvay from "@/utils/mapperSurvay";
+import RspService from "@/apis/RspService";
 const router = useRouter();
 
 const stepper = ref({
@@ -108,6 +112,12 @@ const stepper = ref({
 const state = ref(null);
 const bp_number = ref(null);
 const rsp_survey_id = ref(null);
+const activated_laoding = ref(true);
+
+const questionnaireData = ref(null);
+const rspSurvayActive = ref(null);
+const answerQuestionnaireData = ref(null);
+const rspActivityStatusId = ref(null);
 
 onBeforeMount(() => {
   const queryString = window.location.search;
@@ -117,6 +127,148 @@ onBeforeMount(() => {
   rsp_survey_id.value = urlParams.get("rsp_survey_id");
   // setInfo();
 });
+
+onMounted(async () => {
+  await getRspPolicyState();
+  await getRspSurveyResults();
+});
+
+const getRspPolicyState = async () => {
+  try {
+    activated_laoding.value = true;
+    const response = await RspService.getRspSurveysActive();
+    if (response.data?.is_success) {
+      if (response.data?.data && response.data.data.length > 0) {
+        rspSurvayActive.value = response.data.data[0];
+      }
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    activated_laoding.value = false;
+  }
+};
+
+const getRspSurveyResults = async () => {
+  try {
+    activated_laoding.value = true;
+    const response = await RspService.getRspSurveyResults(
+      bp_number.value,
+      rsp_survey_id.value
+    );
+    if (response.data?.is_success) {
+      if (response.data?.data && response.data.data.length > 0) {
+        rspActivityStatusId.value =
+          response.data.data[0].rsp_activity_status.id;
+        if (response.data.data[0].rsp_activity_status.id != 3) {
+          //
+        }
+      }
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    activated_laoding.value = false;
+  }
+};
+
+const getRspQuestionnaire = async () => {
+  try {
+    activated_laoding.value = true;
+    const response = await RspService.getRspSurveyQuestionaire(
+      rsp_survey_id.value
+    );
+    if (response.data?.is_success) {
+      questionnaireData.value = response.data.data;
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    activated_laoding.value = false;
+  }
+};
+
+const createRspActivityLog = async () => {
+  try {
+    activated_laoding.value = true;
+    const response = await RspService.createRspActivityLog(
+      bp_number.value,
+      2,
+      false
+    );
+    if (response.data?.is_success) {
+      questionnaireData.value = response.data.data;
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    activated_laoding.value = false;
+  }
+};
+
+const createRspSurveyResult = async () => {
+  try {
+    activated_laoding.value = true;
+    const response = await RspService.createRspSurveyResult(
+      bp_number.value,
+      rsp_survey_id.value
+    );
+    if (response.data?.is_success) {
+      questionnaireData.value = response.data.data;
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    activated_laoding.value = false;
+  }
+};
+
+const getRspSurveyAnswers = async () => {
+  try {
+    activated_laoding.value = true;
+    const response = await RspService.getRspSurveyAnswers(
+      bp_number.value,
+      rsp_survey_id.value
+    );
+    if (response.data?.is_success) {
+      answerQuestionnaireData.value = response.data.data;
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  } finally {
+    activated_laoding.value = false;
+  }
+};
 
 const stepperPrev = () => {
   console.log("prev");
@@ -129,8 +281,18 @@ const stepperNext = () => {
 };
 
 const next = () => {};
-const now = () => {
+const now = async () => {
+  await createRspActivityLog();
+  if (rspSurvayActive.value != 2) {
+    await createRspSurveyResult();
+    await getRspQuestionnaire();
+  } else {
+    await getRspQuestionnaire();
+    await getRspSurveyAnswers();
+  }
+
   setInfo();
+
   router.push(
     `/SDTeamMangement/Survey/Questionnaire/2?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
   );
@@ -138,12 +300,12 @@ const now = () => {
 const later = () => {};
 const setInfo = () => {
   const { mySurvayStructureTwo, mySurvayStructureThree } =
-    mapperSurvay.MapperSurvay(ApiQuestionaire.data);
+    mapperSurvay.MapperSurvay(questionnaireData.value, rspSurvayActive.value,  rspActivityStatusId.value);
   sessionStorage.setItem(
     "questionnaire2",
     JSON.stringify(mySurvayStructureTwo)
   );
-  // console.log(JSON.stringify(mySurvayStructureThree))
+
   sessionStorage.setItem(
     "questionnaire3",
     JSON.stringify(mySurvayStructureThree)

@@ -20,11 +20,12 @@ const mySurvayStructureThree = {
   createQuestionnaire: [],
 };
 
-const mapperSurvayStepTwo = (el) => {
+const mapperSurvayStepTwo = (el, rspSurvayActive) => {
   if (el?.section_type.id == 1) {
     mySurvayStructureTwo.id = el.rsp_survey_section_id;
-    mySurvayStructureTwo.nameQuestionnaire.title = el.name;
-    mySurvayStructureTwo.nameQuestionnaire.description = el.section_type.name;
+    mySurvayStructureTwo.nameQuestionnaire.title = rspSurvayActive.name;
+    mySurvayStructureTwo.nameQuestionnaire.description =
+      rspSurvayActive.description;
 
     for (let i = 0; i < el.questions.length; i++) {
       const question = el.questions[i];
@@ -409,6 +410,7 @@ const mapperSurvayStepThree = (el) => {
               index: item.sequence,
               score: item.score,
               isAlign: item.is_aligned,
+              specify: "",
               answer: item.answer,
               nextQuestionId: item.next_question_id,
             };
@@ -429,12 +431,16 @@ const mapperSurvayStepThree = (el) => {
   }
 };
 
-const MapperSurvay = (data) => {
+const MapperSurvay = (data, rspSurvayActive, rspActivityStatusId) => {
+  mySurvayStructureTwo.rspActivityStatusId = rspActivityStatusId;
+  mySurvayStructureThree.rspActivityStatusId = rspActivityStatusId;
+
   mySurvayStructureThree.createQuestionnaire = [];
   mySurvayStructureTwo.createQuestionnaire = [];
+
   for (let index = 0; index < data.sections.length; index++) {
     const el = data.sections[index];
-    mapperSurvayStepTwo(el);
+    mapperSurvayStepTwo(el, rspSurvayActive);
     mapperSurvayStepThree(el);
   }
   return { mySurvayStructureTwo, mySurvayStructureThree };

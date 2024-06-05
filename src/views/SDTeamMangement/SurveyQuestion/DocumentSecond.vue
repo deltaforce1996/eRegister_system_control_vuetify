@@ -131,11 +131,13 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const { showDialog } = useConfirmationDialog();
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
 
 const done = ref(false);
 const prefixName = ref(null);
 const fileBase64 = ref(file.Base64);
+
+import axios from "axios";
 
 const stepper = ref({
   index: 2,
@@ -145,17 +147,34 @@ const state = ref(null);
 const bp_number = ref(null);
 const rsp_survey_id = ref(null);
 const isHide = ref(false);
+
 onBeforeMount(() => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const done = urlParams.get("prev_completed");
-
   stepper.value.completed = done === "completed" ? true : false;
   state.value = urlParams.get("state");
   bp_number.value = urlParams.get("bp_number");
   rsp_survey_id.value = urlParams.get("rsp_survey_id");
   if (urlParams.get("isHide") == 1) isHide.value = true;
 });
+
+onMounted(() => {
+  convertUrlToBase64("https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf");
+});
+
+const convertUrlToBase64 = async (url) => {
+  try {
+    const response = await axios.get(url, { responseType: "arraybuffer" });
+    const base64String = Buffer.from(response.data, "binary").toString(
+      "base64"
+    );
+    console.log(base64String);
+  } catch (error) {
+    console.error("Error fetching URL:", error);
+  }
+};
+
 const stepperPrev = () => {
   console.log("prev");
 };

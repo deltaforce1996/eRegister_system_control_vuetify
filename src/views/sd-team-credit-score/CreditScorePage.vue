@@ -88,7 +88,7 @@ const { handlingErrorsMessage } = useErrorHandlingDialog();
 
 const route = useRoute();
 
-const score = ref(50);
+const score = ref(0);
 const survey_result_details = ref({});
 const level = ref("A");
 
@@ -121,48 +121,48 @@ const getRspSurveyResultDetail = async (bp_number) => {
   try {
     const response = await RspService.getRspSurveyResultDetail(bp_number);
     if (response.data?.is_success) {
-      // survey_result_details.value = response.data?.data
-      survey_result_details.value = {
-        bp_number: "BP12345",
-        status: {
-          id: 1,
-          name: "Completed",
-        },
-        progress_percentage: 100,
-        survey_result: {
-          is_aligned: 1,
-          score: 85,
-          total_score: 100,
-          rsp_survey_evaluation_criteria: {
-            id: 1,
-            rsp_survey_id: 123,
-            name: "B",
-            minimum_score_criteria: 0,
-            description: "Description of the criteria",
-            image_url: "https://example.com/image.jpg",
-          },
-          section: [
-            {
-              name: "Section A",
-              score: 20,
-              total_score: 25,
-              score_percentage: 80,
-            },
-            {
-              name: "Section B",
-              score: 25,
-              total_score: 30,
-              score_percentage: 83.33,
-            },
-            {
-              name: "Section C",
-              score: 15,
-              total_score: 20,
-              score_percentage: 75,
-            },
-          ],
-        },
-      };
+      survey_result_details.value = response.data?.data
+      // survey_result_details.value = {
+      //   bp_number: "BP12345",
+      //   status: {
+      //     id: 1,
+      //     name: "Completed",
+      //   },
+      //   progress_percentage: 100,
+      //   survey_result: {
+      //     is_aligned: 1,
+      //     score: 85,
+      //     total_score: 100,
+      //     rsp_survey_evaluation_criteria: {
+      //       id: 1,
+      //       rsp_survey_id: 123,
+      //       name: "B",
+      //       minimum_score_criteria: 0,
+      //       description: "Description of the criteria",
+      //       image_url: "https://example.com/image.jpg",
+      //     },
+      //     section: [
+      //       {
+      //         name: "Section A",
+      //         score: 20,
+      //         total_score: 25,
+      //         score_percentage: 80,
+      //       },
+      //       {
+      //         name: "Section B",
+      //         score: 25,
+      //         total_score: 30,
+      //         score_percentage: 83.33,
+      //       },
+      //       {
+      //         name: "Section C",
+      //         score: 15,
+      //         total_score: 20,
+      //         score_percentage: 75,
+      //       },
+      //     ],
+      //   },
+      // };
 
       if (
         survey_result_details.value?.survey_result
