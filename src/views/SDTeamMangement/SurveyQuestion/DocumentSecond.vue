@@ -160,7 +160,7 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  convertUrlToBase64("https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf");
+  // convertUrlToBase64("https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf");
 });
 
 const convertUrlToBase64 = async (url) => {
