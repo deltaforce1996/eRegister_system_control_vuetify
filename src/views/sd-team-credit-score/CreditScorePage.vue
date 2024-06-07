@@ -54,14 +54,14 @@
     </v-container>
     <v-footer color="transparent" style="margin-top: 120px">
       <v-row justify="center">
-        <v-col cols="auto">
+        <!-- <v-col cols="auto">
           <button-control
             color="black"
             text="ย้อนกลับ"
             width="100"
             @button-clicked="on_go_to_back"
           />
-        </v-col>
+        </v-col> -->
         <v-col cols="auto">
           <button-control
             type="submit"
@@ -77,8 +77,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { onBeforeMount, onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import CraditItem from "@/components/items/CraditItem.vue";
 import ButtonControl from "@/components/controls/ButtonControl.vue";
 import RspService from "@/apis/RspService";
@@ -86,14 +86,25 @@ import RspService from "@/apis/RspService";
 import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 
+const router = useRouter();
 const route = useRoute();
 
 const score = ref(0);
 const survey_result_details = ref({});
 const level = ref("A");
 
+const state = ref(null);
+const bp_number = ref(null);
+const rsp_survey_id = ref(null);
+
+onBeforeMount(() => {
+  state.value = route.query.state;
+  bp_number.value = route.query.bp_number;
+  rsp_survey_id.value = route.query.rsp_survey_id;
+});
+
 onMounted(async () => {
-  await getRspSurveyResultDetail(route.query.bp_number);
+  await getRspSurveyResultDetail(bp_number.value);
 });
 
 const description = ref("");
@@ -121,48 +132,7 @@ const getRspSurveyResultDetail = async (bp_number) => {
   try {
     const response = await RspService.getRspSurveyResultDetail(bp_number);
     if (response.data?.is_success) {
-      survey_result_details.value = response.data?.data
-      // survey_result_details.value = {
-      //   bp_number: "BP12345",
-      //   status: {
-      //     id: 1,
-      //     name: "Completed",
-      //   },
-      //   progress_percentage: 100,
-      //   survey_result: {
-      //     is_aligned: 1,
-      //     score: 85,
-      //     total_score: 100,
-      //     rsp_survey_evaluation_criteria: {
-      //       id: 1,
-      //       rsp_survey_id: 123,
-      //       name: "B",
-      //       minimum_score_criteria: 0,
-      //       description: "Description of the criteria",
-      //       image_url: "https://example.com/image.jpg",
-      //     },
-      //     section: [
-      //       {
-      //         name: "Section A",
-      //         score: 20,
-      //         total_score: 25,
-      //         score_percentage: 80,
-      //       },
-      //       {
-      //         name: "Section B",
-      //         score: 25,
-      //         total_score: 30,
-      //         score_percentage: 83.33,
-      //       },
-      //       {
-      //         name: "Section C",
-      //         score: 15,
-      //         total_score: 20,
-      //         score_percentage: 75,
-      //       },
-      //     ],
-      //   },
-      // };
+      survey_result_details.value = response.data?.data;
 
       if (
         survey_result_details.value?.survey_result
@@ -205,6 +175,10 @@ const getRspSurveyResultDetail = async (bp_number) => {
   }
 };
 
-const on_go_to_back = () => {};
-const submit_cradit_score = () => {};
+// const on_go_to_back = () => {};
+const submit_cradit_score = () => {
+  router.push(
+    `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+  );
+};
 </script>

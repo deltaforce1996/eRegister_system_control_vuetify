@@ -100,8 +100,7 @@ const routes = [
       {
         path: "/SDTeamMangement/RspPolicyUpsert",
         name: "RspPolicyUpsertPage",
-        component: () =>
-          import("@/views/SDTeamMangement/RspPolicyUpsert.vue"),
+        component: () => import("@/views/SDTeamMangement/RspPolicyUpsert.vue"),
       },
       {
         path: "/SDTeamMangement/Survey",
@@ -112,39 +111,52 @@ const routes = [
       {
         path: "/SDTeamMangement/Survey/Preview/QuestionSecond",
         name: "SurveyPreviewSecondPage",
-        component: () => import("@/views/SDTeamMangement/SurveyPreview/QuestionSecond.vue"),
+        component: () =>
+          import("@/views/SDTeamMangement/SurveyPreview/QuestionSecond.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Preview/QuestionThird",
         name: "SurveyPreviewThirdPage",
-        component: () => import("@/views/SDTeamMangement/SurveyPreview/QuestionThird.vue"),
+        component: () =>
+          import("@/views/SDTeamMangement/SurveyPreview/QuestionThird.vue"),
       },
 
       // Question
       {
         path: "/SDTeamMangement/Survey/Document/1",
         name: "SurveyDocumentFirstPage",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/DocumentFirst.vue"),
+        component: () =>
+          import("@/views/SDTeamMangement/SurveyQuestion/DocumentFirst.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Document/2",
         name: "SurveyDocumentSecondPage",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/DocumentSecond.vue"),
+        component: () =>
+          import("@/views/SDTeamMangement/SurveyQuestion/DocumentSecond.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Questionnaire/1",
         name: "SurveyQuestionnaire1Page",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/QuestionFirst.vue"),
+        component: () =>
+          import("@/views/SDTeamMangement/SurveyQuestion/QuestionFirst.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Questionnaire/2",
         name: "SurveyQuestionnaire2Page",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/QuestionSecond.vue"),
+        component: () =>
+          import("@/views/SDTeamMangement/SurveyQuestion/QuestionSecond.vue"),
       },
       {
         path: "/SDTeamMangement/Survey/Questionnaire/3",
         name: "SurveyQuestionnaire3Page",
-        component: () => import("@/views/SDTeamMangement/SurveyQuestion/QuestionThird.vue"),
+        component: () =>
+          import("@/views/SDTeamMangement/SurveyQuestion/QuestionThird.vue"),
+      },
+      {
+        path: "/SDTeamMangement/Survey/Tranning/1",
+        name: "TranningFirstPage",
+        component: () =>
+          import("@/views/SDTeamMangement/SurveyQuestion/TranningFirst.vue"),
       },
 
       // {
@@ -204,9 +216,9 @@ const routes = [
         component: () => import("@/views/HistoryLog/HistoryCoparationPage.vue"),
       },
       {
-        path: '/SDTeamDashboard/Documents/:bp_number?',
-        name: 'DocumentsPage',
-        component: () => import('@/views/SDTeamDashboard/Documents.vue'),
+        path: "/SDTeamDashboard/Documents/:bp_number?",
+        name: "DocumentsPage",
+        component: () => import("@/views/SDTeamDashboard/Documents.vue"),
       },
       {
         path: "/HistoryCompanyPage",

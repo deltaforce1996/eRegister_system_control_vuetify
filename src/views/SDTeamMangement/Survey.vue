@@ -104,7 +104,7 @@ const handlePaginationInfoMenusEvent = (page) => {
 const getRspSurveyStateActived = async () => {
   try {
     actived_laoding.value = true;
-    const response = await RspService.getRspSurveysActive('activated');
+    const response = await RspService.getRspSurveysActive();
     if (response.data?.is_success) {
       actived_items.value = response.data?.data
     }

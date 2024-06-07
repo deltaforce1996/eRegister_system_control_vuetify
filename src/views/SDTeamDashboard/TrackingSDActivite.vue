@@ -302,7 +302,7 @@ const getVendorRspStatus = async () => {
     filter.value.offset = itemsOffset;
     filter.value.limit = itemsLimit;
     filter.value.pageSize = paginationUtils.pageSize(itemsLimit,itemsTotal)
-    if (response.data?.is_success) {
+    if (response.data?.is_success && !response.data?.data?.error) {
       content.value.items =  response.data?.data
     }
   } catch (e) {

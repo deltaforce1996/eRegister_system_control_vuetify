@@ -5,14 +5,13 @@
         :step="stepper.index"
         :is-done="stepper.prevCompleted"
         @prev="stepperPrev"
-        @next="stepperNext"
       />
     </v-card-text>
     <v-card>
       <v-card-item class="ml-15">
         <v-row dense class="mt-5">
           <v-col cols="6">
-            <h2>Responsible sourcing policy</h2>
+            <h2>Training</h2>
             <h3>นโยบายการจัดซื้อจัดจ้างอย่างรับผิดชอบ</h3>
             <br />
             <h5>บริษัท เฟรเซฮร์ พร๊อพเพอร์ตี้ ขอสื่อสารนโยบายจัดซื้อจัดจ้าง</h5>
@@ -56,7 +55,6 @@
               class="text-capitalize"
               variant="outlined"
               rounded
-              @click="next"
             >
               ส่งต่อ
             </v-btn>
@@ -67,19 +65,12 @@
               width="140"
               class="text-capitalize"
               rounded
-              @click="now"
             >
               ทำเลย
             </v-btn>
           </v-col>
           <v-col cols="12" class="d-flex justify-end">
-            <v-btn
-              width="140"
-              class="text-capitalize"
-              rounded
-              variant="text"
-              @click="later"
-            >
+            <v-btn width="140" class="text-capitalize" rounded variant="text">
               ทำภายหลัง >>
             </v-btn>
           </v-col>
@@ -88,123 +79,33 @@
     </v-card>
   </v-container>
 </template>
+
 <script setup>
-// import RspService from '@/apis/RspService';
-import RspService from "@/apis/RspService";
+import { onBeforeMount, ref } from "vue";
 import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
-import { ref, onBeforeMount, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
-const { handlingErrorsMessage } = useErrorHandlingDialog();
-
-import { useRouter } from "vue-router";
-const router = useRouter();
-
-const stepper = ref({
-  index: 2,
-  prevCompleted: true,
-});
 const state = ref(null);
 const bp_number = ref(null);
 const rsp_survey_id = ref(null);
 
+const route = useRoute();
+const router = useRouter();
+
+const stepper = ref({
+  index: 4,
+  prevCompleted: true,
+});
+
 onBeforeMount(() => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const done = urlParams.get("prev_completed");
-
-  stepper.value.completed = done === "completed" ? true : false;
-  state.value = urlParams.get("state");
-  bp_number.value = urlParams.get("bp_number");
-  rsp_survey_id.value = urlParams.get("rsp_survey_id");
+  state.value = route.query.state;
+  bp_number.value = route.query.bp_number;
+  rsp_survey_id.value = route.query.rsp_survey_id;
 });
-
-onMounted(async () => {
-  await getRspPolicyState();
-  await getRspPolicyResults(bp_number.value, rsp_survey_id.value);
-});
-
-const createRspActivitySkippedLog = async () => {
-  try {
-    await RspService.createRspActivityLog(bp_number.value, 1, true);
-    router.push(
-      `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
-    );
-  } catch (e) {
-    if (e.response) {
-      const val = e.response.data;
-      handlingErrorsMessage(val.message, val?.data?.error);
-      return;
-    }
-    handlingErrorsMessage("unknown", e.message);
-  }
-};
-
-const getRspPolicyState = async () => {
-  try {
-    const response = await RspService.getRspPolicyState("active");
-    if (response.data?.is_success) {
-      if (response.data?.data && response.data.data.length > 0)
-        sessionStorage.setItem("file_url", response.data.data[0]?.file_url);
-    }
-  } catch (e) {
-    if (e.response) {
-      const val = e.response.data;
-      handlingErrorsMessage(val.message, val?.data?.error);
-      return;
-    }
-    handlingErrorsMessage("unknown", e.message);
-  }
-};
-
-const getRspPolicyResults = async (bp_number, rsp_policy_id) => {
-  try {
-    const response = await RspService.getRspPolicyResults(
-      bp_number,
-      rsp_policy_id
-    );
-    if (response.data?.is_success) {
-      if (response.data.data && response.data.data.length > 0) {
-        now();
-      } else {
-        now(true);
-      }
-    }
-  } catch (e) {
-    if (e.response) {
-      const val = e.response.data;
-      handlingErrorsMessage(val.message, val?.data?.error);
-      return;
-    }
-    handlingErrorsMessage("unknown", e.message);
-  }
-};
 
 const stepperPrev = () => {
-  console.log("prev");
-};
-
-const stepperNext = () => {
-  console.log("next");
   router.push(
     `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
   );
-};
-
-const next = () => {};
-
-const now = (isHide) => {
-  if (isHide) {
-    router.push(
-      `/SDTeamMangement/Survey/Document/2?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}&isHide=1`
-    );
-  } else {
-    router.push(
-      `/SDTeamMangement/Survey/Document/2?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
-    );
-  }
-};
-const later = async () => {
-  await createRspActivitySkippedLog();
 };
 </script>

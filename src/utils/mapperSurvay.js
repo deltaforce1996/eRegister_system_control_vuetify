@@ -1,7 +1,7 @@
 const mySurvayStructureTwo = {
   id: "",
-  rspActivityStatusId: 1,
-  inprogressSectionId: 1,
+  rspActivityStatusId: null,
+  inprogressSectionId: null,
   nameQuestionnaire: {
     title: "",
     description: "",
@@ -11,8 +11,8 @@ const mySurvayStructureTwo = {
 
 const mySurvayStructureThree = {
   id: "",
-  rspActivityStatusId: 1,
-  inprogressSectionId: 1,
+  // rspActivityStatusId: null,
+  // inprogressSectionId: null,
   nameQuestionnaire: {
     title: "",
     description: "",
@@ -26,6 +26,8 @@ const mapperSurvayStepTwo = (el, rspSurvayActive) => {
     mySurvayStructureTwo.nameQuestionnaire.title = rspSurvayActive.name;
     mySurvayStructureTwo.nameQuestionnaire.description =
       rspSurvayActive.description;
+
+    mySurvayStructureTwo.inprogressSectionId = el.next_section_id;
 
     for (let i = 0; i < el.questions.length; i++) {
       const question = el.questions[i];
@@ -228,7 +230,8 @@ const mapperSurvayStepThree = (el) => {
       index: el.sequence,
       title: el?.name,
       score: el?.score,
-      nextSectionId: el?.nextSectionId,
+      nextSectionId: el?.next_section_id,
+      inprogressSectionId: el.next_section_id,
       data: [],
     };
 
@@ -434,6 +437,9 @@ const mapperSurvayStepThree = (el) => {
 const MapperSurvay = (data, rspSurvayActive, rspActivityStatusId) => {
   mySurvayStructureTwo.rspActivityStatusId = rspActivityStatusId;
   mySurvayStructureThree.rspActivityStatusId = rspActivityStatusId;
+
+  // mySurvayStructureTwo.inprogressSectionId = inprogressSectionId;
+  // mySurvayStructureThree.inprogressSectionId = inprogressSectionId;
 
   mySurvayStructureThree.createQuestionnaire = [];
   mySurvayStructureTwo.createQuestionnaire = [];
