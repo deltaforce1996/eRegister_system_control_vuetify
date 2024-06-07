@@ -1,4 +1,5 @@
 <!-- eslint-disable vue/multi-word-component-names -->
+
 <template>
   <v-container>
     <v-card-text>
@@ -123,7 +124,8 @@
 </template>
 <script setup>
 import PDF from "pdf-vue3";
-import file from "@/assets/base64.json";
+//import pdf from 'vue-pdf'
+//import file from "@/assets/base64.json";
 import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
 import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
 
@@ -133,9 +135,12 @@ const router = useRouter();
 const { showDialog } = useConfirmationDialog();
 import { ref, onBeforeMount, onMounted } from "vue";
 
+
+
+
 const done = ref(false);
 const prefixName = ref(null);
-const fileBase64 = ref(file.Base64);
+const fileBase64 = ref(null);
 
 import axios from "axios";
 
@@ -160,21 +165,27 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  // convertUrlToBase64("https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf");
-});
 
-const convertUrlToBase64 = async (url) => {
-  try {
-    const response = await axios.get(url, { responseType: "arraybuffer" });
-    const base64String = Buffer.from(response.data, "binary").toString(
-      "base64"
-    );
-    console.log(base64String);
-  } catch (error) {
-    console.error("Error fetching URL:", error);
-  }
+  getUrlArraybuffer()
+})
+
+const getUrlArraybuffer = async () => {
+    const response = await axios({
+            method: "get",
+            responseType: 'arraybuffer',
+            url: "http://localhost:4000/test.pdf",
+    });
+    var base64 = arrayBufferToBase64(response.data);
+    fileBase64.value = base64;
 };
-
+const arrayBufferToBase64 =(buffer)=> {
+    var binary = '';
+    var bytes = new Uint8Array(buffer);
+    bytes.forEach((item) => {
+          binary += String.fromCharCode(item);
+    });
+  return window.btoa(binary);
+ }
 const stepperPrev = () => {
   console.log("prev");
 };
