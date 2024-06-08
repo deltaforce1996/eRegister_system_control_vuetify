@@ -178,7 +178,7 @@ const getRspSurveyResultDetail = async (bp_number) => {
 // const on_go_to_back = () => {};
 const submit_cradit_score = () => {
   router.push(
-    `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+    `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
   );
 };
 </script>
