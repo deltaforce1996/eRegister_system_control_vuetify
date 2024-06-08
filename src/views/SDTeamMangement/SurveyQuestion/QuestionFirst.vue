@@ -202,7 +202,7 @@ const createRspActivitySkippedLog = async () => {
   try {
     await RspService.createRspActivityLog(bp_number.value, 2, true);
     router.push(
-      `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+      `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
     );
   } catch (e) {
     if (e.response) {
@@ -266,14 +266,14 @@ const getRspSurveyAnswers = async () => {
 };
 
 const stepperPrev = () => {
-  console.log("prev");
+  // console.log("prev");
   router.push(
     `/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}`
   );
 };
 
 const stepperNext = () => {
-  console.log("next");
+  // console.log("next");
   router.push(
     `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
   );

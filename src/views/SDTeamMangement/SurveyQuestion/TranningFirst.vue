@@ -55,6 +55,7 @@
               class="text-capitalize"
               variant="outlined"
               rounded
+              @click="handleSend"
             >
               ส่งต่อ
             </v-btn>
@@ -84,10 +85,13 @@
 import { onBeforeMount, ref } from "vue";
 import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
 import { useRoute, useRouter } from "vue-router";
+import { useShareActivityDialog } from "@/components/dialogs/ShareActivityDialogService";
+
+const { showShareActivityDialog } = useShareActivityDialog();
 
 const state = ref(null);
 const bp_number = ref(null);
-const rsp_survey_id = ref(null);
+// const rsp_survey_id = ref(null);
 
 const route = useRoute();
 const router = useRouter();
@@ -100,8 +104,16 @@ const stepper = ref({
 onBeforeMount(() => {
   state.value = route.query.state;
   bp_number.value = route.query.bp_number;
-  rsp_survey_id.value = route.query.rsp_survey_id;
+  // rsp_survey_id.value = route.query.rsp_survey_id;
 });
+
+const handleSend = async () => {
+  const result = await showShareActivityDialog(bp_number.value);
+  if (result && result.email) {
+    // call api share activity
+    console.log(result);
+  }
+};
 
 const stepperPrev = () => {
   router.push(
