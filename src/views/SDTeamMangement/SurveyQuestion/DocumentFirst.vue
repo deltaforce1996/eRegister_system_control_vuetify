@@ -119,19 +119,38 @@ onBeforeMount(() => {
   stepper.value.completed = done === "completed" ? true : false;
   state.value = urlParams.get("state");
   bp_number.value = urlParams.get("bp_number");
-  rsp_survey_id.value = urlParams.get("rsp_survey_id");
+  // rsp_survey_id.value = urlParams.get("rsp_survey_id");
 });
 
 onMounted(async () => {
+  await getRspSurveysActive();
   await getRspPolicyState();
   await getRspPolicyResults(bp_number.value, rsp_survey_id.value);
 });
+
+const getRspSurveysActive = async () => {
+  try {
+    const response = await RspService.getRspSurveysActive();
+    if (response.data?.is_success) {
+      if (response.data?.data && response.data.data.length > 0) {
+        rsp_survey_id.value = response.data.data[0].id;
+      }
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data?.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  }
+};
 
 const createRspActivitySkippedLog = async () => {
   try {
     await RspService.createRspActivityLog(bp_number.value, 1, true);
     router.push(
-      `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+      `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
     );
   } catch (e) {
     if (e.response) {
@@ -190,7 +209,7 @@ const stepperPrev = () => {
 const stepperNext = () => {
   console.log("next");
   router.push(
-    `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+    `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
   );
 };
 

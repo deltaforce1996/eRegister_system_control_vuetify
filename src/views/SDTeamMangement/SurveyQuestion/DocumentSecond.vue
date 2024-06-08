@@ -151,7 +151,7 @@ const stepper = ref({
 });
 const state = ref(null);
 const bp_number = ref(null);
-const rsp_survey_id = ref(null);
+// const rsp_survey_id = ref(null);
 const isHide = ref(false);
 
 onBeforeMount(() => {
@@ -161,7 +161,7 @@ onBeforeMount(() => {
   stepper.value.completed = done === "completed" ? true : false;
   state.value = urlParams.get("state");
   bp_number.value = urlParams.get("bp_number");
-  rsp_survey_id.value = urlParams.get("rsp_survey_id");
+  // rsp_survey_id.value = urlParams.get("rsp_survey_id");
   if (urlParams.get("isHide") == 1) isHide.value = true;
 });
 
@@ -200,7 +200,7 @@ const stepperPrev = () => {
 const stepperNext = () => {
   console.log("next");
   router.push(
-    `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&&rsp_survey_id=${rsp_survey_id.value}`
+    `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
   );
 };
 const handleConfirm = async () => {
@@ -211,7 +211,7 @@ const handleConfirm = async () => {
   if (confirmed) {
     console.log("Confirm");
     router.push(
-      `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&&rsp_survey_id=${rsp_survey_id.value}`
+      `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
     );
   }
 };

@@ -79,7 +79,7 @@ const items = [
     title: "Suevay",
     icon: "mdi mdi-account-group",
     isActive: false,
-    path: "/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=created&bp_number=01707129375000&rsp_survey_id=1",
+    path: "/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=created&bp_number=01707129375000",
   },
   // {
   //   id: 5,

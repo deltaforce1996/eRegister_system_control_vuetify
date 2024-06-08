@@ -105,7 +105,7 @@ onBeforeMount(() => {
 
 const stepperPrev = () => {
   router.push(
-    `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+    `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
   );
 };
 </script>

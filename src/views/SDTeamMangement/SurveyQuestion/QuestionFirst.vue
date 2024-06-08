@@ -127,7 +127,7 @@ onBeforeMount(() => {
   const urlParams = new URLSearchParams(queryString);
   state.value = urlParams.get("state");
   bp_number.value = urlParams.get("bp_number");
-  rsp_survey_id.value = urlParams.get("rsp_survey_id");
+  // rsp_survey_id.value = urlParams.get("rsp_survey_id");
 });
 
 onMounted(async () => {
@@ -141,6 +141,7 @@ const getRspSurveysActive = async () => {
     if (response.data?.is_success) {
       if (response.data?.data && response.data.data.length > 0) {
         rspSurvayActive.value = response.data.data[0];
+        rsp_survey_id.value = response.data.data[0].id;
       }
     }
   } catch (e) {
@@ -267,14 +268,14 @@ const getRspSurveyAnswers = async () => {
 const stepperPrev = () => {
   console.log("prev");
   router.push(
-    `/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+    `/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}`
   );
 };
 
 const stepperNext = () => {
   console.log("next");
   router.push(
-    `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+    `/SDTeamMangement/Survey/Tranning/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
   );
 };
 
