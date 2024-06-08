@@ -38,13 +38,13 @@
             <br />
             <br />
           </v-col>
-          <v-col cols="6" class="d-flex align-center">
+          <v-col cols="6" class="d-flex align-center jusityfy-start">
             <img
-              src="../../../assets/logo.png"
-              aspect-ratio="16/9"
+              src="../../../assets/normal_image_survay.jpg"
+              aspect-ratio="4/3"
               cover
-              width="300"
-              height="200"
+              width="600"
+              height="450"
             />
           </v-col>
         </v-row>
