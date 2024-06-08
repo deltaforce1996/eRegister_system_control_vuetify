@@ -42,6 +42,7 @@
           variant="outlined"
           height="40"
           rounded
+          @click="handleShareActivity"
         >
           ส่งต่อ
         </v-btn>
@@ -135,14 +136,14 @@ const router = useRouter();
 const { showDialog } = useConfirmationDialog();
 import { ref, onBeforeMount, onMounted } from "vue";
 
-
-
+const { showShareActivityDialog } = useShareActivityDialog();
 
 const done = ref(false);
 const prefixName = ref(null);
 const fileBase64 = ref(null);
 
 import axios from "axios";
+import { useShareActivityDialog } from "@/components/dialogs/ShareActivityDialogService";
 
 const stepper = ref({
   index: 2,
@@ -165,27 +166,34 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-
-  getUrlArraybuffer()
-})
+  getUrlArraybuffer();
+});
 
 const getUrlArraybuffer = async () => {
-    const response = await axios({
-            method: "get",
-            responseType: 'arraybuffer',
-            url: "https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf",
-    });
-    var base64 = arrayBufferToBase64(response.data);
-    fileBase64.value = base64;
+  const response = await axios({
+    method: "get",
+    responseType: "arraybuffer",
+    url: "https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf",
+  });
+  var base64 = arrayBufferToBase64(response.data);
+  fileBase64.value = base64;
 };
-const arrayBufferToBase64 =(buffer)=> {
-    var binary = '';
-    var bytes = new Uint8Array(buffer);
-    bytes.forEach((item) => {
-          binary += String.fromCharCode(item);
-    });
+
+const arrayBufferToBase64 = (buffer) => {
+  var binary = "";
+  var bytes = new Uint8Array(buffer);
+  bytes.forEach((item) => {
+    binary += String.fromCharCode(item);
+  });
   return window.btoa(binary);
- }
+};
+const handleShareActivity = async () => {
+  const result = await showShareActivityDialog(bp_number.value);
+  if (result && result.email) {
+    // call api share activity
+    console.log(result);
+  }
+};
 const stepperPrev = () => {
   console.log("prev");
 };
