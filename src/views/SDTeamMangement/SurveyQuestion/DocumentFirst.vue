@@ -187,7 +187,8 @@ const getRspPolicyResults = async (bp_number, rsp_policy_id) => {
     );
     if (response.data?.is_success) {
       if (response.data.data && response.data.data.length > 0) {
-        now();
+        // now();
+        return;
       } else {
         now(true);
       }
