@@ -67,7 +67,7 @@
               width="140"
               class="text-capitalize"
               rounded
-              @click="now"
+              @click="now(false)"
             >
               ทำเลย
             </v-btn>
