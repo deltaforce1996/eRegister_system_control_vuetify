@@ -99,9 +99,12 @@ import { ref, onBeforeMount, onMounted } from "vue";
 import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 
+const { showShareActivityDialog } = useShareActivityDialog();
+
 import { useRouter } from "vue-router";
 import mapperSurvay from "@/utils/mapperSurvay";
 import RspService from "@/apis/RspService";
+import { useShareActivityDialog } from "@/components/dialogs/ShareActivityDialogService";
 const router = useRouter();
 
 const stepper = ref({
@@ -275,7 +278,13 @@ const stepperNext = () => {
   );
 };
 
-const next = () => {};
+const next = async () => {
+  const result = await showShareActivityDialog(bp_number.value);
+  if (result && result.email) {
+    // call api share activity
+    console.log(result);
+  }
+};
 
 const now = async () => {
   await createRspActivityLog();

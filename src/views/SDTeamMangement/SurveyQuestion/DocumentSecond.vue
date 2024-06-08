@@ -173,7 +173,7 @@ const getUrlArraybuffer = async () => {
     const response = await axios({
             method: "get",
             responseType: 'arraybuffer',
-            url: "http://localhost:4000/test.pdf",
+            url: "https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf",
     });
     var base64 = arrayBufferToBase64(response.data);
     fileBase64.value = base64;

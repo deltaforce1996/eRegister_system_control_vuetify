@@ -106,7 +106,7 @@ import SurveyAlignItem from "@/components/items/SurveyAlignItem.vue";
 import TrainingItem from "@/components/items/TrainingItem.vue";
 import TrackingSDActiviteTable from "@/components/tables/TrackingSDActiviteTable.vue";
 import FilterTrackingSDActivite from "@/components/dialogs/FilterTrackingSDActivite.vue";
-import PaginationControl from '@/components/controls/PaginationControl'
+import PaginationControl from '@/components/controls/PaginationControl.vue'
 import RspService from '@/apis/RspService';
 import paginationUtils from '@/utils/paginationUtils'
 import { useRouter } from 'vue-router';
@@ -163,8 +163,8 @@ const filter = ref({
   comp_categories_id: null,
   date_from: null,
   date_to: null,
-  offset: 1,
-  limit: 1,
+  offset: 0,
+  limit: 4,
   page : 1,
   pageSize: 1,
 });

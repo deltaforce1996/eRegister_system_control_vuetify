@@ -97,7 +97,10 @@ import { ref, onBeforeMount, onMounted } from "vue";
 import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 
+const { showShareActivityDialog } = useShareActivityDialog();
+
 import { useRouter } from "vue-router";
+import { useShareActivityDialog } from "@/components/dialogs/ShareActivityDialogService";
 const router = useRouter();
 
 const stepper = ref({
@@ -191,7 +194,13 @@ const stepperNext = () => {
   );
 };
 
-const next = () => {};
+const next = async () => {
+  const result = await showShareActivityDialog(bp_number.value);
+  if (result && result.email) {
+    // call api share activity
+    console.log(result);
+  }
+};
 
 const now = (isHide) => {
   if (isHide) {

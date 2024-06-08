@@ -12,7 +12,9 @@ const getVendorRspStatus = async (
   completed_from,
   completed_to
 ) => {
-  let url = `/rsp/get-vendor-rsp-status?offset=${(offset -= 1)}&limit=${limit}`;
+  let url = `/rsp/get-vendor-rsp-status?offset=${
+    offset > 0 ? (offset -= 1) : offset
+  }&limit=${limit}`;
   if (search_field) url += `&search_field=${search_field}`;
   if (search_value) url += `&search_value=${search_value}`;
   if (company_id) url += `&company_id=${company_id}`;
@@ -58,6 +60,18 @@ const sendFollowUpVendors = async (bp_numbers, is_sent, additional_msg) => {
       }),
       is_sent_to_contact_owner: Number(is_sent),
       additional_message: additional_msg,
+    },
+  });
+};
+
+const shareRspActivity = async (bp_number, accessible_email) => {
+  return await axiosBase({
+    method: "post",
+    url: `/rsp/share-rsp-activity`,
+    data: {
+      bp_number,
+      accessible_email,
+      created_user_id: 1,
     },
   });
 };
@@ -570,4 +584,5 @@ export default {
   createRspSurveyResult,
   updateRspSurveyAnswer,
   getRspSurveyAnswers,
+  shareRspActivity,
 };
