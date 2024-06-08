@@ -225,11 +225,11 @@ const next = async () => {
 const now = (isHide) => {
   if (isHide) {
     router.push(
-      `/SDTeamMangement/Survey/Document/2?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}&isHide=1`
+      `/SDTeamMangement/Survey/Document/2?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
     );
   } else {
     router.push(
-      `/SDTeamMangement/Survey/Document/2?prev_completed=completed&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
+      `/SDTeamMangement/Survey/Document/2?prev_completed=notcompleted&state=created&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
     );
   }
 };

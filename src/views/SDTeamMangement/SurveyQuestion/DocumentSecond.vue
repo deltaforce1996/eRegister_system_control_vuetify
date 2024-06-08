@@ -10,7 +10,6 @@
         @next="stepperNext"
       />
     </v-card-text>
-
     <v-card-text>
       <div v-if="done" class="d-flex flex-row-reverse mb-5">
         <v-btn
@@ -30,6 +29,7 @@
           variant="outlined"
           height="40"
           rounded
+          @click="handleShareActivity"
         >
           ส่งต่อ
         </v-btn>
@@ -51,7 +51,7 @@
     </v-card-text>
     <v-bottom-navigation
       :active="!done"
-      v-show="!isHide"
+      v-show="!done"
       height="180"
       bg-color="rgba(0, 0, 0, 0.8)"
     >
@@ -152,17 +152,18 @@ const stepper = ref({
 const state = ref(null);
 const bp_number = ref(null);
 // const rsp_survey_id = ref(null);
-const isHide = ref(false);
+// const isHide = ref(false);
 
 onBeforeMount(() => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const done = urlParams.get("prev_completed");
-  stepper.value.completed = done === "completed" ? true : false;
+  const doneParam = urlParams.get("prev_completed");
+  stepper.value.completed = doneParam === "completed" ? true : false;
+  done.value = stepper.value.completed;
   state.value = urlParams.get("state");
   bp_number.value = urlParams.get("bp_number");
   // rsp_survey_id.value = urlParams.get("rsp_survey_id");
-  if (urlParams.get("isHide") == 1) isHide.value = true;
+  // if (urlParams.get("isHide") == 1) isHide.value = true;
 });
 
 onMounted(() => {

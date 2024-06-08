@@ -6,6 +6,7 @@ const mySurvayStructureTwo = {
     title: "",
     description: "",
   },
+  name: "",
   createQuestionnaire: [],
 };
 
@@ -26,6 +27,8 @@ const mapperSurvayStepTwo = (el, rspSurvayActive) => {
     mySurvayStructureTwo.nameQuestionnaire.title = rspSurvayActive.name;
     mySurvayStructureTwo.nameQuestionnaire.description =
       rspSurvayActive.description;
+
+    mySurvayStructureTwo.name = el.name;
 
     mySurvayStructureTwo.inprogressSectionId = el.next_section_id;
 
