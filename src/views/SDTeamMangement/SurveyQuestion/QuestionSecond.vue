@@ -28,6 +28,7 @@
         </v-btn>
       </v-col> -->
     </v-row>
+
     <v-form v-model="validateForm" @submit.prevent="handleSubmit">
     <div class="mt-2">
       <v-card elevation="1" color="#FFF1F0">
@@ -39,6 +40,7 @@
         </v-card-text>
       </v-card>
     </div>
+    <div class="mt-5">{{name}}</div>
     <div class="section">
       <QuestionMaster
         :sections="questionSections"
@@ -87,6 +89,7 @@ const validateForm = ref(null);
 const loading = ref(false);
 const questionSections = ref([]);
 const questionTile = ref({});
+const name = ref(null);
 
 const p_state = ref(null);
 const p_bpNumber = ref(null);
@@ -112,6 +115,7 @@ onBeforeMount(() => {
     const question = JSON.parse(info);
     p_rspActivityStatusId.value = question.rspActivityStatusId;
     p_inprogressSectionId.value = question.inprogressSectionId;
+    name.value = question.name;
     questionTile.value = question.nameQuestionnaire;
     questionSections.value = ConvertUtils.questionnaireDisabled(
       question.createQuestionnaire
