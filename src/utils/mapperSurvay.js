@@ -173,6 +173,7 @@ const mapperSurvayStepTwo = (el, rspSurvayActive) => {
             question: "Uploads files",
             isRequired: true,
             files: null,
+            nextQuestionId: 0,
           },
         },
       };
@@ -185,6 +186,7 @@ const mapperSurvayStepTwo = (el, rspSurvayActive) => {
           : "None";
         UploadType.data.metaData.isRequired = question?.is_required;
         UploadType.data.metaData.question = question?.question;
+
         mySurvayStructureTwo.createQuestionnaire.push(UploadType);
       }
 
@@ -431,6 +433,35 @@ const mapperSurvayStepThree = (el) => {
             nextQuestionId: item.next_question_id,
           };
         });
+        questionnaire.data.push(DropdawnType);
+      }
+
+      // File upload
+      const UploadType = {
+        id: 0,
+        index: 0,
+        disabled: false,
+        typeQuestionCard: "None",
+        data: {
+          controlType: "Uploads",
+          metaData: {
+            question: "Uploads files",
+            isRequired: true,
+            files: null,
+            nextQuestionId: 0,
+          },
+        },
+      };
+
+      if (question?.question_type?.id == 5) {
+        UploadType.id = question?.rsp_survey_question_id;
+        UploadType.index = question?.sequence;
+        UploadType.typeQuestionCard = question?.is_alignment_question
+          ? "Align"
+          : "None";
+        UploadType.data.metaData.isRequired = question?.is_required;
+        UploadType.data.metaData.question = question?.question;
+        questionnaire.data.push(UploadType);
       }
     }
     mySurvayStructureThree.createQuestionnaire.push(questionnaire);
