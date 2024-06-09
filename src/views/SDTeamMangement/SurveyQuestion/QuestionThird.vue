@@ -15,7 +15,7 @@
     <div class="text-center mt-5">
       <v-row>
         <v-col cols="8" class="d-flex">
-          <h3>{{ sectionId }}.{{ sectionsTitle }}</h3>
+          <h3>{{ sectionsTitle }}</h3>
         </v-col>
         <!-- <v-col cols="4" class="d-flex justify-end">
           <v-btn

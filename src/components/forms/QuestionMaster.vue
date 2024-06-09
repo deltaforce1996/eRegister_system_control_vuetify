@@ -9,7 +9,7 @@
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
         <v-card-title>
-          {{ index + 1 }}.{{ item?.data?.metaData?.question }}
+          {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
             >*</span
           >
@@ -48,7 +48,7 @@
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
         <v-card-title>
-          {{ number(index) }}.{{ item?.data?.metaData?.question }}
+          {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
             >*</span
           >
@@ -106,7 +106,7 @@
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
         <v-card-title>
-          {{ number(index) }}.{{ item?.data?.metaData?.question }}
+          {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
             >*</span
           >
@@ -163,7 +163,7 @@
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
         <v-card-title>
-          {{ number(index) }}.{{ item.data.metaData.question }}
+          {{ item.data.metaData.question }}
           <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
         </v-card-title>
         <v-card-text class="pt-8">
@@ -198,7 +198,7 @@
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
         <v-card-title>
-          {{ number(index) }}.{{ item.data.metaData.question }}
+          {{ item.data.metaData.question }}
           <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
         </v-card-title>
         <v-card-text class="pt-8">
@@ -250,9 +250,6 @@ const questionSections = computed({
   },
 });
 
-const number = (index) => {
-  return index + 1;
-};
 const onParagraphChanged = (index, nextId, val) => {
   if (nextId !== 0) {
     if (val.length > 0) {
