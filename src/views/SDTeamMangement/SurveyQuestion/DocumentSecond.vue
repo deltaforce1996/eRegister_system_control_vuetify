@@ -177,7 +177,7 @@ const getUrlArraybuffer = async () => {
   const response = await axios({
     method: "get",
     responseType: "arraybuffer",
-    url: 'https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf', // /*"https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf"*/,
+    url: sessionStorage.getItem("file_url"), // /*"https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf"*/,
   });
   // sessionStorage.getItem("file_url")
   sessionStorage.removeItem("file_url");
