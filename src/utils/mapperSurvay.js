@@ -228,8 +228,9 @@ const mapperSurvayStepTwo = (el, rspSurvayActive) => {
   }
 };
 
-const mapperSurvayStepThree = (el) => {
+const mapperSurvayStepThree = (el, rspSurvayActive) => {
   if (el?.section_type.id == 2) {
+    mySurvayStructureThree.createQuestionnaire.title = rspSurvayActive.name;
     const questionnaire = {
       id: el?.rsp_survey_section_id,
       index: el.sequence,
@@ -481,7 +482,7 @@ const MapperSurvay = (data, rspSurvayActive, rspActivityStatusId) => {
   for (let index = 0; index < data.sections.length; index++) {
     const el = data.sections[index];
     mapperSurvayStepTwo(el, rspSurvayActive);
-    mapperSurvayStepThree(el);
+    mapperSurvayStepThree(el, rspSurvayActive);
   }
   return { mySurvayStructureTwo, mySurvayStructureThree };
 };
