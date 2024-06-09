@@ -19,6 +19,7 @@
           variant="flat"
           height="40"
           rounded
+          @click="handleDowload"
         >
           Download
         </v-btn>
@@ -127,6 +128,8 @@
 import PDF from "pdf-vue3";
 //import pdf from 'vue-pdf'
 //import file from "@/assets/base64.json";
+import { Base64 } from 'js-base64'
+import { saveAs } from 'file-saver'
 import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
 import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
 
@@ -174,12 +177,14 @@ const getUrlArraybuffer = async () => {
   const response = await axios({
     method: "get",
     responseType: "arraybuffer",
-    url: sessionStorage.getItem("file_url"), // /*"https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf"*/,
+    url: 'https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf', // /*"https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf"*/,
   });
+  // sessionStorage.getItem("file_url")
   sessionStorage.removeItem("file_url");
   var base64 = arrayBufferToBase64(response.data);
   fileBase64.value = base64;
 };
+
 
 const arrayBufferToBase64 = (buffer) => {
   var binary = "";
@@ -196,6 +201,12 @@ const handleShareActivity = async () => {
     console.log(result);
   }
 };
+const handleDowload = ()=>{
+    const { value } = fileBase64
+    const decode = Base64.toUint8Array(value)
+    const blob = new Blob([decode], { type: 'pdf' })
+   saveAs(blob, bp_number.value+".pdf")
+}
 const stepperPrev = () => {
   console.log("prev");
 };
