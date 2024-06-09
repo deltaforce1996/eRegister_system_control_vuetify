@@ -228,9 +228,9 @@ const mapperSurvayStepTwo = (el, rspSurvayActive) => {
   }
 };
 
-const mapperSurvayStepThree = (el, rspSurvayActive) => {
+const mapperSurvayStepThree = (el) => {
   if (el?.section_type.id == 2) {
-    mySurvayStructureThree.createQuestionnaire.title = rspSurvayActive.name;
+
     const questionnaire = {
       id: el?.rsp_survey_section_id,
       index: el.sequence,
@@ -475,6 +475,8 @@ const MapperSurvay = (data, rspSurvayActive, rspActivityStatusId) => {
 
   // mySurvayStructureTwo.inprogressSectionId = inprogressSectionId;
   // mySurvayStructureThree.inprogressSectionId = inprogressSectionId;
+
+  mySurvayStructureThree.nameQuestionnaire.title = rspSurvayActive.name;
 
   mySurvayStructureThree.createQuestionnaire = [];
   mySurvayStructureTwo.createQuestionnaire = [];
