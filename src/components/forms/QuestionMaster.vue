@@ -133,7 +133,7 @@
                   : ''
               "
               @input="
-                onCheckboxChanged(item.index, choice, item.data.metaData.answer)
+                onCheckboxChanged(item.index, choice, item.data.metaData.answer,item?.data?.metaData?.choices)
               "
             >
               <template v-if="choice.title === isOther" v-slot:label>
@@ -304,13 +304,18 @@ const onRadioChanged = (index, choices, val) => {
   }
 };
 // eslint-disable-next-line no-unused-vars
-const onCheckboxChanged = (index, selected, val) => {
+const onCheckboxChanged = (index, selected, val,choices) => {
   const checked = val.includes(selected.id);
   if (checked) {
     isDisabled(index, selected.nextQuestionId, false);
     return;
   }
-  isDisabled(index, selected.nextQuestionId, true);
+  const answerAudit =  choices.filter(i =>  val.includes(i.id));
+  const answerDuplicate =  answerAudit.filter(i =>  i.nextQuestionId === selected.nextQuestionId);
+  if(answerDuplicate.length === 0){
+    isDisabled(index, selected.nextQuestionId, true);
+  }
+
 };
 const onCheckboxInputChanged = (checked, val) => {
   const index = checked.findIndex((i) => i === val);
