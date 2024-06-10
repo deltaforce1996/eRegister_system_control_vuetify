@@ -36,6 +36,17 @@
         </v-btn> -->
       </div>
       <div v-else class="d-flex flex-row-reverse mb-5">
+        <!-- <v-btn
+          class="me-2 text-none"
+          color="secondary"
+          prepend-icon="mdi-download"
+          variant="flat"
+          height="40"
+          rounded
+          @click="handleDowload"
+        >
+          Download
+        </v-btn> -->
         <v-btn
           class="me-2 text-none"
           color="secondary"
@@ -203,7 +214,7 @@ const getUrlArraybuffer = async () => {
     url: sessionStorage.getItem("file_url"), // /*"https://uwaterloo.ca/onbase/sites/ca.onbase/files/uploads/files/sampleunsecuredpdf.pdf"*/,
   });
   // sessionStorage.getItem("file_url")
-  sessionStorage.removeItem("file_url");
+  // sessionStorage.removeItem("file_url");
   var base64 = arrayBufferToBase64(response.data);
   fileBase64.value = base64;
 };
@@ -226,7 +237,8 @@ const handleShareActivity = async () => {
 const handleDowload = () => {
   const { value } = fileBase64;
   const decode = Base64.toUint8Array(value);
-  const blob = new Blob([decode], { type: "pdf" });
+  const blob = new Blob([decode], { type: "application/pdf" });
+
   saveAs(blob, bp_number.value + ".pdf");
 };
 const stepperPrev = () => {
