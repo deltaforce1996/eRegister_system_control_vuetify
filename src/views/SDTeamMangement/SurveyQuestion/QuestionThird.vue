@@ -177,6 +177,7 @@ const sectionNext = () => {
       sectionsItems.value[sectionsIndex.value].rspActivityStatusId;
     p_inprogressSectionId.value =
       sectionsItems.value[sectionsIndex.value].inprogressSectionId;
+    window.scroll({top: 0,left: 0, behavior: 'smooth'});
   }
 };
 const sectionPrev = () => {
@@ -187,6 +188,7 @@ const sectionPrev = () => {
     sectionsData.value = ConvertUtils.questionnaireDisabled(
       sectionsItems.value[sectionsIndex.value].data
     );
+    window.scroll({top: 0,left: 0, behavior: 'smooth'});
   }
 };
 

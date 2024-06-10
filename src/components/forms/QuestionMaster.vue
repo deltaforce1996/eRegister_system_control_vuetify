@@ -8,12 +8,15 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <v-card-title>
+        <!-- <v-card-title>
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
             >*</span
           >
-        </v-card-title>
+        </v-card-title> -->
+        <p class="pa-2">{{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        </p>
         <v-card-text>
           <v-text-field
             v-model="item.data.metaData.answer"
@@ -47,12 +50,15 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <v-card-title>
+        <!-- <v-card-title>
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
             >*</span
           >
-        </v-card-title>
+        </v-card-title> -->
+        <p class="pa-2">{{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        </p>
         <v-card-text class="pt-8">
           <v-radio-group
             v-model="item.data.metaData.answer"
@@ -74,7 +80,7 @@
                 <template v-slot:label>
                   <div v-if="choice.title === isOther" class="pa-1">
                     <div class="d-flex flex-row align-center">
-                      <span> {{ choice.answer }}</span>
+                      <p> {{ choice.answer }}</p>
                       <v-text-field
                         v-model="choice.specify"
                         style="max-width: 500px; min-width: 300px"
@@ -105,12 +111,15 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <v-card-title>
+        <!-- <v-card-title>
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
             >*</span
           >
-        </v-card-title>
+        </v-card-title> -->
+        <p class="pa-2">{{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        </p>
         <v-card-text class="pt-8">
           <div v-for="(choice, i) in item?.data?.metaData?.choices" :key="i">
             <v-checkbox
@@ -129,7 +138,7 @@
             >
               <template v-if="choice.title === isOther" v-slot:label>
                 <div class="d-flex flex-row align-center">
-                  <span> {{ choice.answer }}</span>
+                  <p> {{ choice.answer }}</p>
                   <v-text-field
                     v-model="choice.specify"
                     style="max-width: 500px; min-width: 300px"
@@ -162,10 +171,13 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <v-card-title>
+        <!-- <v-card-title>
           {{ item.data.metaData.question }}
           <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
-        </v-card-title>
+        </v-card-title> -->
+        <p class="pa-2">{{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        </p>
         <v-card-text class="pt-8">
           <v-select
             v-model="item.data.metaData.answer"
@@ -197,10 +209,13 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <v-card-title>
+        <!-- <v-card-title>
           {{ item.data.metaData.question }}
           <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
-        </v-card-title>
+        </v-card-title> -->
+        <p class="pa-2">{{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        </p>
         <v-card-text class="pt-8">
           <Choosefile
             descritption=""
