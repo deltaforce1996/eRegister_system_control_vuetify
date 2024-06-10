@@ -23,7 +23,7 @@
               <div>
                 <h5>
                   Drag & Drop
-                  {{ icon === "mdi-microsoft-excel" ? "File " : "Picture " }}
+                  file
                 </h5>
                 <h5 class="text-secondary">HERE</h5>
               </div>

@@ -30,39 +30,43 @@
     </v-row>
 
     <v-form v-model="validateForm" @submit.prevent="handleSubmit">
-    <div class="mt-2">
-      <v-card elevation="1" color="#FFF1F0">
-        <v-card-title class="text-center text-secondary">
-          {{ questionTile?.title }}
-        </v-card-title>
-        <v-card-text class="text-secondary">
-          {{ questionTile?.description }}
-        </v-card-text>
-      </v-card>
-    </div>
-    <div class="mt-5">{{name}}</div>
-    <div class="section">
-      <QuestionMaster
-        :sections="questionSections"
-        @sections="questionSections = $event"
-      />
-    </div>
-    <v-row dense class="mt-5">
-      <v-col cols="12" class="d-flex justify-center">
-        <v-btn
-          color="secondary"
-          width="140"
-          class="text-capitalize"
-          type="submit"
-          rounded
-          :loading="loading"
-        >
-          <v-icon left>mdi-tag</v-icon>
-          เริ่ม
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-form>
+      <div class="mt-2">
+        <v-card elevation="1" color="#FFF1F0">
+          <v-card-title class="text-center text-secondary">
+            {{ questionTile?.title.split('<br>')[0] }}
+            <!-- {{ "ไทย<br>eng".split('<br>')[0] }} -->
+          </v-card-title>
+          <v-card-title class="text-center text-secondary mt-n5 mb-5">
+            {{ questionTile?.title.split('<br>')[1] }}
+            <!-- {{ "ไทย<br>eng".split('<br>')[1] }} -->
+          </v-card-title>
+          <v-card-text class="text-secondary description">
+            {{ questionTile?.description }}
+          </v-card-text>
+        </v-card>
+      </div>
+      <div class="mt-5">{{ name }}</div>
+      <div class="section">
+        <QuestionMaster
+          :sections="questionSections"
+          @sections="questionSections = $event"
+        />
+      </div>
+      <v-row dense class="mt-5">
+        <v-col cols="12" class="d-flex justify-center">
+          <v-btn
+            color="secondary"
+            width="140"
+            class="text-capitalize"
+            type="submit"
+            rounded
+            :loading="loading"
+          >
+            ต่อไป
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-form>
   </v-container>
 </template>
 <script setup>
@@ -125,18 +129,20 @@ onBeforeMount(() => {
 
 const handleSubmit = async () => {
   if (validateForm.value) {
-    const confirmed = await showDialog("ยืนยันการการส่งแบบสอบถาม",'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ');
-    if (confirmed) {
-        const answersFormat = await ConvertUtils.questionnaireAnswer(questionSections.value);
-        handleCreatedSurveyAnswer(answersFormat)
-      }
-    }
+    const answersFormat = await ConvertUtils.questionnaireAnswer(
+      questionSections.value
+    );
+    handleCreatedSurveyAnswer(answersFormat);
+  }
 };
 
 const handleCreatedSurveyAnswer = async (answers) => {
   try {
     loading.value = true;
-    const response = await RspService.createRspSurveyAnswer(p_rspSurveyId.value, answers);
+    const response = await RspService.createRspSurveyAnswer(
+      p_rspSurveyId.value,
+      answers
+    );
     const { is_success } = response.data;
     if (is_success) {
       const updated = await handleUpdatedSurveyResult();
@@ -186,3 +192,9 @@ const stepperNext = () => {
   router.push(url);
 };
 </script>
+
+<style scoped>
+.description {
+  text-indent: 1.5em; /* Adjust the value as needed */
+}
+</style>

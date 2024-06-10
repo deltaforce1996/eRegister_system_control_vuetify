@@ -10,7 +10,10 @@
       />
     </v-card-text>
     <v-card-title class="text-center">
-      <b>{{ sectionsHeader.title }}</b>
+      <b>{{ sectionsHeader.title.split('<br />')[0] }}</b>
+    </v-card-title>
+    <v-card-title class="text-center mt-n3">
+      <b>{{ sectionsHeader.title.split('<br />')[1] }}</b>
     </v-card-title>
     <div class="text-center mt-5">
       <v-row>
@@ -63,7 +66,7 @@
             :loading="loading"
             type="submit"
           >
-            {{ sectionLast() ? "ส่งแบบสอบถาม" : "ต่อไป" }}
+            {{ sectionLast() ? "ส่ง" : "ต่อไป" }}
           </v-btn>
         </v-col>
       </v-row>
@@ -177,7 +180,7 @@ const sectionNext = () => {
       sectionsItems.value[sectionsIndex.value].rspActivityStatusId;
     p_inprogressSectionId.value =
       sectionsItems.value[sectionsIndex.value].inprogressSectionId;
-    window.scroll({top: 0,left: 0, behavior: 'smooth'});
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }
 };
 const sectionPrev = () => {
@@ -188,7 +191,7 @@ const sectionPrev = () => {
     sectionsData.value = ConvertUtils.questionnaireDisabled(
       sectionsItems.value[sectionsIndex.value].data
     );
-    window.scroll({top: 0,left: 0, behavior: 'smooth'});
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }
 };
 
@@ -284,8 +287,8 @@ const handleUpdatedSurveyResult = async () => {
 const handleSendQuestion = async () => {
   try {
     const confirmed = await showDialog(
-      "ยืนยันการส่งแบบสอบถาม",
-      'กรุณาตรวจสอบ\nคลิกปุ่ม"ตกลง"เพื่อดำเนินการ'
+      "ยืนยันการส่งแบบสำรวจ",
+      'กรุณาตรวจสอบข้อมูลให้ถูกต้อง\nคลิกปุ่ม"ตกลง"เพื่อดำเนินการ'
     );
     if (confirmed) {
       const response = await RspService.completeRspSurvey(
@@ -308,8 +311,8 @@ const handleSendQuestion = async () => {
 };
 const handleAlertSuccessfully = async () => {
   const confirmed = await showAlert(
-    "ส่งแบบสอบถามเรียบร้อย",
-    "ขอบคุณที่ให้ความร่วมมือในการทำแบบสอบถามคุณสามารถทราบคะแนนในหน้าถัดไป"
+    "ส่งแบบสำรวจเรียบร้อยแล้ว",
+    "ขอขอบคุณสำหรับการตอบแบบสำรวจ\nการประเมินด้านความยั่งยืนของคู่ค้าในครั้งนี้"
   );
   if (confirmed) {
     router.push(

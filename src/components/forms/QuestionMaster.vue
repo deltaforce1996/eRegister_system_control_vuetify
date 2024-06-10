@@ -14,8 +14,11 @@
             >*</span
           >
         </v-card-title> -->
-        <p class="pa-2">{{ item?.data?.metaData?.question }}
-          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        <p class="pa-2">
+          {{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red"
+            >*</span
+          >
         </p>
         <v-card-text>
           <v-text-field
@@ -56,8 +59,11 @@
             >*</span
           >
         </v-card-title> -->
-        <p class="pa-2">{{ item?.data?.metaData?.question }}
-          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        <p class="pa-2">
+          {{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red"
+            >*</span
+          >
         </p>
         <v-card-text class="pt-8">
           <v-radio-group
@@ -80,7 +86,7 @@
                 <template v-slot:label>
                   <div v-if="choice.title === isOther" class="pa-1">
                     <div class="d-flex flex-row align-center">
-                      <p> {{ choice.answer }}</p>
+                      <p>{{ choice.answer }}</p>
                       <v-text-field
                         v-model="choice.specify"
                         style="max-width: 500px; min-width: 300px"
@@ -117,8 +123,11 @@
             >*</span
           >
         </v-card-title> -->
-        <p class="pa-2">{{ item?.data?.metaData?.question }}
-          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        <p class="pa-2">
+          {{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red"
+            >*</span
+          >
         </p>
         <v-card-text class="pt-8">
           <div v-for="(choice, i) in item?.data?.metaData?.choices" :key="i">
@@ -133,12 +142,17 @@
                   : ''
               "
               @input="
-                onCheckboxChanged(item.index, choice, item.data.metaData.answer,item?.data?.metaData?.choices)
+                onCheckboxChanged(
+                  item.index,
+                  choice,
+                  item.data.metaData.answer,
+                  item?.data?.metaData?.choices
+                )
               "
             >
               <template v-if="choice.title === isOther" v-slot:label>
                 <div class="d-flex flex-row align-center">
-                  <p> {{ choice.answer }}</p>
+                  <p>{{ choice.answer }}</p>
                   <v-text-field
                     v-model="choice.specify"
                     style="max-width: 500px; min-width: 300px"
@@ -175,8 +189,11 @@
           {{ item.data.metaData.question }}
           <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
         </v-card-title> -->
-        <p class="pa-2">{{ item?.data?.metaData?.question }}
-          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        <p class="pa-2">
+          {{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red"
+            >*</span
+          >
         </p>
         <v-card-text class="pt-8">
           <v-select
@@ -213,12 +230,17 @@
           {{ item.data.metaData.question }}
           <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
         </v-card-title> -->
-        <p class="pa-2">{{ item?.data?.metaData?.question }}
-          <span v-if="item?.data?.metaData?.isRequired" class="text-red">*</span>
+        <p class="pa-2">
+          {{ item?.data?.metaData?.question }}
+          <span v-if="item?.data?.metaData?.isRequired" class="text-red"
+            >*</span
+          >
         </p>
         <v-card-text class="pt-8">
           <Choosefile
-            descritption=""
+            accept=""
+            icon="mdi mdi-file-document"
+            descritption="โปรดตรวจสอบให้แน่ว่าไฟล์ซึ่งจะถูกอัพโหลดประกอบด้วยข้อมูลส่วนบุคคลที่จำเป็น ตามที่ระบุไว้ในนโยบายความเป็นส่วนตัวของ FTP เท่านั้น"
             @input-file="onUploads(item.index, item.data.metaData, $event)"
             :is-file="item.data.metaData.files"
           />
@@ -229,7 +251,7 @@
   </div>
 </template>
 <script setup>
-import Choosefile from "@/components/forms/Choosefile";
+import Choosefile from "@/components/forms/Choosefile.vue";
 // eslint-disable-next-line no-unused-vars
 import { ref, onBeforeMount, computed } from "vue";
 const emit = defineEmits(["sections"]);
@@ -304,18 +326,19 @@ const onRadioChanged = (index, choices, val) => {
   }
 };
 // eslint-disable-next-line no-unused-vars
-const onCheckboxChanged = (index, selected, val,choices) => {
+const onCheckboxChanged = (index, selected, val, choices) => {
   const checked = val.includes(selected.id);
   if (checked) {
     isDisabled(index, selected.nextQuestionId, false);
     return;
   }
-  const answerAudit =  choices.filter(i =>  val.includes(i.id));
-  const answerDuplicate =  answerAudit.filter(i =>  i.nextQuestionId === selected.nextQuestionId);
-  if(answerDuplicate.length === 0){
+  const answerAudit = choices.filter((i) => val.includes(i.id));
+  const answerDuplicate = answerAudit.filter(
+    (i) => i.nextQuestionId === selected.nextQuestionId
+  );
+  if (answerDuplicate.length === 0) {
     isDisabled(index, selected.nextQuestionId, true);
   }
-
 };
 const onCheckboxInputChanged = (checked, val) => {
   const index = checked.findIndex((i) => i === val);

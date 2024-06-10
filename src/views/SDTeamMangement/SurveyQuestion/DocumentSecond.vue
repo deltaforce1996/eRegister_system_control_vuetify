@@ -23,7 +23,7 @@
         >
           Download
         </v-btn>
-        <v-btn
+        <!-- <v-btn
           class="me-2 text-none"
           color="secondary"
           prepend-icon="mdi-reply-outline"
@@ -33,7 +33,7 @@
           @click="handleShareActivity"
         >
           ส่งต่อ
-        </v-btn>
+        </v-btn> -->
       </div>
       <div v-else class="d-flex flex-row-reverse mb-5">
         <v-btn
@@ -57,69 +57,79 @@
       bg-color="rgba(0, 0, 0, 0.8)"
     >
       <v-container>
-        <v-row align="center" justify="center">
-          <v-col cols="auto" class="d-flex align-center">
-            <b class="text-white text-subtitle-1">ชื่อข้าพเจ้า</b>
-          </v-col>
-          <v-col cols="auto" class="d-flex align-center mt-5">
-            <v-radio-group v-model="prefixName" inline>
-              <v-radio
-                label="นาย"
-                value="นาย"
-                class="text-white text-subtitle-1"
-              ></v-radio>
-              <v-radio
-                label="นาง"
-                value="นาง"
-                class="text-white text-subtitle-1"
-              ></v-radio>
-              <v-radio
-                label="นางสาว"
-                value="นางสาว"
-                class="text-white text-subtitle-1"
-              ></v-radio>
-            </v-radio-group>
-          </v-col>
-          <v-col cols="auto" class="d-flex align-center mt-5">
-            <v-text-field
-              style="width: 300px"
-              density="compact"
-              bg-color="white"
-              variant="outlined"
-            >
-            </v-text-field>
-          </v-col>
-          <v-col cols="auto" class="d-flex align-center">
-            <b class="text-white text-subtitle-1">นามสกุล</b>
-          </v-col>
-          <v-col cols="auto" class="d-flex align-center mt-5">
-            <v-text-field
-              style="width: 300px"
-              density="compact"
-              bg-color="white"
-              variant="outlined"
-            >
-            </v-text-field>
-          </v-col>
-          <v-col cols="auto" class="d-flex align-center">
-            <b class="text-white text-subtitle-1"
-              >รับทราบและจะดำเนินการตามที่ระบุ</b
-            >
-          </v-col>
-        </v-row>
-        <v-row align="center" justify="center">
-          <v-col cols="auto" class="d-flex align-center">
-            <v-btn
-              class="text-capitalize"
-              @click="handleConfirm"
-              rounded
-              style="background-color: #ed1c24"
-              height="35"
-            >
-              <span class="text-white text-subtitle-1"> รับทราบ</span>
-            </v-btn>
-          </v-col>
-        </v-row>
+        <v-form ref="registerAccept">
+          <v-row align="center" justify="center">
+            <v-col cols="auto" class="d-flex align-center">
+              <b class="text-white text-subtitle-1">ชื่อข้าพเจ้า</b>
+            </v-col>
+            <v-col cols="auto" class="d-flex align-center mt-5">
+              <v-radio-group
+                v-model="input_data.prefixName"
+                :rules="textRequired"
+                inline
+              >
+                <v-radio
+                  label="นาย"
+                  value="นาย"
+                  class="text-white text-subtitle-1"
+                ></v-radio>
+                <v-radio
+                  label="นาง"
+                  value="นาง"
+                  class="text-white text-subtitle-1"
+                ></v-radio>
+                <v-radio
+                  label="นางสาว"
+                  value="นางสาว"
+                  class="text-white text-subtitle-1"
+                ></v-radio>
+              </v-radio-group>
+            </v-col>
+            <v-col cols="auto" class="d-flex align-center mt-5">
+              <v-text-field
+                :rules="textRequired"
+                style="width: 300px"
+                density="compact"
+                bg-color="white"
+                variant="outlined"
+                v-model="input_data.firstname"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="auto" class="d-flex align-center">
+              <b class="text-white text-subtitle-1">นามสกุล</b>
+            </v-col>
+            <v-col cols="auto" class="d-flex align-center mt-5">
+              <v-text-field
+                v-model="input_data.lastname"
+                :rules="textRequired"
+                style="width: 300px"
+                density="compact"
+                bg-color="white"
+                variant="outlined"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="auto" class="d-flex align-center mt-n10">
+              <b class="text-white text-subtitle-1"
+                >รับทราบและจะดำเนินการตามที่ระบุ</b
+              >
+            </v-col>
+          </v-row>
+          <v-row align="center" dense class="mt-n3" justify="center">
+            <v-col cols="auto" class="d-flex align-center">
+              <v-btn
+                class="text-capitalize"
+                @click="handleConfirm"
+                rounded
+                style="background-color: #ed1c24"
+                height="35"
+              >
+                <span class="text-white text-subtitle-1"> รับทราบ</span>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
       </v-container>
     </v-bottom-navigation>
   </v-container>
@@ -128,13 +138,14 @@
 import PDF from "pdf-vue3";
 //import pdf from 'vue-pdf'
 //import file from "@/assets/base64.json";
-import { Base64 } from 'js-base64'
-import { saveAs } from 'file-saver'
+import { Base64 } from "js-base64";
+import { saveAs } from "file-saver";
 import ToolbarSurvey from "@/components/items/ToolbarSurvey.vue";
 import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
 
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
+const route = useRoute();
 
 const { showDialog } = useConfirmationDialog();
 import { ref, onBeforeMount, onMounted } from "vue";
@@ -142,11 +153,22 @@ import { ref, onBeforeMount, onMounted } from "vue";
 const { showShareActivityDialog } = useShareActivityDialog();
 
 const done = ref(false);
-const prefixName = ref(null);
+// const prefixName = ref(null);
 const fileBase64 = ref(null);
+
+const input_data = ref({
+  prefixName: null,
+  firstname: "",
+  lastname: "",
+});
 
 import axios from "axios";
 import { useShareActivityDialog } from "@/components/dialogs/ShareActivityDialogService";
+import RspService from "@/apis/RspService";
+import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+
+const textRequired = [(v) => !!v || "กรุณากรอกข้อมูลให้ครบถ้วน"];
+const { handlingErrorsMessage } = useErrorHandlingDialog();
 
 const stepper = ref({
   index: 2,
@@ -154,6 +176,7 @@ const stepper = ref({
 });
 const state = ref(null);
 const bp_number = ref(null);
+const registerAccept = ref(null);
 // const rsp_survey_id = ref(null);
 // const isHide = ref(false);
 
@@ -185,7 +208,6 @@ const getUrlArraybuffer = async () => {
   fileBase64.value = base64;
 };
 
-
 const arrayBufferToBase64 = (buffer) => {
   var binary = "";
   var bytes = new Uint8Array(buffer);
@@ -201,12 +223,12 @@ const handleShareActivity = async () => {
     console.log(result);
   }
 };
-const handleDowload = ()=>{
-    const { value } = fileBase64
-    const decode = Base64.toUint8Array(value)
-    const blob = new Blob([decode], { type: 'pdf' })
-   saveAs(blob, bp_number.value+".pdf")
-}
+const handleDowload = () => {
+  const { value } = fileBase64;
+  const decode = Base64.toUint8Array(value);
+  const blob = new Blob([decode], { type: "pdf" });
+  saveAs(blob, bp_number.value + ".pdf");
+};
 const stepperPrev = () => {
   console.log("prev");
 };
@@ -216,16 +238,38 @@ const stepperNext = () => {
     `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
   );
 };
+
 const handleConfirm = async () => {
+  const is_valid = await registerAccept.value.validate();
+  if (!is_valid || !is_valid["valid"]) return;
   const confirmed = await showDialog(
-    "ยืนยันรับทราบเอกสาร?",
-    'กรุณาตรวจสอบคลิกปุ่ม "ตกลง" เพื่อดำเนินการ'
+    "ยืนยันการรับทราบเอกสาร?",
+    'กรุณาตรวจสอบข้อมูล คุณไม่สามารถกลับมาแก้ไขได้อีก\nคลิกปุ่ม "ตกลง" เพื่อดำเนินการ'
   );
   if (confirmed) {
+    try {
+      const response = await RspService.createAcceptRspPolicy({
+        bp_number: route.query?.bp_number ?? null,
+        rsp_policy_id: Number(route.query?.rsp_survey_id),
+        Title: input_data.value.prefixName,
+        firstname: input_data.value.firstname,
+        lastname: input_data.value.lastname,
+      });
+      if (response.data?.is_success) {
+        console.log(response.data?.is_success);
+        router.push(
+          `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
+        );
+      }
+    } catch (e) {
+      if (e.response && e.response.data) {
+        const val = e.response.data;
+        handlingErrorsMessage(val.message, val?.data?.error);
+        return;
+      }
+      handlingErrorsMessage("unknown", e.message);
+    }
     console.log("Confirm");
-    router.push(
-      `/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=${bp_number.value}`
-    );
   }
 };
 </script>

@@ -534,6 +534,17 @@ const exportRspSurveyResult = async (survey_id) => {
   });
 };
 
+const createAcceptRspPolicy = async (databody) => {
+  return await axiosBase({
+    method: "post",
+    url: "/rsp/accept-rsp-policy",
+    data: {
+      ...databody,
+      created_user_id: 185
+    },
+  });
+};
+
 export default {
   getVendorRspStatus,
   sendFollowUpVendor,
@@ -557,6 +568,7 @@ export default {
   exportRspPolicyResult,
   UndeleteRspPolicy,
   PermanentlyDeleteRspRolicy,
+  createAcceptRspPolicy,
 
   // rsp-traning
   getRspTraining,

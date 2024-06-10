@@ -23,11 +23,12 @@ function showShareActivityDialog(bp_number) {
 
 async function showShareActivity() {
   try {
+    state.is_err = false;
     const response = await RspService.shareRspActivity(
       state.bp_number,
       state.email
     );
-    if (response.data.data && response.data.is_success) {
+    if (response.data && response.data.is_success) {
       state.is_err = false;
       return true;
     }
