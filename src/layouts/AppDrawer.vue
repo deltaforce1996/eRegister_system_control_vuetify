@@ -76,10 +76,17 @@ const items = [
   },
   {
     id: 8,
-    title: "Suevay",
+    title: "Sign",
     icon: "mdi mdi-account-group",
     isActive: false,
     path: "/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=created&bp_number=01713749087000",
+  },
+  {
+    id: 9,
+    title: "Suevay",
+    icon: "mdi mdi-account-group",
+    isActive: false,
+    path: "/SDTeamMangement/Survey/Questionnaire/1?prev_completed=completed&state=created&bp_number=01713749087000",
   },
   // {
   //   id: 5,
