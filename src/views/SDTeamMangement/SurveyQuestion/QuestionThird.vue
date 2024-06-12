@@ -99,6 +99,7 @@ const sectionsHeader = ref({
 const sectionsCount = ref(0);
 const sectionsIndex = ref(0);
 const sectionsItems = ref([]);
+const lastIndex = ref(0);
 
 const stepper = ref({
   index: 3,
@@ -124,6 +125,8 @@ onBeforeMount(() => {
   sectionsItems.value = parse.createQuestionnaire;
   sectionsCount.value = sectionsItems.value.length;
   sectionsIndex.value = 0;
+  lastIndex .value = 0;
+
 
   // init
   sectionId.value = sectionsItems.value[sectionsIndex.value].index;
@@ -173,14 +176,29 @@ const sectionNext = () => {
     sectionsIndex.value = sectionsIndex.value + 1;
     sectionId.value = sectionsItems.value[sectionsIndex.value].index;
     sectionsTitle.value = sectionsItems.value[sectionsIndex.value].title;
-    sectionsData.value = ConvertUtils.questionnaireDisabled(
-      sectionsItems.value[sectionsIndex.value].data
-    );
+
+
     p_rspActivityStatusId.value =
       sectionsItems.value[sectionsIndex.value].rspActivityStatusId;
     p_inprogressSectionId.value =
       sectionsItems.value[sectionsIndex.value].inprogressSectionId;
-    window.scroll({ top: 0, left: 0, behavior: "smooth" });
+
+
+
+    if(sectionsIndex.value > lastIndex.value){
+      lastIndex.value  = sectionsIndex.value;
+      const data =    sectionsItems.value[sectionsIndex.value].data
+      sectionsData.value = ConvertUtils.questionnaireDisabled(data);
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+      return;
+    }
+    if(sectionsIndex.value <= lastIndex.value){
+      const data =   sectionsItems.value[sectionsIndex.value].data
+      sectionsData.value = data
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+      return;
+    }
+
   }
 };
 const sectionPrev = () => {
@@ -188,9 +206,8 @@ const sectionPrev = () => {
     sectionsIndex.value = sectionsIndex.value - 1;
     sectionId.value = sectionsItems.value[sectionsIndex.value].index;
     sectionsTitle.value = sectionsItems.value[sectionsIndex.value].title;
-    sectionsData.value = ConvertUtils.questionnaireDisabled(
-      sectionsItems.value[sectionsIndex.value].data
-    );
+    const data =    sectionsItems.value[sectionsIndex.value].data
+    sectionsData.value = data
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }
 };
