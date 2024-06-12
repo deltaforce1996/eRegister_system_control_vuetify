@@ -2,25 +2,25 @@
 <template>
   <v-container>
     <div class="text-center mt-5">
-      <h2>FollowUp</h2>
+      <h2>Follow up Sd Activities</h2>
     </div>
     <v-card class="mx-auto mt-10 elevation-1">
       <v-card-item class="pa-8" v-if="isVendors">
-        <div class="font-weight-bold">ต้องการติดตามข้อมูล SD Activites แบบใด</div>
+        <div class="font-weight-bold">ต้องการส่ง Email ติดตามให้คู้ค้าทำ SD Activities แบบใด</div>
 
         <v-radio-group v-model="selected">
           <v-radio class="font-weight-medium" label="Contact Owner ติดตามให้" value="1"></v-radio>
-          <v-radio class="font-weight-medium" label="ส่งอีเมลติดตามให้ vendor โดยตรง" value="0"></v-radio>
+          <v-radio class="font-weight-medium" label="ส่งอีเมลติดตามให้ vendor โดยตรง" value="2"></v-radio>
         </v-radio-group>
       </v-card-item>
       <v-card-item class="pa-8" v-else>
-        <div class="font-weight-bold">ต้องการติดตามข้อมูล SD Activites แบบใด</div>
+        <div class="font-weight-bold">ต้องการส่ง Email ติดตามให้คู้ค้าทำ SD Activities แบบใด</div>
 
         <v-radio-group v-model="selected">
           <v-radio class="font-weight-medium" label="Contact Owner ติดตามให้" value="1"></v-radio>
           <v-text-field v-model="email_owner" class="pl-10" variant="outlined" placeholder="Contact Owner ติดตามให้"
             density="compact"></v-text-field>
-          <v-radio class="font-weight-medium" label="ส่งอีเมลติดตามให้ vendor โดยตรง" value="0"></v-radio>
+          <v-radio class="font-weight-medium" label="ส่งอีเมลติดตามให้ vendor โดยตรง" value="2"></v-radio>
           <v-text-field v-model="email_vendor" class="pl-10" variant="outlined"
             placeholder="ส่งอีเมลติดตามให้ vendor โดยตรง" density="compact"></v-text-field>
         </v-radio-group>

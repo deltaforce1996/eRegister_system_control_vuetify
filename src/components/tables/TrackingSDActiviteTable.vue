@@ -69,10 +69,10 @@
               >
                 <strong>{{ i.rsp?.policy?.status }}</strong>
               </v-chip>
-              <p class="mt-2 text-grey">
+              <!-- <p class="mt-2 text-grey">
                 Completed
                 {{ dateUtils.parseDdMmYy(i.rsp?.policy?.completed_at) }}
-              </p>
+              </p> -->
             </v-col>
             <v-col cols="2" align-self="center">
               <v-chip
@@ -85,10 +85,10 @@
                   {{ i.rsp?.survey?.progress_percentage }}%</strong
                 >
               </v-chip>
-              <p class="mt-2 text-grey">
+              <!-- <p class="mt-2 text-grey">
                 Completed
                 {{ dateUtils.parseDdMmYy(i.rsp?.survey?.completed_at) }}
-              </p>
+              </p> -->
             </v-col>
             <v-col cols="2" align-self="center">
               <v-chip
@@ -103,10 +103,10 @@
                   }}</strong
                 >
               </v-chip>
-              <p class="mt-2 text-grey">
+              <!-- <p class="mt-2 text-grey">
                 Completed
                 {{ dateUtils.parseDdMmYy(i.rsp?.training?.completed_at) }}
-              </p>
+              </p> -->
             </v-col>
             <v-col cols="3" align-self="center">
               <v-chip color="secondary" label size="small">
@@ -146,8 +146,7 @@
                         >
                         <br />
                         <span class="font-weight-black">{{
-                          businessPartnerDetail.company_information
-                            ?.business_partner_number
+                          businessPartnerDetail?.bp_number
                         }}</span>
                       </v-col>
                       <v-col cols="3">
@@ -294,7 +293,7 @@
                           businessPartnerDetail.branch?.branch_code
                         }}</span>
                       </v-col>
-                      <v-col cols="12">
+                      <!-- <v-col cols="12">
                         <label class="font-weight-medium text-grey-lighten-1"
                           >Company Code</label
                         >
@@ -302,7 +301,7 @@
                         <span class="font-weight-black">{{
                           businessPartnerDetail.branch?.company_code
                         }}</span>
-                      </v-col>
+                      </v-col> -->
                       <v-col cols="12">
                         <label class="font-weight-medium text-grey-lighten-1"
                           >Branch Address</label
@@ -454,7 +453,7 @@
 // eslint-disable-next-line no-unused-vars
 import { ref, onMounted, watch, computed } from "vue";
 import { defineProps } from "vue";
-import dateUtils from "@/utils/dateUtils";
+// import dateUtils from "@/utils/dateUtils";
 // eslint-disable-next-line no-unused-vars
 import PartnerServive from "@/apis/PartnerServive";
 import RspService from "@/apis/RspService";
