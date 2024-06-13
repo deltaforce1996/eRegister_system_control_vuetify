@@ -132,6 +132,7 @@
         <v-card-text class="pt-8">
           <div v-for="(choice, i) in item?.data?.metaData?.choices" :key="i">
             <v-checkbox
+              v-if="i === item?.data?.metaData?.choices.length - 1"
               class="mt-n1"
               v-model="item.data.metaData.answer"
               :label="choice.answer"
@@ -141,6 +142,42 @@
                   ? rules.checked
                   : ''
               "
+              @input="
+                onCheckboxChanged(
+                  item.index,
+                  choice,
+                  item.data.metaData.answer,
+                  item?.data?.metaData?.choices
+                )
+              "
+            >
+              <template v-if="choice.title === isOther" v-slot:label>
+                <div class="d-flex flex-row align-center">
+                  <p>{{ choice.answer }}</p>
+                  <v-text-field
+                    v-model="choice.specify"
+                    style="max-width: 500px; min-width: 300px"
+                    class="mt-5 ml-5"
+                    density="compact"
+                    variant="outlined"
+                    @input="
+                      onCheckboxInputChanged(
+                        item.data.metaData.answer,
+                        choice.id
+                      )
+                    "
+                  >
+                  </v-text-field>
+                </div>
+              </template>
+            </v-checkbox>
+
+            <v-checkbox
+              v-else
+              class="mt-n1"
+              v-model="item.data.metaData.answer"
+              :label="choice.answer"
+              :value="choice.id"
               @input="
                 onCheckboxChanged(
                   item.index,
@@ -251,7 +288,7 @@
   </div>
 </template>
 <script setup>
-import Choosefile from "@/components/forms/ChoosefileQuestion.vue";
+import Choosefile from "@/components/forms/Choosefile.vue";
 // eslint-disable-next-line no-unused-vars
 import { ref, onBeforeMount, computed } from "vue";
 const emit = defineEmits(["sections"]);
@@ -362,7 +399,7 @@ const onDropdownChanged = (index, choices, val) => {
 };
 const onUploads = (index, metaData, file) => {
   metaData.files = file;
-  //console.log(metaData.nextQuestionId);
+  console.log(metaData.nextQuestionId);
   if (metaData.nextQuestionId !== 0) {
     isDisabled(index, metaData.nextQuestionId, true);
   }

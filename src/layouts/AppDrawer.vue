@@ -5,11 +5,11 @@
       <nav-item
         v-for="(item, index) in items"
         :key="index"
-        :go-to="item.path"
         :is-active="isActive(item.path)"
         :icon="item.icon"
         :id="item.id"
         :title="item.title"
+        @click="goto(item.path)"
       ></nav-item>
     </v-list>
   </v-navigation-drawer>
@@ -19,9 +19,15 @@
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import NavItem from "../components/items/NavItem.vue";
+import router from "@/router";
 
 const isOpen = ref(true);
 const route = useRoute();
+
+const goto = (path) => {
+  sessionStorage.setItem("MOCK_PB", "01707129375000")
+  router.push(path)
+}
 
 const isActive = (path) => {
   const pathIitemSpit = path.split("?")
