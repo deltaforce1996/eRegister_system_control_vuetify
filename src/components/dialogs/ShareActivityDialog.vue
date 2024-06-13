@@ -58,6 +58,7 @@
 </template>
 <script setup>
 import { useShareActivityDialog } from "@/components/dialogs/ShareActivityDialogService";
+import { watch } from "vue";
 const {
   isVisible,
   email,
@@ -65,4 +66,12 @@ const {
   confirmShareActivityDialog,
   cancelShareActivityDialog,
 } = useShareActivityDialog();
+
+watch(
+  () => email.value,
+  () => {
+    // console.log(email.value)
+    is_err.value = false;
+  }
+);
 </script>

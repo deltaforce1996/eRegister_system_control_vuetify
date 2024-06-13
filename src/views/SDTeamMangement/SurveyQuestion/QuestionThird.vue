@@ -10,10 +10,10 @@
       />
     </v-card-text>
     <v-card-title class="text-center">
-      <b>{{ sectionsHeader.title.split('<br />')[0] }}</b>
+      <b>{{ sectionsHeader.title.split('<br>')[0] }}</b>
     </v-card-title>
     <v-card-title class="text-center mt-n3">
-      <b>{{ sectionsHeader.title.split('<br />')[1] }}</b>
+      <b>{{ sectionsHeader.title.split('<br>')[1] }}</b>
     </v-card-title>
     <div class="text-center mt-5">
       <v-row>
@@ -125,8 +125,7 @@ onBeforeMount(() => {
   sectionsItems.value = parse.createQuestionnaire;
   sectionsCount.value = sectionsItems.value.length;
   sectionsIndex.value = 0;
-  lastIndex .value = 0;
-
+  lastIndex.value = 0;
 
   // init
   sectionId.value = sectionsItems.value[sectionsIndex.value].index;
@@ -177,28 +176,24 @@ const sectionNext = () => {
     sectionId.value = sectionsItems.value[sectionsIndex.value].index;
     sectionsTitle.value = sectionsItems.value[sectionsIndex.value].title;
 
-
     p_rspActivityStatusId.value =
       sectionsItems.value[sectionsIndex.value].rspActivityStatusId;
     p_inprogressSectionId.value =
       sectionsItems.value[sectionsIndex.value].inprogressSectionId;
 
-
-
-    if(sectionsIndex.value > lastIndex.value){
-      lastIndex.value  = sectionsIndex.value;
-      const data =    sectionsItems.value[sectionsIndex.value].data
+    if (sectionsIndex.value > lastIndex.value) {
+      lastIndex.value = sectionsIndex.value;
+      const data = sectionsItems.value[sectionsIndex.value].data;
       sectionsData.value = ConvertUtils.questionnaireDisabled(data);
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
       return;
     }
-    if(sectionsIndex.value <= lastIndex.value){
-      const data =   sectionsItems.value[sectionsIndex.value].data
-      sectionsData.value = data
+    if (sectionsIndex.value <= lastIndex.value) {
+      const data = sectionsItems.value[sectionsIndex.value].data;
+      sectionsData.value = data;
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
       return;
     }
-
   }
 };
 const sectionPrev = () => {
@@ -206,8 +201,8 @@ const sectionPrev = () => {
     sectionsIndex.value = sectionsIndex.value - 1;
     sectionId.value = sectionsItems.value[sectionsIndex.value].index;
     sectionsTitle.value = sectionsItems.value[sectionsIndex.value].title;
-    const data =    sectionsItems.value[sectionsIndex.value].data
-    sectionsData.value = data
+    const data = sectionsItems.value[sectionsIndex.value].data;
+    sectionsData.value = data;
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }
 };

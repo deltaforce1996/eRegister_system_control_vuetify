@@ -132,7 +132,7 @@
         <v-card-text class="pt-8">
           <div v-for="(choice, i) in item?.data?.metaData?.choices" :key="i">
             <v-checkbox
-              v-if="i === item?.data?.metaData?.choices.length - 1"
+              v-if="i == item?.data?.metaData?.choices.length - 1"
               class="mt-n1"
               v-model="item.data.metaData.answer"
               :label="choice.answer"
@@ -288,7 +288,7 @@
   </div>
 </template>
 <script setup>
-import Choosefile from "@/components/forms/Choosefile.vue";
+import Choosefile from "@/components/forms/ChoosefileQuestion.vue";
 // eslint-disable-next-line no-unused-vars
 import { ref, onBeforeMount, computed } from "vue";
 const emit = defineEmits(["sections"]);
@@ -399,7 +399,7 @@ const onDropdownChanged = (index, choices, val) => {
 };
 const onUploads = (index, metaData, file) => {
   metaData.files = file;
-  console.log(metaData.nextQuestionId);
+  //console.log(metaData.nextQuestionId);
   if (metaData.nextQuestionId !== 0) {
     isDisabled(index, metaData.nextQuestionId, true);
   }
