@@ -98,6 +98,7 @@ const name = ref(null);
 const p_state = ref(null);
 const p_bpNumber = ref(null);
 const p_rspSurveyId = ref(null);
+const p_rspSurveyResultId = ref(null);
 const p_rspActivityStatusId = ref(null);
 const p_inprogressSectionId = ref(null);
 
@@ -111,8 +112,9 @@ onBeforeMount(() => {
   p_state.value = urlParams.get("state");
   p_bpNumber.value = urlParams.get("bp_number");
   p_rspSurveyId.value = urlParams.get("rsp_survey_id");
-  console.log(p_bpNumber.value);
-  console.log(p_rspSurveyId.value);
+  p_rspSurveyResultId.value = urlParams.get("rsp_survey_result_id");
+  // console.log(p_bpNumber.value);
+  // console.log(p_rspSurveyId.value);
 
   const info = sessionStorage.getItem("questionnaire2");
   if (info !== null) {
@@ -140,7 +142,7 @@ const handleCreatedSurveyAnswer = async (answers) => {
   try {
     loading.value = true;
     const response = await RspService.createRspSurveyAnswer(
-      p_rspSurveyId.value,
+      p_rspSurveyResultId.value,
       answers
     );
     const { is_success } = response.data;
@@ -183,12 +185,12 @@ const handleUpdatedSurveyResult = async () => {
 };
 const stepperPrev = () => {
   const prevCompleted = stepper.value.completed ? "completed" : "incompleted";
-  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}`;
+  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}&rsp_survey_result_id=${p_rspSurveyResultId.value}`;
   router.push(url);
 };
 const stepperNext = () => {
   const prevCompleted = stepper.value.completed ? "completed" : "incompleted";
-  const url = `/SDTeamMangement/Survey/Questionnaire/3?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}`;
+  const url = `/SDTeamMangement/Survey/Questionnaire/3?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}&rsp_survey_result_id=${p_rspSurveyResultId.value}`;
   router.push(url);
 };
 </script>

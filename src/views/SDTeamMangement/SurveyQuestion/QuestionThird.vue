@@ -115,6 +115,7 @@ const sectionsData = ref([]);
 const p_state = ref(null);
 const p_bpNumber = ref(null);
 const p_rspSurveyId = ref(null);
+const p_rspSurveyResultId = ref(null);
 const p_rspActivityStatusId = ref(null);
 const p_inprogressSectionId = ref(null);
 
@@ -144,8 +145,9 @@ onBeforeMount(() => {
 
   stepper.value.completed = done === "completed" ? true : false;
   p_state.value = urlParams.get("state");
-  p_bpNumber.value = urlParams.get("bp_number"); 
+  p_bpNumber.value = urlParams.get("bp_number");
   p_rspSurveyId.value = urlParams.get("rsp_survey_id");
+  p_rspSurveyResultId.value = urlParams.get("rsp_survey_result_id");
 });
 
 
@@ -213,7 +215,7 @@ const handleCreatedSurveyAnswer = async () => {
       sectionsData.value
     );
     const response = await RspService.createRspSurveyAnswer(
-      p_rspSurveyId.value,
+      p_rspSurveyResultId.value,
       answersFormat
     );
     const { is_success } = response.data;
@@ -332,7 +334,7 @@ const handleAlertSuccessfully = async () => {
 };
 const stepperPrev = () => {
   const prevCompleted = stepper.value.completed ? "completed" : "incompleted";
-  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}`;
+  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}&rsp_survey_result_id=${p_rspSurveyResultId.value}`;
   router.push(url);
 };
 const stepperNext = () => {
