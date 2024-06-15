@@ -8,12 +8,7 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <!-- <v-card-title>
-          {{ item?.data?.metaData?.question }}
-          <span v-if="item?.data?.metaData?.isRequired" class="text-red"
-            >*</span
-          >
-        </v-card-title> -->
+
         <p class="pa-2">
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
@@ -42,8 +37,7 @@
         </v-card-text>
       </v-card>
     </section>
-    <section
-      v-else-if="item?.data?.controlType === types.multichoice"
+    <section  v-else-if="item?.data?.controlType === types.multichoice"
       class="mt-2"
     >
       <v-card
@@ -53,12 +47,6 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <!-- <v-card-title>
-          {{ item?.data?.metaData?.question }}
-          <span v-if="item?.data?.metaData?.isRequired" class="text-red"
-            >*</span
-          >
-        </v-card-title> -->
         <p class="pa-2">
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
@@ -106,8 +94,7 @@
         </v-card-text>
       </v-card>
     </section>
-    <section
-      v-else-if="item?.data?.controlType === types.checkbox"
+    <section v-else-if="item?.data?.controlType === types.checkbox"
       class="mt-2"
     >
       <v-card
@@ -117,12 +104,7 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <!-- <v-card-title>
-          {{ item?.data?.metaData?.question }}
-          <span v-if="item?.data?.metaData?.isRequired" class="text-red"
-            >*</span
-          >
-        </v-card-title> -->
+
         <p class="pa-2">
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
@@ -132,7 +114,7 @@
         <v-card-text class="pt-8">
           <div v-for="(choice, i) in item?.data?.metaData?.choices" :key="i">
             <v-checkbox
-              v-if="i == item?.data?.metaData?.choices.length - 1"
+
               class="mt-n1"
               v-model="item.data.metaData.answer"
               :label="choice.answer"
@@ -171,7 +153,7 @@
                 </div>
               </template>
             </v-checkbox>
-
+<!--
             <v-checkbox
               v-else
               class="mt-n1"
@@ -206,13 +188,12 @@
                   </v-text-field>
                 </div>
               </template>
-            </v-checkbox>
+            </v-checkbox> -->
           </div>
         </v-card-text>
       </v-card>
     </section>
-    <section
-      v-else-if="item?.data?.controlType === types.dropdown"
+    <section v-else-if="item?.data?.controlType === types.dropdown"
       class="mt-2"
     >
       <v-card
@@ -222,10 +203,6 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <!-- <v-card-title>
-          {{ item.data.metaData.question }}
-          <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
-        </v-card-title> -->
         <p class="pa-2">
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
@@ -263,10 +240,6 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-        <!-- <v-card-title>
-          {{ item.data.metaData.question }}
-          <span v-if="item.data.metaData.isRequired" class="text-red">*</span>
-        </v-card-title> -->
         <p class="pa-2">
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
@@ -335,8 +308,17 @@ const onParagraphChanged = (index, nextId, val) => {
 };
 // eslint-disable-next-line no-unused-vars
 const onRadioChanged = (index, choices, val) => {
+   // other change defualt
+   const other = choices.find((_) => _.title === 'other');
+   if(other !== undefined &&  other.id !== val){
+      const index  = choices.findIndex(x=>x.id === other.id)
+      choices[index].specify = null;
+   }
+
+
   const opened = () => {
     const selected = choices.find((_) => _.id === val);
+
     if (
       selected.nextQuestionId !== 0 &&
       selected.nextQuestionId !== undefined
