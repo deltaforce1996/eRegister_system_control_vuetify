@@ -65,13 +65,13 @@
                 <strong>Complated by</strong>
                 <br />
                 <strong class="text-secondary">{{
-                  i.completed_user_id ?? "- "
+                  i.updated_user_id.email
                 }}</strong>
                 <strong class=""
                   >:
                   {{
-                    i.completed_at
-                      ? dateUtils.parseDdMmYyWithTimeAndSeconds(i.completed_at)
+                    i.updated_at
+                      ? dateUtils.parseDdMmYyWithTimeAndSeconds(i.updated_at)
                       : "-"
                   }}</strong
                 >
@@ -115,7 +115,7 @@
               <v-col cols="6" align-self="center" class="pa-1">
                 <strong>Complated by</strong>
                 <br />
-                <strong class="text-secondary">{{ i.updated_user_id }}</strong>
+                <strong class="text-secondary">{{ i.updated_user.email }}</strong>
                 <strong class=""
                   >:
                   {{
@@ -216,12 +216,14 @@ const getExportRspPolicyByVendor = async () => {
     );
     if (response.data?.is_success) {
       const file_url = response.data?.data?.file_url;
-      if (file_url && file_url != "")
+      if (file_url && file_url != "") {
+        const spl = file_url.split(".");
         await exportService.exportBase64(
           `policy-${bp_number.value}`,
-          "PDF",
+          spl[spl.length - 1],
           file_url
         );
+      }
     }
   } catch (e) {
     if (e.response) {
@@ -240,12 +242,14 @@ const getExportRspSurveyByVendor = async (rsp_survey_id, bp_number) => {
     );
     if (response.data?.is_success) {
       const file_url = response.data?.data?.file_url;
-      if (file_url && file_url != "")
+      if (file_url && file_url != "") {
+        const spl = file_url.split(".");
         await exportService.exportBase64(
           `survey-${rsp_survey_id}`,
-          "PDF",
+          spl[spl.length - 1],
           file_url
         );
+      }
     }
   } catch (e) {
     if (e.response) {

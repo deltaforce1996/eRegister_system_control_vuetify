@@ -69,10 +69,19 @@
               >
                 <strong>{{ i.rsp?.policy?.status }}</strong>
               </v-chip>
-              <!-- <p class="mt-2 text-grey">
+              <p
+                class="mt-2 text-grey"
+                v-if="
+                  i.rsp?.policy?.status.toString().toLowerCase() == 'completed'
+                "
+              >
                 Completed
-                {{ dateUtils.parseDdMmYy(i.rsp?.policy?.completed_at) }}
-              </p> -->
+                {{
+                  i.rsp?.policy?.completed_at
+                    ? dateUtils.parseDdMmYy(i.rsp?.policy?.completed_at)
+                    : ""
+                }}
+              </p>
             </v-col>
             <v-col cols="2" align-self="center">
               <v-chip
@@ -85,10 +94,19 @@
                   {{ i.rsp?.survey?.progress_percentage }}%</strong
                 >
               </v-chip>
-              <!-- <p class="mt-2 text-grey">
+              <p
+                class="mt-2 text-grey"
+                v-if="
+                  i.rsp?.survey?.status.toString().toLowerCase() == 'completed'
+                "
+              >
                 Completed
-                {{ dateUtils.parseDdMmYy(i.rsp?.survey?.completed_at) }}
-              </p> -->
+                {{
+                  i.rsp?.survey?.completed_at
+                    ? dateUtils.parseDdMmYy(i.rsp?.survey?.completed_at)
+                    : ""
+                }}
+              </p>
             </v-col>
             <v-col cols="2" align-self="center">
               <v-chip
@@ -103,10 +121,20 @@
                   }}</strong
                 >
               </v-chip>
-              <!-- <p class="mt-2 text-grey">
+              <p
+                class="mt-2 text-grey"
+                v-if="
+                  i.rsp?.training?.status.toString().toLowerCase() ==
+                  'completed'
+                "
+              >
                 Completed
-                {{ dateUtils.parseDdMmYy(i.rsp?.training?.completed_at) }}
-              </p> -->
+                {{
+                  i.rsp?.training?.completed_at
+                    ? dateUtils.parseDdMmYy(i.rsp?.training?.completed_at)
+                    : ""
+                }}
+              </p>
             </v-col>
             <v-col cols="3" align-self="center">
               <v-chip color="secondary" label size="small">
@@ -161,14 +189,14 @@
                             : "No"
                         }}</span>
                       </v-col>
-                      <v-col cols="3">
+                      <v-col cols="4">
                         <label class="font-weight-medium text-grey-lighten-1"
                           >Organization Type</label
                         >
                         <br />
                         <span class="font-weight-black">{{
                           businessPartnerDetail.company_information
-                            ?.business_register_type
+                            ?.business_partner_type
                         }}</span>
                       </v-col>
                       <v-col cols="3">
@@ -212,8 +240,10 @@
                         >
                         <br />
                         <span class="font-weight-black">{{
-                          businessPartnerDetail.company_information
-                            ?.vendor_number
+                          preFrill(
+                            businessPartnerDetail.company_information
+                              ?.vendor_number
+                          )
                         }}</span>
                       </v-col>
                       <v-col cols="12">
@@ -222,8 +252,10 @@
                         >
                         <br />
                         <span class="font-weight-black">{{
-                          businessPartnerDetail.company_information
-                            ?.company_code_of_vendor
+                          preFrill(
+                            businessPartnerDetail.company_information
+                              ?.company_code_of_vendor
+                          )
                         }}</span>
                       </v-col>
                       <v-col cols="12">
@@ -232,8 +264,10 @@
                         >
                         <br />
                         <span class="font-weight-black">{{
-                          businessPartnerDetail.company_information
-                            ?.customer_number
+                          preFrill(
+                            businessPartnerDetail.company_information
+                              ?.customer_number
+                          )
                         }}</span>
                       </v-col>
                       <v-col cols="12">
@@ -242,8 +276,10 @@
                         >
                         <br />
                         <span class="font-weight-black">{{
-                          businessPartnerDetail.company_information
-                            ?.company_code_of_customer
+                          preFrill(
+                            businessPartnerDetail.company_information
+                              ?.company_code_of_customer
+                          )
                         }}</span>
                       </v-col>
                     </v-row>
@@ -402,9 +438,7 @@
                       <v-col cols="12">
                         <v-list-item-subtitle class="font-weight-medium"
                           >Progress
-                          {{
-                            survey_result_details?.progress_percentage
-                          }}
+                          {{ survey_result_details?.progress_percentage }}
                           %</v-list-item-subtitle
                         >
                       </v-col>
@@ -453,7 +487,7 @@
 // eslint-disable-next-line no-unused-vars
 import { ref, onMounted, watch, computed } from "vue";
 import { defineProps } from "vue";
-// import dateUtils from "@/utils/dateUtils";
+import dateUtils from "@/utils/dateUtils";
 // eslint-disable-next-line no-unused-vars
 import PartnerServive from "@/apis/PartnerServive";
 import RspService from "@/apis/RspService";
@@ -523,20 +557,26 @@ watch(business_branch, (branch_code) => {
   }
 });
 
+const preFrill = (text) => {
+  if (text && text != "") return text;
+  return "-";
+};
+
 const onColor = (type) => {
-  switch (type) {
-    case "Completed":
+  switch (type.toString().toLowerCase()) {
+    case "completed":
       return "teal-accent-4";
-    case "Not Completed":
+    case "not completed":
       return "red";
-    case "In Progress":
+    case "in progress":
       return "amber";
-    case "Not Started":
+    case "not started":
       return "cyan";
     default:
       return "";
   }
 };
+
 const getBusinessPartnerDetail = async (bp_number) => {
   try {
     loader.value.bp_detail = true;

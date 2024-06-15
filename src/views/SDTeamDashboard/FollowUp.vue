@@ -28,12 +28,12 @@
 
       </v-card-item>
     </v-card>
-    <v-card class="mx-auto mt-3 elevation-1">
+    <!-- <v-card class="mx-auto mt-3 elevation-1">
       <v-card-item class="pa-8">
         <div class="font-weight-bold">ข้อความเพิ่มเติม</div>
         <v-textarea v-model="additional_message" variant="solo-filled"></v-textarea>
       </v-card-item>
-    </v-card>
+    </v-card> -->
     <div class="text-center mt-10">
       <v-btn rounded class="ma-2" :disabled="laoding_sent" color="black" to="/SDTeamDashboard/TrackingSDActivite" style="width: 100px;">
         <strong>ยกเลิก</strong>
