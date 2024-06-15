@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-card-text>
       <ToolbarSurvey
         :step="stepper.index"
@@ -124,9 +124,10 @@ const rsp_survey_id = ref(null);
 
 const questionnaireData = ref(null);
 const rspSurvayActive = ref(null);
-const answerQuestionnaireData = ref(null);
+// const answerQuestionnaireData = ref(null);
 const rspActivityStatusId = ref(null);
 const inprogressSectionId = ref(null);
+const rsp_survey_result_id = ref(null);
 
 onBeforeMount(() => {
   const queryString = window.location.search;
@@ -240,7 +241,7 @@ const createRspSurveyResult = async () => {
       rsp_survey_id.value
     );
     if (response.data?.is_success) {
-      questionnaireData.value = response.data.data;
+      rsp_survey_result_id.value = response.data.data.id;
     }
   } catch (e) {
     if (e.response) {
@@ -252,24 +253,24 @@ const createRspSurveyResult = async () => {
   }
 };
 
-const getRspSurveyAnswers = async () => {
-  try {
-    const response = await RspService.getRspSurveyAnswers(
-      bp_number.value,
-      rsp_survey_id.value
-    );
-    if (response.data?.is_success) {
-      answerQuestionnaireData.value = response.data.data;
-    }
-  } catch (e) {
-    if (e.response) {
-      const val = e.response.data;
-      handlingErrorsMessage(val.message, val?.data?.error);
-      return;
-    }
-    handlingErrorsMessage("unknown", e.message);
-  }
-};
+// const getRspSurveyAnswers = async () => {
+//   try {
+//     const response = await RspService.getRspSurveyAnswers(
+//       bp_number.value,
+//       rsp_survey_id.value
+//     );
+//     if (response.data?.is_success) {
+//       answerQuestionnaireData.value = response.data.data;
+//     }
+//   } catch (e) {
+//     if (e.response) {
+//       const val = e.response.data;
+//       handlingErrorsMessage(val.message, val?.data?.error);
+//       return;
+//     }
+//     handlingErrorsMessage("unknown", e.message);
+//   }
+// };
 
 const stepperPrev = () => {
   // console.log("prev");
@@ -298,14 +299,19 @@ const now = async () => {
   if (rspSurvayActive.value != 2) {
     await createRspSurveyResult();
     await getRspQuestionnaire();
-  } else {
-    await getRspQuestionnaire();
-    await getRspSurveyAnswers();
+    setInfo();
+    router.push(
+      `/SDTeamMangement/Survey/Questionnaire/2?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}&rsp_survey_result_id=${rsp_survey_result_id.value}`
+    );
   }
-  setInfo();
-  router.push(
-    `/SDTeamMangement/Survey/Questionnaire/2?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}`
-  );
+  // else {
+  //   await getRspQuestionnaire();
+  //   // await getRspSurveyAnswers();
+  // }
+  // setInfo();
+  // router.push(
+  //   `/SDTeamMangement/Survey/Questionnaire/2?prev_completed=completed&state=${state.value}&bp_number=${bp_number.value}&rsp_survey_id=${rsp_survey_id.value}&rsp_survey_result_id=${rsp_survey_result_id.value}`
+  // );
 };
 
 const later = async () => {

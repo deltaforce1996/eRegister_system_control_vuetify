@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <h2>Tracking SD Activite</h2>
     <div class="mt-5">
       <v-row dense>

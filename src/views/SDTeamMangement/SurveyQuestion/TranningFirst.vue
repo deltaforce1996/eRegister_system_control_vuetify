@@ -1,5 +1,5 @@
 <template>
-  <v-container style="padding: auto">
+  <v-container style="padding: auto" fluid>
     <v-card-text>
       <ToolbarSurvey
         :step="stepper.index"

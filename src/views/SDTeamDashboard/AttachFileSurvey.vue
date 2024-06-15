@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <h2>Attach file survey</h2>
     <v-progress-linear class="rounded-pill" :indeterminate="loading" bg-color="transparent"  color="secondary" />
     <v-card elevation="2" rounded="0" class="rounded-lg mt-3 pa-0">

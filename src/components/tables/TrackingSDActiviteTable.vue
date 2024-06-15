@@ -401,7 +401,7 @@
                         </div>
                       </v-col>
                       <v-col cols="12">
-                        <v-list lines="two" width="340" dense>
+                        <v-list lines="two" width="100%" dense>
                           <v-list-item
                             dense
                             v-for="(item, index) in survey_result_details
@@ -606,6 +606,80 @@ const getBusinessPartnerDetailฺBranchCode = async (bp_number, branch_code) => 
     );
     if (response.data?.is_success) {
       businessPartnerDetail.value = response.data?.data;
+      // businessPartnerDetail.value = {
+      //   bp_number: "01707129375000",
+      //   name_th: "บริษัท ทดสอบ จํากัด",
+      //   name_en: "Testing Co. LTD",
+      //   taxpayer_id_number: "6295673126473",
+      //   business_partner_role: "Vendor & Customer",
+      //   contact_owner: {
+      //     email: "chinnawut.w@gmail.com",
+      //     team: "",
+      //     company: "",
+      //     business_unit: "",
+      //   },
+      //   created_at: "2024-02-01T05:54:01.12+07:00",
+      //   created_user_email: "test1@fakduai.com",
+      //   company_information: {
+      //     business_partner_number: "1000011700",
+      //     is_fpt_affiliate: false,
+      //     business_partner_type: "บริษัทเอกชน",
+      //     account_business_partner_type: "Coporate",
+      //     business_register_type: "สมาคมการค้า",
+      //     company_category: "บริการเฉพาะกิจ",
+      //     product_category: "อาหาร",
+      //     vendor_number: "202787",
+      //     company_code_of_vendor: "1000, 1100, 1200",
+      //     customer_number: "102700",
+      //     company_code_of_customer: "1000,1400",
+      //   },
+      //   payment_information: {
+      //     is_vat_registered: true,
+      //     bank_account_name: "บริษัท ทดสอบ จํากัด",
+      //     bank: "BBL ",
+      //     bank_account_number: "0023456789",
+      //   },
+      //   do_rsp_activity: true,
+      //   branch: {
+      //     branch_code: "00000",
+      //     branch_description: "สํานักงานใหญ่",
+      //     business_partner_role: "Vendor & Customer",
+      //     branch_address:
+      //       "31 ซอยนาคนิวาส 12 ถนนนาคนิวาส แขวงพระบรมมหาราชวัง เขตพระนคร กรุงเทพมหานคร  10200",
+      //     contact_person: [
+      //       {
+      //         name: "นันทนัน การทดสอบ",
+      //         mobile: "0923452341",
+      //         email: "nantanan@email.com",
+      //       },
+      //       {
+      //         name: "นัน การทดสอบ",
+      //         mobile: "0934562345",
+      //         email: "",
+      //       },
+      //     ],
+      //   },
+      //   branch_list: [
+      //     {
+      //       branch_code: "00000",
+      //     },
+      //     {
+      //       branch_code: "00001",
+      //     },
+      //     {
+      //       branch_code: "00002",
+      //     },
+      //     {
+      //       branch_code: "00003",
+      //     },
+      //     {
+      //       branch_code: "00004",
+      //     },
+      //     {
+      //       branch_code: "00005",
+      //     },
+      //   ],
+      // };
     }
   } catch (e) {
     if (e.response) {
@@ -623,6 +697,69 @@ const getRspSurveyResultDetail = async (bp_number) => {
     loader.value.survey_result = true;
     const response = await RspService.getRspSurveyResultDetail(bp_number);
     if (response.data?.is_success) {
+      // survey_result_details.value = {
+      //   bp_number: "01707129375000",
+      //   status: {
+      //     id: 3,
+      //     name: "completed",
+      //   },
+      //   progress_percentage: 100,
+      //   survey_result: {
+      //     is_aligned: true,
+      //     score: 44,
+      //     total_score: 90,
+      //     evaluation: {
+      //       id: 11,
+      //       rsp_survey_id: 3,
+      //       name: "C",
+      //       minimum_score_criteria: 65,
+      //       description: "Description for criteria CC",
+      //       image_url: "http://example.com/image3.jpg",
+      //       created_at: "2024-03-05T17:50:04.968+07:00",
+      //       created_user_id: 1,
+      //       updated_at: "2024-03-05T17:50:04.968+07:00",
+      //       updated_user_id: 1,
+      //     },
+      //     section: [
+      //       {
+      //         name: "การดําเนินการทางธุรกิจ และ จรรยาบรรณทางธุรกิจ",
+      //         score: 14,
+      //         total_score: 24,
+      //         score_percentage: 58,
+      //       },
+      //       {
+      //         name: "การจัดการด้านสิ่งแวดล้อม",
+      //         score: 10,
+      //         total_score: 23,
+      //         score_percentage: 43,
+      //       },
+      //       {
+      //         name: "สุขภาพความปลอดภัยและความเป็นอยู่ที่ดีในสถานที่ทํางาน",
+      //         score: 10,
+      //         total_score: 20,
+      //         score_percentage: 50,
+      //       },
+      //       {
+      //         name: "สิทธิมนุษยชนและการจัดการแรงงาน",
+      //         score: 10,
+      //         total_score: 23,
+      //         score_percentage: 43,
+      //       },
+      //       {
+      //         name: "การบริหารจัดการบริษัทคู่ค้า",
+      //         score: 0,
+      //         total_score: 0,
+      //         score_percentage: 0,
+      //       },
+      //       {
+      //         name: "การติดตามผลการดําเนินการและการรายงาน (Monitoring and Reporting)",
+      //         score: 0,
+      //         total_score: 0,
+      //         score_percentage: 0,
+      //       },
+      //     ],
+      //   },
+      // };
       survey_result_details.value = response.data?.data;
     }
   } catch (e) {

@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 
 <template>
-  <v-container>
+  <v-container fluid>
     <v-card-text>
       <ToolbarSurvey
         :step="stepper.index"

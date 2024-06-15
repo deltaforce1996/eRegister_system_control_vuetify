@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <v-container>
+  <v-container fluid>
     <h2>Documents</h2>
     <v-row>
       <v-col :cols="tab === 1 ? 12 : 10">
@@ -54,7 +54,7 @@
               </v-col>
               <v-col cols="4" align-self="center" class="pa-1">
                 <strong>
-                  {{ i.rsp_survey?.name }}
+                  {{ i.rsp_survey?.name.split('<br>')[0] }}
                 </strong>
                 <strong class="text-grey">
                   ({{ i.rsp_survey?.version }})
@@ -93,7 +93,7 @@
                   rounded
                   @click="getExportRspSurveyByVendor(i.id, bp_number)"
                 >
-                  Export Results
+                  Export Result
                 </v-btn>
               </v-col>
             </v-row>
