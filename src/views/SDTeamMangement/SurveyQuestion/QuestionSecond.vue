@@ -185,7 +185,7 @@ const handleUpdatedSurveyResult = async () => {
 };
 const stepperPrev = () => {
   const prevCompleted = stepper.value.completed ? "completed" : "incompleted";
-  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}&rsp_survey_result_id=${p_rspSurveyResultId.value}`;
+  const url = `/SDTeamMangement/Survey/Document/1?prev_completed=${prevCompleted}&state=${p_state.value}&bp_number=${p_bpNumber.value}&rsp_survey_id=${p_rspSurveyId.value}`;
   router.push(url);
 };
 const stepperNext = () => {

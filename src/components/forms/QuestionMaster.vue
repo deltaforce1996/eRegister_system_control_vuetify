@@ -8,7 +8,6 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-
         <p class="pa-2">
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
@@ -37,7 +36,8 @@
         </v-card-text>
       </v-card>
     </section>
-    <section  v-else-if="item?.data?.controlType === types.multichoice"
+    <section
+      v-else-if="item?.data?.controlType === types.multichoice"
       class="mt-2"
     >
       <v-card
@@ -94,7 +94,8 @@
         </v-card-text>
       </v-card>
     </section>
-    <section v-else-if="item?.data?.controlType === types.checkbox"
+    <section
+      v-else-if="item?.data?.controlType === types.checkbox"
       class="mt-2"
     >
       <v-card
@@ -104,7 +105,6 @@
         :disabled="item.disabled"
         :variant="item.disabled ? 'tonal' : 'elevated'"
       >
-
         <p class="pa-2">
           {{ item?.data?.metaData?.question }}
           <span v-if="item?.data?.metaData?.isRequired" class="text-red"
@@ -114,7 +114,7 @@
         <v-card-text class="pt-8">
           <div v-for="(choice, i) in item?.data?.metaData?.choices" :key="i">
             <v-checkbox
-
+              v-if="i == item?.data?.metaData?.choices.length - 1"
               class="mt-n1"
               v-model="item.data.metaData.answer"
               :label="choice.answer"
@@ -153,7 +153,43 @@
                 </div>
               </template>
             </v-checkbox>
-<!--
+
+            <v-checkbox
+              v-else
+              class="mt-n1"
+              v-model="item.data.metaData.answer"
+              :label="choice.answer"
+              :value="choice.id"
+              @input="
+                onCheckboxChanged(
+                  item.index,
+                  choice,
+                  item.data.metaData.answer,
+                  item?.data?.metaData?.choices
+                )
+              "
+            >
+              <template v-if="choice.title === isOther" v-slot:label>
+                <div class="d-flex flex-row align-center">
+                  <p>{{ choice.answer }}</p>
+                  <v-text-field
+                    v-model="choice.specify"
+                    style="max-width: 500px; min-width: 300px"
+                    class="mt-5 ml-5"
+                    density="compact"
+                    variant="outlined"
+                    @input="
+                      onCheckboxInputChanged(
+                        item.data.metaData.answer,
+                        choice.id
+                      )
+                    "
+                  >
+                  </v-text-field>
+                </div>
+              </template>
+            </v-checkbox>
+            <!--
             <v-checkbox
               v-else
               class="mt-n1"
@@ -193,7 +229,8 @@
         </v-card-text>
       </v-card>
     </section>
-    <section v-else-if="item?.data?.controlType === types.dropdown"
+    <section
+      v-else-if="item?.data?.controlType === types.dropdown"
       class="mt-2"
     >
       <v-card
@@ -308,13 +345,12 @@ const onParagraphChanged = (index, nextId, val) => {
 };
 // eslint-disable-next-line no-unused-vars
 const onRadioChanged = (index, choices, val) => {
-   // other change defualt
-   const other = choices.find((_) => _.title === 'other');
-   if(other !== undefined &&  other.id !== val){
-      const index  = choices.findIndex(x=>x.id === other.id)
-      choices[index].specify = null;
-   }
-
+  // other change defualt
+  const other = choices.find((_) => _.title === "other");
+  if (other !== undefined && other.id !== val) {
+    const index = choices.findIndex((x) => x.id === other.id);
+    choices[index].specify = null;
+  }
 
   const opened = () => {
     const selected = choices.find((_) => _.id === val);
