@@ -29,7 +29,7 @@ const  questionnaireDisabled = (Sections = []) =>{
       break
     }
   });
-  
+
   for (let index = 0; index < NextQuestionId.length; index++) {
     if(NextQuestionId[index] !== 0){
       const nextId = NextQuestionId[index];
@@ -50,7 +50,7 @@ const questionnaireAnswer  = async (question) =>{
       {
         answers.push({
           question_id: question[i].id,
-          answer: question[i].data.metaData.answer
+          answer: question[i].data.metaData.answer ?? ""
         })
       }
       break;
@@ -62,7 +62,7 @@ const questionnaireAnswer  = async (question) =>{
         const  selectedOther = selected?.specify
         answers.push({
            question_id: question[i].id,
-           answer:  (selected?.title === 'other') ? `${selectedId}|${selectedOther}` : selectedId
+           answer:  (selected?.title === 'other') ? `${selectedId}|${selectedOther}` : selectedId ?? ""
          })
 
       }
@@ -77,7 +77,7 @@ const questionnaireAnswer  = async (question) =>{
                const  selectedOther = selected?.specify
                answers.push({
                 question_id: question[i].id,
-                answer:  (selected?.title === 'other') ? `${selectedId}|${selectedOther}` : selectedId
+                answer:  (selected?.title === 'other') ? `${selectedId}|${selectedOther}` : selectedId ?? ""
               })
           });
       }
@@ -85,7 +85,7 @@ const questionnaireAnswer  = async (question) =>{
       case 'Dropdown':{
           answers.push({
               question_id: question[i].id,
-              answer: question[i].data.metaData.answer
+              answer: question[i].data.metaData.answer ?? ""
           })
       }
       break;
@@ -93,7 +93,7 @@ const questionnaireAnswer  = async (question) =>{
         const file =  question[i].data.metaData.files;
         answers.push({
             question_id: question[i].id,
-            answer: (file) ? await getBase64(file) : null,
+            answer: (file) ? await getBase64(file) : "",
         })
       }
       break;

@@ -130,11 +130,16 @@ export default {
   },
   mounted(){
     this.$refs.uploader.value = null;
+    this.$emit("input-file", null);
   },
   methods: {
     handlePickFile() {
       this.isSelecting = true;
-                window.addEventListener('focus', () => {
+      if( this.file === null){
+        this.$refs.uploader.value = null;
+        this.$emit("input-file", null);
+      }
+        window.addEventListener('focus', () => {
                     this.isSelecting = false
                 }, { once: true });
       this.$refs.uploader.click();

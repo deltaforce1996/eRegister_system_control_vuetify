@@ -137,32 +137,30 @@ onBeforeMount(() => {
     sectionsItems.value[sectionsIndex.value].rspActivityStatusId;
   p_inprogressSectionId.value =
     sectionsItems.value[sectionsIndex.value].inprogressSectionId;
-
+  //  const validate  =  validateForm.value
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const done = urlParams.get("prev_completed");
 
   stepper.value.completed = done === "completed" ? true : false;
   p_state.value = urlParams.get("state");
-  p_bpNumber.value = urlParams.get("bp_number");
+  p_bpNumber.value = urlParams.get("bp_number"); 
   p_rspSurveyId.value = urlParams.get("rsp_survey_id");
 });
-const handleSubmit = () => {
-  if (validateForm.value) {
+
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+const handleSubmit = async () => {
+  const validateA  =  validateForm.value
+  await delay(100);
+  const validateB =  validateForm.value
+  if(validateA && validateB){
     handleCreatedSurveyAnswer();
   }
+
 };
 
-// const submit = () => {
-//   switch (p_state.value) {
-//     case "updated":
-//       handleUpdatedSurveyAnswer();
-//       break;
-//     default:
-//       handleCreatedSurveyAnswer();
-//       break;
-//   }
-// };
+
 const sectionLast = () => {
   const index = sectionsIndex.value + 1;
   const max = sectionsItems.value.length;
