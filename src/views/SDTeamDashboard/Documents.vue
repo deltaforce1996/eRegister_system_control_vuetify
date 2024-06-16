@@ -91,7 +91,7 @@
                   color="secondary"
                   variant="flat"
                   rounded
-                  @click="getExportRspSurveyByVendor(i.id, bp_number)"
+                  @click="getExportRspSurveyByVendor(i?.rsp_survey?.id, bp_number)"
                 >
                   Export Result
                 </v-btn>
