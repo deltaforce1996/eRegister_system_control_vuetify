@@ -453,7 +453,14 @@
                         variant="outlined"
                         :disabled="loader.bp_detail"
                         :loading="loader.bp_detail"
-                        :to="`/SDTeamDashboard/FollowUp?bp_number=${businessPartnerDetail.bp_number}&email=${businessPartnerDetail?.contact_owner?.email}`"
+                        :to="`/SDTeamDashboard/FollowUp?bp_number=${
+                          businessPartnerDetail.bp_number
+                        }&email=${
+                          businessPartnerDetail?.contact_owner?.email
+                        }&vender_email=${
+                          businessPartnerDetail?.branch?.contact_person[0]
+                            ?.email ?? ''
+                        }`"
                         block
                         class="text-capitalize rounded-pill"
                         color="black"
