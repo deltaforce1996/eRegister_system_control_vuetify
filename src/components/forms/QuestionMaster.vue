@@ -113,14 +113,17 @@
         </p>
         <v-card-text class="pt-8">
           <div v-for="(choice, i) in item?.data?.metaData?.choices" :key="i">
+            {{ item.data.metaData.answer }}
             <v-checkbox
-              v-if="i == item?.data?.metaData?.choices.length - 1"
               class="mt-n1"
               v-model="item.data.metaData.answer"
               :label="choice.answer"
               :value="choice.id"
+              multiple
               :rules="
-                item?.data?.metaData?.isRequired && !item.disabled
+                item?.data?.metaData?.isRequired &&
+                !item.disabled &&
+                i == item?.data?.metaData?.choices.length - 1
                   ? rules.checked
                   : ''
               "
@@ -154,12 +157,13 @@
               </template>
             </v-checkbox>
 
-            <v-checkbox
+            <!-- <v-checkbox
               v-else
               class="mt-n1"
               v-model="item.data.metaData.answer"
               :label="choice.answer"
               :value="choice.id"
+              multiple
               @input="
                 onCheckboxChanged(
                   item.index,
@@ -188,7 +192,8 @@
                   </v-text-field>
                 </div>
               </template>
-            </v-checkbox>
+            </v-checkbox> -->
+
             <!--
             <v-checkbox
               v-else
