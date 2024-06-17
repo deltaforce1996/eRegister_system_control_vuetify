@@ -113,7 +113,7 @@
         </p>
         <v-card-text class="pt-8">
           <div v-for="(choice, i) in item?.data?.metaData?.choices" :key="i">
-            {{ item.data.metaData.answer }}
+            <!-- {{ item.data.metaData.answer }} -->
             <v-checkbox
               class="mt-n1"
               v-model="item.data.metaData.answer"
