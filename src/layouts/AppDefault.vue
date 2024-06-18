@@ -1,14 +1,16 @@
 <template>
   <v-app>
-    <confirm-dialog />
-    <exception-handle-dialog />
-    <share-activity-dialog />
-    <template-dialog />
-    <alert-success-dialog />
-    <failed-dialog />
-    <default-bar />
-    <default-drawer />
-    <default-content />
+    <v-container fluid>
+      <confirm-dialog />
+      <exception-handle-dialog />
+      <share-activity-dialog />
+      <template-dialog />
+      <alert-success-dialog />
+      <failed-dialog />
+      <default-bar />
+      <default-drawer />
+      <default-content />
+    </v-container>
   </v-app>
 </template>
 

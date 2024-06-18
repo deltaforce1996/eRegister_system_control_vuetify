@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-card rounded class="mx-auto">
       <v-card-item class="d-flex align-center justify-center">
         <v-row dense no-gutters>
@@ -41,7 +41,7 @@
         {{ description }}
       </v-card-text>
     </v-card>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col v-for="item in items" :key="item.title" cols="12" md="6" lg="3">
           <cradit-item

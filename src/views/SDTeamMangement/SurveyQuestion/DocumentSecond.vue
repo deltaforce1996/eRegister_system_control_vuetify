@@ -59,21 +59,23 @@
           ส่งต่อ
         </v-btn>
       </div>
-      <PDF :src="fileBase64"></PDF>
+      <div class="d-flex align-center pdf-container">
+        <PDF :src="fileBase64" class="pdf-viewer"></PDF>
+      </div>
     </v-card-text>
     <v-bottom-navigation
       :active="!done"
       v-show="!done"
-      height="180"
+      height="100"
       bg-color="rgba(0, 0, 0, 0.8)"
     >
       <v-container>
-        <v-form ref="registerAccept">
+        <v-form ref="registerAccept" class="mt-n10">
           <v-row align="center" justify="center">
-            <v-col cols="auto" class="d-flex align-center">
+            <v-col cols="1" class="d-flex align-center">
               <b class="text-white text-subtitle-1">ชื่อข้าพเจ้า</b>
             </v-col>
-            <v-col cols="auto" class="d-flex align-center mt-5">
+            <v-col cols="3" class="d-flex align-center mt-5">
               <v-radio-group
                 v-model="input_data.prefixName"
                 :rules="textRequired"
@@ -96,7 +98,7 @@
                 ></v-radio>
               </v-radio-group>
             </v-col>
-            <v-col cols="auto" class="d-flex align-center mt-5">
+            <v-col cols="2" class="d-flex align-center mt-5">
               <v-text-field
                 :rules="textRequired"
                 style="width: 300px"
@@ -107,10 +109,10 @@
               >
               </v-text-field>
             </v-col>
-            <v-col cols="auto" class="d-flex align-center">
+            <v-col cols="1" class="d-flex align-center">
               <b class="text-white text-subtitle-1">นามสกุล</b>
             </v-col>
-            <v-col cols="auto" class="d-flex align-center mt-5">
+            <v-col cols="2" class="d-flex align-center mt-5">
               <v-text-field
                 v-model="input_data.lastname"
                 :rules="textRequired"
@@ -121,20 +123,21 @@
               >
               </v-text-field>
             </v-col>
-            <v-col cols="auto" class="d-flex align-center mt-n10">
+            <v-col cols="3" class="d-flex align-center">
               <b class="text-white text-subtitle-1"
                 >รับทราบและจะดำเนินการตามที่ระบุ</b
               >
             </v-col>
           </v-row>
           <v-row align="center" dense class="mt-n3" justify="center">
-            <v-col cols="auto" class="d-flex align-center">
+            <v-col cols="auto" class="d-flex align-center mt-n5">
               <v-btn
                 class="text-capitalize"
                 @click="handleConfirm"
                 rounded
+                density="compact"
                 style="background-color: #ed1c24"
-                height="35"
+                height="30"
               >
                 <span class="text-white text-subtitle-1"> รับทราบ</span>
               </v-btn>
@@ -285,3 +288,18 @@ const handleConfirm = async () => {
   }
 };
 </script>
+
+<style scoped>
+.pdf-container {
+  width: 100%; /* Adjust the width as needed */
+  height: 100vh; /* Adjust the height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -50px;
+}
+.pdf-viewer {
+  width: 50%; /* Adjust the width as needed */
+  height: 90%; /* Adjust the height as needed */
+}
+</style>
