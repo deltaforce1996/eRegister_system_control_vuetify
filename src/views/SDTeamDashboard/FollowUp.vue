@@ -41,18 +41,59 @@
             placeholder="Contact Owner ติดตามให้"
             density="compact"
           ></v-text-field>
+          <div
+            style="
+              margin-left: 5%;
+              margin-top: -1%;
+              font-size: xx-small;
+              font-weight: bold;
+            "
+          >
+            <p>
+              กรณีไม่มี Contact Owner การกรอก Email ของ Admin จะเป็นการ<span
+                style="color: red"
+                >เพิ่ม</span
+              >
+              Contact Owner ให้กับ Vendor นั้น
+            </p>
+            <p>
+              กรณีไม่มี Contact Owner การแก้ไข้ Email ของ Admin เป็นการ<span
+                style="color: red"
+                >เปลี่ยน</span
+              >
+              Contact Owner ให้กับ Vendor นั้น
+            </p>
+          </div>
           <v-radio
             class="font-weight-medium"
             label="ส่งอีเมลติดตามให้ vendor โดยตรง"
             value="2"
           ></v-radio>
-          <v-text-field
+          <!-- <v-text-field
             v-model="email_vendor"
             class="pl-10"
             variant="outlined"
             placeholder="ส่งอีเมลติดตามให้ vendor โดยตรง"
             density="compact"
-          ></v-text-field>
+          ></v-text-field> -->
+          <v-combobox
+            ref="combobox"
+            v-model="selectedEmail"
+            :items="emails"
+            variant="outlined"
+            class="pl-10"
+            placeholder="ส่งอีเมลติดตามให้ vendor โดยตรง"
+            density="compact"
+            hide-selected
+          >
+            <template v-slot:append-item v-if="emails.length < 2">
+              <v-list-item @click="addNewItem">
+                <v-list-item-title style="color: red">
+                  + เพิ่ม Admin vendor email
+                </v-list-item-title>
+              </v-list-item>
+            </template>
+          </v-combobox>
         </v-radio-group>
       </v-card-item>
     </v-card>
@@ -88,12 +129,15 @@
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */
-import { ref, onBeforeMount, watch } from "vue";
+import { ref, onBeforeMount, nextTick } from "vue";
 import RspService from "@/apis/RspService";
 import { useRouter } from "vue-router";
 import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
+import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 const router = useRouter();
+
+const { showDialog } = useConfirmationDialog();
 
 const isVendors = ref(true);
 const selected = ref("1");
@@ -103,9 +147,31 @@ const email_vendor = ref(null);
 const additional_message = ref(null);
 const laoding_sent = ref(false);
 
+const combobox = ref(null);
+const selectedEmail = ref(null);
+const emails = ref([null]);
+
+const addNewItem = () => {
+  nextTick(() => {
+    if (combobox.value) {
+      combobox.value.blur(); // Close the combobox dropdown
+    }
+  });
+  if (selectedEmail.value && !emails.value.includes(selectedEmail.value)) {
+    if (!emails.value[emails.value.length - 1]) emails.value = [];
+    emails.value.push(selectedEmail.value);
+    selectedEmail.value = null;
+  }
+};
+
+// watch(() => {
+//   console.log(selectedEmail.value);
+// });
+
 // watch(() => selected, (newValue) => {
 //   console.log(newValue);
 // });
+
 onBeforeMount(() => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -114,7 +180,11 @@ onBeforeMount(() => {
   const _email_vender = urlParams.get("vender_email");
   bp_number.value = _bp_number;
   email_owner.value = _email;
-  email_vendor.value = _email_vender;
+  // email_vendor.value = _email_vender;
+  if (_email_vender) {
+    emails.value = [];
+    emails.value.push(_email_vender);
+  }
   isVendors.value = _bp_number === null && _email === null;
 });
 
@@ -122,29 +192,48 @@ const handleSend = async () => {
   try {
     laoding_sent.value = true;
     if (isVendors.value) {
-      const sessionData = sessionStorage.getItem("bp_numbers");
-      const bpNumber_array = JSON.parse(sessionData);
-      const response = await RspService.sendFollowUpVendors(
-        bpNumber_array,
-        selected.value,
-        additional_message.value
-      );
-      const { is_success } = response.data;
-      if (is_success) {
-        router.push("/SDTeamDashboard/TrackingSDActivite");
+      let message = "";
+      if (selected.value == 1) {
+        message =
+          "ระบบจะทำการส่ง Email ให้ Contact owner\nติดตามสถานะการทำกิจกรรมของ Vendor";
+      } else {
+        message =
+          "ระบบจะทำการส่ง Email ให้ทุก Email ของ Vendor\nในแต่ละบริษัท ที่ทำการสมัครมาในระบบ";
+      }
+      if (await showDialog("ยืนยันการส่ง Email", message)) {
+        const sessionData = sessionStorage.getItem("bp_numbers");
+        const bpNumber_array = JSON.parse(sessionData);
+        const response = await RspService.sendFollowUpVendors(
+          bpNumber_array,
+          selected.value,
+          additional_message.value
+        );
+        const { is_success } = response.data;
+        if (is_success) {
+          router.push("/SDTeamDashboard/TrackingSDActivite");
+        }
       }
     } else {
-      const email =
-        selected.value === "1" ? email_owner.value : email_vendor.value;
-      const response = await RspService.sendFollowUpVendor(
-        bp_number.value,
-        selected.value,
-        email,
-        additional_message.value
-      );
-      const { is_success } = response.data;
-      if (is_success) {
-        router.push("/SDTeamDashboard/TrackingSDActivite");
+      let message = "";
+      if (selected.value == 1) {
+        message =
+          "ระบบจะทำการส่ง Email ให้ Contact owner\nติดตามสถานะการทำกิจกรรมของ Vendor";
+      } else {
+        message = "ระบบจะทำการส่ง Email ให้ Vendor โดยตรง";
+      }
+      if (await showDialog("ยืนยันการส่ง Email", message)) {
+        const email =
+          selected.value === "1" ? email_owner.value : email_vendor.value;
+        const response = await RspService.sendFollowUpVendor(
+          bp_number.value,
+          selected.value,
+          email,
+          additional_message.value
+        );
+        const { is_success } = response.data;
+        if (is_success) {
+          router.push("/SDTeamDashboard/TrackingSDActivite");
+        }
       }
     }
   } catch (e) {

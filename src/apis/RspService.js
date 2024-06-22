@@ -188,9 +188,9 @@ const createRspPolicy = async (_name, _file, _start_at) => {
     url: `/rsp/create-rsp-policy`,
     data: {
       name: _name,
-      file: _file,
-      start_at: _start_at,
-      updated_user_id: 1,
+      data: _file && _file == "" ? "" : _file.split(",")[1],
+      published_at: _start_at,
+      created_user_id: 1,
     },
   });
 };
@@ -199,10 +199,10 @@ const updateRspPolicy = async (_rsp_policy_id, _name, _file, _start_at) => {
     method: "post",
     url: `/rsp/update-rsp-policy`,
     data: {
-      rsp_policy_id: _rsp_policy_id,
+      rsp_policy_id: Number(_rsp_policy_id),
       name: _name,
-      file: _file,
-      start_at: _start_at,
+      data: _file && _file == "" ? "" : _file.split(",")[1],
+      published_at: _start_at,
       updated_user_id: 1,
     },
   });
@@ -218,7 +218,7 @@ const exportRspPolicyResult = async (_rsp_policy_id) => {
   return await axiosBase({
     method: "get",
     url: `/rsp/export-rsp-policy-result/${_rsp_policy_id}`,
-    data: {},
+    params: { exporter_user_id: 161 },
   });
 };
 const UndeleteRspPolicy = async (_rsp_policy_id) => {
@@ -231,8 +231,11 @@ const UndeleteRspPolicy = async (_rsp_policy_id) => {
 const PermanentlyDeleteRspRolicy = async (_rsp_policy_id) => {
   return await axiosBase({
     method: "post",
-    url: `/rsp/permanently-delete-rsp-policy/${_rsp_policy_id}`,
-    data: {},
+    url: `/rsp/permanently-delete-rsp-policy`,
+    data: {
+      rsp_policy_id: Number(_rsp_policy_id),
+      updated_user_id: 1,
+    },
   });
 };
 
@@ -540,7 +543,7 @@ const createAcceptRspPolicy = async (databody) => {
     url: "/rsp/accept-rsp-policy",
     data: {
       ...databody,
-      created_user_id: 185
+      created_user_id: 185,
     },
   });
 };

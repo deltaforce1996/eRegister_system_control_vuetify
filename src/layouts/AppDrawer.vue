@@ -83,7 +83,7 @@ const items = [
   {
     id: 8,
     title: "Sign",
-    icon: "mdi mdi-account-group",
+    icon: "mdi mdi-file-sign",
     isActive: false,
     path: "/SDTeamMangement/Survey/Document/1?prev_completed=completed&state=created&bp_number=01713749087000",
   },

@@ -4,11 +4,11 @@
     <v-card-item class="ma-0">
       <v-row no-gutters dense justify="space-around">
         <v-col cols="1" align-self="center" class="pa-1">
-          <span>{{ dateUtils.parseDdMmYy(item?.created_at) }}</span>
-          <v-icon color="secondary" size="40" class="ml-3 mr-3">mdi-equal-box</v-icon>
+          <span style="font-weight: bold;">{{ dateUtils.parseDdMmYy(item?.created_at) }}</span>
+          <v-icon color="secondary" size="30" class="ml-3 mr-3">mdi-equal-box</v-icon>
         </v-col>
-        <v-col cols="4" align-self="center" class="pa-1">
-          <strong>{{ item?.name }}</strong>
+        <v-col cols="3" align-self="center" class="pa-1">
+          <strong>{{ item?.name.split('<br>')[0] }}</strong>
           <strong class="text-grey">(V.{{ item?.version }})</strong>
         </v-col>
         <v-divider vertical class="ma-2"></v-divider>
@@ -17,7 +17,7 @@
           <br />
           <strong class="text-secondary">{{ item?.created_user_id }}</strong>
         </v-col>
-        <v-col cols="2" align-self="center" class="pa-1">
+        <v-col cols="3" align-self="center" class="pa-1">
           <v-btn class="me-2 text-none" color="secondary" variant="outlined" rounded
             @click="handlePreview(item?.file_url)">
             Preview
@@ -122,7 +122,8 @@ const handleExportResult = async (rspSurveyId, rspSurveyName) => {
   try {
     const response = await RspService.exportRspSurveyResult(rspSurveyId)
     const file_url = response.data?.data?.file_url
-    await exportService.exportBase64(`${rspSurveyName}`, 'xlsx', file_url);
+    // await exportService.exportBase64(`${rspSurveyName}`, 'xlsx', file_url);
+    await exportService.downloadFile(file_url);
   } catch (e) {
     if (e.response) {
       const val = e.response.data

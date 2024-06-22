@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-<v-container>
+<v-container fluid>
     <h2>Mangement > Survey</h2>
     <div class="mt-5">
       <v-row>
@@ -71,8 +71,8 @@ const list_laoding = ref(false);
 const list_item = ref([]);
 const list_filter = ref({
   state :'inactive',
-  offset: 1,
-  limit: 1,
+  offset: 0,
+  limit: 10,
   page : 1,
   pageSize: 1,
 });
@@ -80,8 +80,8 @@ const list_filter = ref({
 
 watch(menus_index, (newValue) => {
   list_filter.value.state = menus.value[newValue].state
-  list_filter.value.offset= 1;
-  list_filter.value.limit= 1;
+  list_filter.value.offset= 0;
+  list_filter.value.limit= 10;
   list_filter.value.page= 1;
   list_filter.value.pageSize= 1;
   getRspSurveyPagination();
