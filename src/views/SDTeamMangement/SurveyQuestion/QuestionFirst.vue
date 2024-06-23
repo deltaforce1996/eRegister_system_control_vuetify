@@ -54,42 +54,52 @@
             />
           </v-col>
         </v-row>
-        <v-row dense class="mt-5">
-          <v-col cols="auto" class="d-flex justify-center">
-            <v-btn
-              color="secondary"
-              width="140"
-              class="text-capitalize"
-              variant="outlined"
-              rounded
-              @click="next"
-            >
-              ส่งต่อ
-            </v-btn>
-          </v-col>
-          <v-col cols="auto" class="d-flex justify-center">
-            <v-btn
-              color="secondary"
-              width="140"
-              class="text-capitalize"
-              rounded
-              @click="now"
-            >
-              ทำเลย
-            </v-btn>
-          </v-col>
-          <v-col cols="12" class="d-flex justify-end">
-            <v-btn
-              width="140"
-              class="text-capitalize"
-              rounded
-              variant="text"
-              @click="later"
-            >
-              ทำภายหลัง >>
-            </v-btn>
-          </v-col>
-        </v-row>
+        <div v-if="is_progress">
+          <v-row dense class="mt-5" v-if="is_can_do_next_step">
+            <v-col cols="auto" class="d-flex justify-center">
+              <v-btn
+                color="secondary"
+                width="140"
+                class="text-capitalize"
+                variant="outlined"
+                rounded
+                @click="next"
+              >
+                ส่งต่อ
+              </v-btn>
+            </v-col>
+            <v-col cols="auto" class="d-flex justify-center">
+              <v-btn
+                color="secondary"
+                width="140"
+                class="text-capitalize"
+                rounded
+                @click="now"
+              >
+                ทำเลย
+              </v-btn>
+            </v-col>
+            <v-col cols="12" class="d-flex justify-end">
+              <v-btn
+                width="140"
+                class="text-capitalize"
+                rounded
+                variant="text"
+                @click="later"
+              >
+                ทำภายหลัง >>
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row style="margin-top: -10%; margin-bottom: 15%" v-else>
+            <v-col>
+              <v-icon color="green">mdi mdi-check-circle</v-icon>
+              <span style="font-weight: bold; color: green"
+                >บริษัทของท่านทำกิจกรรมนี้เรียบร้อยแล้ว</span
+              >
+            </v-col>
+          </v-row>
+        </div>
       </v-card-item>
     </v-card>
   </v-container>
@@ -128,6 +138,8 @@ const rspSurvayActive = ref(null);
 const rspActivityStatusId = ref(null);
 const inprogressSectionId = ref(null);
 const rsp_survey_result_id = ref(null);
+const is_can_do_next_step = ref(false);
+const is_progress = ref(false);
 
 onBeforeMount(() => {
   const queryString = window.location.search;
@@ -172,9 +184,11 @@ const getRspSurveyResults = async () => {
         rspActivityStatusId.value =
           response.data.data[0].rsp_activity_status.id;
         inprogressSectionId.value = response.data.data[0].inprogress_section_id;
-        if (response.data.data[0].rsp_activity_status.id != 3) {
-          // Got to Question
+        if (response.data.data[0].rsp_activity_status.id == 3) {
+          is_can_do_next_step.value = true;
         }
+      } else {
+        is_can_do_next_step.value = true;
       }
     }
   } catch (e) {
@@ -184,6 +198,8 @@ const getRspSurveyResults = async () => {
       return;
     }
     handlingErrorsMessage("unknown", e.message);
+  } finally {
+    is_progress.value = true;
   }
 };
 

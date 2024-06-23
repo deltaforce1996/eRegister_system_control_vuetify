@@ -48,42 +48,52 @@
             />
           </v-col>
         </v-row>
-        <v-row dense class="mt-5">
-          <v-col cols="auto" class="d-flex justify-center">
-            <v-btn
-              color="secondary"
-              width="140"
-              class="text-capitalize"
-              variant="outlined"
-              rounded
-              @click="next"
-            >
-              ส่งต่อ
-            </v-btn>
-          </v-col>
-          <v-col cols="auto" class="d-flex justify-center">
-            <v-btn
-              color="secondary"
-              width="140"
-              class="text-capitalize"
-              rounded
-              @click="now(false)"
-            >
-              ทำเลย
-            </v-btn>
-          </v-col>
-          <v-col cols="12" class="d-flex justify-end">
-            <v-btn
-              width="140"
-              class="text-capitalize"
-              rounded
-              variant="text"
-              @click="later"
-            >
-              ทำภายหลัง >>
-            </v-btn>
-          </v-col>
-        </v-row>
+        <div v-show="is_progress">
+          <v-row dense class="mt-5" v-if="is_can_do_next_step">
+            <v-col cols="auto" class="d-flex justify-center">
+              <v-btn
+                color="secondary"
+                width="140"
+                class="text-capitalize"
+                variant="outlined"
+                rounded
+                @click="next"
+              >
+                ส่งต่อ
+              </v-btn>
+            </v-col>
+            <v-col cols="auto" class="d-flex justify-center">
+              <v-btn
+                color="secondary"
+                width="140"
+                class="text-capitalize"
+                rounded
+                @click="now(false)"
+              >
+                ทำเลย
+              </v-btn>
+            </v-col>
+            <v-col cols="12" class="d-flex justify-end">
+              <v-btn
+                width="140"
+                class="text-capitalize"
+                rounded
+                variant="text"
+                @click="later"
+              >
+                ทำภายหลัง >>
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row style="margin-top: -10%; margin-bottom: 15%" v-else>
+            <v-col>
+              <v-icon color="green">mdi mdi-check-circle</v-icon>
+              <span style="font-weight: bold; color: green"
+                >บริษัทของท่านทำกิจกรรมนี้เรียบร้อยแล้ว</span
+              >
+            </v-col>
+          </v-row>
+        </div>
       </v-card-item>
     </v-card>
   </v-container>
@@ -110,6 +120,8 @@ const stepper = ref({
 const state = ref(null);
 const bp_number = ref(null);
 const rsp_survey_id = ref(null);
+const is_can_do_next_step = ref(false);
+const is_progress = ref(false);
 
 onBeforeMount(() => {
   const queryString = window.location.search;
@@ -186,8 +198,9 @@ const getRspPolicyResults = async (bp_number, rsp_policy_id) => {
       rsp_policy_id
     );
     if (response.data?.is_success) {
-      if (response.data.data && response.data.data.length > 0) {
-        now(true);
+      if (response.data.data && response.data.data.length == 0) {
+        is_can_do_next_step.value = true;
+        is_progress.value = true;
         return;
       }
     }
@@ -198,6 +211,8 @@ const getRspPolicyResults = async (bp_number, rsp_policy_id) => {
       return;
     }
     handlingErrorsMessage("unknown", e.message);
+  } finally {
+    is_progress.value = true;
   }
 };
 
