@@ -282,6 +282,17 @@
                           )
                         }}</span>
                       </v-col>
+                      <v-col cols="12">
+                        <label class="font-weight-medium text-grey-lighten-1"
+                          >Admin vendor email</label
+                        >
+                        <p
+                          v-for="item in businessPartnerDetail.admin_vendors"
+                          :key="item"
+                        >
+                          {{ item.email }}
+                        </p>
+                      </v-col>
                     </v-row>
                   </v-skeleton-loader>
                   <v-divider class="mt-5 mb-5"></v-divider>
@@ -457,9 +468,6 @@
                           businessPartnerDetail.bp_number
                         }&email=${
                           businessPartnerDetail?.contact_owner?.email
-                        }&vender_email=${
-                          businessPartnerDetail?.branch?.contact_person[0]
-                            ?.email ?? ''
                         }`"
                         block
                         class="text-capitalize rounded-pill"

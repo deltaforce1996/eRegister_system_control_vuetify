@@ -373,7 +373,8 @@ const exportRspActivityReport = async (bp_numbers) => {
   try {
     const response = await RspService.exportRspActivityReport(bp_numbers);
     const file_url = response.data?.data?.file_url;
-    await exportService.exportBase64(`RspActivityReport`, "PDF", file_url);
+    // await exportService.exportBase64(`RspActivityReport`, "PDF", file_url);
+    await exportService.downloadFile(file_url);
   } catch (e) {
     if (e.response) {
       const val = e.response.data;

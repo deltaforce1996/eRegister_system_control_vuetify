@@ -14,12 +14,12 @@
           <v-radio
             class="font-weight-medium"
             label="Contact Owner ติดตามให้"
-            value="1"
+            value="0"
           ></v-radio>
           <v-radio
             class="font-weight-medium"
             label="ส่งอีเมลติดตามให้ vendor โดยตรง"
-            value="2"
+            value="1"
           ></v-radio>
         </v-radio-group>
       </v-card-item>
@@ -32,7 +32,7 @@
           <v-radio
             class="font-weight-medium"
             label="Contact Owner ติดตามให้"
-            value="1"
+            value="0"
           ></v-radio>
           <v-text-field
             v-model="email_owner"
@@ -67,15 +67,8 @@
           <v-radio
             class="font-weight-medium"
             label="ส่งอีเมลติดตามให้ vendor โดยตรง"
-            value="2"
+            value="1"
           ></v-radio>
-          <!-- <v-text-field
-            v-model="email_vendor"
-            class="pl-10"
-            variant="outlined"
-            placeholder="ส่งอีเมลติดตามให้ vendor โดยตรง"
-            density="compact"
-          ></v-text-field> -->
           <v-combobox
             ref="combobox"
             v-model="selectedEmail"
@@ -128,22 +121,23 @@
   </v-container>
 </template>
 <script setup>
-/*eslint-disable no-unused-vars  */
 import { ref, onBeforeMount, nextTick } from "vue";
 import RspService from "@/apis/RspService";
 import { useRouter } from "vue-router";
 import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDialogService";
 import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
+import PartnerServive from "@/apis/PartnerServive";
+import { useAlertDialogDialog } from "@/components/dialogs/AlertSuccessDialogService";
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 const router = useRouter();
 
 const { showDialog } = useConfirmationDialog();
+const { showAlert } = useAlertDialogDialog();
 
 const isVendors = ref(true);
-const selected = ref("1");
+const selected = ref("0");
 const bp_number = ref(null);
 const email_owner = ref(null);
-const email_vendor = ref(null);
 const additional_message = ref(null);
 const laoding_sent = ref(false);
 
@@ -161,32 +155,49 @@ const addNewItem = () => {
     if (!emails.value[emails.value.length - 1]) emails.value = [];
     emails.value.push(selectedEmail.value);
     selectedEmail.value = null;
+  } else {
+    nextTick(() => {
+      if (combobox.value) {
+        combobox.value.focus();
+        selectedEmail.value = null;
+      }
+    });
   }
 };
 
-// watch(() => {
-//   console.log(selectedEmail.value);
-// });
-
-// watch(() => selected, (newValue) => {
-//   console.log(newValue);
-// });
-
-onBeforeMount(() => {
+onBeforeMount(async () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const _bp_number = urlParams.get("bp_number");
   const _email = urlParams.get("email");
-  const _email_vender = urlParams.get("vender_email");
   bp_number.value = _bp_number;
   email_owner.value = _email;
-  // email_vendor.value = _email_vender;
-  if (_email_vender) {
-    emails.value = [];
-    emails.value.push(_email_vender);
-  }
   isVendors.value = _bp_number === null && _email === null;
+  await getBusinessPartnerDetail(bp_number.value);
 });
+
+const getBusinessPartnerDetail = async (bp_number) => {
+  try {
+    const response = await PartnerServive.getBusinessPartnerDetail(bp_number);
+
+    if (
+      response.data?.is_success &&
+      response.data?.data?.admin_vendors &&
+      response.data?.data?.admin_vendors.length > 0
+    ) {
+      emails.value = [];
+      emails.value = response.data?.data?.admin_vendors.map((el) => el.email);
+      console.warn(emails.value);
+    }
+  } catch (e) {
+    if (e.response) {
+      const val = e.response.data;
+      handlingErrorsMessage(val.message, val?.data.error);
+      return;
+    }
+    handlingErrorsMessage("unknown", e.message);
+  }
+};
 
 const handleSend = async () => {
   try {
@@ -210,7 +221,13 @@ const handleSend = async () => {
         );
         const { is_success } = response.data;
         if (is_success) {
-          router.push("/SDTeamDashboard/TrackingSDActivite");
+          if (
+            await showAlert(
+              "ทำการส่ง Email แล้ว",
+              "ระบบทำการส่ง Email ติดตามเรียบร้อยแล้ว"
+            )
+          )
+            router.push("/SDTeamDashboard/TrackingSDActivite");
         }
       }
     } else {
@@ -223,7 +240,7 @@ const handleSend = async () => {
       }
       if (await showDialog("ยืนยันการส่ง Email", message)) {
         const email =
-          selected.value === "1" ? email_owner.value : email_vendor.value;
+          selected.value === "1" ? email_owner.value : selectedEmail.value;
         const response = await RspService.sendFollowUpVendor(
           bp_number.value,
           selected.value,
@@ -232,7 +249,13 @@ const handleSend = async () => {
         );
         const { is_success } = response.data;
         if (is_success) {
-          router.push("/SDTeamDashboard/TrackingSDActivite");
+          if (
+            await showAlert(
+              "ทำการส่ง Email แล้ว",
+              "ระบบทำการส่ง Email ติดตามเรียบร้อยแล้ว"
+            )
+          )
+            router.push("/SDTeamDashboard/TrackingSDActivite");
         }
       }
     }
