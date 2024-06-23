@@ -2,7 +2,7 @@
 <template>
   <v-container>
     <div class="text-center mt-5">
-      <h2>Follow up Sd Activities</h2>
+      <h2>Follow up ESG Activities</h2>
     </div>
     <v-card class="mx-auto mt-10 elevation-1">
       <v-card-item class="pa-8" v-if="isVendors">
@@ -128,11 +128,13 @@ import { useErrorHandlingDialog } from "@/components/dialogs/ExceptionHandleDial
 import { useConfirmationDialog } from "@/components/dialogs/ConfirmationDialogService";
 import PartnerServive from "@/apis/PartnerServive";
 import { useAlertDialogDialog } from "@/components/dialogs/AlertSuccessDialogService";
+import { useFaildDialogDialog } from "@/components/dialogs/FailedDialogService";
 const { handlingErrorsMessage } = useErrorHandlingDialog();
 const router = useRouter();
 
 const { showDialog } = useConfirmationDialog();
 const { showAlert } = useAlertDialogDialog();
+const { showFaildAlert } = useFaildDialogDialog();
 
 const isVendors = ref(true);
 const selected = ref("0");
@@ -173,7 +175,7 @@ onBeforeMount(async () => {
   bp_number.value = _bp_number;
   email_owner.value = _email;
   isVendors.value = _bp_number === null && _email === null;
-  await getBusinessPartnerDetail(bp_number.value);
+  if (bp_number.value) await getBusinessPartnerDetail(bp_number.value);
 });
 
 const getBusinessPartnerDetail = async (bp_number) => {
@@ -204,7 +206,7 @@ const handleSend = async () => {
     laoding_sent.value = true;
     if (isVendors.value) {
       let message = "";
-      if (selected.value == 1) {
+      if (selected.value == 0) {
         message =
           "ระบบจะทำการส่ง Email ให้ Contact owner\nติดตามสถานะการทำกิจกรรมของ Vendor";
       } else {
@@ -232,7 +234,7 @@ const handleSend = async () => {
       }
     } else {
       let message = "";
-      if (selected.value == 1) {
+      if (selected.value == 0) {
         message =
           "ระบบจะทำการส่ง Email ให้ Contact owner\nติดตามสถานะการทำกิจกรรมของ Vendor";
       } else {
@@ -240,7 +242,7 @@ const handleSend = async () => {
       }
       if (await showDialog("ยืนยันการส่ง Email", message)) {
         const email =
-          selected.value === "1" ? email_owner.value : selectedEmail.value;
+          selected.value === "0" ? email_owner.value : selectedEmail.value;
         const response = await RspService.sendFollowUpVendor(
           bp_number.value,
           selected.value,
@@ -260,6 +262,16 @@ const handleSend = async () => {
       }
     }
   } catch (e) {
+    if (!isVendors.value && selected.value == 0) {
+      if (
+        await showFaildAlert(
+          `ไม่มี Email ${email_owner.value} นี้ในระบบ`,
+          "กรุณาตรวจสอบอีกครั้ง\nหรือทาง super admin ให้ create user"
+        )
+      ) {
+        return;
+      }
+    }
     if (e.response) {
       const val = e.response.data;
       handlingErrorsMessage(val.message, val?.data.error);
