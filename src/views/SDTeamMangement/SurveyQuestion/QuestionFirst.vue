@@ -55,6 +55,7 @@
           </v-col>
         </v-row>
         <div v-if="is_progress">
+          <!-- {{ is_can_do_next_step }} -->
           <v-row dense class="mt-5" v-if="is_can_do_next_step">
             <v-col cols="auto" class="d-flex justify-center">
               <v-btn
@@ -184,10 +185,11 @@ const getRspSurveyResults = async () => {
         rspActivityStatusId.value =
           response.data.data[0].rsp_activity_status.id;
         inprogressSectionId.value = response.data.data[0].inprogress_section_id;
-        if (response.data.data[0].rsp_activity_status.id == 3) {
+        if (response.data.data[0].rsp_activity_status.id != 3) {
           is_can_do_next_step.value = true;
         }
-      } else {
+      }
+       else {
         is_can_do_next_step.value = true;
       }
     }
