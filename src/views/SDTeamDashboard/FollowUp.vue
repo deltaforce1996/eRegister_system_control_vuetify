@@ -14,12 +14,12 @@
           <v-radio
             class="font-weight-medium"
             label="Contact Owner ติดตามให้"
-            value="0"
+            value="1"
           ></v-radio>
           <v-radio
             class="font-weight-medium"
             label="ส่งอีเมลติดตามให้ vendor โดยตรง"
-            value="1"
+            value="0"
           ></v-radio>
         </v-radio-group>
       </v-card-item>
@@ -32,7 +32,7 @@
           <v-radio
             class="font-weight-medium"
             label="Contact Owner ติดตามให้"
-            value="0"
+            value="1"
           ></v-radio>
           <v-text-field
             v-model="email_owner"
@@ -67,7 +67,7 @@
           <v-radio
             class="font-weight-medium"
             label="ส่งอีเมลติดตามให้ vendor โดยตรง"
-            value="1"
+            value="0"
           ></v-radio>
           <v-combobox
             ref="combobox"
@@ -283,3 +283,4 @@ const handleSend = async () => {
   }
 };
 </script>
+ 

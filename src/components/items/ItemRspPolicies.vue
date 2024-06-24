@@ -146,7 +146,7 @@ const handleExportResult = async (rsp_policy_id) => {
     const file_url = response.data?.data?.file_url;
     // await exportService.exportBase64(`${rsp_policy_name}`, "xlsx", file_url);
     // await exportService.exportBase64
-    await exportService.downloadFile(file_url);
+    await exportService.downloadFileV2(file_url);
   } catch (e) {
     if (e.response) {
       const val = e.response.data;

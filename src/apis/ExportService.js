@@ -32,7 +32,7 @@ const exportBase64 = async (_name, _type, _url) => {
   }
 };
 
-async function downloadFile(file_path) {
+async function downloadFileV2(file_path) {
   try {
     const response = await fetch(file_path, {
       mode: "cors", // Ensure CORS is enabled if fetching from a different domain
@@ -71,5 +71,5 @@ const getBase64 = (file) => {
 export default {
   exportBase64,
   getBase64,
-  downloadFile,
+  downloadFileV2,
 };

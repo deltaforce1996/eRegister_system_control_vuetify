@@ -67,7 +67,7 @@
                 label
                 size="small"
               >
-                <strong>{{ i.rsp?.policy?.status }}</strong>
+                <strong >{{ i.rsp?.policy?.status }}</strong>
               </v-chip>
               <p
                 class="mt-2 text-grey"
@@ -581,12 +581,16 @@ const onColor = (type) => {
   switch (type.toString().toLowerCase()) {
     case "completed":
       return "teal-accent-4";
+
     case "not completed":
       return "red";
+
     case "in progress":
       return "amber";
+
     case "not started":
       return "cyan";
+
     default:
       return "";
   }

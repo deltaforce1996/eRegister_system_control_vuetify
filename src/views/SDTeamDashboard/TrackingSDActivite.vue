@@ -138,6 +138,7 @@
 </template>
 <script setup>
 /*eslint-disable no-unused-vars  */
+// downloadFile
 import { ref, onMounted, computed } from "vue";
 import exportService from "@/apis/ExportService";
 import RegisteredVendorsItem from "@/components/items/RegisteredVendorsItem.vue";
@@ -374,7 +375,7 @@ const exportRspActivityReport = async (bp_numbers) => {
     const response = await RspService.exportRspActivityReport(bp_numbers);
     const file_url = response.data?.data?.file_url;
     // await exportService.exportBase64(`RspActivityReport`, "PDF", file_url);
-    await exportService.downloadFile(file_url);
+    await exportService.downloadFileV2(file_url);
   } catch (e) {
     if (e.response) {
       const val = e.response.data;
