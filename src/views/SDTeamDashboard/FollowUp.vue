@@ -206,7 +206,7 @@ const handleSend = async () => {
     laoding_sent.value = true;
     if (isVendors.value) {
       let message = "";
-      if (selected.value == 0) {
+      if (selected.value == 1) {
         message =
           "ระบบจะทำการส่ง Email ให้ Contact owner\nติดตามสถานะการทำกิจกรรมของ Vendor";
       } else {
@@ -234,7 +234,7 @@ const handleSend = async () => {
       }
     } else {
       let message = "";
-      if (selected.value == 0) {
+      if (selected.value == 1) {
         message =
           "ระบบจะทำการส่ง Email ให้ Contact owner\nติดตามสถานะการทำกิจกรรมของ Vendor";
       } else {
@@ -262,7 +262,7 @@ const handleSend = async () => {
       }
     }
   } catch (e) {
-    if (!isVendors.value && selected.value == 0) {
+    if (!isVendors.value && selected.value == 1) {
       if (
         await showFaildAlert(
           `ไม่มี Email ${email_owner.value} นี้ในระบบ`,
@@ -283,4 +283,3 @@ const handleSend = async () => {
   }
 };
 </script>
- 
