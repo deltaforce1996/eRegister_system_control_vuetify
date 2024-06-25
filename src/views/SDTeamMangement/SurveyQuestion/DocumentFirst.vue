@@ -32,7 +32,7 @@
             <h5>
               ทางเราจึงขอให้ท่านรับทราบและศึกษานโยบายการจัดจ้างอย่างรับผิดชอบนี้
             </h5>
-            <h5 style="color: red">
+            <h5 style="color: red" v-show="is_progress && is_can_do_next_step">
               สามารถส่งต่อ Email หรือ Link ให้ผู้ร่วมงานอื่นรับผิดชอบได้
             </h5>
             <br />

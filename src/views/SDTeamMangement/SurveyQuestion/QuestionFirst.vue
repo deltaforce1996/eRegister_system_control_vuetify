@@ -38,7 +38,7 @@
             <h5 style="font-weight: bold">
               "การเป็นหุ้นส่วนระหว่างกัน (Partnership-Based Approach)"
             </h5>
-            <h5 style="color: red">
+            <h5 style="color: red" v-if="is_progress &&is_can_do_next_step">
               สามารถส่งต่อ Email หรือ Link ให้ผู้ร่วมงานอื่นรับผิดชอบได้
             </h5>
             <br />
