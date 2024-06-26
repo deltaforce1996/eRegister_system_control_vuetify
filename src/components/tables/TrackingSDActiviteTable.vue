@@ -534,6 +534,7 @@ const Selected = computed({
     return props.selected ?? [];
   },
   set(value) {
+    console.error(value)
     emit("selected", value);
   },
 });

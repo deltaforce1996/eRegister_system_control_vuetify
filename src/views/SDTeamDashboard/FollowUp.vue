@@ -137,7 +137,7 @@ const { showAlert } = useAlertDialogDialog();
 const { showFaildAlert } = useFaildDialogDialog();
 
 const isVendors = ref(true);
-const selected = ref("0");
+const selected = ref("1");
 const bp_number = ref(null);
 const email_owner = ref(null);
 const additional_message = ref(null);
@@ -242,7 +242,7 @@ const handleSend = async () => {
       }
       if (await showDialog("ยืนยันการส่ง Email", message)) {
         const email =
-          selected.value === "0" ? email_owner.value : selectedEmail.value;
+          selected.value === "1" ? email_owner.value : selectedEmail.value;
         const response = await RspService.sendFollowUpVendor(
           bp_number.value,
           selected.value,
