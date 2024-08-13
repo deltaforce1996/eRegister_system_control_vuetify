@@ -61,7 +61,7 @@ const handleLoadCompanyById = async () => {
 
 const handleLoadCompanyHistory = async () => {
   try {
-    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value);
+    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value, 14, companyId.value);
     if (result_.data.is_success) {
       items_company_history.value = [];
       result_.data.data.forEach((el) => {

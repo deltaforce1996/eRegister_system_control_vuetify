@@ -61,7 +61,11 @@ const handleLoadUserById = async () => {
 
 const handleLoadUserHistory = async () => {
   try {
-    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value);
+    const result_ = await HistoryLogService.getAllUserChangeLog(
+      sortby.value,
+      10,
+      userId
+    );
     if (result_.data.is_success) {
       items_users_history.value = [];
       result_.data.data.forEach((el) => {

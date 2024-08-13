@@ -68,7 +68,7 @@ const handleLoadBusinessUnityId = async () => {
 
 const handleLoadBusinessUnitHistory = async () => {
   try {
-    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value);
+    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value, 13, bussinessId.value);
     if (result_.data.is_success) {
       const items = [];
       result_.data.data.forEach((el) => {

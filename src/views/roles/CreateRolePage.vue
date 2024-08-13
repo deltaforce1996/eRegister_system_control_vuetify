@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <h3>User Management</h3>
-    <v-row justify="center">
+    <v-row justify="center" class="mt-5">
       <h3>{{ title }}</h3>
     </v-row>
     <v-row no-gutters dense>
@@ -165,7 +165,7 @@ const handleUpdatePermissionById = async () => {
       role_permission_update.modules
     );
     if (result_actions.data.is_success) {
-      router.push({ path: "/ListRolesPage" });
+      router.push({ path: "/roles/ListRolesPage" });
     } else {
       // Failed
     }
@@ -204,7 +204,8 @@ const generate_desserts = () => {
       };
       action_all_mock.value.forEach((action) => {
         dessert[action.name] = item.action.some((obj) => obj.id === action.id);
-        if (dessert[action.name] === true) actions.push(action.id);
+        if (dessert[action.name] === true)
+          actions.push({ action_id: action.id });
       });
       desserts_module.push(dessert);
       role_permission_update.modules.push({
@@ -254,7 +255,7 @@ const on_permission_item_change = (item_permission) => {
         (action) => action.name === actionArr[index]
       );
       if (el[actionArr[index]] === true) {
-        if (action_find) actions.push(action_find.id);
+        if (action_find) actions.push({ action_id: action_find.id });
       }
     }
     role_permission_update.modules.push({

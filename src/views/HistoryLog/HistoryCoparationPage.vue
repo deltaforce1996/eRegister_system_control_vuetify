@@ -63,7 +63,11 @@ const handleLoadCorparationById = async () => {
 
 const handleLoadCorparationHistory = async () => {
   try {
-    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value);
+    const result_ = await HistoryLogService.getAllUserChangeLog(
+      sortby.value,
+      12,
+      corparationId.value
+    );
     if (result_.data.is_success) {
       items_corparation_history.value = [];
       result_.data.data.forEach((el) => {

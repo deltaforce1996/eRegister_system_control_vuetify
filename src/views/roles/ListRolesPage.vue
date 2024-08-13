@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <h3>Role & Permission</h3>
     <v-row dense>
       <v-col cols="12">
@@ -104,21 +104,24 @@ const handleFetchActions = async () => {
   }
 };
 
-const handleFetchListPermission = async () => {
+const handleFetchListPermissionByRoleId = async (role_id) => {
   try {
-    const result_permissions = await permissionService.getPermissionAll();
+    const result_permissions = await permissionService.getPermissionByRoleId(
+      role_id
+    );
     if (result_permissions.data.is_success) {
-      permission_module_mock.value = result_permissions.data.data;
+      permission_module_mock.value.push(result_permissions.data.data);
     } else {
       //Failed
     }
   } catch (error) {
-    if (error.response) {
-      const val = error.response.data;
-      handlingErrorsMessage(val.message, val?.data.error);
-      return;
-    }
-    handlingErrorsMessage("Other Error", error.message);
+    // if (error.response) {
+    //   const val = error.response.data;
+    //   handlingErrorsMessage(val.message, val?.data.error);
+    //   return;
+    // }
+    // handlingErrorsMessage("Other Error", error.message);
+    return;
   }
 };
 
@@ -127,7 +130,10 @@ const is_item_expan = ref(null);
 onMounted(async () => {
   await handleFetchActions();
   await handleFetchListRoles();
-  await handleFetchListPermission();
+  for (let index = 0; index < roles_mock.value.length; index++) {
+    const role_id = roles_mock.value[index]?.id;
+    if (role_id) await handleFetchListPermissionByRoleId(role_id);
+  }
   isLoading.value = false;
 });
 
@@ -161,6 +167,7 @@ const on_clicked_edit = (role_id) => {
 
 const on_clicked_history = (role_id) => {
   console.log(role_id);
-  router.push("/HistoryRolePage");
+  router.push({ name: "HistoryRolePage", query: { role_id: role_id } });
+  // router.push("/HistoryRolePage");
 };
 </script>

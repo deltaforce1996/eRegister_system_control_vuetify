@@ -61,7 +61,11 @@ const handleLoadRoleById = async () => {
 
 const handleLoadRoleHistory = async () => {
   try {
-    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value);
+    const result_ = await HistoryLogService.getAllUserChangeLog(
+      sortby.value,
+      17,
+      roleId.value
+    );
     if (result_.data.is_success) {
       items_roles_history.value = [];
       result_.data.data.forEach((el) => {

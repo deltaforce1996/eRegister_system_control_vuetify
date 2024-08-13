@@ -26,8 +26,6 @@ const  createdUser = async (p_email , p_memberTypeId , p_roleId , p_teamId)=>{
      url: '/users/create-user',
      data: {
       email: p_email,
-      firstname: null,
-      lastname: null,
       member_type_id: p_memberTypeId,
       role_id: p_roleId,
       team_id: p_teamId,

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <h2>User Mangement</h2>
     <div class="text-center mt-5">
       <h2>{{isTitle}}</h2>
@@ -18,7 +18,7 @@
 import { ref, onBeforeMount  } from 'vue';
 import ListUser from '@/views/UserMangement/ListUser';
 import TabsUser from '@/views/UserMangement/TabsUser';
-import UserForm from '@/components/forms/UserForm';
+import UserForm from '@/components/forms/UserForm.vue';
 
 
 

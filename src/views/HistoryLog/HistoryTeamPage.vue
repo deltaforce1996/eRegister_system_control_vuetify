@@ -61,7 +61,7 @@ const handleLoadTeamById = async () => {
 
 const handleLoadTeamHistory = async () => {
   try {
-    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value);
+    const result_ = await HistoryLogService.getAllUserChangeLog(sortby.value, 15, teamId.value);
     if (result_.data.is_success) {
       items_team_history.value = [];
       result_.data.data.forEach((el) => {

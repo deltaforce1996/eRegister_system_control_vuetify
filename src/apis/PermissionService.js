@@ -18,8 +18,8 @@ const updatedPermissionById = async (role_id, modules = []) => {
     method: "post",
     url: "/master/update-role-permission",
     data: {
-      role_id,
-      modules,
+      role_id: role_id ? Number(role_id) : null,
+      module: modules,
       updated_user_id: 1,
     },
   });
@@ -28,5 +28,5 @@ const updatedPermissionById = async (role_id, modules = []) => {
 export default {
   getPermissionAll,
   getPermissionByRoleId,
-  updatedPermissionById
+  updatedPermissionById,
 };
